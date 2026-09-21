@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/contact",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Contact — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 1097,
+      "bodyTextHash": "25d6b5f40f23a19d14610c39fb18ba7d29f3a4d03a53d0d3177d4b2fa54e542d",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION Dashboard Portfolio Services Cont",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/contact-page.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Contact — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 1046,
+      "bodyTextHash": "5e8a4958520db89e10c23dfb803cbb88a40c0606ee14a50f91932b4479ab07b0",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION “Life is a current, not a monumen",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/contact-page-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/contact-page.json"
+}

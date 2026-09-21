@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/services",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Services & charges — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 2774,
+      "bodyTextHash": "762210f37b09643ba6123dee813000847366ff43d54d568b3aa37743c979cd43",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION Dashboard Portfolio Services Cont",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/services-page.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Services & charges — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 2723,
+      "bodyTextHash": "44e123ea73b0c03cbd98a757e99da3f307523d33d1b8a20c4225fd1b016e5262",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION SERVICES & CHARGES Clear work. Na",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/services-page-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/services-page.json"
+}

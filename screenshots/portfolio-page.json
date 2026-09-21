@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/portfolio",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Portfolio — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 2120,
+      "bodyTextHash": "b94d578a788491c82a3307375b62d84d71875d6e1375e1de756874e909ad8051",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION Dashboard Portfolio Services Cont",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/portfolio-page.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Portfolio — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 2069,
+      "bodyTextHash": "f5e4bd2f4641aab54f72213c9363549c6ff97cdd51e217b62b3d01aafc98fbf9",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION PORTFOLIO Work we can stand next ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/portfolio-page-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/portfolio-page.json"
+}

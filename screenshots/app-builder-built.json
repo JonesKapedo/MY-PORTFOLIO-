@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Dashboard — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 1848,
+      "bodyTextHash": "2d3511b3d3bf50bda916e5579f27967961b978052b27bf81210141f0674a40d7",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION Dashboard Portfolio Services Cont",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Dashboard — Great Turbinez",
+      "hasCanvas": false,
+      "bodyTextLen": 1797,
+      "bodyTextHash": "10fd7052f085637ad56db621b27491f8582b1a6b4b7e74a2fa59fd6bf2fe7c23",
+      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION DASHBOARD · NAIVASHA, KENYA Intel",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
