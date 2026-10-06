@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Great Turbinez designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start.",
+          "GREAT TURBINEZ designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start.",
       },
     ],
   }),

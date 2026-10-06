@@ -1,0 +1,36 @@
+{
+  "url": "https://great-turbinez.vercel.app/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "GREAT TURBINEZ — AI & Automation Studio, Naivasha",
+      "hasCanvas": false,
+      "bodyTextLen": 1851,
+      "bodyTextHash": "3e441fa5312afc9e1b7dda8e8f0d40203560a023005720348cfa5999014e0c18",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION Home Portfolio Se",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-home.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "GREAT TURBINEZ — AI & Automation Studio, Naivasha",
+      "hasCanvas": false,
+      "bodyTextLen": 1805,
+      "bodyTextHash": "ebb1f0fc266f4d7afb476f036854316318e4fda8c23f3f45c9cf60d50484fc8a",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION STUDIO · NAIVASHA",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-home-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-home.json"
+}

@@ -1,0 +1,36 @@
+{
+  "url": "https://great-turbinez.vercel.app/services",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Services & charges — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 2780,
+      "bodyTextHash": "e92c58c509cf2a3ccf9e9b8b7ce6c291138b40cf77c6401b857c938469a112b7",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION Home Portfolio Se",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-services.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Services & charges — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 2734,
+      "bodyTextHash": "be61f75503fa627c6863e40f9c40a596eabc4df4bfa8f210f66b782355749526",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION SERVICES & CHARGE",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-services-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-services.json"
+}

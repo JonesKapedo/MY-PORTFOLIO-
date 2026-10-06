@@ -1,5 +1,5 @@
 export const COMPANY = {
-  name: "Great Turbinez",
+  name: "GREAT TURBINEZ",
   tagline: "AI & Automation",
   city: "Naivasha",
   country: "Kenya",
@@ -10,7 +10,7 @@ export const COMPANY = {
 
 export const QUOTE = {
   text: "Life is a current, not a monument. Fire, the wheel, the engine, the network — every age asked us to evolve with the tool in our hands. Now the tool is intelligence itself. Artificial intelligence is not arriving. It is already here, rewriting work and will. The future does not wait for permission. Neither should we.",
-  attribution: "Great Turbinez",
+  attribution: "GREAT TURBINEZ",
 } as const;
 
 export type ServiceId =

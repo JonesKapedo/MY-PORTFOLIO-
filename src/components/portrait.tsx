@@ -17,7 +17,7 @@ type PortraitProps = {
 export function Portrait({
   size = "lg",
   className,
-  alt = "Principal of Great Turbinez",
+  alt = "Principal of GREAT TURBINEZ",
 }: PortraitProps) {
   return (
     <div className={cn("relative shrink-0 rounded-full", SIZE[size], className)}>

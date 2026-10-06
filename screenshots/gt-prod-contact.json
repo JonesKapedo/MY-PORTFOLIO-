@@ -1,0 +1,36 @@
+{
+  "url": "https://great-turbinez.vercel.app/contact",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Contact — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 1169,
+      "bodyTextHash": "548c412b7aac2e3c7a40e17e68b8c112ac66979f331510996ac5d87cd2cf9b6d",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION Home Portfolio Se",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-contact.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Contact — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 1123,
+      "bodyTextHash": "47565d10fa5112d6bc81b7c37a639409ff4cab5c088515d1abe4350da9412fba",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION “Life is a curren",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-contact-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-contact.json"
+}

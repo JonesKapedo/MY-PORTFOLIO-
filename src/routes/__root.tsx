@@ -22,7 +22,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Great Turbinez is an AI and automation studio in Naivasha, Kenya. We design and install systems that take repetition off the floor for farms, lodges, desks and operations.",
+          "GREAT TURBINEZ is an AI and automation studio in Naivasha, Kenya. We design and install systems that take repetition off the floor for farms, lodges, desks and operations.",
       },
       { name: "theme-color", content: "#090908" },
     ],

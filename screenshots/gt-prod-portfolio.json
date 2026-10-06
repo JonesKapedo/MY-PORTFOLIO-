@@ -1,0 +1,36 @@
+{
+  "url": "https://great-turbinez.vercel.app/portfolio",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Portfolio — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 2154,
+      "bodyTextHash": "586aad51e3c18519b5dad3be05ab10200cc5324ada942b32fdeb9f0ce4b7c47b",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION Home Portfolio Se",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-portfolio.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Portfolio — GREAT TURBINEZ",
+      "hasCanvas": false,
+      "bodyTextLen": 2108,
+      "bodyTextHash": "4c1ec85e8946acaf449eff0e101b20cbbb26b97c965a33fa5820b7f1186a93b7",
+      "bodyTextPrefix": "Skip to content GREAT TURBINEZ AI & AUTOMATION PORTFOLIO Work we",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-portfolio-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/gt-prod-portfolio.json"
+}
