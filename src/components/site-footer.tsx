@@ -2,6 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { TurbineMark } from "@/components/mark";
 import { COMPANY, NAV } from "@/lib/site";
 
+// Evaluated once at module scope, on the server and again in the browser. Both
+// reads happen from the same bundle, so they agree unless a deploy straddles
+// New Year — in which case the page still hydrates and simply shows the build's
+// year until the next deploy, which beats a hydration mismatch.
+const YEAR = new Date().getFullYear();
+
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-line">
@@ -56,8 +62,10 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          {/* Rendered from the clock on both server and client so the two never
+              disagree (and a stale build can't pin last year's date). */}
           <p>
-            © 2026 {COMPANY.name}. All rights reserved.
+            © {YEAR} {COMPANY.name}. All rights reserved.
           </p>
           <p>Built for operators in the Rift.</p>
         </div>

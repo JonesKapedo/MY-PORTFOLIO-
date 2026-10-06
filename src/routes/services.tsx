@@ -7,7 +7,14 @@ import { COMPANY, SERVICES } from "@/lib/site";
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
-    meta: [{ title: `Services & charges — ${COMPANY.name}` }],
+    meta: [
+      { title: `Services & charges — ${COMPANY.name}` },
+      {
+        name: "description",
+        content:
+          "Discovery sprints, workflow automation, custom AI assistants, document intelligence, operator dashboards and retainers. Named prices in Kenyan shillings, scoped before we start.",
+      },
+    ],
   }),
 });
 

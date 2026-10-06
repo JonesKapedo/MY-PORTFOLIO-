@@ -1,11 +1,11 @@
-import { i as PROJECTS, o as SERVICES, r as PRINCIPLES, s as STATS, t as COMPANY } from "./site-DCLhX9eH.mjs";
+import { i as PROJECTS, o as SERVICES, r as PRINCIPLES, s as STATS, t as COMPANY } from "./site-DRhKEnTe.mjs";
 import { x as require_jsx_runtime, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as MapPin, o as ArrowUpRight } from "../_libs/lucide-react.mjs";
-import { r as Button } from "./router-DcTWdWeD.mjs";
-import { n as PageFrame, t as Eyebrow } from "./page-frame-7rl5aPK7.mjs";
-import { t as Portrait } from "./portrait-DrP-Jidy.mjs";
-import { t as Badge } from "./badge-Bs_yfNNo.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BY5UXn7T.js
+import { r as Button } from "./router-asoFSED0.mjs";
+import { n as PageFrame, t as Eyebrow } from "./page-frame-BD1Oderc.mjs";
+import { t as Portrait } from "./portrait-jcZDQwsy.mjs";
+import { t as Badge } from "./badge-DCJuVmof.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BdfF82qq.js
 var import_jsx_runtime = require_jsx_runtime();
 function Dashboard() {
 	const live = PROJECTS.filter((p) => p.status === "Live").slice(0, 3);
@@ -18,7 +18,7 @@ function Dashboard() {
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "order-2 lg:order-1",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Eyebrow, { children: ["Dashboard · ", COMPANY.location] }),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Eyebrow, { children: ["Studio · ", COMPANY.location] }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
 							className: "mt-4 font-display text-4xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-5xl md:text-6xl",
 							children: [

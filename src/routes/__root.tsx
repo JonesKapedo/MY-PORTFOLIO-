@@ -18,11 +18,11 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${APP_NAME} — AI & Automation, Naivasha` },
+      { title: `${APP_NAME} — AI & Automation Studio, Naivasha` },
       {
         name: "description",
         content:
-          "Great Turbinez is an AI and automation studio in Naivasha, Kenya. We design systems that take repetition off the floor.",
+          "Great Turbinez is an AI and automation studio in Naivasha, Kenya. We design and install systems that take repetition off the floor for farms, lodges, desks and operations.",
       },
       { name: "theme-color", content: "#090908" },
     ],
@@ -76,14 +76,14 @@ function NotFound() {
         This page is not on the map.
       </h1>
       <p className="mt-3 text-sm text-muted">
-        The route you asked for does not exist. Return to the dashboard and
+        The route you asked for does not exist. Head back to the homepage and
         pick a live path.
       </p>
       <Link
         to="/"
         className="mt-8 inline-flex h-11 items-center rounded-md bg-fg px-5 text-sm font-medium text-accent-fg"
       >
-        Back to dashboard
+        Back to homepage
       </Link>
     </div>
   );

@@ -8,7 +8,14 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
   head: () => ({
-    meta: [{ title: `Portfolio — ${COMPANY.name}` }],
+    meta: [
+      { title: `Portfolio — ${COMPANY.name}` },
+      {
+        name: "description",
+        content:
+          "Selected AI and automation systems installed for operators around Naivasha and the Rift Valley — floriculture, hospitality, energy, finance ops and commerce.",
+      },
+    ],
   }),
 });
 
@@ -41,32 +48,52 @@ function PortfolioPage() {
         Names are working titles; the outcomes are the point.
       </p>
 
+      {/* These filter a list rather than switch panels, so they are a labelled
+          group of toggle buttons — `role="tablist"` would promise tabpanel
+          semantics (and arrow-key roving focus) this control does not implement. */}
       <div
         className="mt-8 flex flex-wrap gap-2"
-        role="tablist"
-        aria-label="Filter projects"
+        role="group"
+        aria-label="Filter projects by category"
       >
         {FILTERS.map((item) => {
           const active = item === filter;
+          const count =
+            item === "All"
+              ? PROJECTS.length
+              : PROJECTS.filter((p) => p.category === item).length;
           return (
             <button
               key={item}
               type="button"
-              role="tab"
-              aria-selected={active}
+              aria-pressed={active}
               onClick={() => setFilter(item)}
               className={cn(
-                "inline-flex h-11 items-center rounded-full px-4 text-sm transition-colors duration-150",
+                "inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm transition-colors duration-150",
                 active
                   ? "bg-fg text-accent-fg"
                   : "bg-raised text-muted hover:text-fg",
               )}
             >
               {item}
+              <span
+                aria-hidden
+                className={cn(
+                  "text-xs tabular-nums",
+                  active ? "text-accent-fg/70" : "text-subtle",
+                )}
+              >
+                {count}
+              </span>
             </button>
           );
         })}
       </div>
+
+      <p aria-live="polite" className="sr-only">
+        Showing {items.length} {items.length === 1 ? "project" : "projects"}
+        {filter === "All" ? "" : ` in ${filter}`}.
+      </p>
 
       <ol className="mt-10 divide-y divide-line border-y border-line">
         {items.map((project) => (

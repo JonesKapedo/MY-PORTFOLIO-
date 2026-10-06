@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-import { checkedOutputPath, checkedUrl } from "./browser-guard.mjs";
+import { ALLOWED_OUTPUT_DIRS, checkedOutputPath, checkedUrl } from "./browser-guard.mjs";
 import { computeBrandWarnings } from "./brand-check.mjs";
 import {
   authInvariantWarnings,
@@ -27,10 +28,10 @@ if (args.error) {
 }
 
 const url = checkedUrl(args.url);
-const outPng = checkedOutputPath(args.outPng, ["/workspace"]);
+const outPng = checkedOutputPath(args.outPng, ALLOWED_OUTPUT_DIRS);
 const derived = derivedPaths(outPng);
-const mobilePng = checkedOutputPath(derived.mobilePng, ["/workspace"]);
-const outJson = checkedOutputPath(derived.verdictJson, ["/workspace"], "verdict JSON");
+const mobilePng = checkedOutputPath(derived.mobilePng, ALLOWED_OUTPUT_DIRS);
+const outJson = checkedOutputPath(derived.verdictJson, ALLOWED_OUTPUT_DIRS, "verdict JSON");
 
 const MAX_BASELINE_BYTES = 1024 * 1024;
 const baselineRequested = Boolean(args.baseline);
@@ -38,7 +39,7 @@ let baselinePath = null;
 let baselineResolveError = null;
 if (baselineRequested) {
   try {
-    baselinePath = checkedOutputPath(realpathSync(args.baseline), ["/workspace"], "baseline");
+    baselinePath = checkedOutputPath(realpathSync(args.baseline), ALLOWED_OUTPUT_DIRS, "baseline");
   } catch (err) {
     baselineResolveError = err?.code ?? "unresolvable path";
   }
@@ -93,6 +94,12 @@ try {
   browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-dev-shm-usage"],
+    // Playwright defaults to the `chromium_headless_shell` build, which is a
+    // separate ~110MB download from full Chromium. Allow pointing at an
+    // already-installed binary so the render gate can run without it.
+    ...(process.env.SMOKE_CHROMIUM_PATH
+      ? { executablePath: process.env.SMOKE_CHROMIUM_PATH }
+      : {}),
   });
 
   const viewports = {};
@@ -140,7 +147,13 @@ try {
     };
   }
 
-  const brandWarnings = computeBrandWarnings({ hasCanvas: viewports.desktop.hasCanvas });
+  // The workspace may not live at /workspace (this checkout resolves its own
+  // root from the script location), so brand assets are judged where they are.
+  const workspaceRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+  const brandWarnings = computeBrandWarnings({
+    hasCanvas: viewports.desktop.hasCanvas,
+    workspaceRoot,
+  });
   // Only a dev server answers /__app-env, so smoking the built output reads as
   // indeterminate — report a divergence, never the absence of an observation.
   const authWarnings = authInvariantWarnings(

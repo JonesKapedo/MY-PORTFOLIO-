@@ -16,14 +16,33 @@ export function ContactForm({ initialService }: Props) {
   const [org, setOrg] = useState("");
   const [service, setService] = useState<string>(initialService ?? "");
   const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      toast.error("Name, email, and a short brief are required.");
+
+    // `required` already covers empties for a mouse user; this catches a pasted
+    // whitespace-only value, which the browser happily submits as "filled".
+    const missing: string[] = [];
+    if (!name.trim()) missing.push("name");
+    if (!email.trim()) missing.push("email");
+    if (!message.trim()) missing.push("brief");
+    if (missing.length > 0) {
+      setError(
+        `Please add your ${missing.slice(0, -1).join(", ")}${
+          missing.length > 1 ? " and " : ""
+        }${missing[missing.length - 1]}.`,
+      );
       return;
     }
+
+    // Reject an address the mail client would bounce, before handing off.
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("That email address does not look right — please check it.");
+      return;
+    }
+
+    setError(null);
 
     const serviceLabel =
       SERVICES.find((s) => s.id === service)?.name ?? "Not specified";
@@ -39,38 +58,22 @@ export function ContactForm({ initialService }: Props) {
 
     const href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = href;
-    setSent(true);
     toast.success("Opening your email client to send the brief.");
   }
 
-  if (sent) {
-    return (
-      <div className="rounded-xl bg-surface p-6 hairline">
-        <h2 className="text-lg font-medium">Brief ready to send.</h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          If your mail app did not open, write directly to{" "}
-          <a
-            href={`mailto:${COMPANY.email}`}
-            className="text-accent underline-offset-4 hover:underline"
-          >
-            {COMPANY.email}
-          </a>
-          . We typically reply within two working days.
-        </p>
-        <Button
-          type="button"
-          variant="outline"
-          className="mt-6"
-          onClick={() => setSent(false)}
-        >
-          Write another
-        </Button>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={onSubmit} className="space-y-5 lg:pt-1">
+    <form onSubmit={onSubmit} noValidate className="space-y-5 lg:pt-1">
+      {/* Announced rather than only coloured, so the reason a submit failed is
+          available to a screen reader as well as being visible. */}
+      {error ? (
+        <p
+          role="alert"
+          className="rounded-lg bg-danger/10 px-4 py-3 text-sm text-danger ring-1 ring-danger/30"
+        >
+          {error}
+        </p>
+      ) : null}
+
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" htmlFor="name">
           <Input
@@ -109,7 +112,7 @@ export function ContactForm({ initialService }: Props) {
           name="service"
           value={service}
           onChange={(e) => setService(e.target.value)}
-          className="flex h-11 w-full rounded-md bg-raised px-3.5 text-sm text-fg hairline field-focus outline-none"
+          className="flex h-11 w-full appearance-none rounded-md bg-raised px-3.5 text-sm text-fg hairline field-focus outline-none"
         >
           <option value="">Tell us in the brief</option>
           {SERVICES.map((item) => (
@@ -129,9 +132,22 @@ export function ContactForm({ initialService }: Props) {
           onChange={(e) => setMessage(e.target.value)}
         />
       </Field>
-      <Button type="submit" className="w-full sm:w-auto">
-        Send the brief
-      </Button>
+
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <Button type="submit" className="w-full sm:w-auto">
+          Send the brief
+        </Button>
+        <p className="text-xs text-subtle">
+          Opens your email app — or write to{" "}
+          <a
+            href={`mailto:${COMPANY.email}`}
+            className="text-accent underline-offset-4 hover:underline"
+          >
+            {COMPANY.email}
+          </a>
+          .
+        </p>
+      </div>
     </form>
   );
 }

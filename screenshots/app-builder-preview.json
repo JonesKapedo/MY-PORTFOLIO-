@@ -5,32 +5,32 @@
       "width": 1280,
       "height": 800,
       "status": 200,
-      "title": "Dashboard — Great Turbinez",
+      "title": "Great Turbinez — AI & Automation Studio, Naivasha",
       "hasCanvas": false,
-      "bodyTextLen": 1848,
-      "bodyTextHash": "2d3511b3d3bf50bda916e5579f27967961b978052b27bf81210141f0674a40d7",
-      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION Dashboard Portfolio Services Cont",
+      "bodyTextLen": 1851,
+      "bodyTextHash": "dcdfda79efca84eb42e8503ddb85f4b9fe3336f007d65ae047b1c50187ae00be",
+      "bodyTextPrefix": "Skip to content Great Turbinez AI & AUTOMATION Home Portfolio Se",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/app-builder-preview.png"
     },
     "mobile": {
       "width": 390,
       "height": 844,
       "status": 200,
-      "title": "Dashboard — Great Turbinez",
+      "title": "Great Turbinez — AI & Automation Studio, Naivasha",
       "hasCanvas": false,
-      "bodyTextLen": 1797,
-      "bodyTextHash": "10fd7052f085637ad56db621b27491f8582b1a6b4b7e74a2fa59fd6bf2fe7c23",
-      "bodyTextPrefix": "Great Turbinez AI & AUTOMATION DASHBOARD · NAIVASHA, KENYA Intel",
+      "bodyTextLen": 1805,
+      "bodyTextHash": "23ba8b4ce170c0f1626c4b59977e397b8d6a2dd6d8466d78e2a63579e05e7ecd",
+      "bodyTextPrefix": "Skip to content Great Turbinez AI & AUTOMATION STUDIO · NAIVASHA",
       "horizontalOverflow": false,
       "consoleErrors": [],
       "pageErrors": [],
-      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+      "screenshot": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/app-builder-preview-mobile.png"
     }
   },
   "brandWarnings": [],
   "authWarnings": [],
-  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+  "verdictFile": "/home/turb1n3z/Desktop/K@P3D0/grok-workspace/screenshots/app-builder-preview.json"
 }

@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { c as cn, i as PROJECTS } from "./site-DCLhX9eH.mjs";
+import { c as cn, i as PROJECTS } from "./site-DRhKEnTe.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { x as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as PageFrame, t as Eyebrow } from "./page-frame-7rl5aPK7.mjs";
-import { t as Badge } from "./badge-Bs_yfNNo.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/portfolio-CXnmNGy8.js
+import { n as PageFrame, t as Eyebrow } from "./page-frame-BD1Oderc.mjs";
+import { t as Badge } from "./badge-DCJuVmof.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/portfolio-CfWiPMHD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FILTERS = [
@@ -30,19 +30,35 @@ function PortfolioPage() {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "mt-8 flex flex-wrap gap-2",
-				role: "tablist",
-				"aria-label": "Filter projects",
+				role: "group",
+				"aria-label": "Filter projects by category",
 				children: FILTERS.map((item) => {
 					const active = item === filter;
-					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					const count = item === "All" ? PROJECTS.length : PROJECTS.filter((p) => p.category === item).length;
+					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						type: "button",
-						role: "tab",
-						"aria-selected": active,
+						"aria-pressed": active,
 						onClick: () => setFilter(item),
-						className: cn("inline-flex h-11 items-center rounded-full px-4 text-sm transition-colors duration-150", active ? "bg-fg text-accent-fg" : "bg-raised text-muted hover:text-fg"),
-						children: item
+						className: cn("inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm transition-colors duration-150", active ? "bg-fg text-accent-fg" : "bg-raised text-muted hover:text-fg"),
+						children: [item, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"aria-hidden": true,
+							className: cn("text-xs tabular-nums", active ? "text-accent-fg/70" : "text-subtle"),
+							children: count
+						})]
 					}, item);
 				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+				"aria-live": "polite",
+				className: "sr-only",
+				children: [
+					"Showing ",
+					items.length,
+					" ",
+					items.length === 1 ? "project" : "projects",
+					filter === "All" ? "" : ` in ${filter}`,
+					"."
+				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
 				className: "mt-10 divide-y divide-line border-y border-line",

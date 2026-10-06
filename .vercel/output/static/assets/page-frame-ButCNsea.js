@@ -1,0 +1,1 @@
+import{m as e,u as t}from"./index-c7uvOdN7.js";var n=e();function r({children:e,className:r}){return(0,n.jsx)(`div`,{className:t(`mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14`,r),children:e})}function i({children:e}){return(0,n.jsx)(`p`,{className:`text-xs font-medium tracking-widest text-accent uppercase`,children:e})}export{r as n,i as t};

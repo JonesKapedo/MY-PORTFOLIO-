@@ -5,9 +5,19 @@
  * path from argv, so unchecked they will render `file:///root/.grok/auth.json`
  * into a PNG the agent can read, and write it anywhere.
  */
-import { resolve, sep } from "node:path";
+import { resolve, sep, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const LOOPBACK_HOSTNAMES = new Set(["127.0.0.1", "localhost", "::1", "[::1]"]);
+
+/**
+ * Directories screenshots may be written to: this project root plus the
+ * canonical sandbox root. Derived from this file's own location so the guard
+ * works wherever the workspace is checked out, while still refusing to write
+ * outside the project (it must never render `/root/.grok/auth.json` to a PNG).
+ */
+export const PROJECT_ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
+export const ALLOWED_OUTPUT_DIRS = [PROJECT_ROOT, "/workspace"];
 
 /** http/https loopback only, else exit 1. `BROWSER_ALLOW_EXTERNAL_HOST=1` opts out. */
 export function checkedUrl(url) {

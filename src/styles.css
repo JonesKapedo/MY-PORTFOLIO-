@@ -35,6 +35,8 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--color-canvas);
     color: var(--color-fg);
+    /* Anchored sections must clear the sticky header. */
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -58,6 +60,14 @@
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
+  }
+
+  /* One visible focus treatment for every interactive element. Native rings are
+     suppressed so the accent ring is the only thing a keyboard user sees. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   ::selection {

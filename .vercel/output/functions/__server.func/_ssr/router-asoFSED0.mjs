@@ -1,13 +1,13 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { t as cva } from "../_libs/class-variance-authority+clsx.mjs";
-import { c as cn, n as NAV, t as COMPANY } from "./site-DCLhX9eH.mjs";
+import { c as cn, n as NAV, t as COMPANY } from "./site-DRhKEnTe.mjs";
 import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
 import { _ as createFileRoute, b as useRouter, d as HeadContent, f as useRouterState, g as lazyRouteComponent, h as Outlet, m as createRouter, u as Scripts, v as createRootRoute, x as require_jsx_runtime, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TriangleAlert, r as Menu, t as X } from "../_libs/lucide-react.mjs";
 import { a as union, i as string, n as number, r as object, t as literal } from "../_libs/zod.mjs";
 import { t as Toaster } from "../_libs/sonner.mjs";
 import { t as Slot } from "../_libs/radix-ui__react-slot.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DcTWdWeD.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-asoFSED0.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var __defProp = Object.defineProperty;
@@ -336,6 +336,7 @@ function TurbineMark({ className }) {
 		]
 	});
 }
+var YEAR = (/* @__PURE__ */ new Date()).getFullYear();
 function SiteFooter() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
 		className: "mt-auto border-t border-line",
@@ -386,7 +387,9 @@ function SiteFooter() {
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
-					"© 2026 ",
+					"© ",
+					YEAR,
+					" ",
 					COMPANY.name,
 					". All rights reserved."
 				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "Built for operators in the Rift." })]
@@ -394,7 +397,7 @@ function SiteFooter() {
 		})]
 	});
 }
-var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,background-color,box-shadow,transform,opacity] duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 disabled:pointer-events-none disabled:opacity-50 active:not-disabled:scale-[0.96]", {
+var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,background-color,box-shadow,transform,opacity] duration-150 ease-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 active:not-disabled:scale-[0.96]", {
 	variants: {
 		variant: {
 			default: "bg-fg text-accent-fg hover:bg-fg/90",
@@ -437,6 +440,23 @@ function SiteHeader() {
 			document.body.style.overflow = "";
 		};
 	}, [open]);
+	(0, import_react.useEffect)(() => {
+		if (!open) return;
+		const onKeyDown = (event) => {
+			if (event.key === "Escape") setOpen(false);
+		};
+		const desktop = window.matchMedia("(min-width: 768px)");
+		const onChange = () => {
+			if (desktop.matches) setOpen(false);
+		};
+		window.addEventListener("keydown", onKeyDown);
+		desktop.addEventListener("change", onChange);
+		return () => {
+			window.removeEventListener("keydown", onKeyDown);
+			desktop.removeEventListener("change", onChange);
+		};
+	}, [open]);
+	const isActive = (to) => to === "/" ? pathname === "/" : pathname.startsWith(to);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
 		className: "sticky top-0 z-40 border-b border-line/80 bg-canvas/85 backdrop-blur-md",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -461,11 +481,15 @@ function SiteHeader() {
 					className: "hidden items-center gap-1 md:flex",
 					"aria-label": "Primary",
 					children: [NAV.map((item) => {
-						const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
-						return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+						const active = isActive(item.to);
+						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 							to: item.to,
-							className: cn("inline-flex h-11 items-center px-3.5 text-sm transition-colors duration-150", active ? "text-fg" : "text-muted hover:text-fg"),
-							children: item.label
+							"aria-current": active ? "page" : void 0,
+							className: cn("relative inline-flex h-11 items-center px-3.5 text-sm transition-colors duration-150", active ? "text-fg" : "text-muted hover:text-fg"),
+							children: [item.label, active ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								className: "absolute inset-x-3.5 -bottom-px h-px bg-accent"
+							}) : null]
 						}, item.to);
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
 						asChild: true,
@@ -483,19 +507,22 @@ function SiteHeader() {
 					className: "md:hidden",
 					"aria-label": open ? "Close menu" : "Open menu",
 					"aria-expanded": open,
+					"aria-controls": "mobile-nav",
 					onClick: () => setOpen((v) => !v),
 					children: open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-5" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, { className: "size-5" })
 				})
 			]
 		}), open ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			id: "mobile-nav",
 			className: "border-t border-line bg-canvas px-4 py-4 md:hidden",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
 				className: "flex flex-col gap-1",
 				"aria-label": "Mobile",
 				children: [NAV.map((item) => {
-					const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+					const active = isActive(item.to);
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
 						to: item.to,
+						"aria-current": active ? "page" : void 0,
 						className: cn("flex min-h-12 items-center rounded-md px-3 text-base", active ? "bg-raised text-fg" : "text-muted"),
 						children: item.label
 					}, item.to);
@@ -515,8 +542,14 @@ function SiteShell({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "flex min-h-dvh flex-col bg-canvas text-fg",
 		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+				href: "#main",
+				className: "sr-only rounded-md bg-fg px-4 py-2 text-sm font-medium text-accent-fg focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50",
+				children: "Skip to content"
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteHeader, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
+				id: "main",
 				className: "flex-1",
 				children
 			}),
@@ -546,7 +579,7 @@ function SiteShell({ children }) {
 function AuthProvider({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children });
 }
-var styles_default = "/assets/styles-CAEmGOxe.css";
+var styles_default = "/assets/styles-rxlD2L7L.css";
 var APP_NAME = COMPANY.name;
 var Route$4 = createRootRoute({
 	head: () => ({
@@ -556,10 +589,10 @@ var Route$4 = createRootRoute({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1"
 			},
-			{ title: `${APP_NAME} — AI & Automation, Naivasha` },
+			{ title: `${APP_NAME} — AI & Automation Studio, Naivasha` },
 			{
 				name: "description",
-				content: "Great Turbinez is an AI and automation studio in Naivasha, Kenya. We design systems that take repetition off the floor."
+				content: "Great Turbinez is an AI and automation studio in Naivasha, Kenya. We design and install systems that take repetition off the floor for farms, lodges, desks and operations."
 			},
 			{
 				name: "theme-color",
@@ -628,22 +661,25 @@ function NotFound() {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 				className: "mt-3 text-sm text-muted",
-				children: "The route you asked for does not exist. Return to the dashboard and pick a live path."
+				children: "The route you asked for does not exist. Head back to the homepage and pick a live path."
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
 				to: "/",
 				className: "mt-8 inline-flex h-11 items-center rounded-md bg-fg px-5 text-sm font-medium text-accent-fg",
-				children: "Back to dashboard"
+				children: "Back to homepage"
 			})
 		]
 	});
 }
-var $$splitComponentImporter$3 = () => import("./routes-BY5UXn7T.mjs");
+var $$splitComponentImporter$3 = () => import("./routes-BdfF82qq.mjs");
 var Route$3 = createFileRoute("/")({
 	component: lazyRouteComponent($$splitComponentImporter$3, "component"),
-	head: () => ({ meta: [{ title: `Dashboard — ${COMPANY.name}` }] })
+	head: () => ({ meta: [{ title: `${COMPANY.name} — AI & Automation Studio, Naivasha` }, {
+		name: "description",
+		content: "Great Turbinez designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start."
+	}] })
 });
-var $$splitComponentImporter$2 = () => import("./contact-dwDOqEGv.mjs");
+var $$splitComponentImporter$2 = () => import("./contact-BYwQBPdh.mjs");
 var SERVICE_IDS = [
 	"discovery",
 	"workflow",
@@ -660,17 +696,26 @@ function parseSearch(search) {
 var Route$2 = createFileRoute("/contact")({
 	component: lazyRouteComponent($$splitComponentImporter$2, "component"),
 	validateSearch: parseSearch,
-	head: () => ({ meta: [{ title: `Contact — ${COMPANY.name}` }] })
+	head: () => ({ meta: [{ title: `Contact — ${COMPANY.name}` }, {
+		name: "description",
+		content: "Tell us the process that is eating the week. Briefs are read by the studio and answered within two working days."
+	}] })
 });
-var $$splitComponentImporter$1 = () => import("./portfolio-CXnmNGy8.mjs");
+var $$splitComponentImporter$1 = () => import("./portfolio-CfWiPMHD.mjs");
 var Route$1 = createFileRoute("/portfolio")({
 	component: lazyRouteComponent($$splitComponentImporter$1, "component"),
-	head: () => ({ meta: [{ title: `Portfolio — ${COMPANY.name}` }] })
+	head: () => ({ meta: [{ title: `Portfolio — ${COMPANY.name}` }, {
+		name: "description",
+		content: "Selected AI and automation systems installed for operators around Naivasha and the Rift Valley — floriculture, hospitality, energy, finance ops and commerce."
+	}] })
 });
-var $$splitComponentImporter = () => import("./services-B_zca9r-.mjs");
+var $$splitComponentImporter = () => import("./services-C_oh3gdx.mjs");
 var Route = createFileRoute("/services")({
 	component: lazyRouteComponent($$splitComponentImporter, "component"),
-	head: () => ({ meta: [{ title: `Services & charges — ${COMPANY.name}` }] })
+	head: () => ({ meta: [{ title: `Services & charges — ${COMPANY.name}` }, {
+		name: "description",
+		content: "Discovery sprints, workflow automation, custom AI assistants, document intelligence, operator dashboards and retainers. Named prices in Kenyan shillings, scoped before we start."
+	}] })
 });
 var rootRouteChildren = {
 	IndexRoute: Route$3.update({

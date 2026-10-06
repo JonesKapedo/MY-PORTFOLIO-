@@ -25,7 +25,14 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   validateSearch: parseSearch,
   head: () => ({
-    meta: [{ title: `Contact — ${COMPANY.name}` }],
+    meta: [
+      { title: `Contact — ${COMPANY.name}` },
+      {
+        name: "description",
+        content:
+          "Tell us the process that is eating the week. Briefs are read by the studio and answered within two working days.",
+      },
+    ],
   }),
 });
 

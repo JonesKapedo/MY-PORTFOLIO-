@@ -21,6 +21,29 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // Escape closes the mobile menu, and so does a jump to a wider viewport —
+  // otherwise the body stays scroll-locked behind a menu that is no longer
+  // rendered once the desktop nav takes over.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onChange = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onChange);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onChange);
+    };
+  }, [open]);
+
+  const isActive = (to: string) =>
+    to === "/" ? pathname === "/" : pathname.startsWith(to);
+
   return (
     <header className="sticky top-0 z-40 border-b border-line/80 bg-canvas/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -42,20 +65,24 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
           {NAV.map((item) => {
-            const active =
-              item.to === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.to);
+            const active = isActive(item.to);
             return (
               <Link
                 key={item.to}
                 to={item.to}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "inline-flex h-11 items-center px-3.5 text-sm transition-colors duration-150",
+                  "relative inline-flex h-11 items-center px-3.5 text-sm transition-colors duration-150",
                   active ? "text-fg" : "text-muted hover:text-fg",
                 )}
               >
                 {item.label}
+                {active ? (
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-3.5 -bottom-px h-px bg-accent"
+                  />
+                ) : null}
               </Link>
             );
           })}
@@ -70,6 +97,7 @@ export function SiteHeader() {
           className="md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -77,17 +105,18 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="border-t border-line bg-canvas px-4 py-4 md:hidden">
+        <div
+          id="mobile-nav"
+          className="border-t border-line bg-canvas px-4 py-4 md:hidden"
+        >
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {NAV.map((item) => {
-              const active =
-                item.to === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.to);
+              const active = isActive(item.to);
               return (
                 <Link
                   key={item.to}
                   to={item.to}
+                  aria-current={active ? "page" : undefined}
                   className={cn(
                     "flex min-h-12 items-center rounded-md px-3 text-base",
                     active ? "bg-raised text-fg" : "text-muted",

@@ -222,7 +222,9 @@ export const STATS = [
 ] as const;
 
 export const NAV = [
-  { to: "/", label: "Dashboard" },
+  // "Dashboard" described the layout, not the destination. Visitor-facing nav
+  // should say what the page *is*.
+  { to: "/", label: "Home" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/services", label: "Services" },
   { to: "/contact", label: "Contact" },

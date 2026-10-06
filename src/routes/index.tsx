@@ -15,7 +15,16 @@ import {
 export const Route = createFileRoute("/")({
   component: Dashboard,
   head: () => ({
-    meta: [{ title: `Dashboard — ${COMPANY.name}` }],
+    meta: [
+      // "Dashboard" is internal vocabulary — a visitor-facing page should be
+      // named for the studio, not for the layout it happens to use.
+      { title: `${COMPANY.name} — AI & Automation Studio, Naivasha` },
+      {
+        name: "description",
+        content:
+          "Great Turbinez designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start.",
+      },
+    ],
   }),
 });
 
@@ -27,7 +36,7 @@ function Dashboard() {
     <PageFrame className="page-enter">
       <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
         <div className="order-2 lg:order-1">
-          <Eyebrow>Dashboard · {COMPANY.location}</Eyebrow>
+          <Eyebrow>Studio · {COMPANY.location}</Eyebrow>
           <h1 className="mt-4 font-display text-4xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-5xl md:text-6xl">
             Intelligence,
             <br />
