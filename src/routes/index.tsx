@@ -12,7 +12,7 @@ import {
   STATS,
 } from "@/lib/site";
 
-export const Route = createFileRoute("/")(
+export const Route = createFileRoute("/")({
   component: Dashboard,
   head: () => ({
     meta: [
