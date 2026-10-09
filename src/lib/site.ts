@@ -4,6 +4,7 @@ export const COMPANY = {
   city: "Naivasha",
   country: "Kenya",
   location: "Naivasha, Kenya",
+  coverage: "Based in Naivasha, working all over Kenya and beyond",
   email: "admin.greatturbinez@gmail.com",
   year: 2024,
 } as const;
@@ -166,7 +167,7 @@ export const PROJECTS: Project[] = [
     name: "Olkaria Pulse",
     category: "Intelligence",
     sector: "Energy",
-    place: "Hell’s Gate",
+    place: "Hell's Gate",
     summary:
       "Maintenance-signal triage for a geothermal contractor. Sensor logs flagged before they become unplanned stops.",
     outcome: "Fewer unplanned halts on two units",
@@ -218,7 +219,7 @@ export const STATS = [
   { value: "18", label: "Systems in production" },
   { value: "6", label: "Engagements in motion" },
   { value: "2.4k", label: "Hours returned last year" },
-  { value: "Naivasha", label: "Base of operations" },
+  { value: "Nationwide", label: "Service coverage" },
 ] as const;
 
 export const NAV = [
