@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ContactForm } from "@/components/contact-form";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
-import { Portrait } from "@/components/portrait";
+import { Logo } from "@/components/logo";
 import { COMPANY, QUOTE, type ServiceId } from "@/lib/site";
 
 const SERVICE_IDS: ServiceId[] = [
@@ -43,10 +43,10 @@ function ContactPage() {
     <PageFrame className="page-enter">
       <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
         <section className="flex flex-col items-center text-center lg:items-start lg:text-left">
-          <Portrait size="lg" className="mx-auto lg:mx-0" />
+          <Logo size="lg" variant="square" className="mx-auto lg:mx-0" />
           <blockquote className="mt-8 max-w-lg">
             <p className="font-display text-xl leading-snug font-medium tracking-tight text-fg italic sm:text-2xl">
-              “{QUOTE.text}”
+              "{QUOTE.text}"
             </p>
             <footer className="mt-5 text-xs font-medium tracking-widest text-accent uppercase">
               — {QUOTE.attribution}
