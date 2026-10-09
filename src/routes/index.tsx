@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
-import { Portrait } from "@/components/portrait";
+import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import {
   STATS,
 } from "@/lib/site";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/")(
   component: Dashboard,
   head: () => ({
     meta: [
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start.",
+          "GREAT TURBINEZ designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Based in Naivasha, working everywhere.",
       },
     ],
   }),
@@ -45,11 +45,11 @@ function Dashboard() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             {COMPANY.name} designs and installs AI and automation for operators
             who are done doing the same thing twice — farms, lodges, desks, and
-            floors across the Rift.
+            floors across Kenya and beyond.
           </p>
           <div className="mt-4 flex items-center gap-2 text-sm text-subtle">
             <MapPin className="size-4 text-accent" aria-hidden />
-            <span>Based in {COMPANY.city}, working on-site and remote.</span>
+            <span>Based in {COMPANY.city}, working all over.</span>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild>
@@ -65,7 +65,7 @@ function Dashboard() {
         </div>
 
         <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-          <Portrait size="hero" />
+          <Logo size="hero" variant="square" />
         </div>
       </section>
 
