@@ -1,25 +1,30 @@
 export const COMPANY = {
   name: "GREAT TURBINEZ",
-  tagline: "AI & Automation",
-  city: "Naivasha",
-  country: "Kenya",
-  location: "Naivasha, Kenya",
-  email: "admin.greatturbinez@gmail.com",
+  tagline: "Enterprise AI Transformation & Intelligent Automation",
+  city: "Global",
+  country: "Worldwide",
+  location: "Global Operations",
+  headquarters: "United States",
+  regions: ["North America", "Europe", "Asia-Pacific", "Middle East"],
+  email: "enterprise@greatturbinez.com",
+  salesEmail: "sales@greatturbinez.com",
+  supportEmail: "support@greatturbinez.com",
+  phone: "+1 (555) 000-0000",
   year: 2024,
 } as const;
 
 export const QUOTE = {
-  text: "Life is a current, not a monument. Fire, the wheel, the engine, the network — every age asked us to evolve with the tool in our hands. Now the tool is intelligence itself. Artificial intelligence is not arriving. It is already here, rewriting work and will. The future does not wait for permission. Neither should we.",
+  text: "In an era defined by exponential technological advancement, organizations face a critical choice: evolve or be left behind. Artificial intelligence is not the future—it is the present competitive advantage. We partner with visionary leaders to architect intelligent enterprises that anticipate, adapt, and accelerate.",
   attribution: "GREAT TURBINEZ",
 } as const;
 
 export type ServiceId =
-  | "discovery"
-  | "workflow"
-  | "assistant"
-  | "documents"
-  | "dashboard"
-  | "retainer";
+  | "strategy"
+  | "transformation"
+  | "intelligent-automation"
+  | "ai-solutions"
+  | "data-intelligence"
+  | "managed-services";
 
 export type Service = {
   id: ServiceId;
@@ -33,92 +38,104 @@ export type Service = {
 
 export const SERVICES: Service[] = [
   {
-    id: "discovery",
-    name: "Discovery sprint",
+    id: "strategy",
+    name: "AI Strategy & Roadmap",
     blurb:
-      "Two weeks on the floor with your team. We map the work, name the bottlenecks, and leave you a 90-day automation plan you can actually run.",
+      "Executive-level strategic consulting to define your AI vision, identify high-impact opportunities, and create a 12-36 month transformation roadmap aligned with business objectives.",
     includes: [
-      "Process interviews and shadowing",
-      "Systems inventory",
-      "Opportunity ranking",
-      "90-day build plan and estimate",
+      "C-suite workshops and stakeholder alignment",
+      "AI maturity assessment and gap analysis",
+      "Use case prioritization and ROI modeling",
+      "Technology stack recommendations",
+      "Governance framework and risk mitigation",
+      "Executive presentation and board materials",
     ],
-    price: "KES 48,000",
-    unit: "fixed",
+    price: "from $85,000",
+    unit: "per engagement",
   },
   {
-    id: "workflow",
-    name: "Workflow automation",
+    id: "transformation",
+    name: "Enterprise AI Transformation",
     blurb:
-      "One end-to-end process taken off human repetition — intake, routing, approvals, notices — wired into the tools you already use.",
+      "End-to-end transformation programs that embed AI and automation across your organization—from pilot to production at scale, with change management and center of excellence establishment.",
     includes: [
-      "Scoped process design",
-      "Build and integration",
-      "Exception handling",
-      "Handover and operator training",
+      "Full-cycle implementation (6-18 months)",
+      "Cross-functional team enablement",
+      "Pilot design, testing, and scaling",
+      "Integration with existing enterprise systems",
+      "Change management and adoption strategy",
+      "Performance metrics and continuous optimization",
     ],
-    price: "from KES 95,000",
-    unit: "per process",
+    price: "from $450,000",
+    unit: "per program",
   },
   {
-    id: "assistant",
-    name: "Custom AI assistant",
+    id: "intelligent-automation",
+    name: "Intelligent Process Automation",
     blurb:
-      "An assistant trained on your documents, tone, and rules — sitting on WhatsApp, web, or internal chat, answering as your operation would.",
+      "Reimagine mission-critical workflows with AI-powered automation—eliminating manual bottlenecks, reducing errors, and freeing your teams to focus on strategic work that drives growth.",
     includes: [
-      "Knowledge setup and guardrails",
-      "Channel install (web / WhatsApp)",
-      "Human handoff when needed",
-      "30 days of tuning after go-live",
+      "Process mining and optimization analysis",
+      "Intelligent document processing (IDP)",
+      "RPA with AI/ML decision engines",
+      "API and system integration architecture",
+      "Exception handling and human-in-the-loop",
+      "90-day hypercare and performance tuning",
     ],
-    price: "from KES 140,000",
-    unit: "per assistant",
+    price: "from $120,000",
+    unit: "per process domain",
   },
   {
-    id: "documents",
-    name: "Document intelligence",
+    id: "ai-solutions",
+    name: "Custom AI Solutions",
     blurb:
-      "Invoices, delivery notes, IDs, forms. Extracted, checked, and posted — so the binder stops being the system of record.",
+      "Bespoke AI applications tailored to your unique business challenges—conversational AI, predictive analytics, computer vision, NLP systems, and proprietary models trained on your data.",
     includes: [
-      "Sample-set training",
-      "Validation rules",
-      "Export to sheet, ERP, or email",
-      "Exception queue",
+      "Requirements discovery and solution design",
+      "Custom model development and training",
+      "Secure data pipeline architecture",
+      "Multi-channel deployment (web, mobile, APIs)",
+      "Model monitoring and drift detection",
+      "Ongoing model retraining and updates",
     ],
-    price: "from KES 110,000",
-    unit: "per document type",
+    price: "from $200,000",
+    unit: "per solution",
   },
   {
-    id: "dashboard",
-    name: "Operator dashboard",
+    id: "data-intelligence",
+    name: "Data & Analytics Intelligence",
     blurb:
-      "A live view of the work: volumes, delays, exceptions, and a weekly digest. Built for people who run a floor, not a slide deck.",
+      "Transform raw data into strategic intelligence—real-time dashboards, predictive insights, and AI-driven analytics platforms that empower decision-makers at every level of your organization.",
     includes: [
-      "Source connections",
-      "Core views and alerts",
-      "Mobile-friendly layout",
-      "Weekly digest email",
+      "Data architecture and governance design",
+      "Advanced analytics and predictive modeling",
+      "Executive dashboards and KPI frameworks",
+      "Natural language query interfaces",
+      "Automated reporting and alerting",
+      "Data quality monitoring and remediation",
     ],
-    price: "from KES 78,000",
-    unit: "per dashboard",
+    price: "from $150,000",
+    unit: "per platform",
   },
   {
-    id: "retainer",
-    name: "Turbine retainer",
+    id: "managed-services",
+    name: "AI Managed Services & Support",
     blurb:
-      "Ongoing automation ops. We watch what is live, fix drift, and ship the next small win every month — without restarting a project.",
+      "24/7 monitoring, maintenance, and evolution of your AI systems—ensuring reliability, security, and continuous improvement while you focus on leveraging intelligence for competitive advantage.",
     includes: [
-      "20 hours per month",
-      "Monitoring of live systems",
-      "Priority fixes",
-      "Monthly ops review",
+      "Dedicated account team and SLA",
+      "Proactive system monitoring and incident response",
+      "Security patching and compliance updates",
+      "Performance optimization and cost management",
+      "Quarterly innovation reviews and enhancements",
+      "Executive business reviews and reporting",
     ],
-    price: "KES 68,000",
+    price: "from $25,000",
     unit: "per month",
   },
 ];
 
-export type ProjectCategory = "Automation" | "Intelligence" | "Advisory";
+export type ProjectCategory = "Transformation" | "Automation" | "AI Solutions" | "Data Intelligence";
 
 export type Project = {
   id: string;
@@ -130,117 +147,156 @@ export type Project = {
   summary: string;
   outcome: string;
   year: string;
-  status: "Live" | "In build";
+  status: "Live" | "In Deployment" | "Completed";
 };
 
 export const PROJECTS: Project[] = [
   {
-    id: "bloomline",
+    id: "global-bank-transformation",
     code: "01",
-    name: "Bloomline Forecast",
-    category: "Intelligence",
-    sector: "Floriculture",
-    place: "Naivasha",
+    name: "Global Banking AI Transformation",
+    category: "Transformation",
+    sector: "Financial Services",
+    place: "United States & Europe",
     summary:
-      "Harvest and cold-chain prediction for a flower exporter on the lake. Weather, stem counts, and packing windows in one morning view.",
-    outcome: "22% less wastage in the first season",
-    year: "2025",
+      "Enterprise-wide AI transformation for a multinational bank with $200B+ in assets—intelligent document processing, fraud detection, and AI-powered customer service across 12 countries.",
+    outcome: "68% reduction in processing time, $42M annual savings",
+    year: "2024-2025",
     status: "Live",
   },
   {
-    id: "lodgeflow",
+    id: "healthcare-automation",
     code: "02",
-    name: "Lodgeflow",
+    name: "Clinical Operations Automation",
     category: "Automation",
-    sector: "Hospitality",
-    place: "Rift Valley",
+    sector: "Healthcare",
+    place: "North America",
     summary:
-      "Booking-to-housekeeping handoff, WhatsApp concierge, and night-desk billing for a cluster of lodges around Lake Naivasha.",
-    outcome: "Night desk reduced to on-call",
+      "End-to-end intelligent automation for a healthcare network serving 4M+ patients—claims processing, prior authorization, clinical documentation, and care coordination workflows.",
+    outcome: "Claims cycle time reduced from 14 to 3 days",
     year: "2025",
     status: "Live",
   },
   {
-    id: "olkaria",
+    id: "manufacturing-predictive",
     code: "03",
-    name: "Olkaria Pulse",
-    category: "Intelligence",
-    sector: "Energy",
-    place: "Hell’s Gate",
+    name: "Predictive Maintenance Platform",
+    category: "AI Solutions",
+    sector: "Manufacturing",
+    place: "Asia-Pacific",
     summary:
-      "Maintenance-signal triage for a geothermal contractor. Sensor logs flagged before they become unplanned stops.",
-    outcome: "Fewer unplanned halts on two units",
-    year: "2026",
-    status: "In build",
+      "AI-driven predictive maintenance system for a global automotive manufacturer—computer vision, IoT sensor fusion, and ML models preventing equipment failures across 23 facilities.",
+    outcome: "87% reduction in unplanned downtime",
+    year: "2024",
+    status: "Completed",
   },
   {
-    id: "ledgerwind",
+    id: "retail-intelligence",
     code: "04",
-    name: "Ledgerwind",
-    category: "Automation",
-    sector: "Finance ops",
-    place: "Nakuru–Naivasha",
+    name: "Omnichannel Intelligence Suite",
+    category: "Data Intelligence",
+    sector: "Retail",
+    place: "Global",
     summary:
-      "Invoice intake, line extraction, and reconciliation for an SME group that was closing the books from email threads.",
-    outcome: "Month-end six days faster",
+      "Real-time analytics and AI forecasting platform for a Fortune 500 retailer—demand prediction, dynamic pricing, inventory optimization, and personalized customer experiences.",
+    outcome: "23% improvement in inventory turnover, $180M revenue lift",
     year: "2025",
     status: "Live",
   },
   {
-    id: "soko",
+    id: "energy-optimization",
     code: "05",
-    name: "Soko Desk",
-    category: "Automation",
-    sector: "Commerce",
-    place: "Naivasha",
+    name: "Energy Grid Optimization",
+    category: "AI Solutions",
+    sector: "Energy & Utilities",
+    place: "Europe & Middle East",
     summary:
-      "WhatsApp order desk for a market cooperative — stock checks, M-Pesa receipts, and a morning pick-list for the floor.",
-    outcome: "After-hours sales without extra staff",
-    year: "2024",
-    status: "Live",
+      "AI-powered grid management and demand forecasting for renewable energy providers—optimizing distribution, predicting consumption patterns, and reducing energy waste.",
+    outcome: "31% improvement in grid efficiency",
+    year: "2025-2026",
+    status: "In Deployment",
   },
   {
-    id: "herdline",
+    id: "logistics-network",
     code: "06",
-    name: "Herdline",
-    category: "Advisory",
-    sector: "Dairy",
-    place: "Mai Mahiu road",
+    name: "Intelligent Logistics Network",
+    category: "Automation",
+    sector: "Logistics & Supply Chain",
+    place: "Worldwide",
     summary:
-      "Intake logging and weekly yield dashboards for a collection point. A small system, built so the clerk does not carry the numbers in a book.",
-    outcome: "Daily yield visible by 7 a.m.",
-    year: "2026",
-    status: "In build",
+      "AI-orchestrated supply chain platform for a global logistics provider—route optimization, warehouse automation, predictive shipping, and real-time visibility across 45 countries.",
+    outcome: "19% reduction in delivery times, $95M cost savings",
+    year: "2024",
+    status: "Completed",
   },
 ];
 
 export const STATS = [
-  { value: "18", label: "Systems in production" },
-  { value: "6", label: "Engagements in motion" },
-  { value: "2.4k", label: "Hours returned last year" },
-  { value: "Naivasha", label: "Base of operations" },
+  { value: "$2.3B+", label: "Client value delivered" },
+  { value: "47", label: "Enterprise transformations" },
+  { value: "850K+", label: "Hours automated annually" },
+  { value: "28", label: "Countries served" },
 ] as const;
 
 export const NAV = [
-  // "Dashboard" described the layout, not the destination. Visitor-facing nav
-  // should say what the page *is*.
   { to: "/", label: "Home" },
-  { to: "/portfolio", label: "Portfolio" },
   { to: "/services", label: "Services" },
+  { to: "/portfolio", label: "Portfolio" },
+  { to: "/industries", label: "Industries" },
+  { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
 export const PRINCIPLES = [
   {
-    title: "On the floor first",
-    body: "We do not automate a process we have not watched. Shadowing beats a workshop slide.",
+    title: "Strategic Intelligence First",
+    body: "We begin with your business strategy, not technology. Every AI initiative must drive measurable business outcomes and sustainable competitive advantage.",
   },
   {
-    title: "Small systems that stay",
-    body: "Prefer a tool your operator will still open in six months over a platform they will not.",
+    title: "Enterprise-Grade Excellence",
+    body: "Security, scalability, and governance are non-negotiable. We architect solutions that meet the rigorous demands of global enterprise operations.",
   },
   {
-    title: "Intelligence with a handoff",
-    body: "Every assistant knows when to stop and call a person. Confidence without an exit is a liability.",
+    title: "Human-Centered AI",
+    body: "Technology amplifies human potential, not replaces it. We design intelligent systems that empower your workforce and enhance decision-making at every level.",
+  },
+] as const;
+
+export const INDUSTRIES = [
+  {
+    id: "financial-services",
+    name: "Financial Services",
+    description: "AI-powered transformation for banking, insurance, and capital markets",
+    capabilities: ["Fraud detection & AML", "Credit risk modeling", "Algorithmic trading", "Customer service automation"],
+  },
+  {
+    id: "healthcare",
+    name: "Healthcare & Life Sciences",
+    description: "Intelligent solutions for patient care, clinical operations, and research",
+    capabilities: ["Clinical decision support", "Medical imaging AI", "Drug discovery", "Revenue cycle automation"],
+  },
+  {
+    id: "manufacturing",
+    name: "Manufacturing & Industry",
+    description: "Smart factories and predictive operations for industrial excellence",
+    capabilities: ["Predictive maintenance", "Quality control AI", "Supply chain optimization", "Digital twins"],
+  },
+  {
+    id: "retail",
+    name: "Retail & Consumer",
+    description: "Personalized experiences and optimized operations for modern commerce",
+    capabilities: ["Demand forecasting", "Dynamic pricing", "Personalization engines", "Inventory optimization"],
+  },
+  {
+    id: "energy",
+    name: "Energy & Utilities",
+    description: "Intelligent infrastructure for sustainable energy management",
+    capabilities: ["Grid optimization", "Demand prediction", "Asset monitoring", "Renewable integration"],
+  },
+  {
+    id: "logistics",
+    name: "Logistics & Supply Chain",
+    description: "End-to-end visibility and optimization for global supply networks",
+    capabilities: ["Route optimization", "Warehouse automation", "Predictive shipping", "Real-time tracking"],
   },
 ] as const;
