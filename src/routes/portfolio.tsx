@@ -1,152 +1,134 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Badge } from "@/components/ui/badge";
 import { COMPANY, PROJECTS, type ProjectCategory } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-export const Route = createFileRoute("/portfolio")({
+export const Route = createFileRoute("/portfolio")(({
   component: PortfolioPage,
   head: () => ({
     meta: [
-      { title: `Portfolio — ${COMPANY.name}` },
+      { title: `Global Portfolio & Case Studies — ${COMPANY.name}` },
       {
         name: "description",
         content:
-          "Selected AI and automation systems installed for operators around Naivasha and the Rift Valley — floriculture, hospitality, energy, finance ops and commerce.",
+          "Explore our portfolio of enterprise AI transformations across financial services, healthcare, manufacturing, retail, energy, and logistics—delivering billions in value worldwide.",
       },
     ],
   }),
 });
 
-const FILTERS: Array<"All" | ProjectCategory> = [
-  "All",
-  "Automation",
-  "Intelligence",
-  "Advisory",
-];
-
 function PortfolioPage() {
-  const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
-  const items = useMemo(
-    () =>
-      filter === "All"
-        ? PROJECTS
-        : PROJECTS.filter((p) => p.category === filter),
-    [filter],
-  );
+  const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+
+  const categories: Array<ProjectCategory | "All"> = [
+    "All",
+    "Transformation",
+    "Automation",
+    "AI Solutions",
+    "Data Intelligence",
+  ];
+
+  const filtered =
+    filter === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === filter);
 
   return (
     <PageFrame className="page-enter">
-      <Eyebrow>Portfolio</Eyebrow>
+      <Eyebrow>Portfolio & Case Studies</Eyebrow>
       <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-        Work we can stand next to.
+        Enterprise Transformations
+        <br />
+        That Deliver Results.
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        A selection of systems installed for operators around Naivasha and the
-        wider Rift — flower farms, lodges, energy crews, desks, and markets.
-        Names are working titles; the outcomes are the point.
+        From Fortune 500 companies to global industry leaders, we've delivered 
+        AI and automation solutions that drive measurable business outcomes across 
+        every continent and major industry vertical.
       </p>
 
-      {/* These filter a list rather than switch panels, so they are a labelled
-          group of toggle buttons — `role="tablist"` would promise tabpanel
-          semantics (and arrow-key roving focus) this control does not implement. */}
-      <div
-        className="mt-8 flex flex-wrap gap-2"
-        role="group"
-        aria-label="Filter projects by category"
-      >
-        {FILTERS.map((item) => {
-          const active = item === filter;
-          const count =
-            item === "All"
-              ? PROJECTS.length
-              : PROJECTS.filter((p) => p.category === item).length;
-          return (
-            <button
-              key={item}
-              type="button"
-              aria-pressed={active}
-              onClick={() => setFilter(item)}
-              className={cn(
-                "inline-flex h-11 items-center gap-2 rounded-full px-4 text-sm transition-colors duration-150",
-                active
-                  ? "bg-fg text-accent-fg"
-                  : "bg-raised text-muted hover:text-fg",
-              )}
-            >
-              {item}
-              <span
-                aria-hidden
-                className={cn(
-                  "text-xs tabular-nums",
-                  active ? "text-accent-fg/70" : "text-subtle",
-                )}
-              >
-                {count}
-              </span>
-            </button>
-          );
-        })}
+      <div className="mt-10 flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setFilter(category)}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              filter === category
+                ? "bg-accent text-white"
+                : "bg-surface text-muted hairline hover:bg-raised"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
       </div>
 
-      <p aria-live="polite" className="sr-only">
-        Showing {items.length} {items.length === 1 ? "project" : "projects"}
-        {filter === "All" ? "" : ` in ${filter}`}.
-      </p>
-
-      <ol className="mt-10 divide-y divide-line border-y border-line">
-        {items.map((project) => (
-          <li
+      <div className="mt-8 space-y-4">
+        {filtered.map((project) => (
+          <article
             key={project.id}
-            className="grid gap-6 py-10 md:grid-cols-[5rem_minmax(0,1fr)_minmax(0,16rem)] md:items-start"
+            className="rounded-xl bg-surface p-6 hairline transition-all hover:shadow-lg sm:p-8"
           >
-            <p className="font-display text-3xl text-accent/80">{project.code}</p>
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-xl font-medium sm:text-2xl">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-xs font-medium text-subtle">
+                    CASE {project.code}
+                  </span>
+                  <Badge variant={project.status === "Live" ? "live" : "default"}>
+                    {project.status}
+                  </Badge>
+                  <Badge variant="outline">{project.category}</Badge>
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
                   {project.name}
                 </h2>
-                <Badge variant={project.status === "Live" ? "live" : "default"}>
-                  {project.status}
-                </Badge>
-                <Badge variant="outline">{project.category}</Badge>
+                <p className="mt-2 text-sm text-muted">
+                  {project.sector} · {project.place} · {project.year}
+                </p>
+                <p className="mt-4 leading-relaxed text-fg">
+                  {project.summary}
+                </p>
               </div>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
-                {project.summary}
-              </p>
+              <div className="shrink-0 sm:max-w-xs sm:text-right">
+                <p className="text-xs font-medium uppercase tracking-wide text-subtle">
+                  Business Impact
+                </p>
+                <p className="mt-2 text-base font-semibold text-accent">
+                  {project.outcome}
+                </p>
+              </div>
             </div>
-            <dl className="grid grid-cols-2 gap-4 text-sm md:grid-cols-1">
-              <div>
-                <dt className="text-xs tracking-widest text-subtle uppercase">
-                  Sector
-                </dt>
-                <dd className="mt-1 text-fg">
-                  {project.sector} · {project.place}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-xs tracking-widest text-subtle uppercase">
-                  Outcome
-                </dt>
-                <dd className="mt-1 text-fg">{project.outcome}</dd>
-              </div>
-              <div>
-                <dt className="text-xs tracking-widest text-subtle uppercase">
-                  Year
-                </dt>
-                <dd className="mt-1 text-fg tabular-nums">{project.year}</dd>
-              </div>
-            </dl>
-          </li>
+          </article>
         ))}
-      </ol>
+      </div>
 
-      {items.length === 0 ? (
-        <p className="py-16 text-center text-sm text-muted">
-          Nothing in this lane yet.
-        </p>
-      ) : null}
+      {filtered.length === 0 && (
+        <div className="py-16 text-center">
+          <p className="text-muted">No projects match the selected filter.</p>
+        </div>
+      )}
+
+      <section className="mt-16 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 p-8 hairline sm:p-12">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight">
+            Ready to Write Your Success Story?
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Join the world's leading enterprises in leveraging AI and automation 
+            to drive competitive advantage and sustainable growth.
+          </p>
+          <div className="mt-8">
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent/90"
+            >
+              Start Your Transformation
+            </a>
+          </div>
+        </div>
+      </section>
     </PageFrame>
   );
 }
