@@ -9,7 +9,7 @@ export const COMPANY = {
   email: "enterprise@greatturbinez.com",
   salesEmail: "sales@greatturbinez.com",
   supportEmail: "support@greatturbinez.com",
-  phone: "+1 (555) 000-0000",
+  phone: "+254745494787",
   year: 2024,
 } as const;
 

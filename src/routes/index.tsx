@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Globe } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
-import { Portrait } from "@/components/portrait";
+import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,7 +63,7 @@ function HomePage() {
         </div>
 
         <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-          <Portrait size="hero" />
+          <Logo size="hero" variant="square" />
         </div>
       </section>
 

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { COMPANY, PROJECTS, type ProjectCategory } from "@/lib/site";
 import { useState } from "react";
 
-export const Route = createFileRoute("/portfolio")(({
+export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
   head: () => ({
     meta: [
