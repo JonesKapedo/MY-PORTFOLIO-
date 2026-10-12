@@ -4,7 +4,7 @@ import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY, QUOTE, STATS } from "@/lib/site";
 
-export const Route = createFileRoute("/about")(({
+export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [

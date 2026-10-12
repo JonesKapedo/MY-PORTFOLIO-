@@ -4,7 +4,7 @@ import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY, SERVICES } from "@/lib/site";
 
-export const Route = createFileRoute("/services")(({
+export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/services")(({
       {
         name: "description",
         content:
-          "Comprehensive AI transformation services for global enterprises—strategic consulting, intelligent automation, custom AI solutions, data intelligence, and managed services with proven ROI.",
+          "Comprehensive AI transformation services for global enterprises—strategic consulting, intelligent automation, custom AI solutions, data intelligence, and managed services with proven impact.",
       },
     ],
   }),

@@ -4,7 +4,7 @@ import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY, INDUSTRIES } from "@/lib/site";
 
-export const Route = createFileRoute("/industries")(({
+export const Route = createFileRoute("/industries")({
   component: IndustriesPage,
   head: () => ({
     meta: [

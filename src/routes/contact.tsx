@@ -4,7 +4,7 @@ import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/lib/site";
 
-export const Route = createFileRoute("/contact")(({
+export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
