@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight, Globe } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Portrait } from "@/components/portrait";
 import { Badge } from "@/components/ui/badge";
@@ -12,54 +12,52 @@ import {
   STATS,
 } from "@/lib/site";
 
-export const Route = createFileRoute("/")({
-  component: Dashboard,
+export const Route = createFileRoute("/")(({
+  component: HomePage,
   head: () => ({
     meta: [
-      // "Dashboard" is internal vocabulary — a visitor-facing page should be
-      // named for the studio, not for the layout it happens to use.
-      { title: `${COMPANY.name} — AI & Automation Studio, Naivasha` },
+      { title: `${COMPANY.name} — Enterprise AI Transformation & Intelligent Automation` },
       {
         name: "description",
         content:
-          "GREAT TURBINEZ designs and installs AI and automation for operators across Kenya — farms, lodges, desks and floors. Named prices, scoped before we start.",
+          "Leading global AI consulting firm partnering with Fortune 500 companies and enterprise organizations to deliver transformative artificial intelligence and intelligent automation solutions.",
       },
     ],
   }),
 });
 
-function Dashboard() {
-  const live = PROJECTS.filter((p) => p.status === "Live").slice(0, 3);
-  const building = PROJECTS.filter((p) => p.status === "In build");
+function HomePage() {
+  const featured = PROJECTS.filter((p) => p.status === "Live").slice(0, 2);
+  const deployment = PROJECTS.filter((p) => p.status === "In Deployment");
 
   return (
     <PageFrame className="page-enter">
       <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
         <div className="order-2 lg:order-1">
-          <Eyebrow>Studio · {COMPANY.location}</Eyebrow>
+          <Eyebrow>Global AI Consulting · Enterprise Solutions</Eyebrow>
           <h1 className="mt-4 font-display text-4xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-5xl md:text-6xl">
-            Intelligence,
+            Transform Business
             <br />
-            applied.
+            Through Intelligence.
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            {COMPANY.name} designs and installs AI and automation for operators
-            who are done doing the same thing twice — farms, lodges, desks, and
-            floors across the Rift.
+            {COMPANY.name} partners with visionary enterprises worldwide to 
+            architect and deploy transformative AI solutions—delivering measurable 
+            business outcomes, competitive advantage, and sustained innovation at scale.
           </p>
           <div className="mt-4 flex items-center gap-2 text-sm text-subtle">
-            <MapPin className="size-4 text-accent" aria-hidden />
-            <span>Based in {COMPANY.city}, working on-site and remote.</span>
+            <Globe className="size-4 text-accent" aria-hidden />
+            <span>Serving enterprises across North America, Europe, Asia-Pacific, and Middle East.</span>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild>
               <Link to="/contact">
-                Start a brief
+                Schedule Consultation
                 <ArrowUpRight className="size-4" />
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to="/services">See services & charges</Link>
+              <Link to="/services">Explore Solutions</Link>
             </Button>
           </div>
         </div>
@@ -84,24 +82,24 @@ function Dashboard() {
         <div className="lg:col-span-3">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <Eyebrow>Now in motion</Eyebrow>
+              <Eyebrow>Featured Engagements</Eyebrow>
               <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
-                Live work
+                Global Impact
               </h2>
             </div>
             <Link
               to="/portfolio"
               className="hidden items-center gap-1 text-sm text-accent hover:underline sm:inline-flex"
             >
-              Full portfolio
+              View Full Portfolio
               <ArrowUpRight className="size-4" />
             </Link>
           </div>
 
-            <ul className="mt-6 divide-y divide-line rounded-xl bg-surface hairline">
-            {live.map((project) => (
-              <li key={project.id} className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
-                <div>
+          <ul className="mt-6 divide-y divide-line rounded-xl bg-surface hairline">
+            {featured.map((project) => (
+              <li key={project.id} className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-xs text-subtle">
                       {project.code}
@@ -112,18 +110,21 @@ function Dashboard() {
                   <p className="mt-1 text-sm text-muted">
                     {project.sector} · {project.place}
                   </p>
+                  <p className="mt-2 text-sm leading-relaxed text-subtle">
+                    {project.summary}
+                  </p>
                 </div>
-                <p className="text-sm text-subtle sm:max-w-xs sm:text-right">
+                <p className="text-sm font-medium text-accent sm:max-w-xs sm:text-right">
                   {project.outcome}
                 </p>
               </li>
             ))}
-            {building.map((project) => (
+            {deployment.map((project) => (
               <li
                 key={project.id}
-                className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-start sm:justify-between"
               >
-                <div>
+                <div className="flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-mono text-xs text-subtle">
                       {project.code}
@@ -134,8 +135,11 @@ function Dashboard() {
                   <p className="mt-1 text-sm text-muted">
                     {project.sector} · {project.place}
                   </p>
+                  <p className="mt-2 text-sm leading-relaxed text-subtle">
+                    {project.summary}
+                  </p>
                 </div>
-                <p className="text-sm text-subtle sm:max-w-xs sm:text-right">
+                <p className="text-sm font-medium text-accent sm:max-w-xs sm:text-right">
                   {project.outcome}
                 </p>
               </li>
@@ -145,18 +149,18 @@ function Dashboard() {
             to="/portfolio"
             className="mt-4 inline-flex items-center gap-1 text-sm text-accent hover:underline sm:hidden"
           >
-            Full portfolio
+            View Full Portfolio
             <ArrowUpRight className="size-4" />
           </Link>
         </div>
 
         <div className="lg:col-span-2">
-          <Eyebrow>Practice</Eyebrow>
+          <Eyebrow>Enterprise Solutions</Eyebrow>
           <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
-            What we install
+            Our Services
           </h2>
           <ul className="mt-6 space-y-3">
-            {SERVICES.slice(0, 5).map((service) => (
+            {SERVICES.slice(0, 6).map((service) => (
               <li key={service.id}>
                 <Link
                   to="/services"
@@ -169,13 +173,19 @@ function Dashboard() {
               </li>
             ))}
           </ul>
+          <Button asChild variant="outline" className="mt-6 w-full">
+            <Link to="/services">
+              View All Services
+              <ArrowUpRight className="size-4" />
+            </Link>
+          </Button>
         </div>
       </section>
 
       <section className="mt-16">
-        <Eyebrow>How we work</Eyebrow>
+        <Eyebrow>Our Approach</Eyebrow>
         <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
-          Three rules on the floor
+          Excellence Through Discipline
         </h2>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {PRINCIPLES.map((item, i) => (
@@ -190,6 +200,29 @@ function Dashboard() {
               </p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="mt-16 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 p-8 hairline sm:p-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            Ready to Transform Your Enterprise?
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Schedule a strategic consultation with our AI experts to explore how 
+            intelligent automation and AI can drive measurable outcomes for your organization.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg">
+              <Link to="/contact">
+                Start Your Journey
+                <ArrowUpRight className="size-5" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/portfolio">View Case Studies</Link>
+            </Button>
+          </div>
         </div>
       </section>
     </PageFrame>
