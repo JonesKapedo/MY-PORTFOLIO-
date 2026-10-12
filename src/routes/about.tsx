@@ -4,8 +4,8 @@ import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY, SERVICES } from "@/lib/site";
 
-export const Route = createFileRoute("/services")({
-  component: ServicesPage,
+export const Route = createFileRoute("/about")({
+  component: AboutPage,
   head: () => ({
     meta: [
       { title: `Enterprise AI Solutions & Services — ${COMPANY.name}` },

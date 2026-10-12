@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone, Globe } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { Logo } from "@/components/logo";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/lib/site";
 
-export const Route = createFileRoute("/contact")({
-  component: ContactPage,
+export const Route = createFileRoute("/")({
+  component: HomePage,
   head: () => ({
     meta: [
       { title: `Contact Us — ${COMPANY.name}` },
@@ -44,39 +46,10 @@ function ContactPage() {
             to AI transformation.
           </p>
 
-          <form className="mt-8 space-y-6">
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-fg"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  required
-                  className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-fg"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  required
-                  className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-              </div>
-            </div>
+        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <Logo size="hero" variant="square" />
+        </div>
+      </section>
 
             <div>
               <label

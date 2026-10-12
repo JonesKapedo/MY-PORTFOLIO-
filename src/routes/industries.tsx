@@ -12,8 +12,8 @@ import {
   STATS,
 } from "@/lib/site";
 
-export const Route = createFileRoute("/")({
-  component: HomePage,
+export const Route = createFileRoute("/industries")({
+  component: IndustriesPage,
   head: () => ({
     meta: [
       { title: `${COMPANY.name} — Enterprise AI Transformation & Intelligent Automation` },

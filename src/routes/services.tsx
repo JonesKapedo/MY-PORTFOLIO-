@@ -4,15 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { COMPANY, PROJECTS, type ProjectCategory } from "@/lib/site";
 import { useState } from "react";
 
-export const Route = createFileRoute("/portfolio")({
-  component: PortfolioPage,
+export const Route = createFileRoute("/services")({
+  component: ServicesPage,
   head: () => ({
     meta: [
       { title: `Global Portfolio & Case Studies — ${COMPANY.name}` },
       {
         name: "description",
         content:
-          "Explore our portfolio of enterprise AI transformations across financial services, healthcare, manufacturing, retail, energy, and logistics—delivering billions in value worldwide.",
+          "Comprehensive AI transformation services for global enterprises—strategic consulting, intelligent automation, custom AI solutions, data intelligence, and managed services with proven impact.",
       },
     ],
   }),
