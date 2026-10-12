@@ -1,178 +1,135 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ArrowUpRight } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
-import { Button } from "@/components/ui/button";
-import { COMPANY, SERVICES } from "@/lib/site";
+import { Badge } from "@/components/ui/badge";
+import { COMPANY, PROJECTS, type ProjectCategory } from "@/lib/site";
+import { useState } from "react";
 
-export const Route = createFileRoute("/services")(({
-  component: ServicesPage,
+export const Route = createFileRoute("/portfolio")({
+  component: PortfolioPage,
   head: () => ({
     meta: [
-      { title: `Enterprise AI Solutions & Services — ${COMPANY.name}` },
+      { title: `Global Portfolio & Case Studies — ${COMPANY.name}` },
       {
         name: "description",
         content:
-          "Comprehensive AI transformation services for global enterprises—strategic consulting, intelligent automation, custom AI solutions, data intelligence, and managed services with proven ROI.",
+          "Explore our portfolio of enterprise AI transformations across financial services, healthcare, manufacturing, retail, energy, and logistics—delivering billions in value worldwide.",
       },
     ],
   }),
 });
 
-function ServicesPage() {
+function PortfolioPage() {
+  const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+
+  const categories: Array<ProjectCategory | "All"> = [
+    "All",
+    "Transformation",
+    "Automation",
+    "AI Solutions",
+    "Data Intelligence",
+  ];
+
+  const filtered =
+    filter === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === filter);
+
   return (
     <PageFrame className="page-enter">
-      <Eyebrow>Enterprise AI Solutions</Eyebrow>
+      <Eyebrow>Portfolio & Case Studies</Eyebrow>
       <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-        Strategic Solutions. Measurable Impact.
+        Enterprise Transformations
+        <br />
+        That Deliver Results.
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        From AI strategy to full-scale enterprise transformation, our comprehensive 
-        services are designed to deliver tangible business outcomes. Every engagement 
-        begins with a thorough discovery phase to ensure alignment with your strategic 
-        objectives and measurable ROI.
+        From Fortune 500 companies to global industry leaders, we've delivered 
+        AI and automation solutions that drive measurable business outcomes across 
+        every continent and major industry vertical.
       </p>
 
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
-        {SERVICES.map((service) => (
-          <article
-            key={service.id}
-            id={service.id}
-            className="flex scroll-mt-24 flex-col rounded-xl bg-surface p-6 hairline sm:p-7"
+      <div className="mt-10 flex flex-wrap gap-2">
+        {categories.map((category) => (
+          <button
+            key={category}
+            onClick={() => setFilter(category)}
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              filter === category
+                ? "bg-accent text-white"
+                : "bg-surface text-muted hairline hover:bg-raised"
+            }`}
           >
-            <div className="flex items-start justify-between gap-4">
-              <h2 className="text-xl font-medium">{service.name}</h2>
-              <p className="shrink-0 text-right">
-                <span className="block text-base font-semibold text-accent">
-                  {service.price}
-                </span>
-                <span className="text-xs text-subtle">{service.unit}</span>
-              </p>
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-8 space-y-4">
+        {filtered.map((project) => (
+          <article
+            key={project.id}
+            className="rounded-xl bg-surface p-6 hairline transition-all hover:shadow-lg sm:p-8"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-xs font-medium text-subtle">
+                    CASE {project.code}
+                  </span>
+                  <Badge variant={project.status === "Live" ? "live" : "default"}>
+                    {project.status}
+                  </Badge>
+                  <Badge variant="outline">{project.category}</Badge>
+                </div>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
+                  {project.name}
+                </h2>
+                <p className="mt-2 text-sm text-muted">
+                  {project.sector} · {project.place} · {project.year}
+                </p>
+                <p className="mt-4 leading-relaxed text-fg">
+                  {project.summary}
+                </p>
+              </div>
+              <div className="shrink-0 sm:max-w-xs sm:text-right">
+                <p className="text-xs font-medium uppercase tracking-wide text-subtle">
+                  Business Impact
+                </p>
+                <p className="mt-2 text-base font-semibold text-accent">
+                  {project.outcome}
+                </p>
+              </div>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              {service.blurb}
-            </p>
-            <div className="mt-5 flex-1">
-              <p className="text-xs font-medium uppercase tracking-wide text-subtle">
-                What's Included
-              </p>
-              <ul className="mt-3 space-y-2">
-                {service.includes.map((item) => (
-                  <li key={item} className="flex gap-2 text-sm text-fg">
-                    <Check
-                      className="mt-0.5 size-4 shrink-0 text-accent"
-                      aria-hidden
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <Button asChild variant="outline" className="mt-6 w-full">
-              <Link to="/contact" search={{ service: service.id }}>
-                Request Consultation
-              </Link>
-            </Button>
           </article>
         ))}
       </div>
 
-      <section className="mt-16 grid gap-8 rounded-xl bg-raised p-8 hairline sm:p-10 md:grid-cols-3">
-        <div>
-          <h3 className="text-lg font-semibold">Discovery-Driven Approach</h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Every engagement begins with strategic discovery—we assess your current 
-            state, identify high-impact opportunities, and design solutions aligned 
-            with your business objectives before any implementation begins.
-          </p>
+      {filtered.length === 0 && (
+        <div className="py-16 text-center">
+          <p className="text-muted">No projects match the selected filter.</p>
         </div>
-        <div>
-          <h3 className="text-lg font-semibold">Flexible Engagement Models</h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Choose from project-based implementations, ongoing retainers, or hybrid 
-            models. We structure engagements to match your organization's needs, 
-            timeline, and transformation velocity.
-          </p>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold">Global Delivery Excellence</h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Our teams operate across time zones with on-site and remote capabilities. 
-            We deliver enterprise-grade solutions with rigorous security, compliance, 
-            and governance standards.
-          </p>
-        </div>
-      </section>
-
-      <section className="mt-16 rounded-xl bg-surface p-8 hairline sm:p-10">
-        <h2 className="font-display text-2xl font-semibold tracking-tight">
-          How We Deliver Value
-        </h2>
-        <div className="mt-8 grid gap-6 text-sm leading-relaxed md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent">
-              01
-            </div>
-            <h3 className="mt-4 font-medium text-fg">Strategic Alignment</h3>
-            <p className="mt-2 text-muted">
-              We begin with your business strategy—understanding objectives, 
-              challenges, and success metrics before proposing any technology solution.
-            </p>
-          </div>
-          <div>
-            <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent">
-              02
-            </div>
-            <h3 className="mt-4 font-medium text-fg">Phased Implementation</h3>
-            <p className="mt-2 text-muted">
-              Rapid pilots prove value quickly, then scale systematically. We de-risk 
-              transformation through incremental delivery with clear milestones.
-            </p>
-          </div>
-          <div>
-            <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent">
-              03
-            </div>
-            <h3 className="mt-4 font-medium text-fg">Change Management</h3>
-            <p className="mt-2 text-muted">
-              Technology is only half the equation. We enable your teams through 
-              training, communication, and adoption strategies that ensure lasting change.
-            </p>
-          </div>
-          <div>
-            <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 font-mono text-sm font-semibold text-accent">
-              04
-            </div>
-            <h3 className="mt-4 font-medium text-fg">Continuous Optimization</h3>
-            <p className="mt-2 text-muted">
-              Post-deployment, we monitor performance, optimize models, and evolve 
-              solutions based on real-world feedback and changing business needs.
-            </p>
-          </div>
-        </div>
-      </section>
+      )}
 
       <section className="mt-16 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 p-8 hairline sm:p-12">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-3xl font-semibold tracking-tight">
-            Let's Discuss Your Transformation
+            Ready to Write Your Success Story?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            Schedule a confidential consultation with our enterprise AI experts to 
-            explore how we can drive measurable business outcomes for your organization.
+            Join the world's leading enterprises in leveraging AI and automation 
+            to drive competitive advantage and sustainable growth.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg">
-              <Link to="/contact">
-                Schedule Consultation
-                <ArrowUpRight className="size-5" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/portfolio">View Success Stories</Link>
-            </Button>
+          <div className="mt-8">
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent/90"
+            >
+              Start Your Transformation
+            </a>
           </div>
         </div>
       </section>
     </PageFrame>
   );
 }
+
