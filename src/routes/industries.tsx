@@ -1,158 +1,226 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Globe } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { Logo } from "@/components/logo";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { COMPANY, INDUSTRIES } from "@/lib/site";
+import {
+  COMPANY,
+  PRINCIPLES,
+  PROJECTS,
+  SERVICES,
+  STATS,
+} from "@/lib/site";
 
 export const Route = createFileRoute("/industries")({
   component: IndustriesPage,
   head: () => ({
     meta: [
-      { title: `Industry Solutions — ${COMPANY.name}` },
+      { title: `${COMPANY.name} — Enterprise AI Transformation & Intelligent Automation` },
       {
         name: "description",
         content:
-          "Deep industry expertise across financial services, healthcare, manufacturing, retail, energy, and logistics—delivering AI solutions tailored to your sector's unique challenges.",
+          "Leading global AI consulting firm partnering with Fortune 500 companies and enterprise organizations to deliver transformative artificial intelligence and intelligent automation solutions.",
       },
     ],
   }),
 });
 
-function IndustriesPage() {
+function HomePage() {
+  const featured = PROJECTS.filter((p) => p.status === "Live").slice(0, 2);
+  const deployment = PROJECTS.filter((p) => p.status === "In Deployment");
+
   return (
     <PageFrame className="page-enter">
-      <Eyebrow>Industry Expertise</Eyebrow>
-      <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-        Vertical Intelligence.
-        <br />
-        Horizontal Excellence.
-      </h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        We bring deep industry knowledge combined with cross-sector best practices 
-        to deliver AI solutions that address your specific regulatory requirements, 
-        operational challenges, and competitive dynamics.
-      </p>
-
-      <div className="mt-12 grid gap-6 md:grid-cols-2">
-        {INDUSTRIES.map((industry) => (
-          <article
-            key={industry.id}
-            id={industry.id}
-            className="flex scroll-mt-24 flex-col rounded-xl bg-surface p-6 hairline sm:p-7"
-          >
-            <h2 className="text-2xl font-semibold tracking-tight">
-              {industry.name}
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              {industry.description}
-            </p>
-            
-            <div className="mt-6 flex-1">
-              <p className="text-xs font-medium uppercase tracking-wide text-subtle">
-                Key Capabilities
-              </p>
-              <ul className="mt-3 space-y-2">
-                {industry.capabilities.map((capability) => (
-                  <li key={capability} className="flex gap-2 text-sm text-fg">
-                    <Check
-                      className="mt-0.5 size-4 shrink-0 text-accent"
-                      aria-hidden
-                    />
-                    <span>{capability}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <Button asChild variant="outline" className="mt-6 w-full">
-              <Link to="/contact" search={{ industry: industry.id }}>
-                Discuss Your Industry Needs
+      <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-16">
+        <div className="order-2 lg:order-1">
+          <Eyebrow>Global AI Consulting · Enterprise Solutions</Eyebrow>
+          <h1 className="mt-4 font-display text-4xl leading-[1.1] font-semibold tracking-tight text-fg sm:text-5xl md:text-6xl">
+            Transform Business
+            <br />
+            Through Intelligence.
+          </h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            {COMPANY.name} partners with visionary enterprises worldwide to 
+            architect and deploy transformative AI solutions—delivering measurable 
+            business outcomes, competitive advantage, and sustained innovation at scale.
+          </p>
+          <div className="mt-4 flex items-center gap-2 text-sm text-subtle">
+            <Globe className="size-4 text-accent" aria-hidden />
+            <span>Serving enterprises across North America, Europe, Asia-Pacific, and Middle East.</span>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button asChild>
+              <Link to="/contact">
+                Schedule Consultation
+                <ArrowUpRight className="size-4" />
               </Link>
             </Button>
-          </article>
-        ))}
-      </div>
+            <Button asChild variant="outline">
+              <Link to="/services">Explore Solutions</Link>
+            </Button>
+          </div>
+        </div>
 
-      <section className="mt-16 rounded-xl bg-raised p-8 hairline sm:p-10">
-        <h2 className="font-display text-2xl font-semibold tracking-tight">
-          Cross-Industry Innovation
-        </h2>
-        <div className="mt-6 grid gap-6 text-sm leading-relaxed md:grid-cols-3">
-          <div>
-            <h3 className="font-medium text-fg">Regulatory Compliance</h3>
-            <p className="mt-2 text-muted">
-              We navigate complex regulatory environments—from GDPR and HIPAA to 
-              SOX and Basel III—ensuring AI solutions meet industry-specific 
-              compliance requirements.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-medium text-fg">Domain Expertise</h3>
-            <p className="mt-2 text-muted">
-              Our consultants bring years of industry experience, understanding 
-              your workflows, terminology, and unique challenges from day one.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-medium text-fg">Best Practice Transfer</h3>
-            <p className="mt-2 text-muted">
-              We leverage insights from across sectors, applying proven approaches 
-              from adjacent industries to accelerate your competitive advantage.
-            </p>
-          </div>
+        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <Logo size="hero" variant="square" />
         </div>
       </section>
 
-      <section className="mt-16 grid gap-8 lg:grid-cols-2">
-        <div className="rounded-xl bg-surface p-8 hairline">
-          <h3 className="text-xl font-semibold">Why Industry Matters</h3>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            Generic AI solutions rarely deliver transformative results. Success 
-            requires understanding your industry's nuances—regulatory constraints, 
-            market dynamics, operational realities, and competitive pressures.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Our teams combine AI expertise with deep vertical knowledge, ensuring 
-            solutions that are not just technically sound, but strategically aligned 
-            with how your industry operates.
-          </p>
+      <section className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-4">
+        {STATS.map((stat) => (
+          <div key={stat.label} className="bg-surface px-5 py-6">
+            <p className="font-display text-3xl font-semibold tracking-tight text-fg tabular-nums sm:text-4xl">
+              {stat.value}
+            </p>
+            <p className="mt-2 text-xs tracking-wide text-muted">{stat.label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-16 grid gap-10 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <Eyebrow>Featured Engagements</Eyebrow>
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+                Global Impact
+              </h2>
+            </div>
+            <Link
+              to="/portfolio"
+              className="hidden items-center gap-1 text-sm text-accent hover:underline sm:inline-flex"
+            >
+              View Full Portfolio
+              <ArrowUpRight className="size-4" />
+            </Link>
+          </div>
+
+          <ul className="mt-6 divide-y divide-line rounded-xl bg-surface hairline">
+            {featured.map((project) => (
+              <li key={project.id} className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-xs text-subtle">
+                      {project.code}
+                    </span>
+                    <h3 className="text-base font-medium">{project.name}</h3>
+                    <Badge variant="live">{project.status}</Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-muted">
+                    {project.sector} · {project.place}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-subtle">
+                    {project.summary}
+                  </p>
+                </div>
+                <p className="text-sm font-medium text-accent sm:max-w-xs sm:text-right">
+                  {project.outcome}
+                </p>
+              </li>
+            ))}
+            {deployment.map((project) => (
+              <li
+                key={project.id}
+                className="flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-mono text-xs text-subtle">
+                      {project.code}
+                    </span>
+                    <h3 className="text-base font-medium">{project.name}</h3>
+                    <Badge>{project.status}</Badge>
+                  </div>
+                  <p className="mt-1 text-sm text-muted">
+                    {project.sector} · {project.place}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-subtle">
+                    {project.summary}
+                  </p>
+                </div>
+                <p className="text-sm font-medium text-accent sm:max-w-xs sm:text-right">
+                  {project.outcome}
+                </p>
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/portfolio"
+            className="mt-4 inline-flex items-center gap-1 text-sm text-accent hover:underline sm:hidden"
+          >
+            View Full Portfolio
+            <ArrowUpRight className="size-4" />
+          </Link>
         </div>
 
-        <div className="rounded-xl bg-surface p-8 hairline">
-          <h3 className="text-xl font-semibold">Beyond These Six</h3>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
-            While we highlight our deepest expertise areas, we've successfully 
-            delivered AI transformations across telecommunications, media, 
-            government, education, and professional services.
-          </p>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            If your industry isn't listed, we welcome the conversation. Our 
-            methodology adapts to any sector's unique requirements.
-          </p>
-          <Button asChild variant="outline" className="mt-6">
-            <Link to="/contact">
-              Discuss Your Sector
+        <div className="lg:col-span-2">
+          <Eyebrow>Enterprise Solutions</Eyebrow>
+          <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+            Our Services
+          </h2>
+          <ul className="mt-6 space-y-3">
+            {SERVICES.slice(0, 6).map((service) => (
+              <li key={service.id}>
+                <Link
+                  to="/services"
+                  hash={service.id}
+                  className="group flex items-center justify-between rounded-lg bg-surface px-4 py-3.5 hairline transition-colors hover:bg-raised"
+                >
+                  <span className="text-sm font-medium">{service.name}</span>
+                  <span className="text-xs text-muted">{service.price}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Button asChild variant="outline" className="mt-6 w-full">
+            <Link to="/services">
+              View All Services
               <ArrowUpRight className="size-4" />
             </Link>
           </Button>
         </div>
       </section>
 
+      <section className="mt-16">
+        <Eyebrow>Our Approach</Eyebrow>
+        <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+          Excellence Through Discipline
+        </h2>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {PRINCIPLES.map((item, i) => (
+            <article
+              key={item.title}
+              className="rounded-xl bg-surface p-6 hairline"
+            >
+              <p className="font-mono text-xs text-accent">0{i + 1}</p>
+              <h3 className="mt-3 text-lg font-medium">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {item.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="mt-16 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 p-8 hairline sm:p-12">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl font-semibold tracking-tight">
-            Industry-Specific Transformation
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            Ready to Transform Your Enterprise?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            Connect with our industry practice leaders to explore how AI can 
-            address your sector's most pressing challenges and opportunities.
+            Schedule a strategic consultation with our AI experts to explore how 
+            intelligent automation and AI can drive measurable outcomes for your organization.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
               <Link to="/contact">
-                Schedule Industry Consultation
+                Start Your Journey
                 <ArrowUpRight className="size-5" />
               </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/portfolio">View Case Studies</Link>
             </Button>
           </div>
         </div>
@@ -160,3 +228,4 @@ function IndustriesPage() {
     </PageFrame>
   );
 }
+

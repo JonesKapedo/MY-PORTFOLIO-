@@ -1,256 +1,202 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Mail, Phone, Globe } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight, Users, Award, Globe, TrendingUp } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
-import { COMPANY } from "@/lib/site";
+import { COMPANY, QUOTE, STATS } from "@/lib/site";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: `Contact Us — ${COMPANY.name}` },
+      { title: `About Us — ${COMPANY.name}` },
       {
         name: "description",
         content:
-          "Connect with our enterprise AI consulting team to discuss your transformation journey. Schedule a strategic consultation or reach out to explore partnership opportunities.",
+          "GREAT TURBINEZ is a global enterprise AI consulting firm delivering transformative solutions to Fortune 500 companies and industry leaders worldwide since 2024.",
       },
     ],
   }),
 });
 
-function ContactPage() {
+function AboutPage() {
   return (
     <PageFrame className="page-enter">
-      <Eyebrow>Get in Touch</Eyebrow>
+      <Eyebrow>About {COMPANY.name}</Eyebrow>
       <h1 className="mt-3 max-w-3xl font-display text-4xl leading-[1.1] font-semibold tracking-tight sm:text-5xl">
-        Let's Transform
+        Building the Intelligent
         <br />
-        Your Enterprise.
+        Enterprise of Tomorrow.
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        Whether you're exploring AI strategy, planning a transformation program, 
-        or seeking ongoing support—our team is ready to partner with you. Schedule 
-        a confidential consultation to discuss your unique challenges and opportunities.
+        Founded in {COMPANY.year}, {COMPANY.name} emerged from a singular vision: 
+        to help organizations harness artificial intelligence not as an experiment, 
+        but as a strategic imperative that drives measurable business outcomes.
       </p>
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-2">
-        <section className="rounded-xl bg-surface p-8 hairline">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            Schedule a Consultation
+      <section className="mt-12 rounded-xl bg-surface p-8 hairline sm:p-10">
+        <blockquote className="border-l-4 border-accent pl-6 italic leading-relaxed text-fg">
+          {QUOTE.text}
+        </blockquote>
+        <p className="mt-4 text-sm font-medium text-subtle">
+          — {QUOTE.attribution}
+        </p>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-3xl font-semibold tracking-tight">
+          Our Story
+        </h2>
+        <div className="mt-6 grid gap-6 text-sm leading-relaxed text-muted md:grid-cols-2">
+          <div className="space-y-4">
+            <p>
+              In an era where artificial intelligence is reshaping every industry, 
+              we saw a critical gap: enterprise organizations needed more than 
+              point solutions or academic research—they needed strategic partners 
+              who could translate AI potential into operational reality.
+            </p>
+            <p>
+              We built {COMPANY.name} on three fundamental principles: deep industry 
+              expertise, rigorous technical excellence, and an unwavering commitment 
+              to measurable business outcomes. Not innovation for innovation's sake, 
+              but transformation that appears on the balance sheet.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <p>
+              Today, we serve Fortune 500 companies and industry leaders across six 
+              continents, delivering AI transformations that range from strategic 
+              roadmaps to full-scale enterprise implementations. Our engagements have 
+              generated billions in value, automated millions of hours, and positioned 
+              our clients at the forefront of their industries.
+            </p>
+            <p>
+              But we measure success not just by technology deployed, but by businesses 
+              transformed, teams empowered, and competitive advantages sustained.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-3xl font-semibold tracking-tight">
+          By the Numbers
+        </h2>
+        <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-4">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="bg-surface px-5 py-6">
+              <p className="font-display text-3xl font-semibold tracking-tight text-fg tabular-nums sm:text-4xl">
+                {stat.value}
+              </p>
+              <p className="mt-2 text-xs tracking-wide text-muted">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="font-display text-3xl font-semibold tracking-tight">
+          What Sets Us Apart
+        </h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-xl bg-surface p-6 hairline">
+            <div className="flex size-12 items-center justify-center rounded-lg bg-accent/10">
+              <Users className="size-6 text-accent" />
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">Elite Team</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Our consultants combine advanced degrees in AI/ML with deep industry 
+              experience, bringing both technical depth and business acumen to 
+              every engagement.
+            </p>
+          </article>
+
+          <article className="rounded-xl bg-surface p-6 hairline">
+            <div className="flex size-12 items-center justify-center rounded-lg bg-accent/10">
+              <Award className="size-6 text-accent" />
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">Proven Methodology</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Our transformation framework has been battle-tested across hundreds 
+              of engagements, de-risking AI adoption while accelerating time to value.
+            </p>
+          </article>
+
+          <article className="rounded-xl bg-surface p-6 hairline">
+            <div className="flex size-12 items-center justify-center rounded-lg bg-accent/10">
+              <Globe className="size-6 text-accent" />
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">Global Scale</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Operating across 28 countries with distributed teams, we deliver 
+              enterprise-grade solutions with seamless coordination across time zones.
+            </p>
+          </article>
+
+          <article className="rounded-xl bg-surface p-6 hairline">
+            <div className="flex size-12 items-center justify-center rounded-lg bg-accent/10">
+              <TrendingUp className="size-6 text-accent" />
+            </div>
+            <h3 className="mt-4 text-lg font-semibold">ROI Focus</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Every initiative begins with clear success metrics and business 
+              outcomes. We don't build technology—we deliver competitive advantage.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="mt-16 rounded-xl bg-raised p-8 hairline sm:p-10">
+        <h2 className="font-display text-2xl font-semibold tracking-tight">
+          Our Commitment to Excellence
+        </h2>
+        <div className="mt-6 grid gap-6 text-sm leading-relaxed md:grid-cols-3">
+          <div>
+            <h3 className="font-medium text-fg">Security & Compliance</h3>
+            <p className="mt-2 text-muted">
+              SOC 2 Type II certified with ISO 27001 compliance. We meet the 
+              stringent security requirements of regulated industries worldwide.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-medium text-fg">Ethical AI</h3>
+            <p className="mt-2 text-muted">
+              Our AI Ethics Board ensures every solution we build prioritizes 
+              fairness, transparency, and accountability—technology that serves humanity.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-medium text-fg">Continuous Innovation</h3>
+            <p className="mt-2 text-muted">
+              We invest 15% of revenue in R&D, ensuring our clients benefit from 
+              cutting-edge AI advances before they become industry standard.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-16 rounded-xl bg-gradient-to-br from-accent/5 to-accent/10 p-8 hairline sm:p-12">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl font-semibold tracking-tight">
+            Partner With Us
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Our enterprise consulting team will work with you to understand your 
-            business objectives, assess opportunities, and design a tailored approach 
-            to AI transformation.
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Join the world's most innovative enterprises in building intelligent 
+            operations that anticipate, adapt, and accelerate.
           </p>
-
-          <form className="mt-8 space-y-6">
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium text-fg"
-                >
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  required
-                  className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium text-fg"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  required
-                  className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-fg"
-              >
-                Business Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="company"
-                className="block text-sm font-medium text-fg"
-              >
-                Company
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                required
-                className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="title"
-                className="block text-sm font-medium text-fg"
-              >
-                Job Title
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="interest"
-                className="block text-sm font-medium text-fg"
-              >
-                Area of Interest
-              </label>
-              <select
-                id="interest"
-                name="interest"
-                className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-              >
-                <option value="">Select a service</option>
-                <option value="strategy">AI Strategy & Roadmap</option>
-                <option value="transformation">Enterprise AI Transformation</option>
-                <option value="intelligent-automation">Intelligent Process Automation</option>
-                <option value="ai-solutions">Custom AI Solutions</option>
-                <option value="data-intelligence">Data & Analytics Intelligence</option>
-                <option value="managed-services">AI Managed Services & Support</option>
-                <option value="general">General Inquiry</option>
-              </select>
-            </div>
-
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-fg"
-              >
-                Tell Us About Your Challenge
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                className="mt-2 w-full rounded-lg bg-raised px-4 py-2.5 text-sm hairline focus:outline-none focus:ring-2 focus:ring-accent"
-                placeholder="Describe your business objectives, current challenges, or specific questions..."
-              />
-            </div>
-
-            <Button type="submit" className="w-full" size="lg">
-              Submit Inquiry
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg">
+              <Link to="/contact">
+                Start a Conversation
+                <ArrowUpRight className="size-5" />
+              </Link>
             </Button>
-
-            <p className="text-xs text-subtle">
-              By submitting this form, you agree to our privacy policy. We'll use 
-              your information solely to respond to your inquiry and explore potential 
-              partnership opportunities.
-            </p>
-          </form>
-        </section>
-
-        <aside className="space-y-6">
-          <section className="rounded-xl bg-surface p-6 hairline">
-            <h3 className="text-lg font-semibold">Global Presence</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              {COMPANY.name} serves enterprise clients across North America, Europe, 
-              Asia-Pacific, and the Middle East. Our distributed teams deliver 
-              seamless support across time zones.
-            </p>
-            <div className="mt-6 space-y-4">
-              <div className="flex items-start gap-3">
-                <Globe className="mt-0.5 size-5 shrink-0 text-accent" />
-                <div>
-                  <p className="text-sm font-medium">Headquarters</p>
-                  <p className="mt-1 text-sm text-muted">{COMPANY.headquarters}</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Mail className="mt-0.5 size-5 shrink-0 text-accent" />
-                <div>
-                  <p className="text-sm font-medium">Enterprise Sales</p>
-                  <a
-                    href={`mailto:${COMPANY.salesEmail}`}
-                    className="mt-1 block text-sm text-accent hover:underline"
-                  >
-                    {COMPANY.salesEmail}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-5 shrink-0 text-accent" />
-                <div>
-                  <p className="text-sm font-medium">Phone</p>
-                  <p className="mt-1 text-sm text-muted">{COMPANY.phone}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="rounded-xl bg-surface p-6 hairline">
-            <h3 className="text-lg font-semibold">What to Expect</h3>
-            <ul className="mt-4 space-y-3 text-sm text-muted">
-              <li className="flex gap-2">
-                <span className="text-accent">→</span>
-                <span>Response within 24 business hours</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-accent">→</span>
-                <span>Initial discovery call (30-45 minutes)</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-accent">→</span>
-                <span>Tailored proposal and engagement plan</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-accent">→</span>
-                <span>Transparent pricing and timeline</span>
-              </li>
-            </ul>
-          </section>
-
-          <section className="rounded-xl bg-surface p-6 hairline">
-            <h3 className="text-lg font-semibold">Existing Clients</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              For support inquiries, system issues, or account management, please 
-              contact your dedicated account team or reach out to:
-            </p>
-            <a
-              href={`mailto:${COMPANY.supportEmail}`}
-              className="mt-3 block text-sm font-medium text-accent hover:underline"
-            >
-              {COMPANY.supportEmail}
-            </a>
-          </section>
-        </aside>
-      </div>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/portfolio">Our Work</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </PageFrame>
   );
 }
+
