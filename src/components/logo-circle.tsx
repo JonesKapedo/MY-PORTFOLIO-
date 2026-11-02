@@ -11,14 +11,14 @@ export function LogoCircle() {
       to="/company"
       aria-label={`${COMPANY.name} — company details`}
       className={cn(
-        "gt-logo-circle fixed top-3 right-3 z-50 flex size-11 items-center justify-center overflow-hidden rounded-full bg-raised md:top-5 md:right-5 md:size-14",
+        "gt-logo-circle fixed top-3 right-3 z-50 flex size-11 items-center justify-center overflow-hidden rounded-full bg-canvas md:top-5 md:right-5 md:size-14",
         active && "ring-2 ring-accent",
       )}
     >
       <img
-        src={COMPANY.logoSrc}
+        src="/brand-mark.svg"
         alt=""
-        className="size-full object-cover object-center"
+        className="size-full object-cover"
       />
     </Link>
   );
