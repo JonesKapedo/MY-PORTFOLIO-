@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { ServiceCover } from "@/components/service-cover";
 import { Button } from "@/components/ui/button";
 import {
   COMPANY,
@@ -56,22 +57,26 @@ function ServiceDetailPage() {
         <Link to="/services" className="text-xs text-muted hover:text-accent">
           ← Services
         </Link>
+        <ServiceCover
+          id={service.id}
+          name={service.name}
+          size="hero"
+          className="mt-2 rounded-lg"
+        />
         <Eyebrow>Service</Eyebrow>
         <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
           {service.name}
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-muted">{service.outcome}</p>
-        <p className="mt-1 max-w-xl text-xs text-subtle">{service.blurb}</p>
         <p className="mt-2 text-xs text-muted">
-          Typical window:{" "}
-          <span className="text-fg">{service.timeframe}</span>
+          Typical window: <span className="text-fg">{service.timeframe}</span>
           {" — "}
           {service.timeframeNote}
         </p>
       </div>
 
-      <div className="grid min-h-0 flex-1 gap-3 overflow-hidden lg:grid-cols-2">
-        <section className="min-h-0 overflow-hidden">
+      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-2">
+        <section>
           <h2 className="text-[10px] font-medium tracking-widest text-accent uppercase">
             How it is delivered
           </h2>
@@ -93,7 +98,7 @@ function ServiceDetailPage() {
           </ol>
         </section>
 
-        <div className="grid min-h-0 content-start gap-3 overflow-hidden sm:grid-cols-2">
+        <div className="grid content-start gap-3 sm:grid-cols-2">
           <div className="rounded-lg bg-surface p-3 hairline">
             <h2 className="text-[10px] tracking-widest text-accent uppercase">
               Usually includes
@@ -143,9 +148,7 @@ function ServiceDetailPage() {
             <p className="text-[10px] tracking-widest text-subtle uppercase">
               Starting charge
             </p>
-            <p className="mt-0.5 text-xl font-medium text-accent">
-              {service.price}
-            </p>
+            <p className="mt-0.5 text-xl font-medium text-accent">{service.price}</p>
             <p className="text-[11px] text-subtle">{service.unit}</p>
             <p className="mt-1 max-w-md text-[11px] text-muted">{PRICE_NOTE}</p>
             <p className="mt-0.5 text-[11px] text-accent">{DEPOSIT_NOTE}</p>
