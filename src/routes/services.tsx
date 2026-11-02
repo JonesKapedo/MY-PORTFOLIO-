@@ -15,12 +15,17 @@ export const Route = createFileRoute("/services")({
       { title: `Services — ${COMPANY.name}` },
       {
         name: "description",
-        content: `${SERVICES.length} named automation services with visuals. Open any card for delivery and scope.`,
+        content:
+          "Named automation services with visuals. Open any card for delivery, scope, and next step.",
       },
     ],
   }),
 });
 
+/**
+ * TanStack nests `services.$slug` under `services`.
+ * Without <Outlet />, /services/:slug keeps showing this index.
+ */
 function ServicesPage() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isDetail =
@@ -38,13 +43,13 @@ function ServicesPage() {
           Named work.
         </h1>
         <p className="mt-1 max-w-lg text-xs text-muted">
-          Every service has a cover, outcome, and includes. Open for the full
-          path — charges only on the detail page.
+          Each service has a visual, outcome, and path. Open a card for the
+          full detail.
         </p>
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1">
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => (
             <Link
               key={s.id}
@@ -52,20 +57,17 @@ function ServicesPage() {
               params={{ slug: s.id }}
               className="card-lift group flex flex-col overflow-hidden rounded-lg bg-surface hairline"
             >
-              <ServiceCover id={s.id} className="rounded-none rounded-t-lg" />
+              <ServiceCover
+                id={s.id}
+                name={s.name}
+                className="rounded-none"
+              />
               <div className="flex flex-1 flex-col p-3">
-                <h2 className="text-sm font-semibold tracking-tight group-hover:text-accent">
+                <h2 className="text-sm font-semibold tracking-tight group-hover:text-accent sm:text-base">
                   {s.name}
                 </h2>
-                <p className="mt-1 text-[11px] leading-snug text-muted">{s.blurb}</p>
+                <p className="mt-1 line-clamp-2 text-xs text-muted">{s.blurb}</p>
                 <p className="mt-1.5 line-clamp-2 text-xs text-fg/90">{s.outcome}</p>
-                <ul className="mt-2 space-y-0.5 text-[10px] text-subtle">
-                  {s.includes.slice(0, 2).map((item) => (
-                    <li key={item} className="line-clamp-1">
-                      · {item}
-                    </li>
-                  ))}
-                </ul>
                 <div className="mt-auto flex items-center justify-between pt-2">
                   <span className="text-[10px] text-subtle">{s.timeframe}</span>
                   <span className="text-[10px] font-medium tracking-wide text-accent uppercase">

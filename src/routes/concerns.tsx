@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { COMPANY, CONCERNS, getService } from "@/lib/site";
 
@@ -16,7 +16,19 @@ export const Route = createFileRoute("/concerns")({
   }),
 });
 
+/**
+ * TanStack nests `concerns.$slug` under `concerns`.
+ * Without <Outlet />, /concerns/:slug keeps showing this index.
+ */
 function ConcernsPage() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isDetail =
+    pathname.startsWith("/concerns/") && pathname !== "/concerns";
+
+  if (isDetail) {
+    return <Outlet />;
+  }
+
   return (
     <PageFrame className="page-enter gap-3">
       <div className="shrink-0">
