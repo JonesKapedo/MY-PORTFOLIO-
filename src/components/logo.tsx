@@ -1,3 +1,4 @@
+import { COMPANY } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const SIZE = {
@@ -12,24 +13,32 @@ type LogoProps = {
   size?: keyof typeof SIZE;
   className?: string;
   alt?: string;
-  variant?: "square" | "banner";
+  /** square = crop circle-friendly; full = taller portrait */
+  variant?: "square" | "full";
 };
 
 export function Logo({
   size = "lg",
   className,
-  alt = "Great Turbinez - AI & Automation",
+  alt = `${COMPANY.name} — ${COMPANY.subtitle}`,
   variant = "square",
 }: LogoProps) {
   const imageSrc =
-    variant === "banner" ? "/logo-banner.jpg" : "/logo-square.jpg";
+    variant === "full" ? COMPANY.logoFullSrc : COMPANY.logoSrc;
 
   return (
-    <div className={cn("relative", SIZE[size], className)}>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-full bg-raised shadow-[var(--shadow-logo)]",
+        SIZE[size],
+        "aspect-square w-auto",
+        className,
+      )}
+    >
       <img
         src={imageSrc}
         alt={alt}
-        className="h-full w-auto max-w-full object-contain"
+        className="size-full object-cover object-center"
       />
     </div>
   );

@@ -16,9 +16,9 @@ export function LogoCircle() {
       )}
     >
       <img
-        src="/logo-square.jpg"
+        src={COMPANY.logoSrc}
         alt=""
-        className="size-full object-cover"
+        className="size-full object-cover object-center"
       />
     </Link>
   );

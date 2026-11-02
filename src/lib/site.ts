@@ -11,6 +11,9 @@ export const COMPANY = {
   phone: "+254745494787",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
+  /** Profile / brand mark shipped in public/ (used site-wide as logo). */
+  logoSrc: "/portrait.jpg",
+  logoFullSrc: "/portrait-full.jpg",
 } as const;
 
 export type ServiceId =
@@ -475,8 +478,8 @@ export const PROJECTS: Project[] = [
     name: "Olkaria Pulse",
     sector: "Energy",
     place: "Hell's Gate",
-    summary: "Operational signals for fewer unplanned halts on scoped units.",
-    outcome: "Fewer unplanned halts on two units",
+    summary: "Operational signals for fewer unplannedhalts on scoped units.",
+    outcome: "Fewer unplannedhalts on two units",
     status: "In build",
   },
 ];
