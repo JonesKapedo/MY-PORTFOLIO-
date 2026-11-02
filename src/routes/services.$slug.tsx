@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { ServiceCover } from "@/components/service-cover";
 import { Button } from "@/components/ui/button";
 import {
   COMPANY,
@@ -56,12 +57,17 @@ function ServiceDetailPage() {
         <Link to="/services" className="text-xs text-muted hover:text-accent">
           ← Services
         </Link>
+        <ServiceCover
+          id={service.id}
+          name={service.name}
+          size="hero"
+          className="mt-2 rounded-lg"
+        />
         <Eyebrow>Service</Eyebrow>
         <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
           {service.name}
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-muted">{service.outcome}</p>
-        <p className="mt-1 max-w-xl text-xs text-subtle">{service.blurb}</p>
         <p className="mt-2 text-xs text-muted">
           Typical window: <span className="text-fg">{service.timeframe}</span>
           {" — "}
@@ -93,31 +99,46 @@ function ServiceDetailPage() {
         </section>
 
         <div className="grid content-start gap-3 sm:grid-cols-2">
-          {(
-            [
-              ["Usually includes", service.includes, "accent"] as const,
-              ["Outside scope", service.excludes, "subtle"] as const,
-              ["You provide", service.youProvide, "accent"] as const,
-              ["After handoff", service.afterHandoff, "subtle"] as const,
-            ] as const
-          ).map(([title, items, tone]) => (
-            <div key={title} className="rounded-lg bg-surface p-3 hairline">
-              <h2
-                className={
-                  tone === "accent"
-                    ? "text-[10px] tracking-widest text-accent uppercase"
-                    : "text-[10px] tracking-widest text-subtle uppercase"
-                }
-              >
-                {title}
-              </h2>
-              <ul className="mt-1.5 space-y-1 text-xs text-muted">
-                {items.map((item) => (
-                  <li key={item}>· {item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="rounded-lg bg-surface p-3 hairline">
+            <h2 className="text-[10px] tracking-widest text-accent uppercase">
+              Usually includes
+            </h2>
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
+              {service.includes.map((item) => (
+                <li key={item}>· {item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-lg bg-surface p-3 hairline">
+            <h2 className="text-[10px] tracking-widest text-subtle uppercase">
+              Outside scope
+            </h2>
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
+              {service.excludes.map((item) => (
+                <li key={item}>· {item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-lg bg-surface p-3 hairline">
+            <h2 className="text-[10px] tracking-widest text-accent uppercase">
+              You provide
+            </h2>
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
+              {service.youProvide.map((item) => (
+                <li key={item}>· {item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-lg bg-surface p-3 hairline">
+            <h2 className="text-[10px] tracking-widest text-subtle uppercase">
+              After handoff
+            </h2>
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
+              {service.afterHandoff.map((item) => (
+                <li key={item}>· {item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
