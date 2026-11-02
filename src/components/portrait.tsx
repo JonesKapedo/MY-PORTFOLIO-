@@ -1,12 +1,12 @@
-import { COMPANY } from "@/lib/site";
+import { BrandMark } from "@/components/brand-mark";
 import { cn } from "@/lib/utils";
 
 const SIZE = {
-  sm: "size-14",
-  md: "size-28",
-  lg: "size-44 sm:size-56",
-  xl: "size-52 sm:size-64 md:size-72",
-  hero: "size-56 sm:size-72 md:size-80",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
+  hero: "hero",
 } as const;
 
 type PortraitProps = {
@@ -15,23 +15,12 @@ type PortraitProps = {
   alt?: string;
 };
 
-export function Portrait({
-  size = "lg",
-  className,
-  alt = `${COMPANY.name}`,
-}: PortraitProps) {
+/** Legacy name kept for imports — renders brand mark, not a person. */
+export function Portrait({ size = "lg", className }: PortraitProps) {
   return (
-    <div className={cn("relative shrink-0 rounded-full", SIZE[size], className)}>
-      <div className="absolute -inset-1 rounded-full bg-accent/25" aria-hidden />
-      <div className="portrait-ring absolute inset-0 overflow-hidden rounded-full">
-        <img
-          src={COMPANY.logoSrc}
-          alt={alt}
-          width={800}
-          height={800}
-          className="size-full object-cover object-center"
-        />
-      </div>
-    </div>
+    <BrandMark
+      size={SIZE[size]}
+      className={cn("rounded-full", className)}
+    />
   );
 }
