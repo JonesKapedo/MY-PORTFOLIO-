@@ -1,3 +1,4 @@
+import { COMPANY } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const SIZE = {
@@ -17,14 +18,14 @@ type PortraitProps = {
 export function Portrait({
   size = "lg",
   className,
-  alt = "Principal of GREAT TURBINEZ",
+  alt = `${COMPANY.name}`,
 }: PortraitProps) {
   return (
     <div className={cn("relative shrink-0 rounded-full", SIZE[size], className)}>
       <div className="absolute -inset-1 rounded-full bg-accent/25" aria-hidden />
       <div className="portrait-ring absolute inset-0 overflow-hidden rounded-full">
         <img
-          src="/portrait.jpg"
+          src={COMPANY.logoSrc}
           alt={alt}
           width={800}
           height={800}
