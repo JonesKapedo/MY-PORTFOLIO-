@@ -1,302 +1,516 @@
 export const COMPANY = {
   name: "GREAT TURBINEZ",
-  tagline: "Enterprise AI Transformation & Intelligent Automation",
-  city: "Global",
-  country: "Worldwide",
-  location: "Global Operations",
-  headquarters: "United States",
-  regions: ["North America", "Europe", "Asia-Pacific", "Middle East"],
+  subtitle: "Automation Services",
+  tagline: "Automation Services",
+  city: "Naivasha",
+  country: "Kenya",
+  location: "Naivasha, Kenya",
   email: "enterprise@greatturbinez.com",
   salesEmail: "sales@greatturbinez.com",
   supportEmail: "support@greatturbinez.com",
   phone: "+254745494787",
-  year: 2024,
-} as const;
-
-export const QUOTE = {
-  text: "In an era defined by exponential technological advancement, organizations face a critical choice: evolve or be left behind. Artificial intelligence is not the future—it is the present competitive advantage. We partner with visionary leaders to architect intelligent enterprises that anticipate, adapt, and accelerate.",
-  attribution: "GREAT TURBINEZ",
+  year: new Date().getFullYear(),
+  responseSla: "within two business days",
 } as const;
 
 export type ServiceId =
-  | "strategy"
-  | "transformation"
-  | "intelligent-automation"
-  | "ai-solutions"
-  | "data-intelligence"
-  | "managed-services";
+  | "discovery"
+  | "websites"
+  | "chatbots"
+  | "automation"
+  | "documents"
+  | "ai-knowledge"
+  | "dashboards";
 
 export type Service = {
   id: ServiceId;
   name: string;
   blurb: string;
+  outcome: string;
   includes: string[];
+  excludes: string[];
   price: string;
   unit: string;
-  note?: string;
 };
 
 export const SERVICES: Service[] = [
   {
-    id: "strategy",
-    name: "AI Strategy & Roadmap",
-    blurb:
-      "Executive-level strategic consulting to define your AI vision, identify high-impact opportunities, and create a 12-36 month transformation roadmap aligned with business objectives.",
+    id: "discovery",
+    name: "Discovery",
+    blurb: "Map the pain. Leave with a clear next build.",
+    outcome: "Know what to fix first — and what it should cost.",
     includes: [
-      "C-suite workshops and stakeholder alignment",
-      "AI maturity assessment and gap analysis",
-      "Use case prioritization and ROI modeling",
-      "Technology stack recommendations",
-      "Governance framework and risk mitigation",
-      "Executive presentation and board materials",
+      "Process interviews and shadowing",
+      "Systems and handoff inventory",
+      "Ranked opportunities",
+      "Recommended build and estimate",
     ],
-    price: "from $85,000",
-    unit: "per engagement",
+    excludes: ["Full system build", "Ongoing operations support"],
+    price: "KES 55,000",
+    unit: "fixed",
   },
   {
-    id: "transformation",
-    name: "Enterprise AI Transformation",
-    blurb:
-      "End-to-end transformation programs that embed AI and automation across your organization—from pilot to production at scale, with change management and center of excellence establishment.",
+    id: "websites",
+    name: "Websites & web apps",
+    blurb: "Sites and simple browser tools that take real requests.",
+    outcome: "A presence that converts enquiries into work.",
     includes: [
-      "Full-cycle implementation (6-18 months)",
-      "Cross-functional team enablement",
-      "Pilot design, testing, and scaling",
-      "Integration with existing enterprise systems",
-      "Change management and adoption strategy",
-      "Performance metrics and continuous optimization",
+      "Design and build for the agreed pages or flows",
+      "Mobile-ready layout",
+      "Enquiry or intake path",
+      "Handover and basic training",
     ],
-    price: "from $450,000",
-    unit: "per program",
+    excludes: ["Complex multi-tenant ERP", "Ongoing content marketing"],
+    price: "From KES 120,000",
+    unit: "per site or app",
   },
   {
-    id: "intelligent-automation",
-    name: "Intelligent Process Automation",
-    blurb:
-      "Reimagine mission-critical workflows with AI-powered automation—eliminating manual bottlenecks, reducing errors, and freeing your teams to focus on strategic work that drives growth.",
+    id: "chatbots",
+    name: "Chatbots & WhatsApp helpers",
+    blurb: "Repeat questions handled. A person when it matters.",
+    outcome: "Fewer loops in chat. Clear handoff to a human.",
     includes: [
-      "Process mining and optimization analysis",
-      "Intelligent document processing (IDP)",
-      "RPA with AI/ML decision engines",
-      "API and system integration architecture",
-      "Exception handling and human-in-the-loop",
-      "90-day hypercare and performance tuning",
+      "Scripted or knowledge-based replies",
+      "Channel setup (web and/or WhatsApp where scoped)",
+      "Human handoff rules",
+      "Tuning window after go-live",
     ],
-    price: "from $120,000",
-    unit: "per process domain",
+    excludes: ["Fully autonomous support with no escape path"],
+    price: "From KES 95,000",
+    unit: "per assistant",
   },
   {
-    id: "ai-solutions",
-    name: "Custom AI Solutions",
-    blurb:
-      "Bespoke AI applications tailored to your unique business challenges—conversational AI, predictive analytics, computer vision, NLP systems, and proprietary models trained on your data.",
+    id: "automation",
+    name: "Work automation",
+    blurb: "One repeated process taken off manual copy-paste.",
+    outcome: "The boring path runs without constant retyping.",
     includes: [
-      "Requirements discovery and solution design",
-      "Custom model development and training",
-      "Secure data pipeline architecture",
-      "Multi-channel deployment (web, mobile, APIs)",
-      "Model monitoring and drift detection",
-      "Ongoing model retraining and updates",
+      "Scoped process design",
+      "Build and integration into tools you already use",
+      "Exception handling",
+      "Operator handover",
     ],
-    price: "from $200,000",
-    unit: "per solution",
+    excludes: ["Open-ended change requests without re-quote"],
+    price: "From KES 110,000",
+    unit: "per process",
   },
   {
-    id: "data-intelligence",
-    name: "Data & Analytics Intelligence",
-    blurb:
-      "Transform raw data into strategic intelligence—real-time dashboards, predictive insights, and AI-driven analytics platforms that empower decision-makers at every level of your organization.",
+    id: "documents",
+    name: "Documents & paperwork",
+    blurb: "Key fields out of forms and PDFs into structured data.",
+    outcome: "Less retyping. Cleaner records.",
     includes: [
-      "Data architecture and governance design",
-      "Advanced analytics and predictive modeling",
-      "Executive dashboards and KPI frameworks",
-      "Natural language query interfaces",
-      "Automated reporting and alerting",
-      "Data quality monitoring and remediation",
+      "One document type in scope",
+      "Extraction and basic checks",
+      "Posting to sheet or system as agreed",
+      "Handover",
     ],
-    price: "from $150,000",
-    unit: "per platform",
+    excludes: ["Full legal archive products"],
+    price: "From KES 100,000",
+    unit: "per document type",
   },
   {
-    id: "managed-services",
-    name: "AI Managed Services & Support",
-    blurb:
-      "24/7 monitoring, maintenance, and evolution of your AI systems—ensuring reliability, security, and continuous improvement while you focus on leveraging intelligence for competitive advantage.",
+    id: "ai-knowledge",
+    name: "AI on your information",
+    blurb: "Answers from your docs, rules, and tone.",
+    outcome: "Staff and clients get consistent answers from your material.",
     includes: [
-      "Dedicated account team and SLA",
-      "Proactive system monitoring and incident response",
-      "Security patching and compliance updates",
-      "Performance optimization and cost management",
-      "Quarterly innovation reviews and enhancements",
-      "Executive business reviews and reporting",
+      "Knowledge setup and guardrails",
+      "Deployment on the agreed channel",
+      "Human escalation path",
+      "Tuning after go-live",
     ],
-    price: "from $25,000",
-    unit: "per month",
+    excludes: ["Generic chatbots with no boundary on your data"],
+    price: "From KES 150,000",
+    unit: "per assistant",
+  },
+  {
+    id: "dashboards",
+    name: "Dashboards & reports",
+    blurb: "One live view or scheduled snapshot.",
+    outcome: "Numbers when you need them — not only at month-end.",
+    includes: [
+      "Data sources in scope",
+      "One primary view or scheduled report",
+      "Access for agreed roles",
+      "Handover",
+    ],
+    excludes: ["Enterprise BI suite replacements"],
+    price: "From KES 85,000",
+    unit: "per dashboard",
   },
 ];
 
-export type ProjectCategory = "Transformation" | "Automation" | "AI Solutions" | "Data Intelligence";
+export function getService(id: string): Service | undefined {
+  return SERVICES.find((s) => s.id === id);
+}
+
+export type Concern = {
+  slug: string;
+  title: string;
+  teaser: string;
+  serviceId: ServiceId;
+  situation: string[];
+  fixedLooksLike: string[];
+  includes: string[];
+  excludes: string[];
+};
+
+export const CONCERNS: Concern[] = [
+  {
+    slug: "whatsapp-same-questions",
+    title: "Customers ask the same things on WhatsApp",
+    teaser: "Every day, the same replies. The queue never clears.",
+    serviceId: "chatbots",
+    situation: [
+      "Your team spends hours answering the same questions about hours, prices, status, and next steps.",
+      "Messages pile up. Good enquiries wait behind repeat traffic.",
+    ],
+    fixedLooksLike: [
+      "Common questions get a consistent answer fast.",
+      "Hard cases still reach a person — with context.",
+    ],
+    includes: [
+      "Mapped FAQs and escalation rules",
+      "Helper on the agreed channel",
+      "Handoff to a human when confidence is low",
+    ],
+    excludes: ["Removing human support entirely"],
+  },
+  {
+    slug: "enquiries-die-in-chat",
+    title: "Enquiries die in chat and never become jobs",
+    teaser: "Interest shows up. Follow-through does not.",
+    serviceId: "chatbots",
+    situation: [
+      "People message, then disappear into unread threads.",
+      "No structured capture means no pipeline — only noise.",
+    ],
+    fixedLooksLike: [
+      "Enquiries are captured, tagged, and routed.",
+      "Someone owns the next step every time.",
+    ],
+    includes: [
+      "Intake flow in chat or web",
+      "Routing rules",
+      "Basic logging for follow-up",
+    ],
+    excludes: ["Full CRM product rebuild"],
+  },
+  {
+    slug: "website-does-not-convert",
+    title: "Our website doesn’t convert or take requests properly",
+    teaser: "Traffic without a clear path to work.",
+    serviceId: "websites",
+    situation: [
+      "The site looks fine but does not collect the right signal.",
+      "Visitors leave without a brief, booking, or call path.",
+    ],
+    fixedLooksLike: [
+      "Clear offer. Clear action.",
+      "Requests land where your team can act.",
+    ],
+    includes: [
+      "Focused pages and messaging",
+      "Working enquiry or intake path",
+      "Mobile-ready layout",
+    ],
+    excludes: ["Ongoing SEO retainers unless scoped separately"],
+  },
+  {
+    slug: "simple-portal",
+    title: "We need a simple portal for clients or staff",
+    teaser: "One place to log in, see status, or submit work.",
+    serviceId: "websites",
+    situation: [
+      "Files and updates live in chat, email, and personal drives.",
+      "Clients and staff ask for the same status repeatedly.",
+    ],
+    fixedLooksLike: [
+      "A browser tool for the agreed roles and flows.",
+      "Less chasing across channels.",
+    ],
+    includes: [
+      "Scoped screens and roles",
+      "Auth as agreed",
+      "Core flows only — not a full ERP",
+    ],
+    excludes: ["Enterprise multi-tenant platforms on day one"],
+  },
+  {
+    slug: "retype-data-daily",
+    title: "The team retypes the same data every day",
+    teaser: "Copy-paste between tools is the real job.",
+    serviceId: "automation",
+    situation: [
+      "The same fields move from form to sheet to system by hand.",
+      "Errors grow with volume. Morale does not.",
+    ],
+    fixedLooksLike: [
+      "One path runs end-to-end with fewer touches.",
+      "Exceptions surface instead of hiding in spreadsheets.",
+    ],
+    includes: [
+      "One process in scope",
+      "Integration into tools you already use",
+      "Exception handling",
+    ],
+    excludes: ["Automating every process in the organisation at once"],
+  },
+  {
+    slug: "approvals-in-one-inbox",
+    title: "Approvals wait in one inbox",
+    teaser: "Everything stalls on a single person.",
+    serviceId: "automation",
+    situation: [
+      "Requests sit unread. Work waits.",
+      "There is no clear trail of who approved what.",
+    ],
+    fixedLooksLike: [
+      "Approvals route with a record.",
+      "Reminders and escalation when time runs out.",
+    ],
+    includes: [
+      "Approval path design",
+      "Notifications and logging",
+      "Operator handover",
+    ],
+    excludes: ["Full policy engine for every department"],
+  },
+  {
+    slug: "invoices-pile-up",
+    title: "Invoices and forms pile up unprocessed",
+    teaser: "Paper and PDFs outrun the team.",
+    serviceId: "documents",
+    situation: [
+      "Documents arrive faster than they can be keyed in.",
+      "The binder is still the system of record.",
+    ],
+    fixedLooksLike: [
+      "Key fields land in a sheet or system.",
+      "Less retyping for one agreed document type.",
+    ],
+    includes: [
+      "One document type",
+      "Extraction and basic checks",
+      "Structured output",
+    ],
+    excludes: ["Digitising every archive in the building"],
+  },
+  {
+    slug: "notes-never-reach-sheet",
+    title: "Delivery notes and IDs never reach the spreadsheet",
+    teaser: "Field paper stops at the desk.",
+    serviceId: "documents",
+    situation: [
+      "Proof and IDs exist — but not where finance or ops can use them.",
+      "Chasing scans becomes a second job.",
+    ],
+    fixedLooksLike: [
+      "Capture path into structured storage.",
+      "Fewer missing rows at month-end.",
+    ],
+    includes: [
+      "Agreed document types",
+      "Capture and extract flow",
+      "Destination sheet or system",
+    ],
+    excludes: ["Hardware rollout beyond software scope"],
+  },
+  {
+    slug: "cant-find-price-list",
+    title: "Nobody can find the latest price list or SOP",
+    teaser: "The truth lives in someone’s phone.",
+    serviceId: "ai-knowledge",
+    situation: [
+      "Versions multiply. Staff guess.",
+      "Customers get inconsistent answers.",
+    ],
+    fixedLooksLike: [
+      "Answers drawn from the documents you approve.",
+      "Clear limits — and a path to a person.",
+    ],
+    includes: [
+      "Knowledge set-up from your materials",
+      "Guardrails and escalation",
+      "Agreed channel",
+    ],
+    excludes: ["Training on data you do not own or control"],
+  },
+  {
+    slug: "new-staff-same-questions",
+    title: "New staff ask the same internal questions for weeks",
+    teaser: "Onboarding is a loop of interruptions.",
+    serviceId: "ai-knowledge",
+    situation: [
+      "Every hire restarts the same FAQ with the team.",
+      "SOPs exist but are not used in the moment.",
+    ],
+    fixedLooksLike: [
+      "First answers come from approved material.",
+      "Managers handle exceptions, not every basics question.",
+    ],
+    includes: [
+      "Internal knowledge assistant",
+      "Handoff to a person",
+      "Tuning period",
+    ],
+    excludes: ["Full LMS or HRIS replacement"],
+  },
+  {
+    slug: "numbers-at-month-end",
+    title: "We only see the real numbers at month-end",
+    teaser: "Decisions wait for the close.",
+    serviceId: "dashboards",
+    situation: [
+      "Data exists in fragments across files and tools.",
+      "Leaders operate on lag and instinct.",
+    ],
+    fixedLooksLike: [
+      "One agreed view, updated on a useful rhythm.",
+      "Less spreadsheet archaeology.",
+    ],
+    includes: [
+      "Scoped data sources",
+      "One primary dashboard or report",
+      "Access for agreed roles",
+    ],
+    excludes: ["Company-wide data warehouse programmes"],
+  },
+  {
+    slug: "one-daily-snapshot",
+    title: "Managers want one daily snapshot, not five files",
+    teaser: "Morning starts with hunting, not deciding.",
+    serviceId: "dashboards",
+    situation: [
+      "Status is scattered across chats and workbooks.",
+      "Nobody trusts a single source before noon.",
+    ],
+    fixedLooksLike: [
+      "One snapshot. One place. Daily when scoped.",
+      "Managers open a view, not a scavenger hunt.",
+    ],
+    includes: [
+      "Daily or scheduled report design",
+      "Key metrics only",
+      "Delivery path agreed in scope",
+    ],
+    excludes: ["Real-time telemetry for every machine on day one"],
+  },
+  {
+    slug: "dont-know-what-to-fix",
+    title: "We know it hurts; we don’t know what to fix first",
+    teaser: "Pain is clear. Priority is not.",
+    serviceId: "discovery",
+    situation: [
+      "Everything feels urgent. Budget is finite.",
+      "Building the wrong thing first wastes months.",
+    ],
+    fixedLooksLike: [
+      "A ranked view of what to automate.",
+      "A clear recommendation and estimate for the first build.",
+    ],
+    includes: [
+      "On-the-ground mapping",
+      "Opportunity ranking",
+      "Written recommendation",
+    ],
+    excludes: ["Free open-ended consulting without a brief"],
+  },
+];
+
+export function getConcern(slug: string): Concern | undefined {
+  return CONCERNS.find((c) => c.slug === slug);
+}
+
+export function concernsForService(serviceId: ServiceId): Concern[] {
+  return CONCERNS.filter((c) => c.serviceId === serviceId);
+}
 
 export type Project = {
   id: string;
   code: string;
   name: string;
-  category: ProjectCategory;
   sector: string;
   place: string;
   summary: string;
   outcome: string;
-  year: string;
-  status: "Live" | "In Deployment" | "Completed";
+  status: "Live" | "In build" | "Sample";
 };
 
 export const PROJECTS: Project[] = [
   {
-    id: "global-bank-transformation",
+    id: "bloomline",
     code: "01",
-    name: "Global Banking AI Transformation",
-    category: "Transformation",
-    sector: "Financial Services",
-    place: "United States & Europe",
-    summary:
-      "Enterprise-wide AI transformation for a multinational bank with $200B+ in assets—intelligent document processing, fraud detection, and AI-powered customer service across 12 countries.",
-    outcome: "68% reduction in processing time, $42M annual savings",
-    year: "2024-2025",
+    name: "Bloomline Forecast",
+    sector: "Floriculture",
+    place: "Naivasha",
+    summary: "Demand and waste visibility for a grower operation.",
+    outcome: "Less wastage in the first season",
     status: "Live",
   },
   {
-    id: "healthcare-automation",
+    id: "lodgeflow",
     code: "02",
-    name: "Clinical Operations Automation",
-    category: "Automation",
-    sector: "Healthcare",
-    place: "North America",
-    summary:
-      "End-to-end intelligent automation for a healthcare network serving 4M+ patients—claims processing, prior authorization, clinical documentation, and care coordination workflows.",
-    outcome: "Claims cycle time reduced from 14 to 3 days",
-    year: "2025",
+    name: "Lodgeflow",
+    sector: "Hospitality",
+    place: "Rift Valley",
+    summary: "Night desk load reduced through structured intake and routing.",
+    outcome: "Night desk reduced to on-call",
     status: "Live",
   },
   {
-    id: "manufacturing-predictive",
+    id: "ledgerwind",
     code: "03",
-    name: "Predictive Maintenance Platform",
-    category: "AI Solutions",
-    sector: "Manufacturing",
-    place: "Asia-Pacific",
-    summary:
-      "AI-driven predictive maintenance system for a global automotive manufacturer—computer vision, IoT sensor fusion, and ML models preventing equipment failures across 23 facilities.",
-    outcome: "87% reduction in unplanned downtime",
-    year: "2024",
-    status: "Completed",
-  },
-  {
-    id: "retail-intelligence",
-    code: "04",
-    name: "Omnichannel Intelligence Suite",
-    category: "Data Intelligence",
-    sector: "Retail",
-    place: "Global",
-    summary:
-      "Real-time analytics and AI forecasting platform for a Fortune 500 retailer—demand prediction, dynamic pricing, inventory optimization, and personalized customer experiences.",
-    outcome: "23% improvement in inventory turnover, $180M revenue lift",
-    year: "2025",
+    name: "Ledgerwind",
+    sector: "Finance ops",
+    place: "Nakuru–Naivasha",
+    summary: "Month-end close path tightened with clearer handoffs.",
+    outcome: "Month-end six days faster",
     status: "Live",
   },
   {
-    id: "energy-optimization",
-    code: "05",
-    name: "Energy Grid Optimization",
-    category: "AI Solutions",
-    sector: "Energy & Utilities",
-    place: "Europe & Middle East",
-    summary:
-      "AI-powered grid management and demand forecasting for renewable energy providers—optimizing distribution, predicting consumption patterns, and reducing energy waste.",
-    outcome: "31% improvement in grid efficiency",
-    year: "2025-2026",
-    status: "In Deployment",
-  },
-  {
-    id: "logistics-network",
-    code: "06",
-    name: "Intelligent Logistics Network",
-    category: "Automation",
-    sector: "Logistics & Supply Chain",
-    place: "Worldwide",
-    summary:
-      "AI-orchestrated supply chain platform for a global logistics provider—route optimization, warehouse automation, predictive shipping, and real-time visibility across 45 countries.",
-    outcome: "19% reduction in delivery times, $95M cost savings",
-    year: "2024",
-    status: "Completed",
+    id: "olkaria-pulse",
+    code: "04",
+    name: "Olkaria Pulse",
+    sector: "Energy",
+    place: "Hell's Gate",
+    summary: "Operational signals for fewer unplanned halts on scoped units.",
+    outcome: "Fewer unplanned halts on two units",
+    status: "In build",
   },
 ];
 
-export const STATS = [
-  { value: "$2.3B+", label: "Client value delivered" },
-  { value: "47", label: "Enterprise transformations" },
-  { value: "850K+", label: "Hours automated annually" },
-  { value: "28", label: "Countries served" },
-] as const;
-
 export const NAV = [
-  { to: "/", label: "Home" },
+  { to: "/work", label: "Work" },
   { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Portfolio" },
-  { to: "/industries", label: "Industries" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+  { to: "/concerns", label: "Concerns" },
+  { to: "/brief", label: "Brief" },
 ] as const;
 
 export const PRINCIPLES = [
   {
-    title: "Strategic Intelligence First",
-    body: "We begin with your business strategy, not technology. Every AI initiative must drive measurable business outcomes and sustainable competitive advantage.",
+    title: "Scope before build",
+    body: "Written agreement on what is in and out. Deposit before work starts.",
   },
   {
-    title: "Enterprise-Grade Excellence",
-    body: "Security, scalability, and governance are non-negotiable. We architect solutions that meet the rigorous demands of global enterprise operations.",
+    title: "Systems people will still use",
+    body: "Prefer tools operators open in six months over platforms they abandon in six weeks.",
   },
   {
-    title: "Human-Centered AI",
-    body: "Technology amplifies human potential, not replaces it. We design intelligent systems that empower your workforce and enhance decision-making at every level.",
+    title: "Intelligence with a handoff",
+    body: "Every assistant knows when to stop and call a person.",
   },
 ] as const;
 
-export const INDUSTRIES = [
-  {
-    id: "financial-services",
-    name: "Financial Services",
-    description: "AI-powered transformation for banking, insurance, and capital markets",
-    capabilities: ["Fraud detection & AML", "Credit risk modeling", "Algorithmic trading", "Customer service automation"],
-  },
-  {
-    id: "healthcare",
-    name: "Healthcare & Life Sciences",
-    description: "Intelligent solutions for patient care, clinical operations, and research",
-    capabilities: ["Clinical decision support", "Medical imaging AI", "Drug discovery", "Revenue cycle automation"],
-  },
-  {
-    id: "manufacturing",
-    name: "Manufacturing & Industry",
-    description: "Smart factories and predictive operations for industrial excellence",
-    capabilities: ["Predictive maintenance", "Quality control AI", "Supply chain optimization", "Digital twins"],
-  },
-  {
-    id: "retail",
-    name: "Retail & Consumer",
-    description: "Personalized experiences and optimized operations for modern commerce",
-    capabilities: ["Demand forecasting", "Dynamic pricing", "Personalization engines", "Inventory optimization"],
-  },
-  {
-    id: "energy",
-    name: "Energy & Utilities",
-    description: "Intelligent infrastructure for sustainable energy management",
-    capabilities: ["Grid optimization", "Demand prediction", "Asset monitoring", "Renewable integration"],
-  },
-  {
-    id: "logistics",
-    name: "Logistics & Supply Chain",
-    description: "End-to-end visibility and optimization for global supply networks",
-    capabilities: ["Route optimization", "Warehouse automation", "Predictive shipping", "Real-time tracking"],
-  },
+export const ENGAGEMENT_STEPS = [
+  "Brief",
+  "Fit",
+  "Proposal",
+  "Deposit",
+  "Build",
+  "Handoff",
 ] as const;
+
+export const PRICE_NOTE =
+  "Starting prices in KES. Final fee follows written scope. USD on request.";
