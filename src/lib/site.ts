@@ -11,9 +11,9 @@ export const COMPANY = {
   phone: "+254745494787",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
-  /** Profile / brand mark shipped in public/ (used site-wide as logo). */
-  logoSrc: "/portrait.jpg",
-  logoFullSrc: "/portrait-full.jpg",
+  /** Abstract turbine mark — never a personal photo. */
+  logoSrc: "/brand-mark.svg",
+  logoFullSrc: "/brand-mark.svg",
 } as const;
 
 export type ServiceId =
