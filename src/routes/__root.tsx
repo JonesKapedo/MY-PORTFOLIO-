@@ -11,20 +11,18 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { COMPANY } from "@/lib/site";
 import appCss from "../styles.css?url";
 
-const APP_NAME = COMPANY.name;
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${APP_NAME} — AI & Automation Studio, Naivasha` },
+      { title: `${COMPANY.name} — ${COMPANY.subtitle}` },
       {
         name: "description",
         content:
-          "GREAT TURBINEZ is an AI and automation studio in Naivasha, Kenya. We design and install systems that take repetition off the floor for farms, lodges, desks and operations.",
+          "GREAT TURBINEZ Automation Services. Websites, bots, work automation, documents, AI on your information, and dashboards — scoped and delivered.",
       },
-      { name: "theme-color", content: "#090908" },
+      { name: "theme-color", content: "#050505" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -76,14 +74,13 @@ function NotFound() {
         This page is not on the map.
       </h1>
       <p className="mt-3 text-sm text-muted">
-        The route you asked for does not exist. Head back to the homepage and
-        pick a live path.
+        Head back and pick a live path.
       </p>
       <Link
         to="/"
-        className="mt-8 inline-flex h-11 items-center rounded-md bg-fg px-5 text-sm font-medium text-accent-fg"
+        className="mt-8 inline-flex h-11 items-center rounded-md bg-accent px-5 text-sm font-medium text-accent-fg"
       >
-        Back to homepage
+        Home
       </Link>
     </div>
   );
