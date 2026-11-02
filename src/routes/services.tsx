@@ -22,6 +22,10 @@ export const Route = createFileRoute("/services")({
   }),
 });
 
+/**
+ * TanStack nests `services.$slug` under `services`.
+ * Without <Outlet />, /services/:slug keeps showing this index.
+ */
 function ServicesPage() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const isDetail =
