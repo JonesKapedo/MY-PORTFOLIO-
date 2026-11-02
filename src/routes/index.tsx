@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
-import { COMPANY, PROJECTS } from "@/lib/site";
+import { COMPANY } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -11,90 +11,54 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Describe the pain. Get a written next step. Deposit when the scope is clear. GREAT TURBINEZ Automation Services.",
+          "GREAT TURBINEZ Automation Services. The repeated work ends here — scoped, priced, delivered.",
       },
     ],
   }),
 });
 
 function HomePage() {
-  const highlights = PROJECTS.slice(0, 3);
-
   return (
-    <PageFrame className="page-enter justify-between gap-3">
-      <div className="min-h-0 shrink-0">
-        <Eyebrow>
-          {COMPANY.subtitle} · {COMPANY.city}
-        </Eyebrow>
-        <h1 className="mt-2 max-w-2xl font-display text-3xl leading-[1.08] font-semibold tracking-tight sm:text-5xl">
-          Fix the repeated work.
-          <span className="text-accent"> Scoped. Priced. Delivered.</span>
+    <PageFrame className="page-enter relative justify-center gap-8 sm:gap-10">
+      <div className="hero-glow max-w-3xl">
+        <p className="text-[11px] font-medium tracking-[0.28em] text-accent uppercase">
+          {COMPANY.name}
+        </p>
+        <h1 className="mt-4 font-display text-5xl leading-[0.95] font-semibold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+          The repeated
+          <br />
+          work <span className="text-accent">ends.</span>
         </h1>
-        <p className="mt-2 max-w-lg text-sm text-muted">
-          Describe the pain. Get a written next step. Deposit only when the
-          scope is clear.
+        <p className="mt-6 max-w-md text-base text-muted sm:text-lg">
+          Automation Services. One process at a time.
+          <span className="text-fg"> Named. Scoped. Delivered.</span>
         </p>
       </div>
 
-      {/* Two doors */}
-      <div className="grid min-h-0 shrink-0 gap-2 sm:grid-cols-2">
-        <Link
-          to="/concerns"
-          className="card-lift rounded-xl bg-surface p-4 hairline sm:p-5"
-        >
-          <p className="text-[10px] tracking-widest text-accent uppercase">
-            I know the problem
-          </p>
-          <p className="mt-1 font-display text-2xl font-semibold">Concerns</p>
-          <p className="mt-1 text-xs text-muted">
-            Match what hurts to a named service — before any deposit.
-          </p>
-        </Link>
-        <Link
-          to="/work"
-          className="card-lift rounded-xl bg-surface p-4 hairline sm:p-5"
-        >
-          <p className="text-[10px] tracking-widest text-accent uppercase">
-            I want outcomes
-          </p>
-          <p className="mt-1 font-display text-2xl font-semibold">Work</p>
-          <p className="mt-1 text-xs text-muted">
-            Situation, install, result — proof on the floor.
-          </p>
-        </Link>
-      </div>
-
-      {/* Proof strip */}
-      <div className="min-h-0 shrink-0">
-        <Eyebrow>Selected outcomes</Eyebrow>
-        <div className="mt-2 grid gap-2 md:grid-cols-3">
-          {highlights.map((p) => (
-            <Link
-              key={p.id}
-              to="/work"
-              className="card-lift rounded-lg bg-surface px-3 py-2.5 hairline"
-            >
-              <p className="text-[10px] text-subtle">
-                {p.sector} · {p.status}
-              </p>
-              <p className="mt-0.5 text-sm font-semibold">{p.name}</p>
-              <p className="mt-0.5 text-xs text-accent">{p.outcome}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex shrink-0 flex-wrap items-center gap-2">
-        <Button asChild size="default">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button asChild size="lg">
           <Link to="/brief">Start a brief</Link>
         </Button>
-        <Button asChild variant="outline" size="default">
-          <Link to="/services">See services</Link>
+        <Button asChild variant="outline" size="lg">
+          <Link to="/services">What we build</Link>
         </Button>
-        <p className="w-full text-[11px] text-subtle sm:w-auto sm:ml-2">
-          Free brief · Reply {COMPANY.responseSla} · No deposit until proposal
-        </p>
       </div>
+
+      <div className="flex flex-wrap gap-x-6 gap-y-2 text-[11px] tracking-wide text-subtle uppercase">
+        <Link to="/concerns" className="hover:text-accent">
+          Name the problem
+        </Link>
+        <Link to="/work" className="hover:text-accent">
+          See the work
+        </Link>
+        <Link to="/company" className="hover:text-accent">
+          Company
+        </Link>
+      </div>
+
+      <p className="absolute right-0 bottom-0 hidden text-[10px] tracking-[0.2em] text-subtle uppercase sm:block">
+        {COMPANY.city}
+      </p>
     </PageFrame>
   );
 }

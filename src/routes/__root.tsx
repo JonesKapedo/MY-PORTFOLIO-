@@ -9,7 +9,11 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteShell } from "@/components/site-shell";
 import { AuthProvider } from "@/lib/auth/provider";
 import { COMPANY } from "@/lib/site";
+import { ThemeProvider } from "@/lib/theme";
 import appCss from "../styles.css?url";
+
+const themeBootScript = `(function(){try{var t=localStorage.getItem("gt-theme");if(t!=="light"&&t!=="dark")t="dark";var r=document.documentElement;r.classList.toggle("light",t==="light");r.classList.toggle("dark",t==="dark");r.style.colorScheme=t;}catch(e){document.documentElement.classList.add("dark");}})();
+`;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -20,9 +24,10 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ Automation Services. Websites, bots, work automation, documents, AI on your information, and dashboards — scoped and delivered.",
+          "GREAT TURBINEZ Automation Services. The repeated work ends here — scoped, priced, delivered.",
       },
-      { name: "theme-color", content: "#050505" },
+      { name: "theme-color", content: "#030303" },
+      { name: "color-scheme", content: "dark light" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
@@ -40,6 +45,7 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Outfit:wght@300;400;500;600;700&display=swap",
       },
     ],
+    scripts: [{ children: themeBootScript }],
   }),
   component: RootDocument,
   notFoundComponent: NotFound,
@@ -47,17 +53,19 @@ export const Route = createRootRoute({
 
 function RootDocument() {
   return (
-    <html lang="en" suppressHydrationWarning className="antialiased">
+    <html lang="en" suppressHydrationWarning className="dark antialiased">
       <head>
         <HeadContent />
       </head>
       <body>
         <PreviewHostBridge />
-        <AuthProvider>
-          <SiteShell>
-            <Outlet />
-          </SiteShell>
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <SiteShell>
+              <Outlet />
+            </SiteShell>
+          </AuthProvider>
+        </ThemeProvider>
         <Scripts />
       </body>
     </html>
