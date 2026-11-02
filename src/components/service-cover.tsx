@@ -1,10 +1,10 @@
+import type { ReactNode } from "react";
 import type { ServiceId } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Props = {
   id: ServiceId;
   className?: string;
-  /** larger hero treatment on detail pages */
   size?: "card" | "hero";
 };
 
@@ -43,7 +43,7 @@ export function ServiceCover({ id, className, size = "card" }: Props) {
 const gold = "#c9a227";
 const mute = "#2a2a2a";
 
-const ART: Record<ServiceId, React.ReactNode> = {
+const ART: Record<ServiceId, ReactNode> = {
   discovery: (
     <>
       <circle cx="80" cy="70" r="28" stroke={gold} strokeWidth="2" fill="none" />
@@ -130,46 +130,36 @@ const ART: Record<ServiceId, React.ReactNode> = {
     <>
       <rect x="70" y="30" width="160" height="95" rx="6" stroke={gold} strokeWidth="2" fill="none" />
       <rect x="70" y="30" width="160" height="22" fill={mute} />
-      {[0, 1, 2, 3].map((r) =>
-        [0, 1, 2, 3].map((c) => (
-          <rect
-            key={`${r}-${c}`}
-            x={90 + c * 32}
-            y={62 + r * 14}
-            width="12"
-            height="10"
-            rx="1"
-            fill={r === 1 && c === 2 ? gold : mute}
-          />
-        )),
-      )}
+      <rect x="90" y="62" width="12" height="10" rx="1" fill={mute} />
+      <rect x="122" y="62" width="12" height="10" rx="1" fill={mute} />
+      <rect x="154" y="62" width="12" height="10" rx="1" fill={gold} />
+      <rect x="186" y="62" width="12" height="10" rx="1" fill={mute} />
+      <rect x="90" y="76" width="12" height="10" rx="1" fill={mute} />
+      <rect x="122" y="76" width="12" height="10" rx="1" fill={gold} opacity="0.5" />
+      <rect x="154" y="76" width="12" height="10" rx="1" fill={mute} />
+      <rect x="186" y="76" width="12" height="10" rx="1" fill={mute} />
+      <rect x="90" y="90" width="12" height="10" rx="1" fill={mute} />
+      <rect x="122" y="90" width="12" height="10" rx="1" fill={mute} />
+      <rect x="154" y="90" width="12" height="10" rx="1" fill={mute} />
+      <rect x="186" y="90" width="12" height="10" rx="1" fill={mute} />
     </>
   ),
   pipeline: (
     <>
-      {[0, 1, 2].map((i) => (
-        <g key={i}>
-          <rect
-            x={50 + i * 85}
-            y="35"
-            width="70"
-            height="80"
-            rx="4"
-            stroke={gold}
-            strokeWidth="1.5"
-            fill="none"
-            opacity={1 - i * 0.2}
-          />
-          <rect x={58 + i * 85} y="48" width="54" height="14" rx="2" fill={mute} />
-          <rect x={58 + i * 85} y="68" width="54" height="14" rx="2" fill={i === 0 ? gold : mute} opacity={i === 0 ? 0.5 : 1} />
-        </g>
-      ))}
+      <rect x="50" y="35" width="70" height="80" rx="4" stroke={gold} strokeWidth="1.5" fill="none" />
+      <rect x="58" y="48" width="54" height="14" rx="2" fill={mute} />
+      <rect x="58" y="68" width="54" height="14" rx="2" fill={gold} opacity="0.5" />
+      <rect x="135" y="35" width="70" height="80" rx="4" stroke={gold} strokeWidth="1.5" fill="none" opacity="0.85" />
+      <rect x="143" y="48" width="54" height="14" rx="2" fill={mute} />
+      <rect x="143" y="68" width="54" height="14" rx="2" fill={mute} />
+      <rect x="220" y="35" width="70" height="80" rx="4" stroke={gold} strokeWidth="1.5" fill="none" opacity="0.65" />
+      <rect x="228" y="48" width="54" height="14" rx="2" fill={mute} />
     </>
   ),
   alerts: (
     <>
       <path
-        d="M160 30 L160 30 C175 30 190 50 190 70 L200 95 H120 L130 70 C130 50 145 30 160 30 Z"
+        d="M160 30 C175 30 190 50 190 70 L200 95 H120 L130 70 C130 50 145 30 160 30 Z"
         stroke={gold}
         strokeWidth="2"
         fill="none"
