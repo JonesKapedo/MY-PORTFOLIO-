@@ -5,17 +5,24 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BriefRouteImport } from './routes/brief'
 import { Route as CompanyRouteImport } from './routes/company'
 import { Route as ConcernsRouteImport } from './routes/concerns'
 import { Route as ConcernsSlugRouteImport } from './routes/concerns.$slug'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as WorkRouteImport } from './routes/work'
 
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -46,6 +53,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndustriesRoute = IndustriesRouteImport.update({
+  id: '/industries',
+  path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
@@ -69,11 +81,13 @@ const WorkRoute = WorkRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/brief': typeof BriefRoute
   '/company': typeof CompanyRoute
   '/concerns': typeof ConcernsRoute
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -81,11 +95,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/brief': typeof BriefRoute
   '/company': typeof CompanyRoute
   '/concerns': typeof ConcernsRoute
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -94,11 +110,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/brief': typeof BriefRoute
   '/company': typeof CompanyRoute
   '/concerns': typeof ConcernsRoute
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
+  '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -108,11 +126,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/brief'
     | '/company'
     | '/concerns'
     | '/concerns/$slug'
     | '/contact'
+    | '/industries'
     | '/portfolio'
     | '/services'
     | '/services/$slug'
@@ -120,11 +140,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/brief'
     | '/company'
     | '/concerns'
     | '/concerns/$slug'
     | '/contact'
+    | '/industries'
     | '/portfolio'
     | '/services'
     | '/services/$slug'
@@ -132,11 +154,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/brief'
     | '/company'
     | '/concerns'
     | '/concerns/$slug'
     | '/contact'
+    | '/industries'
     | '/portfolio'
     | '/services'
     | '/services/$slug'
@@ -145,11 +169,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BriefRoute: typeof BriefRoute
   CompanyRoute: typeof CompanyRoute
   ConcernsRoute: typeof ConcernsRoute
   ConcernsSlugRoute: typeof ConcernsSlugRoute
   ContactRoute: typeof ContactRoute
+  IndustriesRoute: typeof IndustriesRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
@@ -163,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brief': {
@@ -200,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries': {
+      id: '/industries'
+      path: '/industries'
+      fullPath: '/industries'
+      preLoaderRoute: typeof IndustriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
@@ -233,11 +273,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BriefRoute: BriefRoute,
   CompanyRoute: CompanyRoute,
   ConcernsRoute: ConcernsRoute,
   ConcernsSlugRoute: ConcernsSlugRoute,
   ContactRoute: ContactRoute,
+  IndustriesRoute: IndustriesRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
   ServicesSlugRoute: ServicesSlugRoute,
