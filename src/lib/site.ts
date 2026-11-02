@@ -478,7 +478,7 @@ export const PROJECTS: Project[] = [
     name: "Olkaria Pulse",
     sector: "Energy",
     place: "Hell's Gate",
-    summary: "Operational signals for fewer unplanned halts on scoped units.",
+    summary: "Operational signals for fewer unplannedhalts on scoped units.",
     outcome: "Fewer unplannedhalts on two units",
     status: "In build",
   },
