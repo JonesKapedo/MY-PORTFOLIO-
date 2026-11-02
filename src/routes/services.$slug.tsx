@@ -61,26 +61,13 @@ function ServiceDetailPage() {
           {service.name}
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-muted">{service.outcome}</p>
-        <div className="mt-3 flex flex-wrap gap-4 border-y border-line py-3">
-          <div>
-            <p className="text-[10px] tracking-widest text-subtle uppercase">
-              Starting at
-            </p>
-            <p className="text-lg font-medium text-accent">{service.price}</p>
-            <p className="text-[10px] text-subtle">{service.unit}</p>
-          </div>
-          <div>
-            <p className="text-[10px] tracking-widest text-subtle uppercase">
-              Typical window
-            </p>
-            <p className="text-lg font-medium">{service.timeframe}</p>
-            <p className="max-w-xs text-[10px] text-subtle">
-              {service.timeframeNote}
-            </p>
-          </div>
-        </div>
-        <p className="mt-1 text-[11px] text-subtle">{PRICE_NOTE}</p>
-        <p className="mt-1 text-[11px] font-medium text-accent">{DEPOSIT_NOTE}</p>
+        <p className="mt-1 max-w-xl text-xs text-subtle">{service.blurb}</p>
+        <p className="mt-2 text-xs text-muted">
+          Typical window:{" "}
+          <span className="text-fg">{service.timeframe}</span>
+          {" — "}
+          {service.timeframeNote}
+        </p>
       </div>
 
       <div className="grid min-h-0 flex-1 gap-3 overflow-hidden lg:grid-cols-2">
@@ -106,42 +93,42 @@ function ServiceDetailPage() {
           </ol>
         </section>
 
-        <div className="grid min-h-0 gap-3 overflow-hidden sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-          <div>
+        <div className="grid min-h-0 content-start gap-3 overflow-hidden sm:grid-cols-2">
+          <div className="rounded-lg bg-surface p-3 hairline">
             <h2 className="text-[10px] tracking-widest text-accent uppercase">
               Usually includes
             </h2>
-            <ul className="mt-1 space-y-0.5 text-xs text-muted">
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
               {service.includes.map((item) => (
                 <li key={item}>· {item}</li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className="rounded-lg bg-surface p-3 hairline">
             <h2 className="text-[10px] tracking-widest text-subtle uppercase">
               Outside scope
             </h2>
-            <ul className="mt-1 space-y-0.5 text-xs text-muted">
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
               {service.excludes.map((item) => (
                 <li key={item}>· {item}</li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className="rounded-lg bg-surface p-3 hairline">
             <h2 className="text-[10px] tracking-widest text-accent uppercase">
               You provide
             </h2>
-            <ul className="mt-1 space-y-0.5 text-xs text-muted">
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
               {service.youProvide.map((item) => (
                 <li key={item}>· {item}</li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className="rounded-lg bg-surface p-3 hairline">
             <h2 className="text-[10px] tracking-widest text-subtle uppercase">
               After handoff
             </h2>
-            <ul className="mt-1 space-y-0.5 text-xs text-muted">
+            <ul className="mt-1.5 space-y-1 text-xs text-muted">
               {service.afterHandoff.map((item) => (
                 <li key={item}>· {item}</li>
               ))}
@@ -150,17 +137,32 @@ function ServiceDetailPage() {
         </div>
       </div>
 
-      <div className="flex shrink-0 flex-wrap items-center gap-2">
-        <Button asChild size="default">
-          <Link to="/brief" search={{ service: service.id }}>
-            Start a brief
-          </Link>
-        </Button>
-        <Button asChild variant="outline" size="default">
-          <Link to="/concerns">Browse concerns</Link>
-        </Button>
+      <div className="shrink-0 rounded-xl border border-line bg-raised px-4 py-3">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-[10px] tracking-widest text-subtle uppercase">
+              Starting charge
+            </p>
+            <p className="mt-0.5 text-xl font-medium text-accent">
+              {service.price}
+            </p>
+            <p className="text-[11px] text-subtle">{service.unit}</p>
+            <p className="mt-1 max-w-md text-[11px] text-muted">{PRICE_NOTE}</p>
+            <p className="mt-0.5 text-[11px] text-accent">{DEPOSIT_NOTE}</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild size="default">
+              <Link to="/brief" search={{ service: service.id }}>
+                Talk to us first
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="default">
+              <Link to="/concerns">Browse concerns</Link>
+            </Button>
+          </div>
+        </div>
         {related.length > 0 ? (
-          <p className="w-full text-[11px] text-subtle sm:w-auto">
+          <p className="mt-2 text-[11px] text-subtle">
             Related:{" "}
             {related.slice(0, 2).map((c, i) => (
               <span key={c.slug}>
