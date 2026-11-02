@@ -114,9 +114,6 @@ export function SiteSidebar() {
           </span>
         </Link>
         {nav}
-        <p className="mt-auto px-2 text-[10px] leading-relaxed text-subtle">
-          If it isn’t listed, describe it.
-        </p>
       </aside>
     </>
   );

@@ -21,17 +21,9 @@ function ServicesPage() {
     <PageFrame className="page-enter gap-3">
       <div className="shrink-0">
         <Eyebrow>Services</Eyebrow>
-        <div className="mt-1 flex flex-wrap items-end justify-between gap-2">
-          <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            Named work. Clear floors.
-          </h1>
-          <Link
-            to="/brief"
-            className="text-xs text-accent underline-offset-4 hover:underline"
-          >
-            If it isn’t listed, describe it.
-          </Link>
-        </div>
+        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          Named work. Clear floors.
+        </h1>
         <p className="mt-1 text-xs text-subtle">{PRICE_NOTE}</p>
       </div>
 
