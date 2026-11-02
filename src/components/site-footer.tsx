@@ -19,7 +19,7 @@ export function SiteFooter() {
           <a href={`mailto:${COMPANY.email}`} className="hover:text-fg">
             Contact
           </a>
-          <span className="hidden sm:inline">If it isn’t listed, describe it.</span>
+          <span>If it isn’t listed, describe it.</span>
         </p>
       </div>
     </footer>
