@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { COMPANY, NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -82,17 +83,20 @@ export function SiteSidebar() {
             {COMPANY.subtitle}
           </span>
         </Link>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-9"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-sidebar"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </Button>
+        <div className="flex items-center gap-1">
+          <ThemeToggle className="size-9" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-9"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-sidebar"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </Button>
+        </div>
       </div>
 
       {open ? (
@@ -114,6 +118,12 @@ export function SiteSidebar() {
           </span>
         </Link>
         {nav}
+        <div className="mt-auto flex items-center justify-between px-2 pt-4">
+          <span className="text-[10px] tracking-wider text-subtle uppercase">
+            Theme
+          </span>
+          <ThemeToggle />
+        </div>
       </aside>
     </>
   );
