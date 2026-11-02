@@ -10,7 +10,7 @@ export const Route = createFileRoute("/concerns")({
       {
         name: "description",
         content:
-          "Browse operational concerns. Each opens a full page with category and a path to brief.",
+          "Browse operational concerns. Each opens a full page with situation, fixed state, scope, and a path to brief.",
       },
     ],
   }),
@@ -18,47 +18,48 @@ export const Route = createFileRoute("/concerns")({
 
 function ConcernsPage() {
   return (
-    <PageFrame className="page-enter">
-      <Eyebrow>Concerns</Eyebrow>
-      <h1 className="mt-3 max-w-2xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-        What is costing you?
-      </h1>
-      <p className="mt-4 max-w-xl text-muted">
-        Pick a problem. See the full picture. Category is assigned for you.
-      </p>
+    <PageFrame className="page-enter gap-3">
+      <div className="shrink-0">
+        <Eyebrow>Concerns</Eyebrow>
+        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+          What is costing you?
+        </h1>
+        <p className="mt-1 text-xs text-muted sm:text-sm">
+          Open any line for the full picture. Category is assigned for you.
+        </p>
+      </div>
 
-      <ul className="mt-12 divide-y divide-line border-y border-line">
+      <ul className="grid min-h-0 flex-1 gap-1.5 overflow-hidden sm:grid-cols-2">
         {CONCERNS.map((c) => {
           const service = getService(c.serviceId);
           return (
-            <li key={c.slug}>
+            <li key={c.slug} className="min-h-0">
               <Link
                 to="/concerns/$slug"
                 params={{ slug: c.slug }}
-                className="group flex flex-col gap-1 py-5 transition-colors hover:bg-raised/40 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:px-2"
+                className="card-lift group flex h-full flex-col justify-between rounded-lg bg-surface p-3 hairline"
               >
                 <div>
-                  <p className="text-base font-medium text-fg group-hover:text-accent sm:text-lg">
+                  <p className="text-sm font-medium text-fg group-hover:text-accent">
                     {c.title}
                   </p>
-                  <p className="mt-1 text-sm text-muted">{c.teaser}</p>
-                </div>
-                {service ? (
-                  <p className="shrink-0 text-xs tracking-wide text-subtle uppercase">
-                    {service.name}
+                  <p className="mt-1 line-clamp-2 text-xs text-muted">
+                    {c.teaser}
                   </p>
-                ) : null}
+                </div>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <span className="text-[10px] tracking-wide text-subtle uppercase">
+                    {service?.name ?? "Service"}
+                  </span>
+                  <span className="text-[10px] font-medium text-accent uppercase">
+                    Open →
+                  </span>
+                </div>
               </Link>
             </li>
           );
         })}
       </ul>
-
-      <p className="mt-12 text-sm text-muted">
-        <Link to="/brief" className="text-accent underline-offset-4 hover:underline">
-          If it isn’t listed, describe it.
-        </Link>
-      </p>
     </PageFrame>
   );
 }
