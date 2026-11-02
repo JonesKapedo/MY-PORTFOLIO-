@@ -19,8 +19,8 @@ export const COMPANY = {
   phone: "+254745494787",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
-  logoSrc: "/portrait.jpg",
-  logoFullSrc: "/portrait-full.jpg",
+  logoSrc: "/brand-mark.svg",
+  logoFullSrc: "/brand-mark.svg",
 } as const;
 
 import type { ServiceId } from "./services-catalog";
@@ -313,9 +313,11 @@ export type Project = {
   name: string;
   sector: string;
   place: string;
-  summary: string;
+  situation: string;
+  installed: string;
   outcome: string;
   status: "Live" | "In build" | "Sample";
+  serviceId: ServiceId;
 };
 
 export const PROJECTS: Project[] = [
@@ -325,9 +327,11 @@ export const PROJECTS: Project[] = [
     name: "Bloomline Forecast",
     sector: "Floriculture",
     place: "Naivasha",
-    summary: "Demand and waste visibility for a grower operation.",
+    situation: "Waste and demand were guessed until season end.",
+    installed: "A demand and waste view operators could open daily.",
     outcome: "Less wastage in the first season",
     status: "Live",
+    serviceId: "dashboards",
   },
   {
     id: "lodgeflow",
@@ -335,9 +339,11 @@ export const PROJECTS: Project[] = [
     name: "Lodgeflow",
     sector: "Hospitality",
     place: "Rift Valley",
-    summary: "Night desk load reduced through structured intake and routing.",
+    situation: "Night desk drowned in repeat guest questions.",
+    installed: "Structured intake and routing for the night desk.",
     outcome: "Night desk reduced to on-call",
     status: "Live",
+    serviceId: "chatbots",
   },
   {
     id: "ledgerwind",
@@ -345,9 +351,11 @@ export const PROJECTS: Project[] = [
     name: "Ledgerwind",
     sector: "Finance ops",
     place: "Nakuru–Naivasha",
-    summary: "Month-end close path tightened with clearer handoffs.",
+    situation: "Month-end lived in scattered files and chasing.",
+    installed: "Clearer handoffs and a tighter close path.",
     outcome: "Month-end six days faster",
     status: "Live",
+    serviceId: "automation",
   },
   {
     id: "olkaria-pulse",
@@ -355,9 +363,11 @@ export const PROJECTS: Project[] = [
     name: "Olkaria Pulse",
     sector: "Energy",
     place: "Hell's Gate",
-    summary: "Operational signals for fewer unplannedhalts on scoped units.",
+    situation: "Unplanned halts surfaced too late on scoped units.",
+    installed: "Operational signals for earlier attention.",
     outcome: "Fewer unplannedhalts on two units",
     status: "In build",
+    serviceId: "dashboards",
   },
 ];
 
@@ -393,4 +403,7 @@ export const ENGAGEMENT_STEPS = [
 ] as const;
 
 export const PRICE_NOTE =
-  "Starting prices in KES. Final fee follows written scope. USD on request.";
+  "Starting prices in KES. Final fee follows written scope. 50% deposit to start after proposal. 50% on handoff. USD on request.";
+
+export const DEPOSIT_NOTE =
+  "No deposit on this page. Brief first. Written scope second. 50% only after you approve the proposal.";
