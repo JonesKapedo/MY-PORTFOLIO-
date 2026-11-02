@@ -6,7 +6,7 @@ import { SiteSidebar } from "@/components/site-sidebar";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex min-h-dvh bg-canvas text-fg">
+    <div className="flex h-dvh max-h-dvh overflow-hidden bg-canvas text-fg">
       <a
         href="#main"
         className="sr-only rounded-md bg-fg px-4 py-2 text-sm font-medium text-accent-fg focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
@@ -14,8 +14,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <SiteSidebar />
-      <div className="flex min-h-dvh min-w-0 flex-1 flex-col">
-        <main id="main" className="flex-1 pt-14 md:pt-0">
+      <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        <main
+          id="main"
+          className="flex min-h-0 flex-1 flex-col overflow-hidden pt-12 md:pt-0"
+        >
           {children}
         </main>
         <SiteFooter />

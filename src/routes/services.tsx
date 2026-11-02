@@ -18,53 +18,44 @@ export const Route = createFileRoute("/services")({
 
 function ServicesPage() {
   return (
-    <PageFrame className="page-enter">
-      <Eyebrow>Services</Eyebrow>
-      <h1 className="mt-3 max-w-2xl font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-        Named work.
-        <br />
-        Clear floors.
-      </h1>
-      <p className="mt-4 max-w-xl text-muted">{PRICE_NOTE}</p>
-      <p className="mt-2 max-w-xl text-sm text-subtle">
-        Open any service for delivery steps, what you provide, and typical
-        timeframes — without the internal playbook.
-      </p>
+    <PageFrame className="page-enter gap-3">
+      <div className="shrink-0">
+        <Eyebrow>Services</Eyebrow>
+        <div className="mt-1 flex flex-wrap items-end justify-between gap-2">
+          <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            Named work. Clear floors.
+          </h1>
+          <Link
+            to="/brief"
+            className="text-xs text-accent underline-offset-4 hover:underline"
+          >
+            If it isn’t listed, describe it.
+          </Link>
+        </div>
+        <p className="mt-1 text-xs text-subtle">{PRICE_NOTE}</p>
+      </div>
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2">
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((s) => (
           <Link
             key={s.id}
             to="/services/$slug"
             params={{ slug: s.id }}
-            className="card-lift flex flex-col rounded-xl bg-surface p-6 hairline"
+            className="card-lift flex min-h-0 flex-col justify-between rounded-lg bg-surface p-3 hairline"
           >
-            <h2 className="text-xl font-semibold tracking-tight">{s.name}</h2>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-              {s.outcome}
-            </p>
-            <div className="mt-6 flex flex-wrap items-end justify-between gap-2">
-              <div>
-                <p className="text-sm font-medium text-accent">{s.price}</p>
-                <p className="mt-0.5 text-xs text-subtle">{s.unit}</p>
-              </div>
-              <p className="text-xs text-muted">{s.timeframe}</p>
+            <div>
+              <h2 className="text-sm font-semibold tracking-tight sm:text-base">
+                {s.name}
+              </h2>
+              <p className="mt-1 line-clamp-2 text-xs text-muted">{s.outcome}</p>
             </div>
-            <p className="mt-4 text-xs font-medium tracking-wide text-accent uppercase">
-              View full service →
-            </p>
+            <div className="mt-2 flex items-end justify-between gap-2">
+              <p className="text-xs font-medium text-accent">{s.price}</p>
+              <p className="text-[10px] text-subtle">{s.timeframe}</p>
+            </div>
           </Link>
         ))}
       </div>
-
-      <p className="mt-12 text-sm text-muted">
-        <Link
-          to="/brief"
-          className="text-accent underline-offset-4 hover:underline"
-        >
-          If it isn’t listed, describe it.
-        </Link>
-      </p>
     </PageFrame>
   );
 }
