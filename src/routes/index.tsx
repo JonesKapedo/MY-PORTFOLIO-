@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ Automation Services. Websites, bots, work automation, documents, AI on your information, and dashboards — scoped and delivered.",
+          "Describe the pain. Get a written next step. Deposit when the scope is clear. GREAT TURBINEZ Automation Services.",
       },
     ],
   }),
@@ -21,65 +21,79 @@ function HomePage() {
   const highlights = PROJECTS.slice(0, 3);
 
   return (
-    <PageFrame className="page-enter justify-between gap-4">
-      <div className="min-h-0 shrink">
-        <Eyebrow>{COMPANY.subtitle}</Eyebrow>
-        <h1 className="mt-2 max-w-2xl font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-          Intelligence,{" "}
-          <span className="text-accent">applied.</span>
+    <PageFrame className="page-enter justify-between gap-3">
+      <div className="min-h-0 shrink-0">
+        <Eyebrow>
+          {COMPANY.subtitle} · {COMPANY.city}
+        </Eyebrow>
+        <h1 className="mt-2 max-w-2xl font-display text-3xl leading-[1.08] font-semibold tracking-tight sm:text-5xl">
+          Fix the repeated work.
+          <span className="text-accent"> Scoped. Priced. Delivered.</span>
         </h1>
-        <p className="mt-3 max-w-lg text-sm text-muted sm:text-base">
-          Automation for operators who are done doing the same thing twice.
+        <p className="mt-2 max-w-lg text-sm text-muted">
+          Describe the pain. Get a written next step. Deposit only when the
+          scope is clear.
         </p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          <Button asChild size="default">
-            <Link to="/brief">Start a brief</Link>
-          </Button>
-          <Button asChild variant="outline" size="default">
-            <Link to="/concerns">Browse concerns</Link>
-          </Button>
-        </div>
       </div>
 
-      <div className="grid min-h-0 shrink gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {(
-          [
-            { to: "/work", label: "Work", hint: "Outcomes" },
-            { to: "/services", label: "Services", hint: "Offers" },
-            { to: "/concerns", label: "Concerns", hint: "Problems" },
-            { to: "/brief", label: "Brief", hint: "Describe" },
-          ] as const
-        ).map((item) => (
-          <Link
-            key={item.to}
-            to={item.to}
-            className="card-lift rounded-lg bg-surface px-4 py-3 hairline"
-          >
-            <p className="text-[10px] tracking-widest text-accent uppercase">
-              {item.hint}
-            </p>
-            <p className="mt-1 font-display text-xl font-semibold">{item.label}</p>
-          </Link>
-        ))}
+      {/* Two doors */}
+      <div className="grid min-h-0 shrink-0 gap-2 sm:grid-cols-2">
+        <Link
+          to="/concerns"
+          className="card-lift rounded-xl bg-surface p-4 hairline sm:p-5"
+        >
+          <p className="text-[10px] tracking-widest text-accent uppercase">
+            I know the problem
+          </p>
+          <p className="mt-1 font-display text-2xl font-semibold">Concerns</p>
+          <p className="mt-1 text-xs text-muted">
+            Match what hurts to a named service — before any deposit.
+          </p>
+        </Link>
+        <Link
+          to="/work"
+          className="card-lift rounded-xl bg-surface p-4 hairline sm:p-5"
+        >
+          <p className="text-[10px] tracking-widest text-accent uppercase">
+            I want outcomes
+          </p>
+          <p className="mt-1 font-display text-2xl font-semibold">Work</p>
+          <p className="mt-1 text-xs text-muted">
+            Situation, install, result — proof on the floor.
+          </p>
+        </Link>
       </div>
 
-      <div className="min-h-0 shrink">
-        <Eyebrow>Selected work</Eyebrow>
+      {/* Proof strip */}
+      <div className="min-h-0 shrink-0">
+        <Eyebrow>Selected outcomes</Eyebrow>
         <div className="mt-2 grid gap-2 md:grid-cols-3">
           {highlights.map((p) => (
             <Link
               key={p.id}
               to="/work"
-              className="card-lift rounded-lg bg-surface px-4 py-3 hairline"
+              className="card-lift rounded-lg bg-surface px-3 py-2.5 hairline"
             >
               <p className="text-[10px] text-subtle">
-                {p.code} · {p.sector}
+                {p.sector} · {p.status}
               </p>
-              <h3 className="mt-1 text-sm font-semibold">{p.name}</h3>
-              <p className="mt-1 text-xs text-accent">{p.outcome}</p>
+              <p className="mt-0.5 text-sm font-semibold">{p.name}</p>
+              <p className="mt-0.5 text-xs text-accent">{p.outcome}</p>
             </Link>
           ))}
         </div>
+      </div>
+
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
+        <Button asChild size="default">
+          <Link to="/brief">Start a brief</Link>
+        </Button>
+        <Button asChild variant="outline" size="default">
+          <Link to="/services">See services</Link>
+        </Button>
+        <p className="w-full text-[11px] text-subtle sm:w-auto sm:ml-2">
+          Free brief · Reply {COMPANY.responseSla} · No deposit until proposal
+        </p>
       </div>
     </PageFrame>
   );
