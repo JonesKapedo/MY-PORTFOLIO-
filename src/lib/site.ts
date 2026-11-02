@@ -1,3 +1,11 @@
+export {
+  SERVICES,
+  getService,
+  type Service,
+  type ServiceId,
+  type DeliveryPhase,
+} from "./services-catalog";
+
 export const COMPANY = {
   name: "GREAT TURBINEZ",
   subtitle: "Automation Services",
@@ -11,142 +19,11 @@ export const COMPANY = {
   phone: "+254745494787",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
-  /** Abstract turbine mark — never a personal photo. */
-  logoSrc: "/brand-mark.svg",
-  logoFullSrc: "/brand-mark.svg",
+  logoSrc: "/portrait.jpg",
+  logoFullSrc: "/portrait-full.jpg",
 } as const;
 
-export type ServiceId =
-  | "discovery"
-  | "websites"
-  | "chatbots"
-  | "automation"
-  | "documents"
-  | "ai-knowledge"
-  | "dashboards";
-
-export type Service = {
-  id: ServiceId;
-  name: string;
-  blurb: string;
-  outcome: string;
-  includes: string[];
-  excludes: string[];
-  price: string;
-  unit: string;
-};
-
-export const SERVICES: Service[] = [
-  {
-    id: "discovery",
-    name: "Discovery",
-    blurb: "Map the pain. Leave with a clear next build.",
-    outcome: "Know what to fix first — and what it should cost.",
-    includes: [
-      "Process interviews and shadowing",
-      "Systems and handoff inventory",
-      "Ranked opportunities",
-      "Recommended build and estimate",
-    ],
-    excludes: ["Full system build", "Ongoing operations support"],
-    price: "KES 55,000",
-    unit: "fixed",
-  },
-  {
-    id: "websites",
-    name: "Websites & web apps",
-    blurb: "Sites and simple browser tools that take real requests.",
-    outcome: "A presence that converts enquiries into work.",
-    includes: [
-      "Design and build for the agreed pages or flows",
-      "Mobile-ready layout",
-      "Enquiry or intake path",
-      "Handover and basic training",
-    ],
-    excludes: ["Complex multi-tenant ERP", "Ongoing content marketing"],
-    price: "From KES 120,000",
-    unit: "per site or app",
-  },
-  {
-    id: "chatbots",
-    name: "Chatbots & WhatsApp helpers",
-    blurb: "Repeat questions handled. A person when it matters.",
-    outcome: "Fewer loops in chat. Clear handoff to a human.",
-    includes: [
-      "Scripted or knowledge-based replies",
-      "Channel setup (web and/or WhatsApp where scoped)",
-      "Human handoff rules",
-      "Tuning window after go-live",
-    ],
-    excludes: ["Fully autonomous support with no escape path"],
-    price: "From KES 95,000",
-    unit: "per assistant",
-  },
-  {
-    id: "automation",
-    name: "Work automation",
-    blurb: "One repeated process taken off manual copy-paste.",
-    outcome: "The boring path runs without constant retyping.",
-    includes: [
-      "Scoped process design",
-      "Build and integration into tools you already use",
-      "Exception handling",
-      "Operator handover",
-    ],
-    excludes: ["Open-ended change requests without re-quote"],
-    price: "From KES 110,000",
-    unit: "per process",
-  },
-  {
-    id: "documents",
-    name: "Documents & paperwork",
-    blurb: "Key fields out of forms and PDFs into structured data.",
-    outcome: "Less retyping. Cleaner records.",
-    includes: [
-      "One document type in scope",
-      "Extraction and basic checks",
-      "Posting to sheet or system as agreed",
-      "Handover",
-    ],
-    excludes: ["Full legal archive products"],
-    price: "From KES 100,000",
-    unit: "per document type",
-  },
-  {
-    id: "ai-knowledge",
-    name: "AI on your information",
-    blurb: "Answers from your docs, rules, and tone.",
-    outcome: "Staff and clients get consistent answers from your material.",
-    includes: [
-      "Knowledge setup and guardrails",
-      "Deployment on the agreed channel",
-      "Human escalation path",
-      "Tuning after go-live",
-    ],
-    excludes: ["Generic chatbots with no boundary on your data"],
-    price: "From KES 150,000",
-    unit: "per assistant",
-  },
-  {
-    id: "dashboards",
-    name: "Dashboards & reports",
-    blurb: "One live view or scheduled snapshot.",
-    outcome: "Numbers when you need them — not only at month-end.",
-    includes: [
-      "Data sources in scope",
-      "One primary view or scheduled report",
-      "Access for agreed roles",
-      "Handover",
-    ],
-    excludes: ["Enterprise BI suite replacements"],
-    price: "From KES 85,000",
-    unit: "per dashboard",
-  },
-];
-
-export function getService(id: string): Service | undefined {
-  return SERVICES.find((s) => s.id === id);
-}
+import type { ServiceId } from "./services-catalog";
 
 export type Concern = {
   slug: string;
