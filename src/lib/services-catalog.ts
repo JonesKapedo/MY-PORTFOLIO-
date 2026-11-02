@@ -19,11 +19,7 @@ export type ServiceId =
   | "catalogs"
   | "handover-kits";
 
-export type DeliveryPhase = {
-  name: string;
-  /** What the client experiences — not internal tooling. */
-  summary: string;
-};
+export type DeliveryPhase = { name: string; summary: string };
 
 export type Service = {
   id: ServiceId;
@@ -54,22 +50,13 @@ const phases = (
 ];
 
 export const SERVICES: Service[] = [
-  {
+  svc({
     id: "discovery",
     name: "Discovery",
     blurb: "Map the pain. Leave with a clear next build.",
     outcome: "Know what to fix first — and what it should cost.",
-    includes: [
-      "Working sessions with the people who run the process",
-      "Inventory of systems, handoffs, and failure points",
-      "Ranked opportunities with effort vs impact",
-      "Written recommendation and estimate for the first build",
-    ],
-    excludes: [
-      "Full system build",
-      "Ongoing operations support",
-      "Open-ended consulting without a brief",
-    ],
+    includes: ["Working sessions", "Systems inventory", "Ranked opportunities", "Written recommendation"],
+    excludes: ["Full system build", "Open-ended consulting without a brief"],
     price: "KES 55,000",
     unit: "fixed",
     timeframe: "5–10 working days",
@@ -99,17 +86,8 @@ export const SERVICES: Service[] = [
     name: "Websites & web apps",
     blurb: "Sites and simple browser tools that take real requests.",
     outcome: "A presence that converts enquiries into work.",
-    includes: [
-      "Agreed pages or flows designed and built",
-      "Mobile-ready layout",
-      "Working enquiry, booking, or intake path",
-      "Handover and basic operator training",
-    ],
-    excludes: [
-      "Complex multi-tenant ERP",
-      "Ongoing content marketing retainers",
-      "Unlimited redesign rounds",
-    ],
+    includes: ["Agreed pages or flows", "Mobile-ready layout", "Enquiry or intake path", "Handover"],
+    excludes: ["Complex multi-tenant ERP", "Unlimited redesign rounds"],
     price: "From KES 120,000",
     unit: "per site or app",
     timeframe: "2–5 weeks",
@@ -143,16 +121,8 @@ export const SERVICES: Service[] = [
     name: "Chatbots & WhatsApp helpers",
     blurb: "Repeat questions handled. A person when it matters.",
     outcome: "Fewer loops in chat. Clear handoff to a human.",
-    includes: [
-      "Mapped FAQs and escalation rules",
-      "Helper on the agreed channel (web and/or WhatsApp where scoped)",
-      "Human handoff when the answer is unsure",
-      "Tuning window after go-live",
-    ],
-    excludes: [
-      "Fully autonomous support with no escape path",
-      "Replacing your whole support team",
-    ],
+    includes: ["Mapped FAQs", "Agreed channel", "Human handoff", "Tuning window"],
+    excludes: ["Support with no escape path", "Replacing the whole support team"],
     price: "From KES 95,000",
     unit: "per assistant",
     timeframe: "2–4 weeks",
@@ -179,16 +149,8 @@ export const SERVICES: Service[] = [
     name: "Work automation",
     blurb: "One repeated process taken off manual copy-paste.",
     outcome: "The boring path runs without constant retyping.",
-    includes: [
-      "One end-to-end process in scope",
-      "Build into tools you already use where possible",
-      "Exception path when the happy path fails",
-      "Operator handover",
-    ],
-    excludes: [
-      "Automating every process in the organisation at once",
-      "Open-ended change requests without re-quote",
-    ],
+    includes: ["One end-to-end process", "Tools you already use", "Exception path", "Operator handover"],
+    excludes: ["Every process at once", "Open-ended change without re-quote"],
     price: "From KES 110,000",
     unit: "per process",
     timeframe: "2–6 weeks",
@@ -218,16 +180,8 @@ export const SERVICES: Service[] = [
     name: "Documents & paperwork",
     blurb: "Key fields out of forms and PDFs into structured data.",
     outcome: "Less retyping. Cleaner records.",
-    includes: [
-      "One document type in scope",
-      "Extraction of agreed fields and basic checks",
-      "Posting to the sheet or system you name",
-      "Handover",
-    ],
-    excludes: [
-      "Digitising every archive in the building",
-      "Full legal archive products",
-    ],
+    includes: ["One document type", "Field extraction", "Post to your sheet or system", "Handover"],
+    excludes: ["Digitising every archive", "Full legal archive products"],
     price: "From KES 100,000",
     unit: "per document type",
     timeframe: "2–5 weeks",
@@ -263,16 +217,8 @@ export const SERVICES: Service[] = [
     name: "AI on your information",
     blurb: "Answers from your docs, rules, and tone.",
     outcome: "Staff and clients get consistent answers from your material.",
-    includes: [
-      "Knowledge set-up from materials you approve",
-      "Guardrails and escalation to a person",
-      "Deployment on the agreed channel",
-      "Tuning after go-live",
-    ],
-    excludes: [
-      "Training on data you do not own or control",
-      "Unbounded answers with no human escape",
-    ],
+    includes: ["Knowledge from approved materials", "Guardrails", "Agreed channel", "Tuning"],
+    excludes: ["Data you do not control", "Answers with no human escape"],
     price: "From KES 150,000",
     unit: "per assistant",
     timeframe: "3–6 weeks",
@@ -305,16 +251,8 @@ export const SERVICES: Service[] = [
     name: "Dashboards & reports",
     blurb: "One live view or scheduled snapshot.",
     outcome: "Numbers when you need them — not only at month-end.",
-    includes: [
-      "Scoped data sources",
-      "One primary view or scheduled report",
-      "Access for agreed roles",
-      "Handover",
-    ],
-    excludes: [
-      "Enterprise-wide data warehouse programmes",
-      "Real-time telemetry for every asset on day one",
-    ],
+    includes: ["Scoped sources", "One primary view or report", "Role access", "Handover"],
+    excludes: ["Enterprise data warehouse programmes"],
     price: "From KES 85,000",
     unit: "per dashboard",
     timeframe: "1–4 weeks",

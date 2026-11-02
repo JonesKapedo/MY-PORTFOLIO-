@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { ServiceId } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
