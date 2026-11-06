@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { GearSystem } from "@/components/gear-system";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ Automation Services. Scoped automation for operators — from problem to brief, proposal, build, and handoff.",
+          "GREAT TURBINEZ designs scoped automation for operators. Stop paying in hours for work software should carry — brief, proposal, build, handoff.",
       },
     ],
   }),
@@ -36,60 +36,89 @@ function IntroPage() {
               {COMPANY.subtitle}
             </p>
             <h1 className="mt-4 font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl xl:text-6xl">
-              {COMPANY.name}
+              Your team is still doing work a system should own.
             </h1>
-            <p className="mt-3 flex items-center gap-1.5 text-xs text-subtle">
-              <MapPin className="size-3.5 opacity-70" strokeWidth={1.5} />
-              {COMPANY.location}
-            </p>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              Practical automation where repetition costs time and money —
-              scoped work for operators, handed over clean.
+              Repetition, retyping, and lost follow-ups are not “how business
+              works” — they are unpaid labour. GREAT TURBINEZ designs and
+              installs scoped automation so operators reclaim hours, pipelines
+              stay intact, and handoff is clean enough to run without us.
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-fg/90 sm:text-base">
+              If the same task, message, or spreadsheet loop appears every week,
+              you already have a case for automation. We turn that case into a
+              written scope, a build, and a system your people will still use.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
                 <Link to="/brief">
-                  Start a brief
+                  Request a private brief
                   <ArrowRight className="size-4 opacity-80" />
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="lg">
-                <Link to="/concerns">Name the problem</Link>
+                <Link to="/concerns">Identify the friction</Link>
               </Button>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[340px] lg:mx-0 lg:max-w-[400px] lg:justify-self-end">
+          <div className="relative mx-auto w-full max-w-[340px] animate-float-soft lg:mx-0 lg:max-w-[400px] lg:justify-self-end">
             <GearSystem className="h-auto w-full" />
           </div>
         </section>
 
+        <section className="reveal-section rounded-2xl border border-accent/15 bg-accent/[0.04] px-6 py-8 sm:px-8 sm:py-10">
+          <Eyebrow>The problem we solve</Eyebrow>
+          <h2 className="mt-3 max-w-3xl font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+            Manual work that should already be automated is costing you margin,
+            speed, and focus.
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+            Enquiries die in chat. Approvals stall in one inbox. Numbers appear
+            only at month-end. Staff retype the same fields between tools they
+            already pay for. That is the gap we close — one process at a time,
+            with edges written down before a line of work begins.
+          </p>
+        </section>
+
         <section>
-          <Eyebrow>01 — Problem</Eyebrow>
+          <Eyebrow>01 — Friction</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-            What is costing you?
+            Where automation pays for itself
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
-            Most work starts with a pain you already feel. Name it, or go
-            straight to a brief.
+            Select the pressure you recognise. Each path leads to a structured
+            concern and a brief — not a sales call script.
           </p>
           <ul className="mt-8 grid gap-0 border-y border-line/70 sm:grid-cols-2">
             {[
-              "Same questions every day on WhatsApp",
-              "Enquiries that never become jobs",
-              "Data retyped between tools",
-              "Numbers only at month-end",
-            ].map((line) => (
+              {
+                line: "The same questions every day on WhatsApp",
+                to: "/concerns" as const,
+              },
+              {
+                line: "Enquiries that never become booked work",
+                to: "/concerns" as const,
+              },
+              {
+                line: "Data retyped between tools you already own",
+                to: "/concerns" as const,
+              },
+              {
+                line: "Numbers that only appear at month-end",
+                to: "/concerns" as const,
+              },
+            ].map(({ line, to }) => (
               <li
                 key={line}
                 className="border-b border-line/70 last:border-b-0 sm:border-r sm:even:border-r-0 sm:[&:nth-child(n+3)]:border-b-0"
               >
                 <Link
-                  to="/concerns"
-                  className="flex items-center justify-between gap-4 px-0 py-4 text-sm text-fg transition-colors hover:text-accent sm:px-4 sm:text-[15px]"
+                  to={to}
+                  className="group flex items-center justify-between gap-4 px-0 py-4 text-sm text-fg transition-colors hover:text-accent sm:px-4 sm:text-[15px]"
                 >
                   <span>{line}</span>
-                  <ArrowRight className="size-3.5 shrink-0 text-subtle" />
+                  <ArrowRight className="size-3.5 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </li>
             ))}
@@ -99,28 +128,29 @@ function IntroPage() {
         <section>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Eyebrow>02 — Offer</Eyebrow>
+              <Eyebrow>02 — Practice</Eyebrow>
               <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-                Named services
+                Named services, defined edges
               </h2>
               <p className="mt-2 max-w-xl text-sm text-muted sm:text-base">
-                Clear outcomes, timeframes, and edges — not open-ended retainers.
+                Engagements with outcomes, timeframes, and exclusions — the
+                standard expected of serious operational work.
               </p>
             </div>
             <Link
               to="/services"
               className="text-xs font-medium tracking-wide text-accent uppercase hover:opacity-80"
             >
-              All services →
+              Full catalogue →
             </Link>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="stagger-children mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.slice(0, 6).map((s) => (
               <Link
                 key={s.id}
                 to="/services/$slug"
                 params={{ slug: s.id }}
-                className="group rounded-xl bg-surface/70 px-5 py-5 transition-colors hover:bg-raised"
+                className="service-card group rounded-xl bg-surface/70 px-5 py-5 transition-colors hover:bg-raised"
               >
                 <p className="text-sm font-medium tracking-tight group-hover:text-accent sm:text-[15px]">
                   {s.name}
@@ -139,7 +169,7 @@ function IntroPage() {
         <section>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Eyebrow>03 — Proof</Eyebrow>
+              <Eyebrow>03 — Evidence</Eyebrow>
               <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                 Selected outcomes
               </h2>
@@ -148,23 +178,21 @@ function IntroPage() {
               to="/work"
               className="text-xs font-medium tracking-wide text-accent uppercase hover:opacity-80"
             >
-              All work →
+              Case file →
             </Link>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="stagger-children mt-8 grid gap-4 sm:grid-cols-2">
             {PROJECTS.map((p) => (
               <article
                 key={p.id}
-                className="rounded-xl bg-surface/50 px-5 py-5 sm:px-6 sm:py-6"
+                className="service-card rounded-xl bg-surface/50 px-5 py-5 sm:px-6 sm:py-6"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-mono text-[10px] text-subtle">{p.code}</span>
                   <Badge variant={p.status === "Live" ? "live" : "default"}>
                     {p.status}
                   </Badge>
-                  <span className="text-[10px] text-subtle">
-                    {p.sector} · {p.place}
-                  </span>
+                  <span className="text-[10px] text-subtle">{p.sector}</span>
                 </div>
                 <h3 className="mt-2 text-sm font-medium sm:text-[15px]">{p.name}</h3>
                 <p className="mt-1.5 text-xs text-muted sm:text-sm">{p.situation}</p>
@@ -177,12 +205,13 @@ function IntroPage() {
         <section>
           <Eyebrow>04 — Engagement</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-            How we work together
+            How serious work proceeds
           </h2>
           <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">
             Brief first. Written scope second. Build only after you approve.
+            Deposit only against that proposal.
           </p>
-          <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <ol className="stagger-children mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {ENGAGEMENT_STEPS.map((step, i) => (
               <li key={step} className="flex gap-3">
                 <span className="font-mono text-xs text-accent tabular-nums">
@@ -195,10 +224,10 @@ function IntroPage() {
         </section>
 
         <section>
-          <Eyebrow>Principles</Eyebrow>
+          <Eyebrow>Standards</Eyebrow>
           <div className="mt-8 grid gap-8 sm:grid-cols-3">
             {PRINCIPLES.map((p) => (
-              <div key={p.title}>
+              <div key={p.title} className="reveal-section">
                 <h3 className="text-sm font-medium sm:text-[15px]">{p.title}</h3>
                 <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
                   {p.body}
@@ -210,21 +239,22 @@ function IntroPage() {
 
         <section className="border-t border-line/60 pt-12 pb-2">
           <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-            Ready when you are
+            Commission the next process
           </h2>
           <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
-            We reply {COMPANY.responseSla}. No deposit until a written proposal
-            is approved.
+            Private brief. Reply {COMPANY.responseSla}. No deposit until a
+            written proposal is approved. Access is limited to work we can own
+            to the end.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg">
               <Link to="/brief">
-                Start a brief
+                Request a private brief
                 <ArrowRight className="size-4 opacity-80" />
               </Link>
             </Button>
             <Button asChild variant="ghost" size="lg">
-              <Link to="/work">See the work</Link>
+              <Link to="/work">Review the work</Link>
             </Button>
           </div>
           <p className="mt-10 text-xs text-subtle">
