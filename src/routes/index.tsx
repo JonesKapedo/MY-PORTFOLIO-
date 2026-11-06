@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin } from "lucide-react";
-import { AnimatedTurbine } from "@/components/animated-turbine";
+import { GearSystem } from "@/components/gear-system";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,6 @@ function IntroPage() {
   return (
     <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-14">
       <div className="flex w-full min-h-0 flex-col gap-16 sm:gap-20 lg:gap-24">
-        {/* Identity — full width */}
         <section className="hero-glow relative grid items-center gap-10 pt-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12 xl:gap-16">
           <div>
             <p className="text-[11px] font-medium tracking-[0.2em] text-accent uppercase">
@@ -60,12 +59,11 @@ function IntroPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto aspect-square w-full max-w-[280px] lg:mx-0 lg:max-w-[320px] lg:justify-self-end">
-            <AnimatedTurbine id="intro-hero" className="h-full w-full" />
+          <div className="relative mx-auto w-full max-w-[340px] lg:mx-0 lg:max-w-[400px] lg:justify-self-end">
+            <GearSystem className="h-auto w-full" />
           </div>
         </section>
 
-        {/* Problem */}
         <section>
           <Eyebrow>01 — Problem</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -82,7 +80,10 @@ function IntroPage() {
               "Data retyped between tools",
               "Numbers only at month-end",
             ].map((line) => (
-              <li key={line} className="border-line/70 sm:border-r sm:odd:border-r sm:even:border-r-0 sm:[&:nth-child(2)]:border-b-0 border-b last:border-b-0 sm:[&:nth-child(n+3)]:border-b-0">
+              <li
+                key={line}
+                className="border-b border-line/70 last:border-b-0 sm:border-r sm:even:border-r-0 sm:[&:nth-child(n+3)]:border-b-0"
+              >
                 <Link
                   to="/concerns"
                   className="flex items-center justify-between gap-4 px-0 py-4 text-sm text-fg transition-colors hover:text-accent sm:px-4 sm:text-[15px]"
@@ -95,7 +96,6 @@ function IntroPage() {
           </ul>
         </section>
 
-        {/* Offer */}
         <section>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -114,7 +114,7 @@ function IntroPage() {
               All services →
             </Link>
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.slice(0, 6).map((s) => (
               <Link
                 key={s.id}
@@ -136,7 +136,6 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* Proof */}
         <section>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -152,7 +151,7 @@ function IntroPage() {
               All work →
             </Link>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {PROJECTS.map((p) => (
               <article
                 key={p.id}
@@ -175,7 +174,6 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* Engage */}
         <section>
           <Eyebrow>04 — Engagement</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -196,7 +194,6 @@ function IntroPage() {
           </ol>
         </section>
 
-        {/* Principles */}
         <section>
           <Eyebrow>Principles</Eyebrow>
           <div className="mt-8 grid gap-8 sm:grid-cols-3">
@@ -211,7 +208,6 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="border-t border-line/60 pt-12 pb-2">
           <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             Ready when you are
