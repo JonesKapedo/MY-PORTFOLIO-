@@ -21,28 +21,16 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  --shadow-border: 0 0 0 1px rgba(250, 250, 250, 0.07);
-  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.45);
-  --shadow-card: 0 12px 40px -14px rgb(0 0 0 / 0.9),
-    0 4px 16px -8px rgb(0 0 0 / 0.55),
-    0 0 0 1px rgba(250, 250, 250, 0.06);
-  --shadow-card-hover: 0 22px 52px -16px rgb(0 0 0 / 0.95),
-    0 8px 24px -10px rgb(0 0 0 / 0.65),
-    0 0 24px -8px color-mix(in oklab, var(--color-accent) 22%, transparent),
-    0 0 0 1px rgba(201, 162, 39, 0.32);
-  --shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-accent) 70%, transparent);
-  --shadow-logo: 0 10px 28px -8px rgb(0 0 0 / 0.9),
-    0 0 20px -4px color-mix(in oklab, var(--color-accent) 35%, transparent),
-    0 0 0 1px rgba(201, 162, 39, 0.5);
-  --shadow-btn: 0 8px 24px -10px rgb(0 0 0 / 0.7),
-    0 0 0 1px rgba(250, 250, 250, 0.06);
-  --shadow-btn-accent: 0 10px 28px -8px color-mix(in oklab, var(--color-accent) 45%, transparent),
-    0 4px 12px -4px rgb(0 0 0 / 0.5);
-  --shadow-elevated: 0 24px 64px -20px rgb(0 0 0 / 0.85),
-    0 0 0 1px rgba(250, 250, 250, 0.05);
-  --shadow-dock: 0 16px 48px -12px rgb(0 0 0 / 0.75),
-    0 0 0 1px rgba(250, 250, 250, 0.08),
-    0 0 40px -16px color-mix(in oklab, var(--color-accent) 18%, transparent);
+  --shadow-border: 0 0 0 1px rgba(250, 250, 250, 0.06);
+  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.35);
+  --shadow-card: 0 8px 28px -16px rgb(0 0 0 / 0.7);
+  --shadow-card-hover: 0 14px 36px -14px rgb(0 0 0 / 0.75);
+  --shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-accent) 55%, transparent);
+  --shadow-logo: 0 6px 20px -8px rgb(0 0 0 / 0.45);
+  --shadow-btn: 0 4px 16px -8px rgb(0 0 0 / 0.5);
+  --shadow-btn-accent: 0 6px 20px -8px color-mix(in oklab, var(--color-accent) 30%, transparent);
+  --shadow-elevated: 0 16px 48px -20px rgb(0 0 0 / 0.55);
+  --shadow-dock: 0 12px 40px -16px rgb(0 0 0 / 0.45);
 }
 
 html.light {
@@ -57,27 +45,15 @@ html.light {
   --color-accent-fg: #faf8f4;
   --color-danger: #a8483a;
 
-  --shadow-border: 0 0 0 1px rgba(12, 12, 12, 0.08);
-  --shadow-border-hover: 0 0 0 1px rgba(154, 123, 26, 0.45);
-  --shadow-card: 0 10px 32px -14px rgb(0 0 0 / 0.14),
-    0 4px 12px -6px rgb(0 0 0 / 0.08),
-    0 0 0 1px rgba(12, 12, 12, 0.06);
-  --shadow-card-hover: 0 18px 44px -16px rgb(0 0 0 / 0.18),
-    0 8px 20px -8px rgb(0 0 0 / 0.1),
-    0 0 20px -6px color-mix(in oklab, var(--color-accent) 18%, transparent),
-    0 0 0 1px rgba(154, 123, 26, 0.32);
-  --shadow-logo: 0 10px 28px -10px rgb(0 0 0 / 0.22),
-    0 0 16px -4px color-mix(in oklab, var(--color-accent) 28%, transparent),
-    0 0 0 1px rgba(154, 123, 26, 0.38);
-  --shadow-btn: 0 6px 18px -8px rgb(0 0 0 / 0.14),
-    0 0 0 1px rgba(12, 12, 12, 0.06);
-  --shadow-btn-accent: 0 8px 22px -6px color-mix(in oklab, var(--color-accent) 35%, transparent),
-    0 2px 8px -2px rgb(0 0 0 / 0.12);
-  --shadow-elevated: 0 20px 48px -16px rgb(0 0 0 / 0.12),
-    0 0 0 1px rgba(12, 12, 12, 0.05);
-  --shadow-dock: 0 12px 36px -10px rgb(0 0 0 / 0.16),
-    0 0 0 1px rgba(12, 12, 12, 0.08),
-    0 0 28px -12px color-mix(in oklab, var(--color-accent) 15%, transparent);
+  --shadow-border: 0 0 0 1px rgba(12, 12, 12, 0.06);
+  --shadow-border-hover: 0 0 0 1px rgba(154, 123, 26, 0.35);
+  --shadow-card: 0 6px 24px -14px rgb(0 0 0 / 0.1);
+  --shadow-card-hover: 0 10px 28px -12px rgb(0 0 0 / 0.12);
+  --shadow-logo: 0 6px 18px -10px rgb(0 0 0 / 0.1);
+  --shadow-btn: 0 4px 14px -8px rgb(0 0 0 / 0.08);
+  --shadow-btn-accent: 0 6px 18px -8px color-mix(in oklab, var(--color-accent) 25%, transparent);
+  --shadow-elevated: 0 12px 36px -16px rgb(0 0 0 / 0.1);
+  --shadow-dock: 0 10px 32px -14px rgb(0 0 0 / 0.08);
 }
 
 @layer base {
@@ -104,7 +80,7 @@ html.light {
     background-color: var(--color-canvas);
     color: var(--color-fg);
     font-family: var(--font-sans);
-    line-height: 1.45;
+    line-height: 1.55;
     transition:
       background-color 280ms ease,
       color 280ms ease;
@@ -138,7 +114,7 @@ html.light {
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--color-accent) 40%, transparent);
+    background-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
     color: var(--color-fg);
   }
 
@@ -164,42 +140,9 @@ html.light {
   }
 
   .card-lift {
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
     transition:
-      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 240ms ease,
-      background-color 280ms ease,
-      border-color 220ms ease;
-  }
-
-  .card-lift::after {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      105deg,
-      transparent 40%,
-      color-mix(in oklab, var(--color-accent) 12%, transparent) 50%,
-      transparent 60%
-    );
-    opacity: 0;
-    transform: translateX(-60%);
-    transition:
-      opacity 280ms ease,
-      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .card-lift:hover {
-    transform: translateY(-4px) scale(1.012);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .card-lift:hover::after {
-    opacity: 1;
-    transform: translateX(60%);
+      background-color 200ms ease,
+      color 200ms ease;
   }
 
   .field-focus:focus-visible {
@@ -207,124 +150,59 @@ html.light {
   }
 
   .page-enter > * {
-    animation: rise-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > *:nth-child(1) {
     animation-delay: 0ms;
   }
   .page-enter > *:nth-child(2) {
-    animation-delay: 70ms;
+    animation-delay: 50ms;
   }
   .page-enter > *:nth-child(3) {
-    animation-delay: 140ms;
+    animation-delay: 100ms;
   }
   .page-enter > *:nth-child(4) {
-    animation-delay: 210ms;
+    animation-delay: 150ms;
   }
   .page-enter > *:nth-child(5) {
-    animation-delay: 280ms;
+    animation-delay: 200ms;
   }
 
-  .stagger-children > * {
-    animation: rise-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .stagger-children > *:nth-child(1) {
-    animation-delay: 40ms;
-  }
-  .stagger-children > *:nth-child(2) {
-    animation-delay: 90ms;
-  }
-  .stagger-children > *:nth-child(3) {
-    animation-delay: 140ms;
-  }
-  .stagger-children > *:nth-child(4) {
-    animation-delay: 190ms;
-  }
-  .stagger-children > *:nth-child(5) {
-    animation-delay: 240ms;
-  }
-  .stagger-children > *:nth-child(6) {
-    animation-delay: 290ms;
-  }
-  .stagger-children > *:nth-child(7) {
-    animation-delay: 340ms;
-  }
-  .stagger-children > *:nth-child(8) {
-    animation-delay: 390ms;
-  }
-  .stagger-children > *:nth-child(9) {
-    animation-delay: 440ms;
-  }
-  .stagger-children > *:nth-child(10) {
-    animation-delay: 490ms;
-  }
-  .stagger-children > *:nth-child(11) {
-    animation-delay: 540ms;
-  }
-  .stagger-children > *:nth-child(12) {
-    animation-delay: 590ms;
-  }
-  .stagger-children > *:nth-child(n + 13) {
-    animation-delay: 640ms;
-  }
-
-  /* Floating dock rail (desktop) */
   .dock-rail {
-    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: dock-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .dock-rail > div {
+  .dock-panel {
     box-shadow: var(--shadow-dock);
-    transition:
-      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 280ms ease;
-  }
-
-  .dock-rail:hover > div {
-    transform: translateX(2px);
-    box-shadow:
-      0 20px 56px -12px rgb(0 0 0 / 0.8),
-      0 0 0 1px rgba(201, 162, 39, 0.2),
-      0 0 48px -12px color-mix(in oklab, var(--color-accent) 25%, transparent);
+    border: none;
   }
 
   .dock-item {
     transition:
-      background-color 180ms ease,
-      color 180ms ease,
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 200ms ease;
-  }
-
-  .dock-item:hover {
-    transform: scale(1.08);
-  }
-
-  .dock-item[aria-current="page"] {
-    transform: none;
+      color 160ms ease,
+      background-color 160ms ease;
   }
 
   .dock-tooltip {
     pointer-events: none;
     position: absolute;
-    left: calc(100% + 12px);
+    left: calc(100% + 14px);
     top: 50%;
     transform: translateY(-50%) translateX(-4px);
     white-space: nowrap;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     background: var(--color-raised);
     color: var(--color-fg);
     font-size: 11px;
     font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 0.35rem 0.65rem;
-    box-shadow: var(--shadow-card);
+    letter-spacing: 0.03em;
+    padding: 0.3rem 0.55rem;
+    box-shadow: var(--shadow-elevated);
     opacity: 0;
     transition:
-      opacity 160ms ease,
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 150ms ease,
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .dock-item:hover .dock-tooltip,
@@ -335,29 +213,17 @@ html.light {
 
   .dock-mobile {
     box-shadow: var(--shadow-dock);
+    border: none;
     animation: dock-up 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .gt-logo-circle {
-    box-shadow: var(--shadow-logo);
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 220ms ease;
+    box-shadow: none;
+    transition: transform 220ms ease, opacity 200ms ease;
   }
 
   .gt-logo-circle:hover {
-    transform: scale(1.08) rotate(-3deg);
-    box-shadow:
-      0 14px 36px -8px rgb(0 0 0 / 0.9),
-      0 0 28px -2px color-mix(in oklab, var(--color-accent) 50%, transparent),
-      0 0 0 1px rgba(201, 162, 39, 0.6);
-  }
-
-  html.light .gt-logo-circle:hover {
-    box-shadow:
-      0 14px 36px -10px rgb(0 0 0 / 0.2),
-      0 0 24px -2px color-mix(in oklab, var(--color-accent) 40%, transparent),
-      0 0 0 1px rgba(154, 123, 26, 0.5);
+    transform: scale(1.05);
   }
 
   .page-screen {
@@ -377,17 +243,17 @@ html.light {
     content: "";
     pointer-events: none;
     position: absolute;
-    inset: -20% -10% auto auto;
-    width: min(48vw, 28rem);
-    height: min(48vw, 28rem);
+    inset: -18% -8% auto auto;
+    width: min(42vw, 24rem);
+    height: min(42vw, 24rem);
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
-      transparent 70%
+      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
+      transparent 72%
     );
     z-index: 0;
-    animation: glow-breathe 8s ease-in-out infinite;
+    animation: glow-breathe 14s ease-in-out infinite;
   }
 
   .hero-glow > * {
@@ -406,144 +272,142 @@ html.light {
   .bg-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(64px);
-    opacity: 0.45;
+    filter: blur(90px);
     will-change: transform;
   }
 
   .bg-orb-a {
-    width: min(42vw, 28rem);
-    height: min(42vw, 28rem);
-    top: -8%;
-    right: 8%;
+    width: min(55vw, 36rem);
+    height: min(55vw, 36rem);
+    top: -15%;
+    right: 0;
+    opacity: 0.32;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 28%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
       transparent 70%
     );
-    animation: float-a 18s ease-in-out infinite;
+    animation: float-a 30s ease-in-out infinite;
   }
 
   .bg-orb-b {
-    width: min(36vw, 22rem);
-    height: min(36vw, 22rem);
-    bottom: 5%;
-    left: 12%;
+    width: min(45vw, 28rem);
+    height: min(45vw, 28rem);
+    bottom: -5%;
+    left: 5%;
+    opacity: 0.18;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
+      color-mix(in oklab, var(--color-fg) 8%, transparent) 0%,
       transparent 72%
     );
-    animation: float-b 22s ease-in-out infinite;
+    animation: float-b 36s ease-in-out infinite;
   }
 
   .bg-orb-c {
-    width: min(28vw, 16rem);
-    height: min(28vw, 16rem);
-    top: 42%;
-    left: 48%;
+    width: min(30vw, 18rem);
+    height: min(30vw, 18rem);
+    top: 40%;
+    left: 42%;
+    opacity: 0.12;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-fg) 6%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 12%, transparent) 0%,
       transparent 70%
     );
-    animation: float-c 26s ease-in-out infinite;
+    animation: float-c 40s ease-in-out infinite;
   }
 
-  .bg-grid {
+  .bg-horizon {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 42%;
+    background: linear-gradient(
+      to top,
+      color-mix(in oklab, var(--color-fg) 4%, transparent) 0%,
+      transparent 100%
+    );
+  }
+
+  html.light .bg-horizon {
+    background: linear-gradient(
+      to top,
+      color-mix(in oklab, var(--color-fg) 3%, transparent) 0%,
+      transparent 100%
+    );
+  }
+
+  .bg-vignette {
     position: absolute;
     inset: 0;
-    background-image:
-      linear-gradient(
-        color-mix(in oklab, var(--color-fg) 4%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--color-fg) 4%, transparent) 1px,
-        transparent 1px
-      );
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
-    opacity: 0.35;
+    background: radial-gradient(
+      ellipse 75% 65% at 50% 40%,
+      transparent 40%,
+      color-mix(in oklab, var(--color-canvas) 55%, transparent) 100%
+    );
+  }
+
+  .bg-structure {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-fg);
+  }
+
+  .bg-structure-left {
+    animation: structure-drift 44s ease-in-out infinite;
+  }
+
+  .bg-structure-right {
+    animation: structure-drift 52s ease-in-out infinite reverse;
   }
 
   .bg-grain {
     position: absolute;
     inset: 0;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat;
-    background-size: 180px 180px;
+    background-size: 220px 220px;
     mix-blend-mode: overlay;
   }
 
   html.light .bg-grain {
-    opacity: 0.03;
+    opacity: 0.025;
     mix-blend-mode: multiply;
   }
 
-  .bg-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid color-mix(in oklab, var(--color-accent) 18%, transparent);
-    animation: ring-pulse 10s ease-out infinite;
+  /* Spin works at any SVG scale */
+  .turbine-spin-slow,
+  .turbine-spin-slower,
+  .spin-slow,
+  .spin-slower {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
-  .bg-ring-1 {
-    width: min(55vw, 34rem);
-    height: min(55vw, 34rem);
-    top: 12%;
-    right: -8%;
-    animation-delay: 0s;
+  .turbine-spin-slow,
+  .spin-slow {
+    animation: spin-slow 28s linear infinite;
   }
 
-  .bg-ring-2 {
-    width: min(40vw, 24rem);
-    height: min(40vw, 24rem);
-    bottom: 8%;
-    left: 18%;
-    animation-delay: 3.5s;
+  .turbine-spin-slower,
+  .spin-slower {
+    animation: spin-slow 42s linear infinite reverse;
   }
 
-  .icon-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    background: color-mix(in oklab, var(--color-accent) 12%, var(--color-raised));
-    color: var(--color-accent);
-    box-shadow:
-      0 4px 12px -4px rgb(0 0 0 / 0.5),
-      inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 22%, transparent);
-    transition:
-      transform 180ms ease,
-      box-shadow 180ms ease,
-      background-color 180ms ease;
-  }
-
-  .group:hover .icon-chip,
-  .icon-chip:hover {
-    transform: translateY(-1px) scale(1.05);
-    background: color-mix(in oklab, var(--color-accent) 20%, var(--color-raised));
-    box-shadow:
-      0 8px 18px -6px color-mix(in oklab, var(--color-accent) 30%, transparent),
-      inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 40%, transparent);
+  .pulse-core {
+    animation: core-pulse 3.6s ease-in-out infinite;
   }
 
   .nav-icon {
-    transition:
-      color 150ms ease,
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color 150ms ease;
   }
 
   a:hover .nav-icon,
   [aria-current="page"] .nav-icon {
     color: var(--color-accent);
-  }
-
-  a:hover .nav-icon {
-    transform: scale(1.12) translateY(-1px);
   }
 
   .link-underline {
@@ -561,92 +425,26 @@ html.light {
     background: var(--color-accent);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 200ms ease;
   }
 
   .link-underline:hover::after {
     transform: scaleX(1);
   }
 
-  .btn-shadow {
-    box-shadow: var(--shadow-btn);
-  }
-
-  .btn-shadow-accent {
-    box-shadow: var(--shadow-btn-accent);
-  }
-
-  .btn-shine {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-shine::before {
-    content: "";
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      105deg,
-      transparent 35%,
-      color-mix(in oklab, white 28%, transparent) 50%,
-      transparent 65%
-    );
-    transform: translateX(-120%);
-    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .btn-shine:hover::before {
-    transform: translateX(120%);
-  }
-
-  .hero-visual {
-    box-shadow: var(--shadow-elevated);
-    transition:
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 300ms ease;
-  }
-
-  .hero-visual:hover {
-    transform: translateY(-4px) scale(1.015);
-    box-shadow:
-      0 28px 72px -20px rgb(0 0 0 / 0.9),
-      0 0 40px -12px color-mix(in oklab, var(--color-accent) 28%, transparent),
-      0 0 0 1px rgba(201, 162, 39, 0.25);
-  }
-
-  .spin-slow {
-    animation: spin-slow 48s linear infinite;
-  }
-
-  .spin-slower {
-    animation: spin-slow 72s linear infinite reverse;
-  }
-
-  .pulse-core {
-    animation: core-pulse 3.2s ease-in-out infinite;
-  }
-
   .hover-accent {
-    transition:
-      color 160ms ease,
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color 160ms ease;
   }
 
   .hover-accent:hover {
     color: var(--color-accent);
-    transform: translateX(2px);
-  }
-
-  .badge-live-pulse {
-    animation: live-dot 2.4s ease-in-out infinite;
   }
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -657,7 +455,7 @@ html.light {
 @keyframes dock-in {
   from {
     opacity: 0;
-    transform: translate(-12px, -50%);
+    transform: translate(-8px, -50%);
   }
   to {
     opacity: 1;
@@ -668,7 +466,7 @@ html.light {
 @keyframes dock-up {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -679,20 +477,20 @@ html.light {
 @keyframes float-a {
   0%,
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate(-6%, 8%) scale(1.08);
+    transform: translate(-3%, 4%);
   }
 }
 
 @keyframes float-b {
   0%,
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0);
   }
   50% {
-    transform: translate(10%, -6%) scale(1.05);
+    transform: translate(4%, -3%);
   }
 }
 
@@ -701,38 +499,28 @@ html.light {
   100% {
     transform: translate(0, 0);
   }
-  33% {
-    transform: translate(-8%, 5%);
+  50% {
+    transform: translate(-2%, 3%);
   }
-  66% {
-    transform: translate(6%, -4%);
+}
+
+@keyframes structure-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
   }
 }
 
 @keyframes glow-breathe {
   0%,
   100% {
-    opacity: 0.7;
-    transform: scale(1);
+    opacity: 0.5;
   }
   50% {
-    opacity: 1;
-    transform: scale(1.12);
-  }
-}
-
-@keyframes ring-pulse {
-  0% {
-    opacity: 0.35;
-    transform: scale(0.92);
-  }
-  50% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0.2;
-    transform: scale(1.08);
+    opacity: 0.85;
   }
 }
 
@@ -755,51 +543,28 @@ html.light {
   }
 }
 
-@keyframes live-dot {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-accent) 45%, transparent);
-  }
-  50% {
-    box-shadow: 0 0 0 6px transparent;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .page-enter > *,
-  .stagger-children > *,
   .dock-rail,
   .dock-mobile {
     animation: none;
   }
-  .card-lift,
   .gt-logo-circle,
-  .hero-visual,
-  .icon-chip,
-  .dock-item,
-  .btn-shine,
-  .hover-accent,
   body {
     transition: none;
   }
-  .card-lift:hover,
-  .gt-logo-circle:hover,
-  .hero-visual:hover,
-  .dock-item:hover,
-  .hover-accent:hover {
+  .gt-logo-circle:hover {
     transform: none;
   }
-  .card-lift::after,
-  .btn-shine::before {
-    display: none;
-  }
   .bg-orb,
-  .bg-ring,
+  .bg-structure-left,
+  .bg-structure-right,
   .hero-glow::before,
+  .turbine-spin-slow,
+  .turbine-spin-slower,
   .spin-slow,
   .spin-slower,
-  .pulse-core,
-  .badge-live-pulse {
+  .pulse-core {
     animation: none;
   }
 }
