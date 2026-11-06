@@ -23,14 +23,24 @@
   --radius-xl: 1.5rem;
 
   --shadow-border: 0 0 0 1px rgba(250, 250, 250, 0.07);
-  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.4);
-  --shadow-card: 0 10px 36px -14px rgb(0 0 0 / 0.85),
-    0 0 0 1px rgba(250, 250, 250, 0.05);
-  --shadow-card-hover: 0 18px 44px -16px rgb(0 0 0 / 0.9),
-    0 0 0 1px rgba(201, 162, 39, 0.28);
+  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.45);
+  --shadow-card: 0 12px 40px -14px rgb(0 0 0 / 0.9),
+    0 4px 16px -8px rgb(0 0 0 / 0.55),
+    0 0 0 1px rgba(250, 250, 250, 0.06);
+  --shadow-card-hover: 0 22px 52px -16px rgb(0 0 0 / 0.95),
+    0 8px 24px -10px rgb(0 0 0 / 0.65),
+    0 0 24px -8px color-mix(in oklab, var(--color-accent) 22%, transparent),
+    0 0 0 1px rgba(201, 162, 39, 0.32);
   --shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-accent) 70%, transparent);
-  --shadow-logo: 0 8px 24px -8px rgb(0 0 0 / 0.85),
-    0 0 0 1px rgba(201, 162, 39, 0.45);
+  --shadow-logo: 0 10px 28px -8px rgb(0 0 0 / 0.9),
+    0 0 20px -4px color-mix(in oklab, var(--color-accent) 35%, transparent),
+    0 0 0 1px rgba(201, 162, 39, 0.5);
+  --shadow-btn: 0 8px 24px -10px rgb(0 0 0 / 0.7),
+    0 0 0 1px rgba(250, 250, 250, 0.06);
+  --shadow-btn-accent: 0 10px 28px -8px color-mix(in oklab, var(--color-accent) 45%, transparent),
+    0 4px 12px -4px rgb(0 0 0 / 0.5);
+  --shadow-elevated: 0 24px 64px -20px rgb(0 0 0 / 0.85),
+    0 0 0 1px rgba(250, 250, 250, 0.05);
 }
 
 /* Light counterpart — same structure, warm paper */
@@ -48,12 +58,22 @@ html.light {
 
   --shadow-border: 0 0 0 1px rgba(12, 12, 12, 0.08);
   --shadow-border-hover: 0 0 0 1px rgba(154, 123, 26, 0.45);
-  --shadow-card: 0 8px 28px -14px rgb(0 0 0 / 0.12),
+  --shadow-card: 0 10px 32px -14px rgb(0 0 0 / 0.14),
+    0 4px 12px -6px rgb(0 0 0 / 0.08),
     0 0 0 1px rgba(12, 12, 12, 0.06);
-  --shadow-card-hover: 0 14px 36px -16px rgb(0 0 0 / 0.16),
-    0 0 0 1px rgba(154, 123, 26, 0.3);
-  --shadow-logo: 0 8px 24px -10px rgb(0 0 0 / 0.2),
-    0 0 0 1px rgba(154, 123, 26, 0.35);
+  --shadow-card-hover: 0 18px 44px -16px rgb(0 0 0 / 0.18),
+    0 8px 20px -8px rgb(0 0 0 / 0.1),
+    0 0 20px -6px color-mix(in oklab, var(--color-accent) 18%, transparent),
+    0 0 0 1px rgba(154, 123, 26, 0.32);
+  --shadow-logo: 0 10px 28px -10px rgb(0 0 0 / 0.22),
+    0 0 16px -4px color-mix(in oklab, var(--color-accent) 28%, transparent),
+    0 0 0 1px rgba(154, 123, 26, 0.38);
+  --shadow-btn: 0 6px 18px -8px rgb(0 0 0 / 0.14),
+    0 0 0 1px rgba(12, 12, 12, 0.06);
+  --shadow-btn-accent: 0 8px 22px -6px color-mix(in oklab, var(--color-accent) 35%, transparent),
+    0 2px 8px -2px rgb(0 0 0 / 0.12);
+  --shadow-elevated: 0 20px 48px -16px rgb(0 0 0 / 0.12),
+    0 0 0 1px rgba(12, 12, 12, 0.05);
 }
 
 @layer base {
@@ -138,13 +158,14 @@ html.light {
   .card-lift {
     box-shadow: var(--shadow-card);
     transition:
-      transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 180ms ease,
-      background-color 280ms ease;
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms ease,
+      background-color 280ms ease,
+      border-color 220ms ease;
   }
 
   .card-lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.01);
     box-shadow: var(--shadow-card-hover);
   }
 
@@ -153,39 +174,57 @@ html.light {
   }
 
   .page-enter > * {
-    animation: rise-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > *:nth-child(1) {
     animation-delay: 0ms;
   }
   .page-enter > *:nth-child(2) {
-    animation-delay: 60ms;
+    animation-delay: 70ms;
   }
   .page-enter > *:nth-child(3) {
-    animation-delay: 120ms;
+    animation-delay: 140ms;
   }
   .page-enter > *:nth-child(4) {
-    animation-delay: 180ms;
+    animation-delay: 210ms;
+  }
+  .page-enter > *:nth-child(5) {
+    animation-delay: 280ms;
   }
 
   .gt-sidebar {
-    box-shadow: 4px 0 24px -12px rgb(0 0 0 / 0.55);
+    box-shadow:
+      6px 0 32px -12px rgb(0 0 0 / 0.65),
+      1px 0 0 0 color-mix(in oklab, var(--color-line) 80%, transparent);
   }
 
   html.light .gt-sidebar {
-    box-shadow: 4px 0 24px -14px rgb(0 0 0 / 0.08);
+    box-shadow:
+      6px 0 28px -14px rgb(0 0 0 / 0.1),
+      1px 0 0 0 var(--color-line);
   }
 
   .gt-logo-circle {
     box-shadow: var(--shadow-logo);
     transition:
-      transform 180ms ease,
-      box-shadow 180ms ease;
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms ease;
   }
 
   .gt-logo-circle:hover {
-    transform: scale(1.05);
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow:
+      0 14px 36px -8px rgb(0 0 0 / 0.9),
+      0 0 28px -2px color-mix(in oklab, var(--color-accent) 50%, transparent),
+      0 0 0 1px rgba(201, 162, 39, 0.6);
+  }
+
+  html.light .gt-logo-circle:hover {
+    box-shadow:
+      0 14px 36px -10px rgb(0 0 0 / 0.2),
+      0 0 24px -2px color-mix(in oklab, var(--color-accent) 40%, transparent),
+      0 0 0 1px rgba(154, 123, 26, 0.5);
   }
 
   .page-screen {
@@ -212,26 +251,295 @@ html.light {
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 18%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
       transparent 70%
     );
     z-index: 0;
+    animation: glow-breathe 8s ease-in-out infinite;
   }
 
   .hero-glow > * {
     position: relative;
     z-index: 1;
   }
+
+  /* Ambient layer behind all content */
+  .bg-atmosphere {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(64px);
+    opacity: 0.45;
+    will-change: transform;
+  }
+
+  .bg-orb-a {
+    width: min(42vw, 28rem);
+    height: min(42vw, 28rem);
+    top: -8%;
+    right: 8%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-accent) 28%, transparent) 0%,
+      transparent 70%
+    );
+    animation: float-a 18s ease-in-out infinite;
+  }
+
+  .bg-orb-b {
+    width: min(36vw, 22rem);
+    height: min(36vw, 22rem);
+    bottom: 5%;
+    left: 12%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
+      transparent 72%
+    );
+    animation: float-b 22s ease-in-out infinite;
+  }
+
+  .bg-orb-c {
+    width: min(28vw, 16rem);
+    height: min(28vw, 16rem);
+    top: 42%;
+    left: 48%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-fg) 6%, transparent) 0%,
+      transparent 70%
+    );
+    animation: float-c 26s ease-in-out infinite;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(
+        color-mix(in oklab, var(--color-fg) 4%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--color-fg) 4%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+    opacity: 0.35;
+  }
+
+  .bg-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+    mix-blend-mode: overlay;
+  }
+
+  html.light .bg-grain {
+    opacity: 0.03;
+    mix-blend-mode: multiply;
+  }
+
+  .bg-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid color-mix(in oklab, var(--color-accent) 18%, transparent);
+    animation: ring-pulse 10s ease-out infinite;
+  }
+
+  .bg-ring-1 {
+    width: min(55vw, 34rem);
+    height: min(55vw, 34rem);
+    top: 12%;
+    right: -8%;
+    animation-delay: 0s;
+  }
+
+  .bg-ring-2 {
+    width: min(40vw, 24rem);
+    height: min(40vw, 24rem);
+    bottom: 8%;
+    left: 18%;
+    animation-delay: 3.5s;
+  }
+
+  .icon-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: color-mix(in oklab, var(--color-accent) 12%, var(--color-raised));
+    color: var(--color-accent);
+    box-shadow:
+      0 4px 12px -4px rgb(0 0 0 / 0.5),
+      inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 22%, transparent);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .group:hover .icon-chip,
+  .icon-chip:hover {
+    transform: translateY(-1px) scale(1.05);
+    background: color-mix(in oklab, var(--color-accent) 20%, var(--color-raised));
+    box-shadow:
+      0 8px 18px -6px color-mix(in oklab, var(--color-accent) 30%, transparent),
+      inset 0 0 0 1px color-mix(in oklab, var(--color-accent) 40%, transparent);
+  }
+
+  .nav-icon {
+    transition:
+      color 150ms ease,
+      transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  a:hover .nav-icon,
+  [aria-current="page"] .nav-icon {
+    color: var(--color-accent);
+  }
+
+  a:hover .nav-icon {
+    transform: scale(1.08);
+  }
+
+  .btn-shadow {
+    box-shadow: var(--shadow-btn);
+  }
+
+  .btn-shadow-accent {
+    box-shadow: var(--shadow-btn-accent);
+  }
+
+  .hero-visual {
+    box-shadow: var(--shadow-elevated);
+    transition:
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms ease;
+  }
+
+  .hero-visual:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow:
+      0 28px 72px -20px rgb(0 0 0 / 0.9),
+      0 0 40px -12px color-mix(in oklab, var(--color-accent) 28%, transparent),
+      0 0 0 1px rgba(201, 162, 39, 0.25);
+  }
+
+  .spin-slow {
+    animation: spin-slow 48s linear infinite;
+  }
+
+  .spin-slower {
+    animation: spin-slow 72s linear infinite reverse;
+  }
+
+  .pulse-core {
+    animation: core-pulse 3.2s ease-in-out infinite;
+  }
 }
 
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-6%, 8%) scale(1.08);
+  }
+}
+
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(10%, -6%) scale(1.05);
+  }
+}
+
+@keyframes float-c {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-8%, 5%);
+  }
+  66% {
+    transform: translate(6%, -4%);
+  }
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes core-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    r: 10;
+  }
+  50% {
+    opacity: 1;
+    r: 12;
   }
 }
 
@@ -241,11 +549,22 @@ html.light {
   }
   .card-lift,
   .gt-logo-circle,
+  .hero-visual,
+  .icon-chip,
   body {
     transition: none;
   }
   .card-lift:hover,
-  .gt-logo-circle:hover {
+  .gt-logo-circle:hover,
+  .hero-visual:hover {
     transform: none;
+  }
+  .bg-orb,
+  .bg-ring,
+  .hero-glow::before,
+  .spin-slow,
+  .spin-slower,
+  .pulse-core {
+    animation: none;
   }
 }
