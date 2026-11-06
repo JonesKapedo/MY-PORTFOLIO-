@@ -32,13 +32,13 @@ export function SiteSidebar() {
 
   return (
     <>
-      {/* Desktop — minimal icon rail, no brand mark */}
+      {/* Desktop — transparent rail, sharp icons only */}
       <aside
-        className="dock-rail pointer-events-none fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 md:block"
+        className="dock-rail pointer-events-none fixed top-1/2 left-3 z-40 hidden -translate-y-1/2 md:block"
         aria-label="Primary"
       >
-        <div className="dock-panel pointer-events-auto flex flex-col items-center gap-1 rounded-2xl bg-surface/50 p-1.5 backdrop-blur-xl">
-          <nav className="flex flex-col items-center gap-0.5" aria-label="Primary">
+        <div className="pointer-events-auto flex flex-col items-center gap-1 bg-transparent p-0">
+          <nav className="flex flex-col items-center gap-1" aria-label="Primary">
             {NAV.map((item) => {
               const active = isActive(item.to);
               const Icon = NAV_ICONS[item.to];
@@ -50,25 +50,26 @@ export function SiteSidebar() {
                   aria-label={item.label}
                   title={item.label}
                   className={cn(
-                    "dock-item group relative flex size-10 items-center justify-center rounded-xl transition-colors duration-200",
+                    "dock-item group relative flex size-11 items-center justify-center rounded-lg transition-colors duration-150",
                     active
-                      ? "bg-fg/[0.06] text-accent"
-                      : "text-subtle hover:bg-fg/[0.04] hover:text-fg",
+                      ? "text-accent"
+                      : "text-muted hover:text-fg",
                   )}
                 >
                   {active ? (
                     <span
                       aria-hidden
-                      className="absolute left-0 top-1/2 h-3.5 w-0.5 -translate-y-1/2 rounded-full bg-accent"
+                      className="absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-full bg-accent"
                     />
                   ) : null}
                   {Icon ? (
                     <Icon
                       className={cn(
-                        "nav-icon size-4",
+                        "nav-icon size-[22px]",
                         active ? "text-accent" : "",
                       )}
-                      strokeWidth={1.5}
+                      strokeWidth={2}
+                      absoluteStrokeWidth
                     />
                   ) : null}
                   <span className="dock-tooltip">{item.label}</span>
@@ -77,15 +78,15 @@ export function SiteSidebar() {
             })}
           </nav>
 
-          <div className="mt-0.5 border-t border-line/40 pt-0.5">
-            <ThemeToggle className="size-10 rounded-xl border-0 bg-transparent shadow-none" />
+          <div className="mt-1">
+            <ThemeToggle className="size-11 rounded-lg border-0 bg-transparent shadow-none" />
           </div>
         </div>
       </aside>
 
-      {/* Mobile bottom dock */}
+      {/* Mobile — keep a light bar for thumb reach */}
       <nav
-        className="dock-mobile fixed inset-x-4 bottom-4 z-40 flex items-center justify-between gap-0.5 rounded-2xl bg-surface/75 px-1 py-1 backdrop-blur-xl md:hidden"
+        className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-0.5 rounded-2xl bg-canvas/90 px-1 py-1.5 backdrop-blur-md md:hidden"
         aria-label="Primary"
       >
         {NAV.map((item) => {
@@ -97,21 +98,25 @@ export function SiteSidebar() {
               to={item.to}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 transition-colors duration-200",
-                active ? "text-accent" : "text-subtle hover:text-fg",
+                "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 transition-colors duration-150",
+                active ? "text-accent" : "text-muted hover:text-fg",
               )}
             >
               {Icon ? (
-                <Icon className="size-4 shrink-0" strokeWidth={1.5} />
+                <Icon
+                  className="size-5 shrink-0"
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
               ) : null}
-              <span className="truncate text-[9px] font-medium tracking-wide">
+              <span className="truncate text-[9px] font-semibold tracking-wide">
                 {item.label}
               </span>
             </Link>
           );
         })}
         <div className="flex shrink-0 items-center">
-          <ThemeToggle className="size-9 rounded-xl border-0 bg-transparent shadow-none" />
+          <ThemeToggle className="size-9 rounded-lg border-0 bg-transparent shadow-none" />
         </div>
       </nav>
     </>
