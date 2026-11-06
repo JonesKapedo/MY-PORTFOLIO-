@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 
-/** Build an SVG gear path (involute-style tooth ring). */
 function gearPath(
   cx: number,
   cy: number,
@@ -14,16 +13,12 @@ function gearPath(
   for (let i = 0; i < steps; i++) {
     const a = (i / steps) * Math.PI * 2 - Math.PI / 2;
     const tooth = i % 4;
-    const r =
-      tooth === 0 || tooth === 1
-        ? outerR
-        : rootR;
+    const r = tooth === 0 || tooth === 1 ? outerR : rootR;
     const x = cx + Math.cos(a) * r;
     const y = cy + Math.sin(a) * r;
     pts.push(`${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`);
   }
   pts.push("Z");
-  // Hub hole (even-odd)
   const hole: string[] = [];
   for (let i = 0; i <= 32; i++) {
     const a = (i / 32) * Math.PI * 2;
@@ -39,12 +34,8 @@ type GearSystemProps = {
   className?: string;
 };
 
-/**
- * Three interlocking gearwheels — primary visual for the intro hero.
- * Spins in opposing directions at different speeds.
- */
+/** Three interlocking gears — opposing directions, different speeds. */
 export function GearSystem({ className }: GearSystemProps) {
-  // Centers chosen so teeth visually mesh
   const g1 = { cx: 118, cy: 128, teeth: 14, outer: 78, root: 62, hole: 18 };
   const g2 = { cx: 248, cy: 108, teeth: 10, outer: 56, root: 44, hole: 14 };
   const g3 = { cx: 198, cy: 232, teeth: 8, outer: 44, root: 34, hole: 11 };
@@ -60,36 +51,36 @@ export function GearSystem({ className }: GearSystemProps) {
       <defs>
         <linearGradient id="gear-fill" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#c9a227" stopOpacity="0.95" />
-          <stop offset="55%" stopColor="#a88820" stopOpacity="0.88" />
+          <stop offset="55%" stopColor="#a88820" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#7a6418" stopOpacity="0.92" />
         </linearGradient>
         <linearGradient id="gear-fill-mid" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#d4b03a" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#8f7420" stopOpacity="0.85" />
+          <stop offset="0%" stopColor="#d4b03a" stopOpacity="0.92" />
+          <stop offset="100%" stopColor="#8f7420" stopOpacity="0.88" />
         </linearGradient>
         <linearGradient id="gear-fill-sm" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#e0c04a" stopOpacity="0.88" />
-          <stop offset="100%" stopColor="#9a7b1a" stopOpacity="0.82" />
+          <stop offset="0%" stopColor="#e0c04a" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#9a7b1a" stopOpacity="0.85" />
         </linearGradient>
-        <filter id="gear-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="1.2" result="b" />
-          <feMerge>
-            <feMergeNode in="b" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
 
-      {/* Large rear gear — clockwise */}
-      <g className="gear-spin-cw-slow">
+      {/* Large — clockwise slow */}
+      <g>
         <path
           d={gearPath(g1.cx, g1.cy, g1.teeth, g1.outer, g1.root, g1.hole)}
           fill="url(#gear-fill)"
           fillRule="evenodd"
-          opacity="0.92"
-          filter="url(#gear-soft)"
-          style={{ transformOrigin: `${g1.cx}px ${g1.cy}px` }}
-        />
+          opacity="0.94"
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={`0 ${g1.cx} ${g1.cy}`}
+            to={`360 ${g1.cx} ${g1.cy}`}
+            dur="28s"
+            repeatCount="indefinite"
+          />
+        </path>
         <circle
           cx={g1.cx}
           cy={g1.cy}
@@ -97,21 +88,28 @@ export function GearSystem({ className }: GearSystemProps) {
           fill="none"
           stroke="#050505"
           strokeWidth="6"
-          opacity="0.35"
+          opacity="0.4"
         />
-        <circle cx={g1.cx} cy={g1.cy} r={8} fill="#050505" opacity="0.55" />
+        <circle cx={g1.cx} cy={g1.cy} r={8} fill="#050505" opacity="0.6" />
       </g>
 
-      {/* Medium gear — counter-clockwise, meshed top-right */}
-      <g className="gear-spin-ccw">
+      {/* Medium — counter-clockwise */}
+      <g>
         <path
           d={gearPath(g2.cx, g2.cy, g2.teeth, g2.outer, g2.root, g2.hole)}
           fill="url(#gear-fill-mid)"
           fillRule="evenodd"
-          opacity="0.95"
-          filter="url(#gear-soft)"
-          style={{ transformOrigin: `${g2.cx}px ${g2.cy}px` }}
-        />
+          opacity="0.96"
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={`0 ${g2.cx} ${g2.cy}`}
+            to={`-360 ${g2.cx} ${g2.cy}`}
+            dur="20s"
+            repeatCount="indefinite"
+          />
+        </path>
         <circle
           cx={g2.cx}
           cy={g2.cy}
@@ -119,21 +117,28 @@ export function GearSystem({ className }: GearSystemProps) {
           fill="none"
           stroke="#050505"
           strokeWidth="5"
-          opacity="0.35"
+          opacity="0.4"
         />
-        <circle cx={g2.cx} cy={g2.cy} r={6} fill="#050505" opacity="0.55" />
+        <circle cx={g2.cx} cy={g2.cy} r={6} fill="#050505" opacity="0.6" />
       </g>
 
-      {/* Small gear — clockwise faster, meshed below */}
-      <g className="gear-spin-cw-fast">
+      {/* Small — clockwise faster */}
+      <g>
         <path
           d={gearPath(g3.cx, g3.cy, g3.teeth, g3.outer, g3.root, g3.hole)}
           fill="url(#gear-fill-sm)"
           fillRule="evenodd"
-          opacity="0.97"
-          filter="url(#gear-soft)"
-          style={{ transformOrigin: `${g3.cx}px ${g3.cy}px` }}
-        />
+          opacity="0.98"
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from={`0 ${g3.cx} ${g3.cy}`}
+            to={`360 ${g3.cx} ${g3.cy}`}
+            dur="14s"
+            repeatCount="indefinite"
+          />
+        </path>
         <circle
           cx={g3.cx}
           cy={g3.cy}
@@ -141,9 +146,9 @@ export function GearSystem({ className }: GearSystemProps) {
           fill="none"
           stroke="#050505"
           strokeWidth="4"
-          opacity="0.35"
+          opacity="0.4"
         />
-        <circle cx={g3.cx} cy={g3.cy} r={5} fill="#050505" opacity="0.55" />
+        <circle cx={g3.cx} cy={g3.cy} r={5} fill="#050505" opacity="0.6" />
       </g>
     </svg>
   );
