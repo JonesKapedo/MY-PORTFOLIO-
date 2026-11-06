@@ -7,7 +7,6 @@ import {
   MessageSquareWarning,
 } from "lucide-react";
 import type { ComponentType } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +31,6 @@ export function SiteSidebar() {
 
   return (
     <>
-      {/* Desktop — transparent rail, sharp icons only */}
       <aside
         className="dock-rail pointer-events-none fixed top-1/2 left-3 z-40 hidden -translate-y-1/2 md:block"
         aria-label="Primary"
@@ -51,9 +49,7 @@ export function SiteSidebar() {
                   title={item.label}
                   className={cn(
                     "dock-item group relative flex size-11 items-center justify-center rounded-lg transition-colors duration-150",
-                    active
-                      ? "text-accent"
-                      : "text-muted hover:text-fg",
+                    active ? "text-accent" : "text-muted hover:text-fg",
                   )}
                 >
                   {active ? (
@@ -77,14 +73,9 @@ export function SiteSidebar() {
               );
             })}
           </nav>
-
-          <div className="mt-1">
-            <ThemeToggle className="size-11 rounded-lg border-0 bg-transparent shadow-none" />
-          </div>
         </div>
       </aside>
 
-      {/* Mobile — keep a light bar for thumb reach */}
       <nav
         className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-0.5 rounded-2xl bg-canvas/90 px-1 py-1.5 backdrop-blur-md md:hidden"
         aria-label="Primary"
@@ -115,9 +106,6 @@ export function SiteSidebar() {
             </Link>
           );
         })}
-        <div className="flex shrink-0 items-center">
-          <ThemeToggle className="size-9 rounded-lg border-0 bg-transparent shadow-none" />
-        </div>
       </nav>
     </>
   );
