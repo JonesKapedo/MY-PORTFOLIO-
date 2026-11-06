@@ -1,13 +1,21 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { COMPANY, SERVICES, type ServiceId } from "@/lib/site";
+import {
+  COMPANY,
+  SERVICES,
+  getConcern,
+  getService,
+  type ServiceId,
+} from "@/lib/site";
 
 type Props = {
   initialService?: ServiceId;
+  initialConcernSlug?: string;
   initialMessage?: string;
 };
 
@@ -18,14 +26,57 @@ const PROMPTS = [
   "We only see real numbers at month-end",
 ] as const;
 
-export function ContactForm({ initialService, initialMessage = "" }: Props) {
+function buildPrefillMessage(
+  serviceId?: string,
+  concernSlug?: string,
+  fallback?: string,
+) {
+  if (fallback?.trim()) return fallback;
+  const service = serviceId ? getService(serviceId) : undefined;
+  const concern = concernSlug ? getConcern(concernSlug) : undefined;
+  const parts: string[] = [];
+  if (concern) {
+    parts.push(`Operational concern: ${concern.title}`);
+    parts.push(`Context: ${concern.teaser}`);
+  }
+  if (service) {
+    parts.push(`Service of interest: ${service.name}`);
+    parts.push(`Indicative investment (after written agreement): ${service.price} (${service.unit})`);
+    parts.push(`Typical delivery window: ${service.timeframe}`);
+    parts.push(
+      "Note: No payment is due until a written proposal is approved. Figures above are indicative starting points only.",
+    );
+  }
+  if (parts.length === 0) return "";
+  return `${parts.join("\n")}\n\nAdditional detail:\n`;
+}
+
+export function ContactForm({
+  initialService,
+  initialConcernSlug,
+  initialMessage,
+}: Props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [org, setOrg] = useState("");
   const [phone, setPhone] = useState("");
   const [service, setService] = useState<string>(initialService ?? "");
-  const [message, setMessage] = useState(initialMessage);
+  const [message, setMessage] = useState(() =>
+    buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
+  );
+  const [privacyConsent, setPrivacyConsent] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    setService(initialService ?? "");
+    setMessage(
+      buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
+    );
+  }, [initialService, initialConcernSlug, initialMessage]);
+
+  const selected = service ? getService(service) : undefined;
 
   function applyPrompt(prompt: string) {
     setMessage((prev) => {
@@ -36,16 +87,17 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
     });
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const missing: string[] = [];
     if (!name.trim()) missing.push("name");
     if (!email.trim() && !phone.trim()) missing.push("email or phone");
     if (!message.trim()) missing.push("a short description of the problem");
+    if (!privacyConsent) missing.push("privacy consent");
     if (missing.length > 0) {
       setError(
-        `Almost there — please add your ${missing.slice(0, -1).join(", ")}${
+        `Please complete: ${missing.slice(0, -1).join(", ")}${
           missing.length > 1 ? " and " : ""
         }${missing[missing.length - 1]}.`,
       );
@@ -53,32 +105,99 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
     }
 
     if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setError("That email does not look right — a quick check please.");
+      setError("That email does not look correct.");
       return;
     }
 
     setError(null);
+    setSending(true);
 
-    const serviceLabel =
-      SERVICES.find((s) => s.id === service)?.name ?? "Not sure yet";
-    const subject = `Brief from ${name.trim()} — ${COMPANY.name}`;
-    const body = [
-      `Name: ${name.trim()}`,
-      `Email: ${email.trim() || "—"}`,
-      `Phone / WhatsApp: ${phone.trim() || "—"}`,
-      `Organisation: ${org.trim() || "—"}`,
-      `Service interest: ${serviceLabel}`,
-      "",
-      message.trim(),
-    ].join("\n");
+    const serviceLabel = selected?.name ?? "Not specified";
+    const payload = {
+      name: name.trim(),
+      email: email.trim() || "not-provided@greatturbinez.com",
+      phone: phone.trim() || "—",
+      organisation: org.trim() || "—",
+      service: serviceLabel,
+      serviceId: service || "—",
+      indicativeFee: selected?.price ?? "—",
+      concern: initialConcernSlug ?? "—",
+      message: message.trim(),
+      privacyConsent: "yes",
+      marketingConsent: marketingConsent ? "yes" : "no",
+      _subject: `Brief — ${name.trim()} — ${COMPANY.name}`,
+      _template: "table",
+      _captcha: "false",
+    };
 
-    const href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = href;
-    toast.success("Opening your email to send the brief. Thank you.");
+    try {
+      const res = await fetch(
+        `https://formsubmit.co/ajax/${encodeURIComponent(COMPANY.email)}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (!res.ok) throw new Error("submit_failed");
+
+      toast.success(
+        "Brief received. We will reply within two business days.",
+      );
+      setName("");
+      setEmail("");
+      setOrg("");
+      setPhone("");
+      setMessage(
+        buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
+      );
+      setPrivacyConsent(false);
+      setMarketingConsent(false);
+    } catch {
+      // Fallback: open mail client so the brief is never lost
+      const body = [
+        `Name: ${name.trim()}`,
+        `Email: ${email.trim() || "—"}`,
+        `Phone: ${phone.trim() || "—"}`,
+        `Organisation: ${org.trim() || "—"}`,
+        `Service: ${serviceLabel}`,
+        `Indicative fee (after agreement): ${selected?.price ?? "—"}`,
+        `Privacy consent: yes`,
+        `Marketing consent: ${marketingConsent ? "yes" : "no"}`,
+        "",
+        message.trim(),
+      ].join("\n");
+      window.location.href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(
+        `Brief from ${name.trim()} — ${COMPANY.name}`,
+      )}&body=${encodeURIComponent(body)}`;
+      toast.message("Opening your email app as a backup path.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
+      {selected ? (
+        <div className="rounded-xl border border-accent/25 bg-accent/[0.06] px-4 py-3 text-sm">
+          <p className="font-medium text-fg">{selected.name}</p>
+          <p className="mt-1 text-xs text-muted">{selected.outcome}</p>
+          <p className="mt-2 text-xs text-accent">
+            Indicative investment after written agreement:{" "}
+            <span className="font-semibold">{selected.price}</span>
+            <span className="text-subtle"> · {selected.unit}</span>
+          </p>
+          <p className="mt-1 text-[11px] text-subtle">
+            No payment is requested from this form. Fees apply only once you
+            approve a formal proposal.
+          </p>
+        </div>
+      ) : null}
+
       {error ? (
         <p
           role="alert"
@@ -89,12 +208,12 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Your name" htmlFor="name" required>
+        <Field label="Full name" htmlFor="name" required>
           <Input
             id="name"
             name="name"
             autoComplete="name"
-            placeholder="e.g. Amina"
+            placeholder="Your name"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -113,7 +232,7 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Email" htmlFor="email" hint="Email or phone is enough">
+        <Field label="Email" htmlFor="email" hint="Email or phone required">
           <Input
             id="email"
             name="email"
@@ -137,7 +256,7 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
         </Field>
       </div>
 
-      <Field label="Service (if you already know)" htmlFor="service" hint="Optional">
+      <Field label="Service" htmlFor="service" hint="Pre-filled when available">
         <select
           id="service"
           name="service"
@@ -145,32 +264,28 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
           onChange={(e) => setService(e.target.value)}
           className="flex h-11 w-full appearance-none rounded-md bg-raised px-3.5 text-sm text-fg hairline field-focus outline-none"
         >
-          <option value="">I am not sure yet — that is fine</option>
+          <option value="">Not specified yet</option>
           {SERVICES.map((item) => (
             <option key={item.id} value={item.id}>
-              {item.name}
+              {item.name} — from {item.price}
             </option>
           ))}
         </select>
       </Field>
 
       <div className="space-y-2">
-        <Field
-          label="What is going wrong or costing time?"
-          htmlFor="message"
-          required
-        >
+        <Field label="Brief detail" htmlFor="message" required>
           <Textarea
             id="message"
             name="message"
             required
-            rows={5}
-            placeholder="A few sentences is enough — what happens today, how often, and what ‘better’ would look like."
+            rows={7}
+            placeholder="Describe the operational friction and what better would look like."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
         </Field>
-        <p className="text-[11px] text-subtle">Need a starting line? Tap one:</p>
+        <p className="text-[11px] text-subtle">Quick starters:</p>
         <div className="flex flex-wrap gap-2">
           {PROMPTS.map((p) => (
             <button
@@ -185,13 +300,54 @@ export function ContactForm({ initialService, initialMessage = "" }: Props) {
         </div>
       </div>
 
+      <div className="space-y-3 rounded-xl bg-raised/40 px-4 py-4">
+        <label className="flex gap-3 text-sm text-muted">
+          <input
+            type="checkbox"
+            className="mt-1 size-4 shrink-0 accent-[var(--color-accent)]"
+            checked={privacyConsent}
+            onChange={(e) => setPrivacyConsent(e.target.checked)}
+            required
+          />
+          <span>
+            I agree to the{" "}
+            <Link to="/privacy" className="text-accent hover:underline">
+              Privacy Policy
+            </Link>{" "}
+            and{" "}
+            <Link to="/terms" className="text-accent hover:underline">
+              Terms of Service
+            </Link>
+            . GREAT TURBINEZ may contact me about this brief, proposals, and
+            payment instructions related to work I request.{" "}
+            <span className="text-accent">*</span>
+          </span>
+        </label>
+        <label className="flex gap-3 text-sm text-muted">
+          <input
+            type="checkbox"
+            className="mt-1 size-4 shrink-0 accent-[var(--color-accent)]"
+            checked={marketingConsent}
+            onChange={(e) => setMarketingConsent(e.target.checked)}
+          />
+          <span>
+            Optional: send me occasional practice updates and invitations (you
+            may unsubscribe at any time).
+          </span>
+        </label>
+      </div>
+
       <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
-        <Button type="submit" size="lg" className="w-full sm:w-auto">
-          Send my brief
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full sm:w-auto"
+          disabled={sending}
+        >
+          {sending ? "Sending…" : "Submit private brief"}
         </Button>
         <p className="text-xs leading-relaxed text-subtle">
-          Opens your email app with the brief filled in. We reply{" "}
-          {COMPANY.responseSla}.
+          Delivered to our practice inbox. Reply {COMPANY.responseSla}.
         </p>
       </div>
     </form>

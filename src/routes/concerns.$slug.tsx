@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import { COMPANY, getConcern, getService } from "@/lib/site";
@@ -33,9 +34,6 @@ function ConcernDetailPage() {
       <PageFrame className="page-enter">
         <Eyebrow>Concern</Eyebrow>
         <h1 className="mt-2 font-display text-3xl font-semibold">Not found</h1>
-        <p className="mt-2 text-sm text-muted">
-          This concern is not on the list.
-        </p>
         <Link to="/concerns" className="mt-4 inline-block text-sm text-accent">
           ← All concerns
         </Link>
@@ -44,109 +42,140 @@ function ConcernDetailPage() {
   }
 
   return (
-    <PageFrame className="page-enter gap-3 overflow-hidden">
-      <div className="shrink-0">
-        <Link to="/concerns" className="text-xs text-muted hover:text-accent">
-          ← Concerns
-        </Link>
-        <Eyebrow>Concern</Eyebrow>
-        <h1 className="mt-1 max-w-3xl font-display text-2xl font-semibold tracking-tight sm:text-4xl">
-          {concern.title}
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-muted">{concern.teaser}</p>
-        {service ? (
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
+      <div className="flex w-full flex-col gap-10">
+        <div>
           <Link
-            to="/services/$slug"
-            params={{ slug: service.id }}
-            className="mt-2 inline-flex items-center rounded-full border border-accent/40 bg-raised px-3 py-1 text-[10px] tracking-wide text-accent uppercase hover:bg-accent hover:text-accent-fg"
+            to="/concerns"
+            className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent"
           >
-            Category: {service.name} →
+            <ArrowLeft className="size-3.5" />
+            All concerns
           </Link>
-        ) : null}
-      </div>
-
-      <div className="grid min-h-0 flex-1 gap-3 overflow-hidden lg:grid-cols-2">
-        <section className="min-h-0 space-y-3 overflow-hidden">
-          <div>
-            <h2 className="text-[10px] font-medium tracking-widest text-accent uppercase">
-              The situation
-            </h2>
-            <div className="mt-1.5 space-y-1.5 text-sm leading-snug text-muted">
-              {concern.situation.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h2 className="text-[10px] font-medium tracking-widest text-accent uppercase">
-              What fixed looks like
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-sm text-muted">
-              {concern.fixedLooksLike.map((line) => (
-                <li key={line} className="flex gap-2">
-                  <span className="text-accent">·</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <div className="grid min-h-0 gap-3 overflow-hidden sm:grid-cols-2">
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-accent uppercase">
-              Usually includes
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {concern.includes.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-subtle uppercase">
-              Outside this scope
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {concern.excludes.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-          {service ? (
-            <div className="rounded-lg bg-surface p-3 hairline sm:col-span-2">
-              <h2 className="text-[10px] tracking-widest text-accent uppercase">
-                Service this maps to
-              </h2>
-              <p className="mt-1 text-sm font-semibold text-fg">{service.name}</p>
-              <p className="mt-0.5 text-xs text-muted">{service.outcome}</p>
-              <p className="mt-1 text-xs text-accent">
-                {service.price} · {service.timeframe}
-              </p>
-            </div>
-          ) : null}
+          <Eyebrow className="mt-6">Operational concern</Eyebrow>
+          <h1 className="mt-3 max-w-3xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            {concern.title}
+          </h1>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted">
+            {concern.teaser}
+          </p>
         </div>
-      </div>
 
-      <div className="flex shrink-0 flex-wrap gap-2">
-        <Button asChild size="default">
-          <Link
-            to="/brief"
-            search={{
-              service: concern.serviceId,
-              concern: concern.slug,
-            }}
-          >
-            Start a brief
-          </Link>
-        </Button>
-        {service ? (
-          <Button asChild variant="outline" size="default">
-            <Link to="/services/$slug" params={{ slug: service.id }}>
-              Full service details
+        <div className="grid gap-8 lg:grid-cols-2">
+          <section className="space-y-8">
+            <div>
+              <h2 className="text-[11px] font-medium tracking-[0.16em] text-accent uppercase">
+                The situation today
+              </h2>
+              <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted sm:text-[15px]">
+                {concern.situation.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2 className="text-[11px] font-medium tracking-[0.16em] text-accent uppercase">
+                What fixed looks like
+              </h2>
+              <ul className="mt-3 space-y-2.5">
+                {concern.fixedLooksLike.map((line) => (
+                  <li
+                    key={line}
+                    className="flex gap-3 text-sm leading-relaxed text-fg sm:text-[15px]"
+                  >
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <div className="space-y-4">
+            <div className="rounded-xl bg-surface/70 p-5 sm:p-6">
+              <h2 className="text-[10px] tracking-[0.16em] text-accent uppercase">
+                Usually includes
+              </h2>
+              <ul className="mt-3 space-y-2 text-sm text-muted">
+                {concern.includes.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="text-accent">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl bg-surface/50 p-5 sm:p-6">
+              <h2 className="text-[10px] tracking-[0.16em] text-subtle uppercase">
+                Outside this scope
+              </h2>
+              <ul className="mt-3 space-y-2 text-sm text-muted">
+                {concern.excludes.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="text-subtle">·</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {service ? (
+              <div className="rounded-xl border border-accent/20 bg-accent/[0.05] p-5 sm:p-6">
+                <h2 className="text-[10px] tracking-[0.16em] text-accent uppercase">
+                  Mapped service
+                </h2>
+                <p className="mt-2 text-base font-semibold text-fg">
+                  {service.name}
+                </p>
+                <p className="mt-1 text-sm text-muted">{service.outcome}</p>
+                <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+                  <div>
+                    <dt className="text-[10px] text-subtle uppercase">
+                      Indicative fee
+                    </dt>
+                    <dd className="font-medium text-accent">{service.price}</dd>
+                    <dd className="text-xs text-subtle">{service.unit}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-[10px] text-subtle uppercase">
+                      Typical window
+                    </dt>
+                    <dd className="text-fg">{service.timeframe}</dd>
+                  </div>
+                </dl>
+                <p className="mt-3 text-xs leading-relaxed text-subtle">
+                  Fees apply only after a written proposal is approved. A brief
+                  does not create an obligation to pay.
+                </p>
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: service.id }}
+                  className="mt-3 inline-flex text-xs font-medium text-accent hover:opacity-80"
+                >
+                  Full service detail →
+                </Link>
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        <section className="flex flex-wrap gap-3 border-t border-line/60 pt-8">
+          <Button asChild size="lg">
+            <Link
+              to="/brief"
+              search={{
+                service: concern.serviceId,
+                concern: concern.slug,
+              }}
+            >
+              Brief this concern
+              <ArrowRight className="size-4 opacity-80" />
             </Link>
           </Button>
-        ) : null}
+          <Button asChild variant="outline" size="lg">
+            <Link to="/concerns">Browse other concerns</Link>
+          </Button>
+        </section>
       </div>
     </PageFrame>
   );
