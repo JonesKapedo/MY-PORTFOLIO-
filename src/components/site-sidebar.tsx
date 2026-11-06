@@ -7,6 +7,7 @@ import {
   MessageSquareWarning,
 } from "lucide-react";
 import type { ComponentType } from "react";
+import { AnimatedTurbine } from "@/components/animated-turbine";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { COMPANY, NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -32,7 +33,6 @@ export function SiteSidebar() {
 
   return (
     <>
-      {/* Desktop — floating glass rail, not a full-height column */}
       <aside
         className="dock-rail pointer-events-none fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 md:block"
         aria-label="Primary"
@@ -40,13 +40,12 @@ export function SiteSidebar() {
         <div className="pointer-events-auto flex flex-col items-center gap-1 rounded-2xl border border-white/10 bg-surface/70 p-1.5 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
           <Link
             to="/"
-            className="mb-1 flex size-10 items-center justify-center rounded-xl transition-transform duration-200 hover:scale-105"
+            className="mb-1 flex size-10 items-center justify-center overflow-hidden rounded-xl transition-transform duration-200 hover:scale-105"
             aria-label={`${COMPANY.name} intro`}
           >
-            <img
-              src="/brand-mark.svg"
-              alt=""
-              className="size-7 rounded-full object-cover shadow-[var(--shadow-logo)]"
+            <AnimatedTurbine
+              id="dock-mark"
+              className="size-9 rounded-lg shadow-[var(--shadow-logo)]"
             />
           </Link>
 
@@ -94,7 +93,6 @@ export function SiteSidebar() {
         </div>
       </aside>
 
-      {/* Mobile — floating bottom dock */}
       <nav
         className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-1 rounded-2xl border border-white/10 bg-surface/80 px-1.5 py-1.5 shadow-[var(--shadow-elevated)] backdrop-blur-xl md:hidden"
         aria-label="Primary"
