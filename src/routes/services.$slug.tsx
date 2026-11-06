@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
-import { ServiceCover } from "@/components/service-cover";
+import { ServiceIcon } from "@/components/service-icon";
 import { Button } from "@/components/ui/button";
 import {
   COMPANY,
@@ -52,135 +53,141 @@ function ServiceDetailPage() {
   const related = concernsForService(service.id as ServiceId);
 
   return (
-    <PageFrame className="page-enter gap-3 overflow-hidden">
-      <div className="shrink-0">
-        <Link to="/services" className="text-xs text-muted hover:text-accent">
-          ← Services
-        </Link>
-        <ServiceCover
-          id={service.id}
-          name={service.name}
-          size="hero"
-          className="mt-2 rounded-lg"
-        />
-        <Eyebrow>Service</Eyebrow>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-          {service.name}
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-muted">{service.outcome}</p>
-        <p className="mt-2 text-xs text-muted">
-          Typical window: <span className="text-fg">{service.timeframe}</span>
-          {" — "}
-          {service.timeframeNote}
-        </p>
-      </div>
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
+      <div className="flex w-full flex-col gap-10">
+        <div>
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent"
+          >
+            <ArrowLeft className="size-3.5" />
+            All services
+          </Link>
 
-      <div className="grid min-h-0 flex-1 gap-3 overflow-y-auto lg:grid-cols-2">
+          <div className="mt-6 flex flex-wrap items-start gap-5">
+            <ServiceIcon id={service.id} size="lg" />
+            <div className="min-w-0 flex-1">
+              <Eyebrow>Service</Eyebrow>
+              <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+                {service.name}
+              </h1>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+                {service.blurb}
+              </p>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-fg sm:text-base">
+                {service.outcome}
+              </p>
+              <p className="mt-4 text-sm text-muted">
+                Typical window:{" "}
+                <span className="font-medium text-fg">{service.timeframe}</span>
+                <span className="text-subtle"> — {service.timeframeNote}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
         <section>
-          <h2 className="text-[10px] font-medium tracking-widest text-accent uppercase">
+          <h2 className="text-[11px] font-medium tracking-[0.18em] text-accent uppercase">
             How it is delivered
           </h2>
-          <ol className="mt-2 space-y-1.5">
+          <ol className="stagger-children mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {service.delivery.map((phase, index) => (
               <li
                 key={phase.name}
-                className="flex gap-2 rounded-lg bg-surface px-3 py-2 hairline"
+                className="rounded-xl bg-surface/70 p-4 sm:p-5"
               >
-                <span className="font-mono text-[10px] text-accent">
+                <span className="font-mono text-xs text-accent">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold">{phase.name}</p>
-                  <p className="text-xs text-muted">{phase.summary}</p>
-                </div>
+                <p className="mt-2 text-sm font-semibold">{phase.name}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted sm:text-sm">
+                  {phase.summary}
+                </p>
               </li>
             ))}
           </ol>
         </section>
 
-        <div className="grid content-start gap-3 sm:grid-cols-2">
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-accent uppercase">
-              Usually includes
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {service.includes.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-subtle uppercase">
-              Outside scope
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {service.excludes.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-accent uppercase">
-              You provide
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {service.youProvide.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-lg bg-surface p-3 hairline">
-            <h2 className="text-[10px] tracking-widest text-subtle uppercase">
-              After handoff
-            </h2>
-            <ul className="mt-1.5 space-y-1 text-xs text-muted">
-              {service.afterHandoff.map((item) => (
-                <li key={item}>· {item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {(
+            [
+              ["Usually includes", service.includes, true],
+              ["Outside scope", service.excludes, false],
+              ["You provide", service.youProvide, true],
+              ["After handoff", service.afterHandoff, false],
+            ] as const
+          ).map(([title, items, accent]) => (
+            <div key={title} className="rounded-xl bg-surface/60 p-5">
+              <h2
+                className={`text-[10px] tracking-[0.16em] uppercase ${
+                  accent ? "text-accent" : "text-subtle"
+                }`}
+              >
+                {title}
+              </h2>
+              <ul className="mt-3 space-y-2 text-sm text-muted">
+                {items.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="mt-1.5 size-1 shrink-0 rounded-full bg-accent/70" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
 
-      <div className="shrink-0 rounded-xl border border-line bg-raised px-4 py-3">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-[10px] tracking-widest text-subtle uppercase">
-              Starting charge
-            </p>
-            <p className="mt-0.5 text-xl font-medium text-accent">{service.price}</p>
-            <p className="text-[11px] text-subtle">{service.unit}</p>
-            <p className="mt-1 max-w-md text-[11px] text-muted">{PRICE_NOTE}</p>
-            <p className="mt-0.5 text-[11px] text-accent">{DEPOSIT_NOTE}</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button asChild size="default">
-              <Link to="/brief" search={{ service: service.id }}>
-                Talk to us first
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="default">
-              <Link to="/concerns">Browse concerns</Link>
-            </Button>
-          </div>
-        </div>
-        {related.length > 0 ? (
-          <p className="mt-2 text-[11px] text-subtle">
-            Related:{" "}
-            {related.slice(0, 2).map((c, i) => (
-              <span key={c.slug}>
-                {i > 0 ? " · " : ""}
-                <Link
-                  to="/concerns/$slug"
-                  params={{ slug: c.slug }}
-                  className="text-muted hover:text-accent"
-                >
-                  {c.title}
+        <section className="rounded-2xl border border-line/70 bg-raised/40 p-6 sm:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="text-[10px] tracking-[0.16em] text-subtle uppercase">
+                Starting charge
+              </p>
+              <p className="mt-1 text-2xl font-medium text-accent sm:text-3xl">
+                {service.price}
+              </p>
+              <p className="text-xs text-subtle">{service.unit}</p>
+              <p className="mt-3 max-w-lg text-xs leading-relaxed text-muted sm:text-sm">
+                {PRICE_NOTE}
+              </p>
+              <p className="mt-1.5 max-w-lg text-xs text-accent sm:text-sm">
+                {DEPOSIT_NOTE}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg">
+                <Link to="/brief" search={{ service: service.id }}>
+                  Start a brief
+                  <ArrowRight className="size-4 opacity-80" />
                 </Link>
-              </span>
-            ))}
-          </p>
-        ) : null}
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/concerns">Browse concerns</Link>
+              </Button>
+            </div>
+          </div>
+
+          {related.length > 0 ? (
+            <div className="mt-6 border-t border-line/60 pt-5">
+              <p className="text-[10px] tracking-wider text-subtle uppercase">
+                Related concerns
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                {related.slice(0, 4).map((c) => (
+                  <li key={c.slug}>
+                    <Link
+                      to="/concerns/$slug"
+                      params={{ slug: c.slug }}
+                      className="text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      {c.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </section>
       </div>
     </PageFrame>
   );
