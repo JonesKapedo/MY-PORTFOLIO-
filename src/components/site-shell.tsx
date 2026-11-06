@@ -17,10 +17,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </a>
       <div className="relative z-10 flex h-full min-h-0 w-full overflow-hidden">
         <SiteSidebar />
-        <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+        <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:pl-20">
           <main
             id="main"
-            className="flex min-h-0 flex-1 flex-col overflow-hidden pt-12 md:pt-0"
+            className="flex min-h-0 flex-1 flex-col overflow-hidden pb-20 md:pb-0"
           >
             {children}
           </main>

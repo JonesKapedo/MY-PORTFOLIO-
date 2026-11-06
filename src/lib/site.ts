@@ -372,6 +372,7 @@ export const PROJECTS: Project[] = [
 ];
 
 export const NAV = [
+  { to: "/", label: "Intro" },
   { to: "/work", label: "Work" },
   { to: "/services", label: "Services" },
   { to: "/concerns", label: "Concerns" },
@@ -407,3 +408,10 @@ export const PRICE_NOTE =
 
 export const DEPOSIT_NOTE =
   "No deposit on this page. Brief first. Written scope second. 50% only after you approve the proposal.";
+
+export const INTRO_STATS = [
+  { label: "Focus", value: "One process" },
+  { label: "Base", value: "Naivasha" },
+  { label: "Path", value: "Scope → build" },
+  { label: "Reply", value: "2 business days" },
+] as const;
