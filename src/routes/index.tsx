@@ -1,18 +1,20 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  CheckCircle2,
   MapPin,
-  Sparkles,
+  MessageSquareWarning,
   Workflow,
 } from "lucide-react";
-import { Logo } from "@/components/logo";
+import { AnimatedTurbine } from "@/components/animated-turbine";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   COMPANY,
   ENGAGEMENT_STEPS,
-  INTRO_STATS,
   PRINCIPLES,
+  PROJECTS,
   SERVICES,
 } from "@/lib/site";
 
@@ -24,49 +26,39 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ Automation Services. Meet the firm: scoped automation for operators — websites, bots, workflows, documents, and AI on your information.",
+          "GREAT TURBINEZ Automation Services. Scoped automation for operators — from problem to brief, proposal, build, and handoff.",
       },
     ],
   }),
 });
 
-/** First-visit company profile — introduce who we are before deeper paths. */
+/**
+ * First-visit company intro with a linear customer journey:
+ * who we are → name the pain → what we build → proof → how we work → trust → act.
+ */
 function IntroPage() {
   return (
-    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-6">
-      <div className="flex min-h-0 flex-col gap-10 sm:gap-12">
-        {/* Hero identity */}
-        <section className="hero-glow relative grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="max-w-2xl">
-            <div className="flex flex-wrap items-center gap-3">
-              <Logo size="md" className="size-14 sm:size-16" />
-              <div>
-                <p className="inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.28em] text-accent uppercase">
-                  <span className="icon-chip size-6">
-                    <Sparkles className="size-3.5" />
-                  </span>
-                  Company profile
-                </p>
-                <p className="mt-1 flex items-center gap-1.5 text-xs text-subtle">
-                  <MapPin className="size-3.5 text-accent" />
-                  {COMPANY.location}
-                </p>
-              </div>
-            </div>
-
-            <h1 className="mt-6 font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-5xl md:text-6xl">
-              {COMPANY.name}
-            </h1>
-            <p className="mt-2 text-sm tracking-[0.2em] text-accent uppercase">
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-8">
+      <div className="mx-auto flex w-full max-w-4xl min-h-0 flex-col gap-14 sm:gap-16">
+        {/* 1 — Identity */}
+        <section className="hero-glow relative grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <p className="text-[11px] font-medium tracking-[0.28em] text-accent uppercase">
               {COMPANY.subtitle}
             </p>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
-              We install practical automation where repetition burns time and
-              money — websites, bots, workflows, documents, and AI on{" "}
-              <em className="text-fg not-italic">your</em> information.{" "}
-              <span className="text-fg">Scope first. Build second.</span>
+            <h1 className="mt-3 font-display text-4xl leading-[0.95] font-semibold tracking-tight sm:text-5xl md:text-6xl">
+              {COMPANY.name}
+            </h1>
+            <p className="mt-2 flex items-center gap-1.5 text-xs text-subtle">
+              <MapPin className="size-3.5 text-accent" />
+              {COMPANY.location}
             </p>
-
+            <p className="mt-5 max-w-md text-base leading-relaxed text-muted sm:text-lg">
+              Practical automation where repetition burns time and money.
+              Websites, bots, workflows, documents, and AI on{" "}
+              <em className="text-fg not-italic">your</em> information —{" "}
+              <span className="text-fg">scoped, priced, delivered.</span>
+            </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button asChild size="lg" className="btn-shadow-accent">
                 <Link to="/brief">
@@ -75,226 +67,241 @@ function IntroPage() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="btn-shadow">
-                <Link to="/services">
-                  <Workflow className="size-4 text-accent" />
-                  Explore services
+                <Link to="/concerns">
+                  <MessageSquareWarning className="size-4 text-accent" />
+                  Name the problem
                 </Link>
               </Button>
             </div>
           </div>
 
-          <div
-            className="hero-visual relative mx-auto hidden aspect-square w-full max-w-sm overflow-hidden rounded-2xl bg-surface ring-1 ring-white/5 lg:block"
-            aria-hidden
-          >
-            <svg
-              viewBox="0 0 400 400"
+          <div className="hero-visual relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-2xl ring-1 ring-white/5 lg:max-w-none">
+            <AnimatedTurbine
+              id="intro-hero"
+              showLabel
               className="h-full w-full"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <radialGradient id="intro-glow" cx="50%" cy="45%" r="55%">
-                  <stop offset="0%" stopColor="#c9a227" stopOpacity="0.32" />
-                  <stop offset="100%" stopColor="#080808" stopOpacity="0" />
-                </radialGradient>
-                <filter
-                  id="intro-soft"
-                  x="-40%"
-                  y="-40%"
-                  width="180%"
-                  height="180%"
-                >
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <rect width="400" height="400" fill="#080808" />
-              <rect width="400" height="400" fill="url(#intro-glow)" />
-              <g
-                className="spin-slower"
-                style={{ transformOrigin: "200px 200px" }}
-              >
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="118"
-                  fill="none"
-                  stroke="#c9a227"
-                  strokeWidth="0.75"
-                  strokeDasharray="4 10"
-                  opacity="0.35"
-                />
-              </g>
-              <g
-                className="spin-slow"
-                style={{ transformOrigin: "200px 200px" }}
-              >
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="88"
-                  fill="none"
-                  stroke="#c9a227"
-                  strokeWidth="2"
-                  opacity="0.7"
-                  filter="url(#intro-soft)"
-                />
-                {[0, 60, 120, 180, 240, 300].map((deg) => {
-                  const r = (deg * Math.PI) / 180;
-                  return (
-                    <line
-                      key={deg}
-                      x1="200"
-                      y1="200"
-                      x2={200 + Math.cos(r) * 88}
-                      y2={200 + Math.sin(r) * 88}
-                      stroke="#c9a227"
-                      strokeWidth="2"
-                      opacity="0.55"
-                    />
-                  );
-                })}
-              </g>
-              <circle
-                cx="200"
-                cy="200"
-                r="52"
-                fill="none"
-                stroke="#c9a227"
-                strokeWidth="1.5"
-                opacity="0.45"
-              />
-              <circle
-                className="pulse-core"
-                cx="200"
-                cy="200"
-                r="10"
-                fill="#c9a227"
-                filter="url(#intro-soft)"
-              />
-              <text
-                x="200"
-                y="355"
-                textAnchor="middle"
-                fill="#c9a227"
-                fontSize="11"
-                letterSpacing="0.28em"
-                opacity="0.85"
-              >
-                GREAT TURBINEZ
-              </text>
-            </svg>
+            />
           </div>
         </section>
 
-        {/* Snapshot stats */}
-        <section className="stagger-children grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {INTRO_STATS.map((s) => (
-            <div
-              key={s.label}
-              className="card-lift rounded-xl bg-surface/90 p-3 hairline sm:p-4"
-            >
-              <p className="text-[10px] tracking-widest text-subtle uppercase">
-                {s.label}
-              </p>
-              <p className="mt-1 text-sm font-semibold text-fg sm:text-base">
-                {s.value}
-              </p>
-            </div>
-          ))}
-        </section>
+        {/* Journey strip — orientation */}
+        <nav aria-label="Customer journey" className="-mt-4">
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-2 text-[10px] tracking-wide text-subtle uppercase sm:gap-x-3">
+            {[
+              "Meet us",
+              "Name the pain",
+              "See the offer",
+              "Proof",
+              "Engage",
+              "Brief",
+            ].map((label, i, arr) => (
+              <li key={label} className="flex items-center gap-2 sm:gap-3">
+                <span className="flex items-center gap-1.5">
+                  <span className="flex size-5 items-center justify-center rounded-full bg-accent/15 text-[9px] font-semibold text-accent">
+                    {i + 1}
+                  </span>
+                  <span className={i === 0 ? "text-accent" : ""}>{label}</span>
+                </span>
+                {i < arr.length - 1 ? (
+                  <span aria-hidden className="text-line">
+                    →
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        </nav>
 
-        {/* What we do */}
-        <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        {/* 2 — Problem */}
+        <section className="grid gap-5 border-t border-line pt-10 sm:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <Eyebrow>What we do</Eyebrow>
+            <Eyebrow>Step 1 · The problem</Eyebrow>
             <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-              Named work. Clear edges.
+              What is costing you?
             </h2>
-            <p className="mt-3 max-w-md text-sm text-muted">
-              {SERVICES.length} named services — each with outcome, timeframe,
-              and what stays out of scope. Open any card for the full picture.
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Most first conversations start with a pain you already feel — not
+              a product catalogue. Browse concerns, or go straight to a brief.
             </p>
             <Link
-              to="/services"
+              to="/concerns"
               className="hover-accent mt-4 inline-flex items-center gap-1 text-sm text-accent"
             >
-              View all services
+              Browse concerns
               <ArrowRight className="size-3.5" />
             </Link>
           </div>
-          <div className="stagger-children grid gap-2 sm:grid-cols-2">
-            {SERVICES.slice(0, 4).map((s) => (
+          <ul className="stagger-children grid gap-2 sm:grid-cols-2">
+            {[
+              "Same WhatsApp questions every day",
+              "Enquiries die in chat",
+              "Team retypes data between tools",
+              "Numbers only appear at month-end",
+            ].map((line) => (
+              <li
+                key={line}
+                className="card-lift flex items-start gap-2.5 rounded-xl bg-surface/90 p-3 hairline"
+              >
+                <MessageSquareWarning className="mt-0.5 size-4 shrink-0 text-accent" />
+                <span className="text-sm text-fg">{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* 3 — Offer */}
+        <section className="border-t border-line pt-10">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <Eyebrow>Step 2 · The offer</Eyebrow>
+              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                Named services. Clear edges.
+              </h2>
+              <p className="mt-2 max-w-lg text-sm text-muted">
+                {SERVICES.length} services — each with outcome, timeframe, and
+                what stays out of scope.
+              </p>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/services">
+                <Workflow className="size-3.5 text-accent" />
+                All services
+              </Link>
+            </Button>
+          </div>
+          <div className="stagger-children mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.slice(0, 6).map((s) => (
               <Link
                 key={s.id}
                 to="/services/$slug"
                 params={{ slug: s.id }}
-                className="card-lift group rounded-xl bg-surface/90 p-3 hairline"
+                className="card-lift group flex flex-col rounded-xl bg-surface/90 p-4 hairline"
               >
-                <p className="text-sm font-medium group-hover:text-accent">
+                <p className="text-sm font-semibold tracking-tight group-hover:text-accent">
                   {s.name}
                 </p>
-                <p className="mt-1 line-clamp-2 text-xs text-muted">{s.blurb}</p>
+                <p className="mt-1 line-clamp-2 flex-1 text-xs text-muted">
+                  {s.blurb}
+                </p>
+                <p className="mt-3 text-[10px] tracking-wide text-subtle uppercase">
+                  {s.timeframe}
+                </p>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* How we engage */}
-        <section>
-          <Eyebrow>How we engage</Eyebrow>
+        {/* 4 — Proof */}
+        <section className="border-t border-line pt-10">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <Eyebrow>Step 3 · Proof</Eyebrow>
+              <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                Outcomes on the floor.
+              </h2>
+              <p className="mt-2 max-w-lg text-sm text-muted">
+                Situation. Install. Result. Status labelled honestly.
+              </p>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/work">See all work</Link>
+            </Button>
+          </div>
+          <div className="stagger-children mt-5 grid gap-2 sm:grid-cols-2">
+            {PROJECTS.slice(0, 4).map((p) => (
+              <article
+                key={p.id}
+                className="card-lift rounded-xl bg-surface/90 p-4 hairline"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-[10px] text-subtle">
+                    {p.code}
+                  </span>
+                  <Badge variant={p.status === "Live" ? "live" : "default"}>
+                    {p.status}
+                  </Badge>
+                  <span className="text-[10px] text-subtle">
+                    {p.sector} · {p.place}
+                  </span>
+                </div>
+                <h3 className="mt-2 text-sm font-semibold">{p.name}</h3>
+                <p className="mt-1 text-xs text-muted">{p.situation}</p>
+                <p className="mt-2 text-xs font-medium text-accent">{p.outcome}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* 5 — Engagement path */}
+        <section className="border-t border-line pt-10">
+          <Eyebrow>Step 4 · How we engage</Eyebrow>
           <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             A path you can follow.
           </h2>
-          <ol className="stagger-children mt-5 flex flex-wrap gap-2">
+          <p className="mt-2 max-w-xl text-sm text-muted">
+            No deposit on this site. Brief first. Written scope second. Build
+            only after you approve the proposal.
+          </p>
+          <ol className="stagger-children mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {ENGAGEMENT_STEPS.map((step, i) => (
               <li
                 key={step}
-                className="card-lift flex items-center gap-2 rounded-full border border-line bg-raised/90 px-4 py-2 text-sm"
+                className="card-lift flex items-center gap-3 rounded-xl bg-surface/90 p-4 hairline"
               >
-                <span className="flex size-6 items-center justify-center rounded-full bg-accent/15 text-[11px] font-semibold text-accent">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent/15 text-sm font-semibold text-accent">
                   {i + 1}
                 </span>
-                <span className="text-fg">{step}</span>
+                <div>
+                  <p className="text-sm font-semibold text-fg">{step}</p>
+                  <p className="text-[10px] tracking-wide text-subtle uppercase">
+                    {i === 0
+                      ? "You describe the work"
+                      : i === ENGAGEMENT_STEPS.length - 1
+                        ? "You run it day to day"
+                        : "We agree in writing"}
+                  </p>
+                </div>
               </li>
             ))}
           </ol>
         </section>
 
-        {/* Principles */}
-        <section>
-          <Eyebrow>Principles</Eyebrow>
-          <div className="stagger-children mt-4 grid gap-3 md:grid-cols-3">
+        {/* 6 — Trust */}
+        <section className="border-t border-line pt-10">
+          <Eyebrow>How we work</Eyebrow>
+          <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+            Principles we do not bend.
+          </h2>
+          <div className="stagger-children mt-5 grid gap-3 md:grid-cols-3">
             {PRINCIPLES.map((p) => (
               <div
                 key={p.title}
-                className="card-lift rounded-xl bg-surface/90 p-4 hairline sm:p-5"
+                className="card-lift rounded-xl bg-surface/90 p-5 hairline"
               >
-                <h3 className="font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {p.body}
-                </p>
+                <CheckCircle2 className="size-5 text-accent" />
+                <h3 className="mt-3 font-semibold">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* CTA band */}
-        <section className="card-lift relative overflow-hidden rounded-2xl bg-surface/95 p-6 hairline sm:p-8">
-          <Eyebrow>Next step</Eyebrow>
+        {/* 7 — Act */}
+        <section className="card-lift relative overflow-hidden rounded-2xl border border-accent/20 bg-surface/95 p-6 sm:p-8">
+          <Eyebrow>Step 5 · Next step</Eyebrow>
           <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-            Tell us what is costing you.
+            Ready when you are.
           </h2>
-          <p className="mt-2 max-w-lg text-sm text-muted">
-            We reply {COMPANY.responseSla}. Brief first — written scope before
-            any deposit.
+          <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted">
+            Send a brief. We reply {COMPANY.responseSla}. If the fit is clear,
+            you get a written proposal — then deposit, then build.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild size="lg" className="btn-shadow-accent">
-              <Link to="/brief">Start a brief</Link>
+              <Link to="/brief">
+                Start a brief
+                <ArrowRight className="size-4" />
+              </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link to="/concerns">Name the problem</Link>

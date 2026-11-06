@@ -1,12 +1,12 @@
-import { BrandMark } from "@/components/brand-mark";
+import { AnimatedTurbine } from "@/components/animated-turbine";
 import { cn } from "@/lib/utils";
 
 const SIZE = {
-  sm: "sm",
-  md: "md",
-  lg: "lg",
-  xl: "xl",
-  hero: "hero",
+  sm: "size-10",
+  md: "size-14",
+  lg: "size-28",
+  xl: "size-40 sm:size-48",
+  hero: "size-48 sm:size-56 md:size-64",
 } as const;
 
 type LogoProps = {
@@ -16,15 +16,16 @@ type LogoProps = {
   variant?: "square" | "full";
 };
 
-/** Site logo — abstract mark, never a personal photo. */
-export function Logo({
-  size = "lg",
-  className,
-}: LogoProps) {
+/** Site logo — animated turbine mark. */
+export function Logo({ size = "lg", className }: LogoProps) {
   return (
-    <BrandMark
-      size={SIZE[size]}
-      className={cn("shadow-[var(--shadow-logo)] rounded-full", className)}
+    <AnimatedTurbine
+      id={`logo-${size}`}
+      className={cn(
+        "shrink-0 overflow-hidden rounded-full shadow-[var(--shadow-logo)]",
+        SIZE[size],
+        className,
+      )}
     />
   );
 }

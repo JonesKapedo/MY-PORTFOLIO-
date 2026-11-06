@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { AnimatedTurbine } from "@/components/animated-turbine";
 import { COMPANY } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -15,11 +16,7 @@ export function LogoCircle() {
         active && "ring-2 ring-accent",
       )}
     >
-      <img
-        src="/brand-mark.svg"
-        alt=""
-        className="size-full object-cover"
-      />
+      <AnimatedTurbine id="logo-circle" className="size-full" />
     </Link>
   );
 }
