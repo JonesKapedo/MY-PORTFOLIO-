@@ -21,16 +21,16 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  --shadow-border: 0 0 0 1px rgba(250, 250, 250, 0.06);
-  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.35);
-  --shadow-card: 0 8px 28px -16px rgb(0 0 0 / 0.7);
-  --shadow-card-hover: 0 14px 36px -14px rgb(0 0 0 / 0.75);
-  --shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-accent) 55%, transparent);
-  --shadow-logo: 0 6px 20px -8px rgb(0 0 0 / 0.45);
-  --shadow-btn: 0 4px 16px -8px rgb(0 0 0 / 0.5);
-  --shadow-btn-accent: 0 6px 20px -8px color-mix(in oklab, var(--color-accent) 30%, transparent);
-  --shadow-elevated: 0 16px 48px -20px rgb(0 0 0 / 0.55);
-  --shadow-dock: 0 12px 40px -16px rgb(0 0 0 / 0.45);
+  --shadow-border: 0 0 0 1px rgba(250, 250, 250, 0.05);
+  --shadow-border-hover: 0 0 0 1px rgba(201, 162, 39, 0.3);
+  --shadow-card: 0 8px 28px -16px rgb(0 0 0 / 0.6);
+  --shadow-card-hover: 0 12px 32px -14px rgb(0 0 0 / 0.65);
+  --shadow-focus: 0 0 0 2px color-mix(in oklab, var(--color-accent) 50%, transparent);
+  --shadow-logo: none;
+  --shadow-btn: 0 4px 14px -8px rgb(0 0 0 / 0.4);
+  --shadow-btn-accent: 0 6px 18px -8px color-mix(in oklab, var(--color-accent) 28%, transparent);
+  --shadow-elevated: 0 12px 40px -18px rgb(0 0 0 / 0.5);
+  --shadow-dock: 0 10px 36px -14px rgb(0 0 0 / 0.4);
 }
 
 html.light {
@@ -45,15 +45,15 @@ html.light {
   --color-accent-fg: #faf8f4;
   --color-danger: #a8483a;
 
-  --shadow-border: 0 0 0 1px rgba(12, 12, 12, 0.06);
-  --shadow-border-hover: 0 0 0 1px rgba(154, 123, 26, 0.35);
-  --shadow-card: 0 6px 24px -14px rgb(0 0 0 / 0.1);
-  --shadow-card-hover: 0 10px 28px -12px rgb(0 0 0 / 0.12);
-  --shadow-logo: 0 6px 18px -10px rgb(0 0 0 / 0.1);
-  --shadow-btn: 0 4px 14px -8px rgb(0 0 0 / 0.08);
-  --shadow-btn-accent: 0 6px 18px -8px color-mix(in oklab, var(--color-accent) 25%, transparent);
-  --shadow-elevated: 0 12px 36px -16px rgb(0 0 0 / 0.1);
-  --shadow-dock: 0 10px 32px -14px rgb(0 0 0 / 0.08);
+  --shadow-border: 0 0 0 1px rgba(12, 12, 12, 0.05);
+  --shadow-border-hover: 0 0 0 1px rgba(154, 123, 26, 0.3);
+  --shadow-card: 0 6px 20px -14px rgb(0 0 0 / 0.08);
+  --shadow-card-hover: 0 10px 24px -12px rgb(0 0 0 / 0.1);
+  --shadow-logo: none;
+  --shadow-btn: 0 4px 12px -8px rgb(0 0 0 / 0.06);
+  --shadow-btn-accent: 0 6px 16px -8px color-mix(in oklab, var(--color-accent) 22%, transparent);
+  --shadow-elevated: 0 10px 28px -14px rgb(0 0 0 / 0.08);
+  --shadow-dock: 0 8px 28px -12px rgb(0 0 0 / 0.06);
 }
 
 @layer base {
@@ -114,7 +114,7 @@ html.light {
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    background-color: color-mix(in oklab, var(--color-accent) 32%, transparent);
     color: var(--color-fg);
   }
 
@@ -135,10 +135,6 @@ html.light {
     box-shadow: var(--shadow-border);
   }
 
-  .hairline-hover:hover {
-    box-shadow: var(--shadow-border-hover);
-  }
-
   .card-lift {
     transition:
       background-color 200ms ease,
@@ -150,27 +146,27 @@ html.light {
   }
 
   .page-enter > * {
-    animation: rise-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > *:nth-child(1) {
     animation-delay: 0ms;
   }
   .page-enter > *:nth-child(2) {
-    animation-delay: 50ms;
+    animation-delay: 40ms;
   }
   .page-enter > *:nth-child(3) {
-    animation-delay: 100ms;
+    animation-delay: 80ms;
   }
   .page-enter > *:nth-child(4) {
-    animation-delay: 150ms;
+    animation-delay: 120ms;
   }
   .page-enter > *:nth-child(5) {
-    animation-delay: 200ms;
+    animation-delay: 160ms;
   }
 
   .dock-rail {
-    animation: dock-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .dock-panel {
@@ -187,7 +183,7 @@ html.light {
   .dock-tooltip {
     pointer-events: none;
     position: absolute;
-    left: calc(100% + 14px);
+    left: calc(100% + 12px);
     top: 50%;
     transform: translateY(-50%) translateX(-4px);
     white-space: nowrap;
@@ -214,16 +210,18 @@ html.light {
   .dock-mobile {
     box-shadow: var(--shadow-dock);
     border: none;
-    animation: dock-up 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: dock-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .gt-logo-circle {
     box-shadow: none;
-    transition: transform 220ms ease, opacity 200ms ease;
+    transition:
+      transform 220ms ease,
+      opacity 200ms ease;
   }
 
   .gt-logo-circle:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   .page-screen {
@@ -243,17 +241,18 @@ html.light {
     content: "";
     pointer-events: none;
     position: absolute;
-    inset: -18% -8% auto auto;
-    width: min(42vw, 24rem);
-    height: min(42vw, 24rem);
+    top: -10%;
+    right: 5%;
+    width: min(36vw, 20rem);
+    height: min(36vw, 20rem);
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 12%, transparent) 0%,
       transparent 72%
     );
     z-index: 0;
-    animation: glow-breathe 14s ease-in-out infinite;
+    animation: glow-breathe 16s ease-in-out infinite;
   }
 
   .hero-glow > * {
@@ -272,113 +271,62 @@ html.light {
   .bg-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(90px);
-    will-change: transform;
+    filter: blur(100px);
   }
 
   .bg-orb-a {
-    width: min(55vw, 36rem);
-    height: min(55vw, 36rem);
-    top: -15%;
-    right: 0;
-    opacity: 0.32;
+    width: min(50vw, 32rem);
+    height: min(50vw, 32rem);
+    top: -12%;
+    right: -5%;
+    opacity: 0.22;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 18%, transparent) 0%,
       transparent 70%
     );
-    animation: float-a 30s ease-in-out infinite;
+    animation: float-a 36s ease-in-out infinite;
   }
 
   .bg-orb-b {
-    width: min(45vw, 28rem);
-    height: min(45vw, 28rem);
-    bottom: -5%;
-    left: 5%;
-    opacity: 0.18;
+    width: min(40vw, 24rem);
+    height: min(40vw, 24rem);
+    bottom: -8%;
+    left: 0;
+    opacity: 0.1;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-fg) 8%, transparent) 0%,
+      color-mix(in oklab, var(--color-fg) 6%, transparent) 0%,
       transparent 72%
     );
-    animation: float-b 36s ease-in-out infinite;
-  }
-
-  .bg-orb-c {
-    width: min(30vw, 18rem);
-    height: min(30vw, 18rem);
-    top: 40%;
-    left: 42%;
-    opacity: 0.12;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--color-accent) 12%, transparent) 0%,
-      transparent 70%
-    );
-    animation: float-c 40s ease-in-out infinite;
-  }
-
-  .bg-horizon {
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 42%;
-    background: linear-gradient(
-      to top,
-      color-mix(in oklab, var(--color-fg) 4%, transparent) 0%,
-      transparent 100%
-    );
-  }
-
-  html.light .bg-horizon {
-    background: linear-gradient(
-      to top,
-      color-mix(in oklab, var(--color-fg) 3%, transparent) 0%,
-      transparent 100%
-    );
+    animation: float-b 42s ease-in-out infinite;
   }
 
   .bg-vignette {
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      ellipse 75% 65% at 50% 40%,
-      transparent 40%,
-      color-mix(in oklab, var(--color-canvas) 55%, transparent) 100%
+      ellipse 80% 70% at 50% 40%,
+      transparent 45%,
+      color-mix(in oklab, var(--color-canvas) 50%, transparent) 100%
     );
-  }
-
-  .bg-structure {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    color: var(--color-fg);
-  }
-
-  .bg-structure-left {
-    animation: structure-drift 44s ease-in-out infinite;
-  }
-
-  .bg-structure-right {
-    animation: structure-drift 52s ease-in-out infinite reverse;
   }
 
   .bg-grain {
     position: absolute;
     inset: 0;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.022;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeGaussianBlur stdDeviation='0'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 220px 220px;
     mix-blend-mode: overlay;
   }
 
   html.light .bg-grain {
-    opacity: 0.025;
+    opacity: 0.018;
     mix-blend-mode: multiply;
   }
 
-  /* Spin works at any SVG scale */
   .turbine-spin-slow,
   .turbine-spin-slower,
   .spin-slow,
@@ -389,16 +337,16 @@ html.light {
 
   .turbine-spin-slow,
   .spin-slow {
-    animation: spin-slow 28s linear infinite;
+    animation: spin-slow 22s linear infinite;
   }
 
   .turbine-spin-slower,
   .spin-slower {
-    animation: spin-slow 42s linear infinite reverse;
+    animation: spin-slow 36s linear infinite reverse;
   }
 
   .pulse-core {
-    animation: core-pulse 3.6s ease-in-out infinite;
+    animation: core-pulse 3.2s ease-in-out infinite;
   }
 
   .nav-icon {
@@ -408,28 +356,6 @@ html.light {
   a:hover .nav-icon,
   [aria-current="page"] .nav-icon {
     color: var(--color-accent);
-  }
-
-  .link-underline {
-    position: relative;
-    display: inline-block;
-  }
-
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 100%;
-    height: 1px;
-    background: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 200ms ease;
-  }
-
-  .link-underline:hover::after {
-    transform: scaleX(1);
   }
 
   .hover-accent {
@@ -444,7 +370,7 @@ html.light {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -455,7 +381,7 @@ html.light {
 @keyframes dock-in {
   from {
     opacity: 0;
-    transform: translate(-8px, -50%);
+    transform: translate(-6px, -50%);
   }
   to {
     opacity: 1;
@@ -466,7 +392,7 @@ html.light {
 @keyframes dock-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -480,7 +406,7 @@ html.light {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(-3%, 4%);
+    transform: translate(-2%, 3%);
   }
 }
 
@@ -490,37 +416,17 @@ html.light {
     transform: translate(0, 0);
   }
   50% {
-    transform: translate(4%, -3%);
-  }
-}
-
-@keyframes float-c {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-2%, 3%);
-  }
-}
-
-@keyframes structure-drift {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
+    transform: translate(3%, -2%);
   }
 }
 
 @keyframes glow-breathe {
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.45;
   }
   50% {
-    opacity: 0.85;
+    opacity: 0.75;
   }
 }
 
@@ -536,7 +442,7 @@ html.light {
 @keyframes core-pulse {
   0%,
   100% {
-    opacity: 0.85;
+    opacity: 0.88;
   }
   50% {
     opacity: 1;
@@ -557,8 +463,6 @@ html.light {
     transform: none;
   }
   .bg-orb,
-  .bg-structure-left,
-  .bg-structure-right,
   .hero-glow::before,
   .turbine-spin-slow,
   .turbine-spin-slower,

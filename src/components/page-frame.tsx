@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+/** Full-bleed content from sidebar edge across the main pane. */
 export function PageFrame({
   children,
   className,
@@ -11,7 +12,7 @@ export function PageFrame({
   return (
     <div
       className={cn(
-        "page-screen mx-auto w-full max-w-7xl px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10",
+        "page-screen w-full max-w-none px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10 xl:px-14",
         className,
       )}
     >
@@ -22,7 +23,7 @@ export function PageFrame({
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <p className="text-[10px] font-medium tracking-widest text-accent uppercase sm:text-xs">
+    <p className="text-[10px] font-medium tracking-[0.2em] text-accent uppercase sm:text-[11px]">
       {children}
     </p>
   );
