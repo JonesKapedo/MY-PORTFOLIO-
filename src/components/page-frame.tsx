@@ -21,9 +21,20 @@ export function PageFrame({
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+export function Eyebrow({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <p className="text-[10px] font-medium tracking-[0.2em] text-accent uppercase sm:text-[11px]">
+    <p
+      className={cn(
+        "text-[10px] font-medium tracking-[0.2em] text-accent uppercase sm:text-[11px]",
+        className,
+      )}
+    >
       {children}
     </p>
   );
