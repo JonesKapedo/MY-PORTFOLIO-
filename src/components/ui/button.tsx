@@ -10,11 +10,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-fg text-accent-fg hover:bg-fg/90",
-        accent: "bg-accent text-accent-fg hover:bg-accent/90",
+        default:
+          "bg-fg text-accent-fg shadow-[var(--shadow-btn)] hover:bg-fg/90 hover:shadow-[var(--shadow-btn-accent)]",
+        accent:
+          "bg-accent text-accent-fg shadow-[var(--shadow-btn-accent)] hover:bg-accent/90",
         secondary:
-          "bg-raised text-fg hairline hairline-hover hover:bg-raised/80",
-        outline: "bg-transparent text-fg hairline hairline-hover hover:bg-raised",
+          "bg-raised text-fg hairline hairline-hover shadow-[var(--shadow-btn)] hover:bg-raised/80",
+        outline:
+          "bg-transparent text-fg hairline hairline-hover shadow-[var(--shadow-btn)] hover:bg-raised",
         ghost: "text-fg hover:bg-raised",
         link: "text-accent underline-offset-4 hover:underline",
       },

@@ -4,6 +4,7 @@ import {
   Outlet,
   useRouterState,
 } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { ServiceCover } from "@/components/service-cover";
 import { COMPANY, SERVICES } from "@/lib/site";
@@ -55,7 +56,7 @@ function ServicesPage() {
               key={s.id}
               to="/services/$slug"
               params={{ slug: s.id }}
-              className="card-lift group flex flex-col overflow-hidden rounded-lg bg-surface hairline"
+              className="card-lift group flex flex-col overflow-hidden rounded-lg bg-surface/95 hairline"
             >
               <ServiceCover
                 id={s.id}
@@ -70,8 +71,9 @@ function ServicesPage() {
                 <p className="mt-1.5 line-clamp-2 text-xs text-fg/90">{s.outcome}</p>
                 <div className="mt-auto flex items-center justify-between pt-2">
                   <span className="text-[10px] text-subtle">{s.timeframe}</span>
-                  <span className="text-[10px] font-medium tracking-wide text-accent uppercase">
-                    Details →
+                  <span className="inline-flex items-center gap-1 text-[10px] font-medium tracking-wide text-accent uppercase">
+                    Details
+                    <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </div>

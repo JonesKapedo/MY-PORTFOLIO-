@@ -1,4 +1,5 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { ArrowUpRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { COMPANY, CONCERNS, getService } from "@/lib/site";
 
@@ -49,7 +50,7 @@ function ConcernsPage() {
               <Link
                 to="/concerns/$slug"
                 params={{ slug: c.slug }}
-                className="card-lift group flex h-full flex-col justify-between rounded-lg bg-surface p-3 hairline"
+                className="card-lift group flex h-full flex-col justify-between rounded-lg bg-surface/95 p-3 hairline"
               >
                 <div>
                   <p className="text-sm font-medium text-fg group-hover:text-accent">
@@ -63,8 +64,9 @@ function ConcernsPage() {
                   <span className="text-[10px] tracking-wide text-subtle uppercase">
                     {service?.name ?? "Service"}
                   </span>
-                  <span className="text-[10px] font-medium text-accent uppercase">
-                    Open →
+                  <span className="inline-flex items-center gap-1 text-[10px] font-medium text-accent uppercase">
+                    Open
+                    <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </Link>
