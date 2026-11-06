@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva(
   // Focus is drawn by the global `:focus-visible` outline in styles.css, so this
   // base deliberately carries no ring of its own — two rings stack into a blur.
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,background-color,box-shadow,transform,opacity] duration-150 ease-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 active:not-disabled:scale-[0.96]",
+  "btn-shine inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,background-color,box-shadow,transform,opacity] duration-150 ease-out focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 active:not-disabled:scale-[0.96] hover:not-disabled:-translate-y-px",
   {
     variants: {
       variant: {

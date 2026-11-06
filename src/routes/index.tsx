@@ -43,7 +43,7 @@ function HomePage() {
             <Button asChild size="lg" className="btn-shadow-accent">
               <Link to="/brief">
                 Start a brief
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="btn-shadow">
@@ -55,16 +55,13 @@ function HomePage() {
           </div>
 
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[11px] tracking-wide text-subtle uppercase">
-            <Link
-              to="/concerns"
-              className="transition-colors hover:text-accent"
-            >
+            <Link to="/concerns" className="link-underline hover:text-accent">
               Name the problem
             </Link>
-            <Link to="/work" className="transition-colors hover:text-accent">
+            <Link to="/work" className="link-underline hover:text-accent">
               See the work
             </Link>
-            <Link to="/company" className="transition-colors hover:text-accent">
+            <Link to="/company" className="link-underline hover:text-accent">
               Company
             </Link>
           </div>
@@ -96,7 +93,6 @@ function HomePage() {
             <rect width="400" height="400" fill="#080808" />
             <rect width="400" height="400" fill="url(#home-glow)" />
 
-            {/* Outer spinning ring */}
             <g className="spin-slower" style={{ transformOrigin: "200px 200px" }}>
               <circle
                 cx="200"
@@ -158,7 +154,6 @@ function HomePage() {
               filter="url(#soft-glow)"
             />
 
-            {/* Satellite dots */}
             {[
               [200, 82],
               [318, 200],

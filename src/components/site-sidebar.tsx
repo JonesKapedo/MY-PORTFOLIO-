@@ -71,7 +71,7 @@ export function SiteSidebar() {
             to={item.to}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "relative flex min-h-10 items-center gap-2.5 rounded-md px-3 text-sm font-medium transition-colors duration-150",
+              "nav-link relative flex min-h-10 items-center gap-2.5 rounded-md px-3 text-sm font-medium",
               active
                 ? "bg-raised text-fg shadow-[var(--shadow-border)]"
                 : "text-muted hover:bg-raised/60 hover:text-fg",
@@ -135,7 +135,7 @@ export function SiteSidebar() {
       ) : null}
 
       <aside className="gt-sidebar z-30 hidden h-dvh w-48 shrink-0 flex-col overflow-hidden border-r border-line bg-surface/90 px-2 py-4 backdrop-blur-sm md:flex">
-        <Link to="/" className="mb-6 px-2">
+        <Link to="/" className="mb-6 px-2 transition-opacity hover:opacity-90">
           <span className="block font-display text-base font-semibold tracking-tight">
             {COMPANY.name}
           </span>

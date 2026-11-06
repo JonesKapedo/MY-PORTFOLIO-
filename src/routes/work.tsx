@@ -36,22 +36,25 @@ function WorkPage() {
         </Button>
       </div>
 
-      <div className="grid min-h-0 flex-1 gap-2 overflow-hidden sm:grid-cols-2">
+      <div className="stagger-children grid min-h-0 flex-1 gap-2 overflow-hidden sm:grid-cols-2">
         {PROJECTS.map((p) => (
           <article
             key={p.id}
-            className="card-lift flex min-h-0 flex-col rounded-lg bg-surface p-3 hairline sm:p-4"
+            className="card-lift group flex min-h-0 flex-col rounded-lg bg-surface/95 p-3 hairline sm:p-4"
           >
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-[10px] text-subtle">{p.code}</span>
-              <Badge variant={p.status === "Live" ? "live" : "default"}>
+              <Badge
+                variant={p.status === "Live" ? "live" : "default"}
+                className={p.status === "Live" ? "badge-live-pulse" : undefined}
+              >
                 {p.status}
               </Badge>
               <span className="text-[10px] text-subtle">
                 {p.sector} · {p.place}
               </span>
             </div>
-            <h2 className="mt-1.5 text-base font-semibold tracking-tight">
+            <h2 className="mt-1.5 text-base font-semibold tracking-tight transition-colors group-hover:text-accent">
               {p.name}
             </h2>
             <dl className="mt-2 space-y-1.5 text-xs leading-snug">
@@ -77,7 +80,7 @@ function WorkPage() {
             <Link
               to="/brief"
               search={{ service: p.serviceId }}
-              className="mt-auto pt-2 text-[11px] text-muted hover:text-accent"
+              className="hover-accent mt-auto pt-2 text-[11px] text-muted"
             >
               Brief this kind of work →
             </Link>

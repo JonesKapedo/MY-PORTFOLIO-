@@ -50,7 +50,7 @@ function ServicesPage() {
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1">
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s) => (
             <Link
               key={s.id}
@@ -61,10 +61,10 @@ function ServicesPage() {
               <ServiceCover
                 id={s.id}
                 name={s.name}
-                className="rounded-none"
+                className="rounded-none transition-transform duration-300 group-hover:scale-[1.03]"
               />
               <div className="flex flex-1 flex-col p-3">
-                <h2 className="text-sm font-semibold tracking-tight group-hover:text-accent sm:text-base">
+                <h2 className="text-sm font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-base">
                   {s.name}
                 </h2>
                 <p className="mt-1 line-clamp-2 text-xs text-muted">{s.blurb}</p>
@@ -73,7 +73,7 @@ function ServicesPage() {
                   <span className="text-[10px] text-subtle">{s.timeframe}</span>
                   <span className="inline-flex items-center gap-1 text-[10px] font-medium tracking-wide text-accent uppercase">
                     Details
-                    <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </div>
