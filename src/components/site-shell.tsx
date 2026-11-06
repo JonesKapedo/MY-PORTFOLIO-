@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { BackgroundAtmosphere } from "@/components/background-atmosphere";
-import { LogoCircle } from "@/components/logo-circle";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 
@@ -27,7 +26,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <SiteFooter />
         </div>
       </div>
-      <LogoCircle />
       <Toaster
         theme="dark"
         position="bottom-right"
