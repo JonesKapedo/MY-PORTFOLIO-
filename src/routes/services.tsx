@@ -7,6 +7,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { ServiceIcon } from "@/components/service-icon";
+import { serviceCopy } from "@/lib/service-copy";
 import { COMPANY, SERVICES } from "@/lib/site";
 
 export const Route = createFileRoute("/services")({
@@ -48,41 +49,51 @@ function ServicesPage() {
         </header>
 
         <div className="stagger-children grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {SERVICES.map((s) => (
-            <Link
-              key={s.id}
-              to="/services/$slug"
-              params={{ slug: s.id }}
-              className="service-card group flex flex-col rounded-2xl bg-surface/70 p-5 transition-colors duration-200 hover:bg-raised sm:p-6"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <ServiceIcon id={s.id} size="md" />
-                <span className="text-[10px] font-medium tracking-wider text-subtle uppercase">
-                  {s.timeframe}
-                </span>
-              </div>
-
-              <h2 className="mt-4 text-base font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-lg">
-                {s.name}
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{s.blurb}</p>
-              <p className="mt-3 text-sm leading-relaxed text-fg/90">{s.outcome}</p>
-
-              <div className="mt-auto flex items-end justify-between gap-3 pt-6">
-                <div>
-                  <p className="text-[10px] tracking-wider text-subtle uppercase">
-                    From
-                  </p>
-                  <p className="text-sm font-medium text-accent">{s.price}</p>
-                  <p className="text-[10px] text-subtle">{s.unit}</p>
+          {SERVICES.map((s) => {
+            const copy = serviceCopy(s.id, {
+              blurb: s.blurb,
+              outcome: s.outcome,
+            });
+            return (
+              <Link
+                key={s.id}
+                to="/services/$slug"
+                params={{ slug: s.id }}
+                className="service-card group flex flex-col rounded-2xl bg-surface/70 p-5 transition-colors duration-200 hover:bg-raised sm:p-6"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <ServiceIcon id={s.id} size="md" />
+                  <span className="text-[10px] font-medium tracking-wider text-subtle uppercase">
+                    {s.timeframe}
+                  </span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent">
-                  View detail
-                  <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-                </span>
-              </div>
-            </Link>
-          ))}
+
+                <h2 className="mt-4 text-base font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-lg">
+                  {s.name}
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {copy.blurb}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-fg/90">
+                  {copy.outcome}
+                </p>
+
+                <div className="mt-auto flex items-end justify-between gap-3 pt-6">
+                  <div>
+                    <p className="text-[10px] tracking-wider text-subtle uppercase">
+                      From
+                    </p>
+                    <p className="text-sm font-medium text-accent">{s.price}</p>
+                    <p className="text-[10px] text-subtle">{s.unit}</p>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-accent">
+                    View detail
+                    <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </PageFrame>

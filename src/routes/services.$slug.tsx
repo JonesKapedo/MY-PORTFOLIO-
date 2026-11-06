@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { ServiceIcon } from "@/components/service-icon";
 import { Button } from "@/components/ui/button";
+import { serviceCopy } from "@/lib/service-copy";
 import {
   COMPANY,
   concernsForService,
@@ -16,6 +17,12 @@ export const Route = createFileRoute("/services/$slug")({
   component: ServiceDetailPage,
   head: ({ params }) => {
     const service = getService(params.slug);
+    const copy = service
+      ? serviceCopy(service.id, {
+          blurb: service.blurb,
+          outcome: service.outcome,
+        })
+      : null;
     return {
       meta: [
         {
@@ -25,8 +32,8 @@ export const Route = createFileRoute("/services/$slug")({
         },
         {
           name: "description",
-          content: service
-            ? `${service.outcome} Typical window: ${service.timeframe}.`
+          content: copy
+            ? `${copy.outcome} Typical window: ${service!.timeframe}.`
             : COMPANY.subtitle,
         },
       ],
@@ -50,6 +57,10 @@ function ServiceDetailPage() {
     );
   }
 
+  const copy = serviceCopy(service.id, {
+    blurb: service.blurb,
+    outcome: service.outcome,
+  });
   const related = concernsForService(service.id as ServiceId);
 
   return (
@@ -72,10 +83,10 @@ function ServiceDetailPage() {
                 {service.name}
               </h1>
               <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-                {service.blurb}
+                {copy.blurb}
               </p>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-fg sm:text-base">
-                {service.outcome}
+                {copy.outcome}
               </p>
               <p className="mt-4 text-sm text-muted">
                 Typical window:{" "}
