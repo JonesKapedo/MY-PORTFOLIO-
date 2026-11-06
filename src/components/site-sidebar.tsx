@@ -2,14 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Briefcase,
   ClipboardList,
+  Home,
   Layers,
-  Menu,
   MessageSquareWarning,
-  X,
 } from "lucide-react";
-import { useEffect, useState, type ComponentType } from "react";
+import type { ComponentType } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
 import { COMPANY, NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +15,7 @@ const NAV_ICONS: Record<
   (typeof NAV)[number]["to"],
   ComponentType<{ className?: string }>
 > = {
+  "/": Home,
   "/work": Briefcase,
   "/services": Layers,
   "/concerns": MessageSquareWarning,
@@ -25,132 +24,107 @@ const NAV_ICONS: Record<
 
 export function SiteSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "hidden";
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    const desktop = window.matchMedia("(min-width: 768px)");
-    const onChange = () => {
-      if (desktop.matches) setOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    desktop.addEventListener("change", onChange);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      desktop.removeEventListener("change", onChange);
-    };
-  }, [open]);
 
   const isActive = (to: string) =>
     to === "/"
       ? pathname === "/"
       : pathname === to || pathname.startsWith(`${to}/`);
 
-  const nav = (
-    <nav className="flex flex-col gap-1" aria-label="Primary">
-      {NAV.map((item) => {
-        const active = isActive(item.to);
-        const Icon = NAV_ICONS[item.to];
-        return (
-          <Link
-            key={item.to}
-            to={item.to}
-            aria-current={active ? "page" : undefined}
-            className={cn(
-              "relative flex min-h-10 items-center gap-2.5 rounded-md px-3 text-sm font-medium transition-colors duration-150",
-              active
-                ? "bg-raised text-fg shadow-[var(--shadow-border)]"
-                : "text-muted hover:bg-raised/60 hover:text-fg",
-            )}
-          >
-            {active ? (
-              <span
-                aria-hidden
-                className="absolute top-2 bottom-2 left-0 w-0.5 rounded-full bg-accent shadow-[0_0_8px_color-mix(in_oklab,var(--color-accent)_60%,transparent)]"
-              />
-            ) : null}
-            {Icon ? (
-              <Icon
-                className={cn(
-                  "nav-icon size-4 shrink-0",
-                  active ? "text-accent" : "text-subtle",
-                )}
-              />
-            ) : null}
-            {item.label}
-          </Link>
-        );
-      })}
-    </nav>
-  );
-
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-40 flex h-12 items-center justify-between border-b border-line bg-canvas/90 px-4 shadow-[0_8px_24px_-16px_rgb(0_0_0_/_0.6)] backdrop-blur-md md:hidden">
-        <Link to="/" className="flex flex-col leading-none">
-          <span className="font-display text-sm font-semibold tracking-tight">
-            {COMPANY.name}
-          </span>
-          <span className="mt-0.5 text-[9px] tracking-widest text-muted uppercase">
-            {COMPANY.subtitle}
-          </span>
-        </Link>
-        <div className="flex items-center gap-1">
-          <ThemeToggle className="size-9" />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="size-9"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-sidebar"
-            onClick={() => setOpen((v) => !v)}
+      {/* Desktop — floating glass rail, not a full-height column */}
+      <aside
+        className="dock-rail pointer-events-none fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 md:block"
+        aria-label="Primary"
+      >
+        <div className="pointer-events-auto flex flex-col items-center gap-1 rounded-2xl border border-white/10 bg-surface/70 p-1.5 shadow-[var(--shadow-elevated)] backdrop-blur-xl">
+          <Link
+            to="/"
+            className="mb-1 flex size-10 items-center justify-center rounded-xl transition-transform duration-200 hover:scale-105"
+            aria-label={`${COMPANY.name} intro`}
           >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </Button>
-        </div>
-      </div>
+            <img
+              src="/brand-mark.svg"
+              alt=""
+              className="size-7 rounded-full object-cover shadow-[var(--shadow-logo)]"
+            />
+          </Link>
 
-      {open ? (
-        <div
-          id="mobile-sidebar"
-          className="fixed inset-0 z-30 overflow-hidden bg-canvas/95 px-4 pt-16 pb-6 md:hidden"
-        >
-          {nav}
-        </div>
-      ) : null}
+          <nav className="flex flex-col items-center gap-0.5" aria-label="Primary">
+            {NAV.map((item) => {
+              const active = isActive(item.to);
+              const Icon = NAV_ICONS[item.to];
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  aria-current={active ? "page" : undefined}
+                  aria-label={item.label}
+                  title={item.label}
+                  className={cn(
+                    "dock-item group relative flex size-11 items-center justify-center rounded-xl transition-all duration-200",
+                    active
+                      ? "bg-accent/15 text-accent shadow-[0_0_20px_-4px_color-mix(in_oklab,var(--color-accent)_40%,transparent)]"
+                      : "text-muted hover:bg-raised/80 hover:text-fg",
+                  )}
+                >
+                  {active ? (
+                    <span
+                      aria-hidden
+                      className="absolute -left-1 top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-accent"
+                    />
+                  ) : null}
+                  {Icon ? (
+                    <Icon
+                      className={cn(
+                        "nav-icon size-[18px]",
+                        active ? "text-accent" : "",
+                      )}
+                    />
+                  ) : null}
+                  <span className="dock-tooltip">{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
 
-      <aside className="gt-sidebar z-30 hidden h-dvh w-48 shrink-0 flex-col overflow-hidden border-r border-line bg-surface/90 px-2 py-4 backdrop-blur-sm md:flex">
-        <Link to="/" className="mb-6 px-2">
-          <span className="block font-display text-base font-semibold tracking-tight">
-            {COMPANY.name}
-          </span>
-          <span className="mt-1 block text-[9px] tracking-[0.14em] text-accent uppercase">
-            {COMPANY.subtitle}
-          </span>
-        </Link>
-        {nav}
-        <div className="mt-auto flex items-center justify-between px-2 pt-4">
-          <span className="text-[10px] tracking-wider text-subtle uppercase">
-            Theme
-          </span>
-          <ThemeToggle />
+          <div className="mt-1 border-t border-line/80 pt-1">
+            <ThemeToggle className="size-11 rounded-xl" />
+          </div>
         </div>
       </aside>
+
+      {/* Mobile — floating bottom dock */}
+      <nav
+        className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-1 rounded-2xl border border-white/10 bg-surface/80 px-1.5 py-1.5 shadow-[var(--shadow-elevated)] backdrop-blur-xl md:hidden"
+        aria-label="Primary"
+      >
+        {NAV.map((item) => {
+          const active = isActive(item.to);
+          const Icon = NAV_ICONS[item.to];
+          return (
+            <Link
+              key={item.to}
+              to={item.to}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 transition-all duration-200",
+                active
+                  ? "bg-accent/15 text-accent"
+                  : "text-subtle hover:text-fg",
+              )}
+            >
+              {Icon ? <Icon className="size-4 shrink-0" /> : null}
+              <span className="truncate text-[9px] font-medium tracking-wide">
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
+        <div className="flex shrink-0 items-center pl-0.5">
+          <ThemeToggle className="size-9 rounded-xl" />
+        </div>
+      </nav>
     </>
   );
 }

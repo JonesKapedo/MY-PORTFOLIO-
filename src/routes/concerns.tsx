@@ -42,7 +42,7 @@ function ConcernsPage() {
         </p>
       </div>
 
-      <ul className="grid min-h-0 flex-1 gap-1.5 overflow-hidden sm:grid-cols-2">
+      <ul className="stagger-children grid min-h-0 flex-1 gap-1.5 overflow-hidden sm:grid-cols-2">
         {CONCERNS.map((c) => {
           const service = getService(c.serviceId);
           return (
@@ -53,7 +53,7 @@ function ConcernsPage() {
                 className="card-lift group flex h-full flex-col justify-between rounded-lg bg-surface/95 p-3 hairline"
               >
                 <div>
-                  <p className="text-sm font-medium text-fg group-hover:text-accent">
+                  <p className="text-sm font-medium text-fg transition-colors group-hover:text-accent">
                     {c.title}
                   </p>
                   <p className="mt-1 line-clamp-2 text-xs text-muted">
@@ -66,7 +66,7 @@ function ConcernsPage() {
                   </span>
                   <span className="inline-flex items-center gap-1 text-[10px] font-medium text-accent uppercase">
                     Open
-                    <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </div>
               </Link>
