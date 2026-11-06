@@ -1,84 +1,65 @@
-/** Ambient field: soft light, blueprint structure, and calm motion. */
+/** Soft, realistic depth: light wells, horizon, quiet structure. */
 export function BackgroundAtmosphere() {
   return (
     <div className="bg-atmosphere" aria-hidden>
-      {/* Soft depth only — no harsh rings */}
+      {/* Volumetric light */}
       <div className="bg-orb bg-orb-a" />
       <div className="bg-orb bg-orb-b" />
+      <div className="bg-orb bg-orb-c" />
 
-      {/* Building / structure motifs — elevation, frame, beams */}
+      {/* Horizon wash */}
+      <div className="bg-horizon" />
+
+      {/* Soft architectural silhouettes — filled, not wireframe-heavy */}
       <svg
         className="bg-structure"
-        viewBox="0 0 1200 800"
+        viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Left elevation — floors */}
-        <g className="bg-structure-left" opacity="0.55">
-          <rect
-            x="48"
-            y="120"
-            width="160"
-            height="520"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-          {[180, 260, 340, 420, 500, 580].map((y) => (
-            <line
-              key={y}
-              x1="48"
-              y1={y}
-              x2="208"
-              y2={y}
-              stroke="currentColor"
-              strokeWidth="0.75"
-            />
-          ))}
-          {[88, 128, 168].map((x) => (
-            <line
-              key={x}
-              x1={x}
-              y1="120"
-              x2={x}
-              y2="640"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              opacity="0.7"
-            />
-          ))}
+        <defs>
+          <linearGradient id="bldg-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.14" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0.02" />
+          </linearGradient>
+          <linearGradient id="bldg-fade-r" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.1" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0.015" />
+          </linearGradient>
+        </defs>
+
+        {/* Left massing */}
+        <g className="bg-structure-left">
+          <rect x="40" y="280" width="120" height="420" fill="url(#bldg-fade)" />
+          <rect x="170" y="340" width="90" height="360" fill="url(#bldg-fade)" />
+          <rect x="60" y="320" width="40" height="8" fill="currentColor" opacity="0.06" />
+          <rect x="60" y="380" width="40" height="8" fill="currentColor" opacity="0.06" />
+          <rect x="60" y="440" width="40" height="8" fill="currentColor" opacity="0.06" />
+          <rect x="60" y="500" width="40" height="8" fill="currentColor" opacity="0.06" />
+          <rect x="60" y="560" width="40" height="8" fill="currentColor" opacity="0.06" />
         </g>
 
-        {/* Right frame — bay structure */}
-        <g className="bg-structure-right" opacity="0.45">
-          <path
-            d="M980 160 L1120 160 L1120 640 L980 640 Z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-          />
-          <line x1="980" y1="280" x2="1120" y2="280" stroke="currentColor" strokeWidth="0.75" />
-          <line x1="980" y1="400" x2="1120" y2="400" stroke="currentColor" strokeWidth="0.75" />
-          <line x1="980" y1="520" x2="1120" y2="520" stroke="currentColor" strokeWidth="0.75" />
-          <line x1="1050" y1="160" x2="1050" y2="640" stroke="currentColor" strokeWidth="0.5" />
+        {/* Right massing */}
+        <g className="bg-structure-right">
+          <rect x="1180" y="300" width="100" height="400" fill="url(#bldg-fade-r)" />
+          <rect x="1290" y="240" width="110" height="460" fill="url(#bldg-fade-r)" />
+          <rect x="1310" y="280" width="36" height="6" fill="currentColor" opacity="0.05" />
+          <rect x="1310" y="340" width="36" height="6" fill="currentColor" opacity="0.05" />
+          <rect x="1310" y="400" width="36" height="6" fill="currentColor" opacity="0.05" />
+          <rect x="1310" y="460" width="36" height="6" fill="currentColor" opacity="0.05" />
         </g>
 
-        {/* Center span beams — construction lines */}
-        <g className="bg-structure-beams" opacity="0.35">
-          <line x1="280" y1="200" x2="900" y2="200" stroke="currentColor" strokeWidth="0.6" strokeDasharray="6 10" />
-          <line x1="320" y1="480" x2="860" y2="480" stroke="currentColor" strokeWidth="0.6" strokeDasharray="4 12" />
-          <line x1="600" y1="140" x2="600" y2="620" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 14" />
-        </g>
-
-        {/* Corner registration marks — blueprint feel */}
-        <g opacity="0.4" stroke="currentColor" strokeWidth="1" fill="none">
-          <path d="M24 40 H56 M40 24 V56" />
-          <path d="M1144 40 H1176 M1160 24 V56" />
-          <path d="M24 744 H56 M40 760 V728" />
-          <path d="M1144 744 H1176 M1160 760 V728" />
+        {/* Distant mid skyline suggestion */}
+        <g opacity="0.07" fill="currentColor">
+          <rect x="520" y="480" width="28" height="90" />
+          <rect x="556" y="450" width="36" height="120" />
+          <rect x="600" y="500" width="22" height="70" />
+          <rect x="800" y="470" width="40" height="100" />
+          <rect x="848" y="510" width="24" height="60" />
         </g>
       </svg>
 
+      <div className="bg-vignette" />
       <div className="bg-grain" />
     </div>
   );

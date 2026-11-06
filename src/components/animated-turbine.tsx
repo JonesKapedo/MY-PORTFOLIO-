@@ -4,143 +4,100 @@ type AnimatedTurbineProps = {
   className?: string;
   /** Unique id prefix so multiple instances on one page do not clash gradients */
   id?: string;
-  /** Show wordmark under the mark */
-  showLabel?: boolean;
   /** Decorative only when true */
   decorative?: boolean;
 };
 
 /**
- * Animated turbine identity — spinning rings and spokes.
- * Prefer this over the static brand-mark image in UI chrome and hero.
+ * Animated turbine — soft disc + spinning spokes (no hard outlines).
+ * Works at hero size and small chrome sizes.
  */
 export function AnimatedTurbine({
   className,
   id = "turbine",
-  showLabel = false,
   decorative = true,
 }: AnimatedTurbineProps) {
   const glowId = `${id}-glow`;
-  const softId = `${id}-soft`;
+  const coreId = `${id}-core`;
 
   return (
     <svg
-      viewBox="0 0 400 400"
-      className={cn("text-accent", className)}
+      viewBox="0 0 200 200"
+      className={cn("block text-accent", className)}
       xmlns="http://www.w3.org/2000/svg"
       role={decorative ? "presentation" : "img"}
       aria-hidden={decorative ? true : undefined}
       aria-label={decorative ? undefined : "GREAT TURBINEZ"}
     >
       <defs>
-        <radialGradient id={glowId} cx="50%" cy="45%" r="55%">
-          <stop offset="0%" stopColor="#c9a227" stopOpacity="0.32" />
+        <radialGradient id={glowId} cx="50%" cy="42%" r="58%">
+          <stop offset="0%" stopColor="#c9a227" stopOpacity="0.38" />
+          <stop offset="55%" stopColor="#c9a227" stopOpacity="0.08" />
           <stop offset="100%" stopColor="#080808" stopOpacity="0" />
         </radialGradient>
-        <filter id={softId} x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
+        <radialGradient id={coreId} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#e8c84a" stopOpacity="1" />
+          <stop offset="100%" stopColor="#c9a227" stopOpacity="0.85" />
+        </radialGradient>
       </defs>
-      <rect width="400" height="400" fill="#080808" rx="40" />
-      <rect width="400" height="400" fill={`url(#${glowId})`} rx="40" />
 
-      <g className="spin-slower" style={{ transformOrigin: "200px 200px" }}>
-        <circle
-          cx="200"
-          cy="200"
-          r="118"
-          fill="none"
-          stroke="#c9a227"
-          strokeWidth="0.75"
-          strokeDasharray="4 10"
-          opacity="0.35"
-        />
-      </g>
+      {/* Soft base — no stroke/outline */}
+      <circle cx="100" cy="100" r="100" fill="#080808" />
+      <circle cx="100" cy="100" r="100" fill={`url(#${glowId})`} />
 
-      <g className="spin-slow" style={{ transformOrigin: "200px 200px" }}>
-        <circle
-          cx="200"
-          cy="200"
-          r="88"
-          fill="none"
-          stroke="#c9a227"
-          strokeWidth="2"
-          opacity="0.75"
-          filter={`url(#${softId})`}
-        />
+      {/* Outer whisper ring — very soft fill arc, not a hard stroke */}
+      <g className="turbine-spin-slow">
         {[0, 60, 120, 180, 240, 300].map((deg) => {
           const r = (deg * Math.PI) / 180;
+          const x2 = 100 + Math.cos(r) * 72;
+          const y2 = 100 + Math.sin(r) * 72;
           return (
             <line
               key={deg}
-              x1="200"
-              y1="200"
-              x2={200 + Math.cos(r) * 88}
-              y2={200 + Math.sin(r) * 88}
+              x1="100"
+              y1="100"
+              x2={x2}
+              y2={y2}
               stroke="#c9a227"
-              strokeWidth="2"
-              opacity="0.55"
+              strokeWidth="2.25"
+              strokeLinecap="round"
+              opacity="0.5"
             />
           );
         })}
       </g>
 
-      <circle
-        cx="200"
-        cy="200"
-        r="52"
-        fill="none"
-        stroke="#c9a227"
-        strokeWidth="1.5"
-        opacity="0.45"
-      />
+      {/* Inner spokes counter-spin */}
+      <g className="turbine-spin-slower">
+        {[30, 90, 150, 210, 270, 330].map((deg) => {
+          const r = (deg * Math.PI) / 180;
+          const x2 = 100 + Math.cos(r) * 42;
+          const y2 = 100 + Math.sin(r) * 42;
+          return (
+            <line
+              key={deg}
+              x1="100"
+              y1="100"
+              x2={x2}
+              y2={y2}
+              stroke="#c9a227"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              opacity="0.35"
+            />
+          );
+        })}
+      </g>
+
+      {/* Soft core glow + hub — no outline rings */}
+      <circle cx="100" cy="100" r="18" fill="#c9a227" opacity="0.12" />
       <circle
         className="pulse-core"
-        cx="200"
-        cy="200"
-        r="10"
-        fill="#c9a227"
-        filter={`url(#${softId})`}
+        cx="100"
+        cy="100"
+        r="7"
+        fill={`url(#${coreId})`}
       />
-
-      {[82, 318].map((y, i) => (
-        <circle
-          key={i}
-          cx="200"
-          cy={y}
-          r="3.5"
-          fill="#c9a227"
-          opacity="0.65"
-        />
-      ))}
-      {[82, 318].map((x, i) => (
-        <circle
-          key={`x-${i}`}
-          cx={x}
-          cy="200"
-          r="3.5"
-          fill="#c9a227"
-          opacity="0.65"
-        />
-      ))}
-
-      {showLabel ? (
-        <text
-          x="200"
-          y="355"
-          textAnchor="middle"
-          fill="#c9a227"
-          fontSize="11"
-          letterSpacing="0.28em"
-          opacity="0.85"
-        >
-          GREAT TURBINEZ
-        </text>
-      ) : null}
     </svg>
   );
 }

@@ -11,7 +11,7 @@ export function PageFrame({
   return (
     <div
       className={cn(
-        "page-screen mx-auto w-full max-w-6xl px-4 py-4 sm:px-6 sm:py-5",
+        "page-screen mx-auto w-full max-w-7xl px-5 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10",
         className,
       )}
     >
