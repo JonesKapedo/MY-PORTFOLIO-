@@ -16,11 +16,9 @@ function gearPath(
 ): string {
   const pts: string[] = [];
   const twoPi = Math.PI * 2;
-  // Tip occupies ~28% of pitch; valley ~72% — leaves room to interlock
   for (let t = 0; t < teeth; t++) {
     const base = (t / teeth) * twoPi + rotationOffset;
     const step = twoPi / teeth;
-    // Valley → rise → tip → fall → valley
     const a = [
       base + step * 0.0,
       base + step * 0.28,
@@ -66,33 +64,10 @@ function gearPath(
   return `${pts.join(" ")} ${hole.reverse().join(" ")}`;
 }
 
-function spokeRing(
-  cx: number,
-  cy: number,
-  r: number,
-  count: number,
-  len: number,
-  rotationOffset: number,
-) {
-  const lines: string[] = [];
-  for (let i = 0; i < count; i++) {
-    const a = rotationOffset + (i / count) * Math.PI * 2;
-    const x1 = cx + Math.cos(a) * (r - len);
-    const y1 = cy + Math.sin(a) * (r - len);
-    const x2 = cx + Math.cos(a) * r;
-    const y2 = cy + Math.sin(a) * r;
-    lines.push(
-      `<line x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" />`,
-    );
-  }
-  return lines.join("");
-}
-
 type GearSystemProps = { className?: string };
 
 export function GearSystem({ className }: GearSystemProps) {
   const module = 7;
-  // Shorter teeth → less tip clash; light backlash on centre distance
   const addendum = module * 0.72;
   const dedendum = module * 0.9;
   const backlash = module * 0.12;
@@ -114,7 +89,6 @@ export function GearSystem({ className }: GearSystemProps) {
 
   const g1 = { cx: 168, cy: 170, n: n1, p: p1, o: o1, r: r1, hole: 14 };
 
-  // Line-of-centers angles
   const a12 = (-22 * Math.PI) / 180;
   const a13 = (50 * Math.PI) / 180;
   const d12 = p1 + p2 + backlash;
@@ -139,17 +113,10 @@ export function GearSystem({ className }: GearSystemProps) {
     hole: 9,
   };
 
-  /*
-   * Align a valley on driver toward each driven gear, and a tip into that valley.
-   * Path teeth start with a valley at angle 0; rotate so valley faces line-of-centers.
-   */
-  const phase1 = a12; // valley of g1 faces g2
-  // g2 faces back toward g1: valley would be a12+π; tip into g1 valley → half tooth more
+  // Valley on driver faces g2; tip on driven seats into that valley
+  const phase1 = a12;
   const phase2 = a12 + Math.PI + Math.PI / n2;
-  // g3 meshes g1 along a13
   const phase3 = a13 + Math.PI + Math.PI / n3;
-  // Driver also needs a valley toward g3 — compromise: primary mesh is g1–g2;
-  // g3 still gets correct phase relative to a13. Small visual error is OK.
 
   const t1 = 32;
   const t2 = (t1 * n2) / n1;
@@ -170,7 +137,6 @@ export function GearSystem({ className }: GearSystemProps) {
       aria-label="Interlocking gold, silver, and green gears"
     >
       <defs>
-        {/* Gold — warm highlight top-left */}
         <radialGradient
           id="gear-gold-fill"
           cx="32%"
@@ -190,7 +156,6 @@ export function GearSystem({ className }: GearSystemProps) {
           <stop offset="100%" stopColor="#3d320c" stopOpacity="0.85" />
         </linearGradient>
 
-        {/* Silver / white metal */}
         <radialGradient
           id="gear-silver-fill"
           cx="30%"
@@ -209,7 +174,6 @@ export function GearSystem({ className }: GearSystemProps) {
           <stop offset="100%" stopColor="#52525b" stopOpacity="0.8" />
         </linearGradient>
 
-        {/* Green enamel */}
         <radialGradient
           id="gear-green-fill"
           cx="28%"
@@ -237,20 +201,8 @@ export function GearSystem({ className }: GearSystemProps) {
             floodOpacity="0.45"
           />
         </filter>
-
-        <filter id="gear-inner-shade" x="-10%" y="-10%" width="120%" height="120%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="1.2" result="b" />
-          <feOffset dx="0.5" dy="0.8" result="o" />
-          <feFlood floodColor="#000" floodOpacity="0.25" />
-          <feComposite in2="o" operator="in" />
-          <feMerge>
-            <feMergeNode />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
 
-      {/* ——— GOLD driver ——— */}
       <g filter="url(#gear-depth)">
         <path
           d={gearPath(g1.cx, g1.cy, g1.n, g1.o, g1.p, g1.r, g1.hole, phase1)}
@@ -268,7 +220,6 @@ export function GearSystem({ className }: GearSystemProps) {
             repeatCount="indefinite"
           />
         </path>
-        {/* Body rings + hub (spin with gear via parent would need group — animate separately) */}
         <g>
           <animateTransform
             attributeName="transform"
@@ -307,7 +258,6 @@ export function GearSystem({ className }: GearSystemProps) {
           />
           <circle cx={g1.cx} cy={g1.cy} r={5.5} fill="#0d0b04" />
           <circle cx={g1.cx} cy={g1.cy} r={2.4} fill="#f5e6a3" opacity="0.85" />
-          {/* highlight arc */}
           <path
             d={`M ${g1.cx - g1.p * 0.2} ${g1.cy - g1.p * 0.32} A ${g1.p * 0.35} ${g1.p * 0.35} 0 0 1 ${g1.cx + g1.p * 0.15} ${g1.cy - g1.p * 0.38}`}
             fill="none"
@@ -319,7 +269,6 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
-      {/* ——— SILVER ——— */}
       <g filter="url(#gear-depth)">
         <path
           d={gearPath(g2.cx, g2.cy, g2.n, g2.o, g2.p, g2.r, g2.hole, phase2)}
@@ -385,7 +334,6 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
-      {/* ——— GREEN ——— */}
       <g filter="url(#gear-depth)">
         <path
           d={gearPath(g3.cx, g3.cy, g3.n, g3.o, g3.p, g3.r, g3.hole, phase3)}
