@@ -1,9 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/**
- * Approximate involute tooth: curved flanks, flat tip, filleted root.
- * Reads more like machined metal than a flat icon gear.
- */
+/** Involute-style tooth: curved flanks, flat tip, filleted root. */
 function gearPath(
   cx: number,
   cy: number,
@@ -21,31 +18,25 @@ function gearPath(
   for (let t = 0; t < teeth; t++) {
     const base = (t / teeth) * twoPi + rotationOffset;
     const step = twoPi / teeth;
-    // Angular layout of one tooth period (valley → tip → valley)
     for (let s = 0; s <= samples; s++) {
       const u = s / samples;
       const ang = base + u * step;
       let r: number;
       if (u < 0.22) {
-        // root / valley floor
         r = rootR;
       } else if (u < 0.38) {
-        // rising flank (ease toward tip)
         const k = (u - 0.22) / 0.16;
         const ease = k * k * (3 - 2 * k);
         r = rootR + (outerR - rootR) * ease;
       } else if (u < 0.62) {
-        // flat tip land
         r = outerR;
       } else if (u < 0.78) {
-        // falling flank
         const k = (u - 0.62) / 0.16;
         const ease = k * k * (3 - 2 * k);
         r = outerR - (outerR - rootR) * ease;
       } else {
         r = rootR;
       }
-      // Slight involute bow on flanks
       if (u >= 0.22 && u < 0.38) {
         const k = (u - 0.22) / 0.16;
         r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.08;
@@ -77,9 +68,9 @@ type GearSystemProps = { className?: string };
 
 export function GearSystem({ className }: GearSystemProps) {
   const module = 6.8;
-  const addendum = module * 0.7;
-  const dedendum = module * 0.88;
-  const backlash = module * 0.14;
+  const addendum = module * 0.68;
+  const dedendum = module * 0.86;
+  const backlash = module * 0.16;
 
   const n1 = 16;
   const n2 = 12;
@@ -97,8 +88,13 @@ export function GearSystem({ className }: GearSystemProps) {
   const r3 = Math.max(p3 - dedendum, module * 1.7);
 
   const g1 = { cx: 170, cy: 172, n: n1, p: p1, o: o1, r: r1, hole: 15 };
+
+  // White gear — upper right
   const a12 = (-24 * Math.PI) / 180;
-  const a13 = (52 * Math.PI) / 180;
+  // Green gear MUST sit on an integer tooth of the driver so a valley faces it
+  // Tooth pitch on driver = 2π/n1; place green 3 teeth from white (~67.5°)
+  const a13 = a12 + 3 * ((2 * Math.PI) / n1);
+
   const d12 = p1 + p2 + backlash;
   const d13 = p1 + p3 + backlash;
 
@@ -121,6 +117,8 @@ export function GearSystem({ className }: GearSystemProps) {
     hole: 10,
   };
 
+  // phase1: valley toward white (a12). Because a13 is k tooth-steps away,
+  // another valley automatically faces green.
   const phase1 = a12;
   const phase2 = a12 + Math.PI + Math.PI / n2;
   const phase3 = a13 + Math.PI + Math.PI / n3;
@@ -144,7 +142,6 @@ export function GearSystem({ className }: GearSystemProps) {
       aria-label="Interlocking precision gears"
     >
       <defs>
-        {/* Brushed metal — angled linear + radial key light */}
         <linearGradient id="g-gold-brush" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#f7ecc0" />
           <stop offset="18%" stopColor="#e8c84a" />
@@ -193,14 +190,12 @@ export function GearSystem({ className }: GearSystemProps) {
           />
         </filter>
 
-        {/* Soft specular blob for face */}
         <radialGradient id="g-spec" cx="30%" cy="25%" r="40%">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* GOLD */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g1.cx, g1.cy, g1.n, g1.o, g1.p, g1.r, g1.hole, phase1)}
@@ -243,14 +238,7 @@ export function GearSystem({ className }: GearSystemProps) {
             dur={`${t1}s`}
             repeatCount="indefinite"
           />
-          {/* Machined face recess */}
-          <circle
-            cx={g1.cx}
-            cy={g1.cy}
-            r={g1.p * 0.48}
-            fill="#1a1508"
-            opacity="0.25"
-          />
+          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.48} fill="#1a1508" opacity="0.25" />
           <circle
             cx={g1.cx}
             cy={g1.cy}
@@ -274,7 +262,6 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
-      {/* STEEL */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g2.cx, g2.cy, g2.n, g2.o, g2.p, g2.r, g2.hole, phase2)}
@@ -316,13 +303,7 @@ export function GearSystem({ className }: GearSystemProps) {
             dur={`${t2}s`}
             repeatCount="indefinite"
           />
-          <circle
-            cx={g2.cx}
-            cy={g2.cy}
-            r={g2.p * 0.46}
-            fill="#18181b"
-            opacity="0.22"
-          />
+          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.46} fill="#18181b" opacity="0.22" />
           <circle
             cx={g2.cx}
             cy={g2.cy}
@@ -346,7 +327,6 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
-      {/* GREEN */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g3.cx, g3.cy, g3.n, g3.o, g3.p, g3.r, g3.hole, phase3)}
@@ -388,13 +368,7 @@ export function GearSystem({ className }: GearSystemProps) {
             dur={`${t3}s`}
             repeatCount="indefinite"
           />
-          <circle
-            cx={g3.cx}
-            cy={g3.cy}
-            r={g3.p * 0.44}
-            fill="#022c16"
-            opacity="0.28"
-          />
+          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.44} fill="#022c16" opacity="0.28" />
           <circle
             cx={g3.cx}
             cy={g3.cy}
