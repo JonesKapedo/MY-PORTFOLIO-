@@ -146,7 +146,6 @@ html.light {
 }
 
 @layer components {
-  /* ——— Typography hierarchy ——— */
   .type-mark {
     font-family: var(--font-display);
     font-weight: 600;
@@ -232,14 +231,6 @@ html.light {
     }
   }
 
-  .title-zone {
-    /* air around the mark — no competing body copy */
-  }
-
-  .content-zone {
-    /* meaning lives here, not on the title */
-  }
-
   .clip-corner {
     clip-path: polygon(
       0 0,
@@ -317,10 +308,12 @@ html.light {
     color: var(--color-subtle);
   }
 
-  /* ——— Interactive 3D gear ——— */
+  /* ========== 10 CSS perspective treatments ========== */
+
+  /* 1 — Multi-layer gear parallax */
   .gear-3d-stage {
-    perspective: 900px;
-    perspective-origin: 50% 45%;
+    perspective: 1000px;
+    perspective-origin: 50% 42%;
     position: relative;
     width: 100%;
     min-height: 260px;
@@ -333,43 +326,240 @@ html.light {
   .gear-3d-plane {
     position: relative;
     width: min(100%, 400px);
+    height: min(100%, 400px);
+    min-height: 240px;
     transform-style: preserve-3d;
-    transition: transform 120ms ease-out;
+    transition: transform 140ms ease-out;
     will-change: transform;
   }
 
-  .gear-3d-depth {
+  .gear-layer {
     position: absolute;
-    inset: 12% 8%;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      transparent 30%,
-      color-mix(in oklab, var(--color-canvas) 80%, transparent) 100%
-    );
-    transform: translateZ(-40px) scale(1.05);
+    inset: 0;
+    transform-style: preserve-3d;
     pointer-events: none;
   }
 
-  .gear-atmosphere-glow {
-    position: absolute;
-    inset: 8% 5%;
+  .gear-layer-glow {
+    inset: -5%;
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
-      transparent 65%
+      color-mix(in oklab, var(--color-accent) 16%, transparent) 0%,
+      transparent 62%
     );
-    filter: blur(36px);
+    filter: blur(28px);
+    transform: translateZ(-60px) scale(1.1);
     animation: glow-breathe 16s ease-in-out infinite;
-    pointer-events: none;
+  }
+
+  .gear-layer-floor {
+    inset: 18% 12%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--color-fg) 6%, transparent) 0%,
+      transparent 70%
+    );
+    transform: translateZ(-28px) rotateX(70deg) scale(1.15);
+    opacity: 0.45;
+  }
+
+  .gear-layer-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(24px);
+  }
+
+  .gear-layer-rim {
+    inset: 8%;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--color-fg) 8%, transparent),
+      0 0 40px color-mix(in oklab, var(--color-accent) 12%, transparent);
+    transform: translateZ(48px);
+    opacity: 0.55;
   }
 
   .gear-atmosphere-mark {
-    filter: drop-shadow(0 24px 48px rgb(0 0 0 / 0.5));
-    opacity: 0.9;
+    filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.55));
+    opacity: 0.92;
   }
 
+  /* 10 — Title mark slight 3D plane */
+  .title-mark-stage {
+    perspective: 1200px;
+    perspective-origin: left center;
+  }
+
+  .title-mark-plane {
+    transform: rotateY(-4deg) translateZ(0);
+    transform-style: preserve-3d;
+    transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .title-mark-stage:hover .title-mark-plane {
+    transform: rotateY(0deg) translateZ(8px);
+  }
+
+  /* 6 — Content zone as soft scene */
+  .scene-3d {
+    perspective: 1400px;
+  }
+
+  /* 4 — Metric lift */
+  .metric-rail-3d {
+    transform-style: preserve-3d;
+  }
+
+  .metric-item-3d {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateZ(0);
+  }
+
+  .metric-item-3d:hover {
+    transform: translateZ(18px) translateY(-2px);
+  }
+
+  /* 2 — Path tiles 3D hover */
+  .path-grid-3d {
+    perspective: 1100px;
+    perspective-origin: 50% 40%;
+  }
+
+  .path-tile,
+  .proof-tile {
+    background: color-mix(in oklab, var(--color-surface) 70%, transparent);
+    box-shadow: var(--shadow-tile);
+    transition:
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 240ms ease,
+      background-color 240ms ease;
+  }
+
+  .path-tile-3d {
+    transform-style: preserve-3d;
+    transform: rotateX(2deg) translateZ(0);
+  }
+
+  .path-tile-3d:hover {
+    transform: rotateX(0deg) translateY(-4px) translateZ(28px);
+    box-shadow: var(--shadow-tile-hover);
+    background: color-mix(in oklab, var(--color-raised) 80%, transparent);
+  }
+
+  /* 3 — Proof rise */
+  .proof-grid-3d {
+    perspective: 1000px;
+  }
+
+  .proof-tile-3d {
+    transform: translateZ(0);
+  }
+
+  .proof-tile-3d:hover {
+    transform: translateZ(22px) translateY(-3px);
+    box-shadow: var(--shadow-tile-hover);
+    background: color-mix(in oklab, var(--color-raised) 80%, transparent);
+  }
+
+  /* 5 — Process rail perspective */
+  .process-rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    box-shadow: var(--shadow-tile);
+    background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+  }
+
+  .process-rail-3d {
+    perspective: 900px;
+    transform-style: preserve-3d;
+  }
+
+  .process-rail li,
+  .process-step {
+    flex: 1 1 120px;
+    position: relative;
+    padding: 0.85rem 1rem;
+    border-right: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
+  }
+
+  .process-rail li:last-child,
+  .process-step:last-child {
+    border-right: none;
+  }
+
+  .process-step-3d {
+    transition: transform 220ms ease, background-color 220ms ease;
+    transform: translateZ(0);
+  }
+
+  .process-step-3d:hover {
+    transform: translateZ(16px);
+    background: color-mix(in oklab, var(--color-raised) 50%, transparent);
+  }
+
+  /* 9 — Section index depth */
+  .section-index-stage {
+    perspective: 600px;
+  }
+
+  .section-index-3d {
+    display: inline-block;
+    transform: translateZ(0) rotateX(12deg);
+    transform-origin: left bottom;
+    transition: transform 300ms ease;
+  }
+
+  .section-index-stage:hover .section-index-3d {
+    transform: translateZ(12px) rotateX(0deg);
+  }
+
+  /* 7 — Funnel CTA subtle tilt */
+  .funnel-3d-stage {
+    perspective: 1600px;
+    perspective-origin: 50% 80%;
+  }
+
+  .funnel-3d-stage > section > div {
+    transform: rotateX(1.5deg);
+    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+  }
+
+  .funnel-3d-stage:hover > section > div {
+    transform: rotateX(0deg) translateZ(12px);
+  }
+
+  /* 8 — Dock items translateZ */
+  .dock-rail {
+    perspective: 400px;
+    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .dock-item {
+    transform-style: preserve-3d;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms ease;
+  }
+
+  .dock-item:hover {
+    transform: translateZ(14px) scale(1.06);
+  }
+
+  .dock-item[aria-current="page"] {
+    transform: translateZ(8px);
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--color-accent) 35%, transparent),
+      0 0 24px -2px color-mix(in oklab, var(--color-accent) 50%, transparent);
+  }
+
+  /* ——— Shared chrome ——— */
   .chapter-sticky {
     position: sticky;
     top: 0;
@@ -414,44 +604,6 @@ html.light {
 
   .chapter-link:hover {
     color: var(--color-accent);
-  }
-
-  .path-tile,
-  .proof-tile {
-    background: color-mix(in oklab, var(--color-surface) 70%, transparent);
-    box-shadow: var(--shadow-tile);
-    transition:
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 200ms ease,
-      background-color 200ms ease;
-  }
-
-  .path-tile:hover,
-  .proof-tile:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-tile-hover);
-    background: color-mix(in oklab, var(--color-raised) 80%, transparent);
-  }
-
-  .process-rail {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    box-shadow: var(--shadow-tile);
-    background: color-mix(in oklab, var(--color-surface) 55%, transparent);
-  }
-
-  .process-rail li,
-  .process-step {
-    flex: 1 1 120px;
-    position: relative;
-    padding: 0.85rem 1rem;
-    border-right: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
-  }
-
-  .process-rail li:last-child,
-  .process-step:last-child {
-    border-right: none;
   }
 
   .btn-shine {
@@ -529,30 +681,8 @@ html.light {
   }
 
   .service-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: var(--shadow-tile-hover);
-  }
-
-  .dock-rail {
-    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .dock-item {
-    transition:
-      color 150ms ease,
-      background-color 150ms ease,
-      transform 180ms ease,
-      box-shadow 200ms ease;
-  }
-
-  .dock-item:hover {
-    transform: scale(1.08);
-  }
-
-  .dock-item[aria-current="page"] {
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--color-accent) 35%, transparent),
-      0 0 24px -2px color-mix(in oklab, var(--color-accent) 50%, transparent);
   }
 
   .dock-tooltip {
@@ -797,15 +927,23 @@ html.light {
   .dock-rail,
   .dock-mobile,
   .stagger-children > *,
-  .gear-atmosphere-glow {
+  .gear-layer-glow {
     animation: none;
   }
-  .gear-3d-plane {
-    transition: none;
+  .gear-3d-plane,
+  .title-mark-plane,
+  .path-tile-3d,
+  .proof-tile-3d,
+  .metric-item-3d,
+  .process-step-3d,
+  .section-index-3d,
+  .funnel-3d-stage > section > div,
+  .dock-item {
+    transition: none !important;
+    transform: none !important;
   }
   .path-tile:hover,
   .proof-tile:hover,
-  .dock-item:hover,
   .service-card:hover {
     transform: none;
   }
