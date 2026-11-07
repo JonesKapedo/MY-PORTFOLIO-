@@ -13,6 +13,7 @@ import { Route as ConcernsRouteImport } from './routes/concerns'
 import { Route as ConcernsSlugRouteImport } from './routes/concerns.$slug'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndustriesRouteImport } from './routes/industries'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -60,6 +61,11 @@ const IndustriesRoute = IndustriesRouteImport.update({
   path: '/industries',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -133,6 +141,7 @@ export interface FileRoutesById {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
     | '/privacy'
     | '/services'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
     | '/privacy'
     | '/services'
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
     | '/privacy'
     | '/services'
@@ -200,6 +212,7 @@ export interface RootRouteChildren {
   ConcernsSlugRoute: typeof ConcernsSlugRoute
   ContactRoute: typeof ContactRoute
   IndustriesRoute: typeof IndustriesRoute
+  PartnersRoute: typeof PartnersRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
@@ -320,6 +340,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConcernsSlugRoute: ConcernsSlugRoute,
   ContactRoute: ContactRoute,
   IndustriesRoute: IndustriesRoute,
+  PartnersRoute: PartnersRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,

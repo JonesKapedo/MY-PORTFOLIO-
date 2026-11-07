@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   CircleHelp,
   Compass,
+  Handshake,
   LayoutGrid,
   PenLine,
   Sparkles,
@@ -18,6 +19,7 @@ const NAV_ICONS: Record<
   "/work": Sparkles,
   "/services": LayoutGrid,
   "/concerns": CircleHelp,
+  "/partners": Handshake,
   "/brief": PenLine,
 };
 
@@ -84,14 +86,14 @@ export function SiteSidebar() {
               to={item.to}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-1 py-1.5 transition-colors duration-150",
+                "flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-0.5 py-1.5 transition-colors duration-150",
                 active ? "text-accent" : "text-muted hover:text-fg",
               )}
             >
               {Icon ? (
-                <Icon className="size-[18px] shrink-0" strokeWidth={1.6} />
+                <Icon className="size-[17px] shrink-0" strokeWidth={1.6} />
               ) : null}
-              <span className="truncate text-[9px] font-medium tracking-wide">
+              <span className="truncate text-[8px] font-medium tracking-wide">
                 {item.label}
               </span>
             </Link>
