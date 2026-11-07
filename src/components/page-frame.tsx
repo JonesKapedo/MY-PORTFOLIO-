@@ -1,16 +1,20 @@
 import { forwardRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export const PageFrame = forwardRef<HTMLDivElement, {
-  children: ReactNode;
-  className?: string;
-}>(function PageFrame({ children, className }, ref) {
+export const PageFrame = forwardRef<
+  HTMLDivElement,
+  {
+    children: ReactNode;
+    className?: string;
+  }
+>(function PageFrame({ children, className }, ref) {
   return (
     <div
       ref={ref}
       className={cn(
         "page-screen w-full max-w-none",
-        "px-7 py-10 sm:px-12 sm:py-12 md:px-14 md:py-14 lg:px-16 lg:py-16 xl:px-24 xl:py-20 2xl:px-28 2xl:py-24",
+        /* denser global rhythm — less empty vertical space */
+        "px-6 py-8 sm:px-10 sm:py-9 md:px-12 md:py-10 lg:px-14 lg:py-11 xl:px-18 xl:py-12 2xl:px-22 2xl:py-14",
         className,
       )}
     >
@@ -41,20 +45,16 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="w-full pb-4">
-      <div className="gold-strike clip-corner-lg w-full px-8 py-12 shadow-[var(--shadow-elevated)] sm:px-12 sm:py-14 lg:px-14 lg:py-16">
-        <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+    <section className="w-full pb-2">
+      <div className="gold-strike clip-corner-lg w-full px-7 py-10 shadow-[var(--shadow-elevated)] sm:px-10 sm:py-11 lg:px-12 lg:py-12">
+        <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
           <div className="max-w-2xl">
-            <p className="font-mono text-[10px] font-medium tracking-[0.2em] text-accent-fg/70 uppercase">
-              Next step · private intake
-            </p>
-            <h2 className="display-brutal mt-3 text-3xl text-accent-fg sm:text-4xl lg:text-[2.75rem]">
+            <p className="type-label text-accent-fg/70">Next step · private intake</p>
+            <h2 className="type-display mt-2 text-3xl text-accent-fg sm:text-4xl">
               {title}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-accent-fg/80 sm:text-base">
-              {body}
-            </p>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] tracking-wide text-accent-fg/70 uppercase">
+            <p className="type-body mt-3 text-accent-fg/80">{body}</p>
+            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[10px] tracking-wide text-accent-fg/70 uppercase">
               <li>No charge to brief</li>
               <li>Written scope first</li>
               <li>Deposit after approval</li>
