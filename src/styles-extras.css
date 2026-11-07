@@ -35,6 +35,7 @@
   background-position: 72% center;
   opacity: 0.42;
   filter: saturate(0.92) contrast(1.05);
+  transition: opacity 500ms ease, filter 500ms ease;
 }
 
 @media (min-width: 1024px) {
@@ -45,7 +46,6 @@
   }
 }
 
-/* Inner routes: quieter banner so local field can breathe */
 .bg-atmosphere[data-shell="inner"] .bg-brand-banner {
   opacity: 0.18;
   background-position: 90% 40%;
@@ -139,7 +139,6 @@ html.light .bg-brand-fade {
   --field-orb-b: color-mix(in oklab, var(--color-fg) 5%, transparent);
 }
 
-/* Page tint keys */
 .page-field[data-field="work"] {
   --field-orb-a: color-mix(in oklab, var(--color-accent) 16%, transparent);
   --field-orb-b: color-mix(in oklab, #c9a227 8%, transparent);
@@ -163,6 +162,37 @@ html.light .bg-brand-fade {
 .page-field[data-field="legal"] {
   --field-orb-a: color-mix(in oklab, var(--color-fg) 4%, transparent);
   --field-orb-b: color-mix(in oklab, var(--color-fg) 3%, transparent);
+}
+
+/* Shared transitions for hover lift */
+.page-field-spotlight,
+.page-field-grid,
+.page-field-gutter,
+.page-field-brand-strip,
+.page-field-numeral,
+.page-field-vignette,
+.page-field-grain,
+.page-field-gear,
+.page-field-icon {
+  transition:
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 420ms ease,
+    color 320ms ease;
+}
+
+.page-field-orb {
+  transition:
+    opacity 500ms ease,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 500ms ease;
+}
+
+.page-field-particle {
+  transition:
+    opacity 380ms ease,
+    box-shadow 380ms ease,
+    transform 380ms ease;
 }
 
 /* 1 — title spotlight */
@@ -227,6 +257,7 @@ html.light .bg-brand-fade {
   height: min(28vw, 7.5rem);
   color: var(--color-accent);
   opacity: 0.07;
+  z-index: 2;
 }
 
 .page-field-gear-spin {
@@ -382,6 +413,7 @@ html.light .bg-brand-fade {
   flex-direction: column;
   gap: 3.5rem;
   color: var(--color-accent);
+  z-index: 2;
 }
 
 .page-field-icon {
@@ -402,6 +434,113 @@ html.light .bg-brand-fade {
   opacity: 0.06;
 }
 
+/* ============================================================
+   Hover system — fine pointers only (desktop / trackpad)
+   Parent frame hover = ambient lift; gear/icons = direct play
+   ============================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Ambient lift when the page surface is hovered */
+  .page-screen[data-route="inner"]:hover .page-field-spotlight {
+    opacity: 1;
+    transform: scale(1.06);
+    filter: blur(1px);
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-grid {
+    opacity: 0.82;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-gutter {
+    opacity: 1;
+    width: min(26%, 12.5rem);
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-brand-strip {
+    opacity: 0.22;
+    filter: saturate(0.85) brightness(0.8);
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-numeral {
+    color: color-mix(in oklab, var(--color-fg) 8%, transparent);
+    transform: rotate(-4deg) translateY(-4px);
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-grain {
+    opacity: 0.05;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-vignette {
+    opacity: 0.55;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-orb-a {
+    filter: blur(56px);
+    opacity: 1;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-orb-b {
+    filter: blur(56px);
+    opacity: 1;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-particle {
+    box-shadow: 0 0 10px color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-gear {
+    opacity: 0.14;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-gear-spin {
+    animation-duration: 28s;
+  }
+
+  .page-screen[data-route="inner"]:hover .page-field-icon {
+    opacity: 0.12;
+  }
+
+  /* Direct hover — gear (margin hit target) */
+  .page-field-gear {
+    pointer-events: auto;
+    cursor: default;
+  }
+
+  .page-field-gear:hover {
+    opacity: 0.28 !important;
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 12px color-mix(in oklab, var(--color-accent) 35%, transparent));
+  }
+
+  .page-field-gear:hover .page-field-gear-spin {
+    animation-duration: 10s !important;
+  }
+
+  /* Direct hover — margin icons */
+  .page-field-icons {
+    pointer-events: auto;
+  }
+
+  .page-field-icon {
+    pointer-events: auto;
+    cursor: default;
+  }
+
+  .page-field-icon:hover {
+    opacity: 0.45 !important;
+    transform: translateX(-2px) scale(1.2);
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--color-accent) 40%, transparent));
+  }
+
+  .page-field-icon-1:hover {
+    transform: translateX(0.15rem) scale(1.2);
+  }
+
+  .page-field-icon-2:hover {
+    transform: translateX(-0.35rem) scale(1.2);
+  }
+}
+
 /* Desktop: enable numeral + margin icons */
 @media (min-width: 1024px) {
   .page-field-numeral {
@@ -417,7 +556,7 @@ html.light .bg-brand-fade {
   }
 }
 
-/* Mobile: quieter field — grid thinner, fewer visual weights */
+/* Mobile: quieter field */
 @media (max-width: 767px) {
   .page-field-grid {
     background-image: repeating-linear-gradient(
@@ -448,6 +587,7 @@ html.light .bg-brand-fade {
     opacity: 0.05;
     width: 5.5rem;
     height: 5.5rem;
+    pointer-events: none;
   }
 
   .page-field-orb-a,
@@ -495,5 +635,16 @@ html.light .bg-brand-fade {
   .page-field-particle,
   .page-field-orb {
     animation: none !important;
+  }
+  .page-field-spotlight,
+  .page-field-grid,
+  .page-field-gutter,
+  .page-field-brand-strip,
+  .page-field-numeral,
+  .page-field-gear,
+  .page-field-icon,
+  .page-field-orb,
+  .page-field-particle {
+    transition: none !important;
   }
 }
