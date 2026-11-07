@@ -100,31 +100,28 @@
     );
 }
 
+/* Light chrome removed: html.light keeps dark tokens */
+html.light {
+  --color-canvas: #030303;
+  --color-surface: #0a0a0a;
+  --color-raised: #121212;
+  --color-fg: #fafafa;
+  --color-muted: #9a9a9a;
+  --color-subtle: #6b6b6b;
+  --color-line: #1f1f1f;
+  --color-accent: #c9a227;
+  --color-accent-fg: #0a0a0a;
+  --color-danger: #c45c4a;
+  color-scheme: dark !important;
+}
+
 html.light .bg-brand-banner {
-  opacity: 0.22;
-  filter: saturate(0.85) brightness(1.15);
+  opacity: 0.42;
+  filter: saturate(0.92) contrast(1.05);
 }
 
 html.light .bg-atmosphere[data-shell="inner"] .bg-brand-banner {
-  opacity: 0.1;
-}
-
-html.light .bg-brand-fade {
-  background:
-    linear-gradient(
-      105deg,
-      var(--color-canvas) 0%,
-      color-mix(in oklab, var(--color-canvas) 92%, transparent) 32%,
-      color-mix(in oklab, var(--color-canvas) 70%, transparent) 52%,
-      transparent 80%
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--color-canvas) 50%, transparent) 0%,
-      transparent 20%,
-      transparent 60%,
-      var(--color-canvas) 100%
-    );
+  opacity: 0.18;
 }
 
 /* ——— Page field (non-intro) ——— */
