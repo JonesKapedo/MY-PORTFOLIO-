@@ -2,8 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Full-width content pane with balanced professional margins.
- * Wide enough to use the viewport; tight enough to stay readable.
+ * Full-width content pane with generous professional margins.
  */
 export function PageFrame({
   children,
@@ -16,7 +15,7 @@ export function PageFrame({
     <div
       className={cn(
         "page-screen w-full max-w-none",
-        "px-5 py-7 sm:px-8 sm:py-9 md:px-10 lg:px-12 lg:py-11 xl:px-14 2xl:px-20",
+        "px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 lg:px-16 lg:py-14 xl:px-20 xl:py-16 2xl:px-24",
         className,
       )}
     >
@@ -57,13 +56,13 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="mt-6 w-full border-t border-line/50 pt-14 pb-6">
-      <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+    <section className="mt-10 w-full border-t border-line/50 pt-16 pb-8">
+      <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
         <div className="max-w-2xl">
           <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
             {title}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{body}</p>
+          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">{body}</p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-3">{primary}{secondary}</div>
       </div>
