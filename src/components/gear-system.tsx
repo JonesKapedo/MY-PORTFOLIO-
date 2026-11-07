@@ -12,7 +12,7 @@ function gearPath(
 ): string {
   const pts: string[] = [];
   const twoPi = Math.PI * 2;
-  const samples = 18;
+  const samples = 20;
 
   for (let t = 0; t < teeth; t++) {
     const base = (t / teeth) * twoPi + rotationOffset;
@@ -23,23 +23,23 @@ function gearPath(
       let r: number;
       if (u < 0.24 || u > 0.76) {
         r = rootR;
-      } else if (u < 0.35) {
-        const k = (u - 0.24) / 0.11;
+      } else if (u < 0.34) {
+        const k = (u - 0.24) / 0.1;
         const ease = k * k * (3 - 2 * k);
         r = rootR + (outerR - rootR) * ease;
-      } else if (u <= 0.65) {
+      } else if (u <= 0.66) {
         r = outerR;
       } else {
-        const k = (u - 0.65) / 0.11;
+        const k = (u - 0.66) / 0.1;
         const ease = k * k * (3 - 2 * k);
         r = outerR - (outerR - rootR) * ease;
       }
-      if (u >= 0.24 && u < 0.35) {
-        const k = (u - 0.24) / 0.11;
+      if (u >= 0.24 && u < 0.34) {
+        const k = (u - 0.24) / 0.1;
         r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.07;
       }
-      if (u > 0.65 && u <= 0.76) {
-        const k = (u - 0.65) / 0.11;
+      if (u > 0.66 && u <= 0.76) {
+        const k = (u - 0.66) / 0.1;
         r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.07;
       }
       const x = cx + Math.cos(ang) * r;
@@ -57,18 +57,6 @@ function gearPath(
   }
   hole.push("Z");
   return `${pts.join(" ")} ${hole.reverse().join(" ")}`;
-}
-
-/** Chamfer ring path for bevelled outer rim */
-function rimPath(cx: number, cy: number, r: number) {
-  const pts: string[] = [];
-  for (let i = 0; i <= 64; i++) {
-    const a = (i / 64) * Math.PI * 2;
-    pts.push(
-      `${i === 0 ? "M" : "L"}${(cx + Math.cos(a) * r).toFixed(2)},${(cy + Math.sin(a) * r).toFixed(2)}`,
-    );
-  }
-  return pts.join(" ") + " Z";
 }
 
 type GearSystemProps = { className?: string };
@@ -139,10 +127,26 @@ export function GearSystem({ className }: GearSystemProps) {
       className={cn("block", className)}
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Interlocking machined gears"
+      aria-label="Interlocking machined brass and steel gears"
     >
       <defs>
-        {/* Brushed brass / gold — multi-stop anisotropic feel */}
+        {/* Brushed metal line patterns */}
+        <pattern id="brush-steel" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(35)">
+          <rect width="4" height="4" fill="#8a8a92" />
+          <line x1="0" y1="0" x2="0" y2="4" stroke="#c8c8d0" strokeWidth="0.6" opacity="0.5" />
+          <line x1="2" y1="0" x2="2" y2="4" stroke="#5a5a62" strokeWidth="0.4" opacity="0.4" />
+        </pattern>
+        <pattern id="brush-brass" patternUnits="userSpaceOnUse" width="3.5" height="3.5" patternTransform="rotate(-28)">
+          <rect width="3.5" height="3.5" fill="#b8922a" />
+          <line x1="0" y1="0" x2="0" y2="3.5" stroke="#f0d878" strokeWidth="0.5" opacity="0.45" />
+          <line x1="1.75" y1="0" x2="1.75" y2="3.5" stroke="#6b5510" strokeWidth="0.35" opacity="0.35" />
+        </pattern>
+        <pattern id="brush-green" patternUnits="userSpaceOnUse" width="3.5" height="3.5" patternTransform="rotate(40)">
+          <rect width="3.5" height="3.5" fill="#15803d" />
+          <line x1="0" y1="0" x2="0" y2="3.5" stroke="#86efac" strokeWidth="0.45" opacity="0.35" />
+          <line x1="1.75" y1="0" x2="1.75" y2="3.5" stroke="#052e16" strokeWidth="0.35" opacity="0.4" />
+        </pattern>
+
         <linearGradient id="g-gold-brush" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#fff6d0" />
           <stop offset="12%" stopColor="#e8c84a" />
@@ -153,36 +157,34 @@ export function GearSystem({ className }: GearSystemProps) {
           <stop offset="100%" stopColor="#2a2208" />
         </linearGradient>
         <linearGradient id="g-gold-bevel" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#fff3c4" stopOpacity="0.7" />
-          <stop offset="100%" stopColor="#3d320c" stopOpacity="0.9" />
+          <stop offset="0%" stopColor="#fff3c4" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="#3d320c" stopOpacity="0.95" />
         </linearGradient>
         <radialGradient id="g-gold-key" cx="30%" cy="22%" r="68%">
-          <stop offset="0%" stopColor="#fff8e0" stopOpacity="0.6" />
+          <stop offset="0%" stopColor="#fff8e0" stopOpacity="0.65" />
           <stop offset="40%" stopColor="#e0c04a" stopOpacity="0" />
-          <stop offset="100%" stopColor="#0a0802" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#0a0802" stopOpacity="0.5" />
         </radialGradient>
 
-        {/* Machined steel — cool highlights + dark oxide in recesses */}
         <linearGradient id="g-steel-brush" x1="10%" y1="0%" x2="90%" y2="100%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="15%" stopColor="#d4d4d8" />
-          <stop offset="35%" stopColor="#71717a" />
-          <stop offset="50%" stopColor="#e4e4e7" />
-          <stop offset="70%" stopColor="#52525b" />
-          <stop offset="88%" stopColor="#a1a1aa" />
+          <stop offset="12%" stopColor="#e8e8ec" />
+          <stop offset="30%" stopColor="#8b8b94" />
+          <stop offset="48%" stopColor="#d4d4d8" />
+          <stop offset="65%" stopColor="#52525b" />
+          <stop offset="82%" stopColor="#b0b0b8" />
           <stop offset="100%" stopColor="#18181b" />
         </linearGradient>
         <linearGradient id="g-steel-bevel" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#fafafa" stopOpacity="0.85" />
+          <stop offset="0%" stopColor="#fafafa" stopOpacity="0.9" />
           <stop offset="100%" stopColor="#27272a" stopOpacity="0.95" />
         </linearGradient>
         <radialGradient id="g-steel-key" cx="28%" cy="20%" r="70%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.7" />
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.75" />
           <stop offset="35%" stopColor="#a1a1aa" stopOpacity="0" />
-          <stop offset="100%" stopColor="#000" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#000" stopOpacity="0.55" />
         </radialGradient>
 
-        {/* Anodised / enamel green metal */}
         <linearGradient id="g-green-brush" x1="0%" y1="5%" x2="100%" y2="95%">
           <stop offset="0%" stopColor="#dcfce7" />
           <stop offset="20%" stopColor="#4ade80" />
@@ -200,31 +202,30 @@ export function GearSystem({ className }: GearSystemProps) {
         <filter id="g-ao" x="-30%" y="-30%" width="160%" height="160%">
           <feDropShadow dx="0" dy="3.5" stdDeviation="2.4" floodColor="#000" floodOpacity="0.55" />
         </filter>
-        <filter id="g-inner" x="-5%" y="-5%" width="110%" height="110%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="1" result="b" />
-          <feOffset dx="0" dy="1" result="o" />
-          <feFlood floodColor="#000" floodOpacity="0.35" />
-          <feComposite in2="o" operator="in" />
-          <feMerge>
-            <feMergeNode />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
 
         <radialGradient id="g-spec" cx="32%" cy="24%" r="38%">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.4" />
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.45" />
           <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
       </defs>
 
-      {/* GOLD */}
+      {/* GOLD / BRASS */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g1.cx, g1.cy, g1.n, g1.o, g1.p, g1.r, g1.hole, phase1)}
           fill="url(#g-gold-brush)"
           fillRule="evenodd"
           stroke="url(#g-gold-bevel)"
-          strokeWidth="0.9"
+          strokeWidth="1"
+        >
+          <animateTransform attributeName="transform" type="rotate" from={`0 ${g1.cx} ${g1.cy}`} to={`360 ${g1.cx} ${g1.cy}`} dur={`${t1}s`} repeatCount="indefinite" />
+        </path>
+        <path
+          d={gearPath(g1.cx, g1.cy, g1.n, g1.o * 0.98, g1.p, g1.r, g1.hole, phase1)}
+          fill="url(#brush-brass)"
+          fillRule="evenodd"
+          opacity="0.35"
+          style={{ mixBlendMode: "overlay" as const }}
         >
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g1.cx} ${g1.cy}`} to={`360 ${g1.cx} ${g1.cy}`} dur={`${t1}s`} repeatCount="indefinite" />
         </path>
@@ -233,29 +234,36 @@ export function GearSystem({ className }: GearSystemProps) {
         </path>
         <g>
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g1.cx} ${g1.cy}`} to={`360 ${g1.cx} ${g1.cy}`} dur={`${t1}s`} repeatCount="indefinite" />
-          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.52} fill="#1a1508" opacity="0.35" />
-          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.52} fill="none" stroke="#c9a227" strokeWidth="1.2" opacity="0.4" />
-          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.38} fill="none" stroke="#5c4a12" strokeWidth="2" opacity="0.5" />
-          {/* bolt circle */}
+          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.52} fill="#1a1508" opacity="0.4" />
+          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.52} fill="none" stroke="#c9a227" strokeWidth="1.2" opacity="0.45" />
+          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.38} fill="none" stroke="#5c4a12" strokeWidth="2.2" opacity="0.55" />
           {[0, 60, 120, 180, 240, 300].map((deg) => {
             const a = (deg * Math.PI) / 180;
             const br = g1.p * 0.38;
             return (
-              <circle
-                key={deg}
-                cx={g1.cx + Math.cos(a) * br}
-                cy={g1.cy + Math.sin(a) * br}
-                r={2.2}
-                fill="#0c0a04"
-                stroke="#a88820"
-                strokeWidth="0.6"
-              />
+              <g key={deg}>
+                <circle
+                  cx={g1.cx + Math.cos(a) * br}
+                  cy={g1.cy + Math.sin(a) * br}
+                  r={2.4}
+                  fill="#0c0a04"
+                  stroke="#a88820"
+                  strokeWidth="0.7"
+                />
+                <circle
+                  cx={g1.cx + Math.cos(a) * br}
+                  cy={g1.cy + Math.sin(a) * br}
+                  r={0.9}
+                  fill="#e8c84a"
+                  opacity="0.7"
+                />
+              </g>
             );
           })}
-          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.26} fill="url(#g-gold-brush)" stroke="#6b5510" strokeWidth="1.4" />
+          <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.26} fill="url(#g-gold-brush)" stroke="#6b5510" strokeWidth="1.5" />
           <circle cx={g1.cx} cy={g1.cy} r={g1.p * 0.26} fill="url(#g-spec)" />
           <circle cx={g1.cx} cy={g1.cy} r={5.5} fill="#0a0802" />
-          <circle cx={g1.cx} cy={g1.cy} r={2.4} fill="#f7ecc0" opacity="0.9" />
+          <circle cx={g1.cx} cy={g1.cy} r={2.4} fill="#f7ecc0" opacity="0.95" />
         </g>
       </g>
 
@@ -266,7 +274,16 @@ export function GearSystem({ className }: GearSystemProps) {
           fill="url(#g-steel-brush)"
           fillRule="evenodd"
           stroke="url(#g-steel-bevel)"
-          strokeWidth="0.85"
+          strokeWidth="0.95"
+        >
+          <animateTransform attributeName="transform" type="rotate" from={`0 ${g2.cx} ${g2.cy}`} to={`-360 ${g2.cx} ${g2.cy}`} dur={`${t2}s`} repeatCount="indefinite" />
+        </path>
+        <path
+          d={gearPath(g2.cx, g2.cy, g2.n, g2.o * 0.98, g2.p, g2.r, g2.hole, phase2)}
+          fill="url(#brush-steel)"
+          fillRule="evenodd"
+          opacity="0.4"
+          style={{ mixBlendMode: "overlay" as const }}
         >
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g2.cx} ${g2.cy}`} to={`-360 ${g2.cx} ${g2.cy}`} dur={`${t2}s`} repeatCount="indefinite" />
         </path>
@@ -275,28 +292,36 @@ export function GearSystem({ className }: GearSystemProps) {
         </path>
         <g>
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g2.cx} ${g2.cy}`} to={`-360 ${g2.cx} ${g2.cy}`} dur={`${t2}s`} repeatCount="indefinite" />
-          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.5} fill="#09090b" opacity="0.3" />
-          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.5} fill="none" stroke="#e4e4e7" strokeWidth="1" opacity="0.35" />
-          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.36} fill="none" stroke="#3f3f46" strokeWidth="1.8" opacity="0.6" />
+          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.5} fill="#09090b" opacity="0.35" />
+          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.5} fill="none" stroke="#e4e4e7" strokeWidth="1.1" opacity="0.4" />
+          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.36} fill="none" stroke="#3f3f46" strokeWidth="2" opacity="0.65" />
           {[0, 72, 144, 216, 288].map((deg) => {
             const a = (deg * Math.PI) / 180;
             const br = g2.p * 0.36;
             return (
-              <circle
-                key={deg}
-                cx={g2.cx + Math.cos(a) * br}
-                cy={g2.cy + Math.sin(a) * br}
-                r={1.8}
-                fill="#18181b"
-                stroke="#a1a1aa"
-                strokeWidth="0.5"
-              />
+              <g key={deg}>
+                <circle
+                  cx={g2.cx + Math.cos(a) * br}
+                  cy={g2.cy + Math.sin(a) * br}
+                  r={2}
+                  fill="#18181b"
+                  stroke="#a1a1aa"
+                  strokeWidth="0.55"
+                />
+                <circle
+                  cx={g2.cx + Math.cos(a) * br}
+                  cy={g2.cy + Math.sin(a) * br}
+                  r={0.7}
+                  fill="#f4f4f5"
+                  opacity="0.75"
+                />
+              </g>
             );
           })}
-          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.24} fill="url(#g-steel-brush)" stroke="#52525b" strokeWidth="1.2" />
+          <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.24} fill="url(#g-steel-brush)" stroke="#52525b" strokeWidth="1.3" />
           <circle cx={g2.cx} cy={g2.cy} r={g2.p * 0.24} fill="url(#g-spec)" />
           <circle cx={g2.cx} cy={g2.cy} r={4.2} fill="#09090b" />
-          <circle cx={g2.cx} cy={g2.cy} r={1.7} fill="#fafafa" opacity="0.9" />
+          <circle cx={g2.cx} cy={g2.cy} r={1.7} fill="#fafafa" opacity="0.95" />
         </g>
       </g>
 
@@ -307,7 +332,16 @@ export function GearSystem({ className }: GearSystemProps) {
           fill="url(#g-green-brush)"
           fillRule="evenodd"
           stroke="#14532d"
-          strokeWidth="0.75"
+          strokeWidth="0.85"
+        >
+          <animateTransform attributeName="transform" type="rotate" from={`0 ${g3.cx} ${g3.cy}`} to={`-360 ${g3.cx} ${g3.cy}`} dur={`${t3}s`} repeatCount="indefinite" />
+        </path>
+        <path
+          d={gearPath(g3.cx, g3.cy, g3.n, g3.o * 0.98, g3.p, g3.r, g3.hole, phase3)}
+          fill="url(#brush-green)"
+          fillRule="evenodd"
+          opacity="0.35"
+          style={{ mixBlendMode: "overlay" as const }}
         >
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g3.cx} ${g3.cy}`} to={`-360 ${g3.cx} ${g3.cy}`} dur={`${t3}s`} repeatCount="indefinite" />
         </path>
@@ -316,12 +350,12 @@ export function GearSystem({ className }: GearSystemProps) {
         </path>
         <g>
           <animateTransform attributeName="transform" type="rotate" from={`0 ${g3.cx} ${g3.cy}`} to={`-360 ${g3.cx} ${g3.cy}`} dur={`${t3}s`} repeatCount="indefinite" />
-          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.48} fill="#022c16" opacity="0.35" />
-          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.48} fill="none" stroke="#86efac" strokeWidth="0.8" opacity="0.3" />
-          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.22} fill="url(#g-green-brush)" stroke="#166534" strokeWidth="1.1" />
+          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.48} fill="#022c16" opacity="0.4" />
+          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.48} fill="none" stroke="#86efac" strokeWidth="0.9" opacity="0.35" />
+          <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.22} fill="url(#g-green-brush)" stroke="#166534" strokeWidth="1.2" />
           <circle cx={g3.cx} cy={g3.cy} r={g3.p * 0.22} fill="url(#g-spec)" />
           <circle cx={g3.cx} cy={g3.cy} r={3.5} fill="#011a0d" />
-          <circle cx={g3.cx} cy={g3.cy} r={1.4} fill="#bbf7d0" opacity="0.9" />
+          <circle cx={g3.cx} cy={g3.cy} r={1.4} fill="#bbf7d0" opacity="0.95" />
         </g>
       </g>
     </svg>
