@@ -17,12 +17,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <div className="relative z-10 flex h-full min-h-0 w-full overflow-hidden">
+      <div className="relative z-10 flex h-full min-h-0 w-full min-w-0 overflow-hidden">
         <SiteSidebar />
-        <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:pl-20">
+        <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col overflow-hidden md:pl-16 lg:pl-20">
           <main
             id="main"
-            className="flex min-h-0 flex-1 flex-col overflow-hidden pb-20 md:pb-0"
+            className="flex min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-hidden pb-[4.75rem] md:pb-0"
           >
             <PageTransition>{children}</PageTransition>
           </main>
@@ -30,10 +30,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
       </div>
       <FixedBriefRail />
-      <ThemeToggle className="fixed top-4 right-4 z-50 size-11 rounded-full bg-surface/40 text-muted backdrop-blur-sm hover:text-accent md:top-5 md:right-5" />
+      <ThemeToggle className="fixed top-3 right-3 z-50 size-10 rounded-full bg-surface/40 text-muted backdrop-blur-sm hover:text-accent sm:size-11 md:top-5 md:right-5" />
       <Toaster
         theme="dark"
-        position="bottom-right"
+        position="bottom-center"
+        className="toaster-safe"
         toastOptions={{
           style: {
             background: "var(--color-raised)",
