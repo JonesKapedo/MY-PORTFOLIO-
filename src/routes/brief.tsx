@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Clock, FileText, Shield } from "lucide-react";
 import { z } from "zod";
 import { ContactForm } from "@/components/contact-form";
@@ -55,39 +55,46 @@ function BriefPage() {
   const initialService = (service?.id ?? undefined) as ServiceId | undefined;
 
   return (
-    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 lg:gap-12">
-        <header className="max-w-2xl">
-          <Eyebrow>Private brief</Eyebrow>
-          <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
-            Commission a structured conversation about automation.
-          </h1>
-          <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-            Share the operational friction. We respond {COMPANY.responseSla}
-            with fit and direction. Work proceeds only under written scope —
-            the standard serious operators expect.
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-14">
+      <div className="flex w-full flex-col gap-10 lg:gap-12">
+        <header className="grid w-full gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end">
+          <div>
+            <Eyebrow>Private brief · conversion path</Eyebrow>
+            <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              Start the engagement here.
+            </h1>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted sm:text-lg">
+              This is how every automation build at GREAT TURBINEZ begins: a
+              structured brief, a fit reply {COMPANY.responseSla}, then a written
+              proposal. We commit to scoped delivery — not open-ended retainers.
+            </p>
+          </div>
+          <p className="rounded-2xl border border-accent/25 bg-accent/[0.06] px-5 py-4 text-sm leading-relaxed text-muted lg:text-right">
+            <span className="font-medium text-accent">Our commitment:</span>{" "}
+            clear edges, deposit only after you approve scope, handoff you can
+            run without us.
           </p>
         </header>
 
-        <ul className="stagger-children grid gap-3 sm:grid-cols-3">
+        <ul className="stagger-children grid w-full gap-3 sm:grid-cols-3">
           {ASSURANCES.map(({ icon: Icon, title, body }) => (
             <li
               key={title}
-              className="flex gap-3 rounded-xl bg-surface/70 px-4 py-4"
+              className="flex gap-3 rounded-xl bg-surface/70 px-5 py-5"
             >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
                 <Icon className="size-4" strokeWidth={1.75} />
               </span>
               <div>
-                <p className="text-sm font-medium text-fg">{title}</p>
-                <p className="mt-0.5 text-xs leading-relaxed text-muted">{body}</p>
+                <p className="text-sm font-semibold text-fg">{title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-muted">{body}</p>
               </div>
             </li>
           ))}
         </ul>
 
         {(concern || service) && (
-          <div className="rounded-xl border border-accent/20 bg-accent/5 px-5 py-4 text-sm text-muted">
+          <div className="w-full rounded-xl border border-accent/20 bg-accent/5 px-5 py-4 text-sm text-muted">
             <p className="font-medium text-fg">Context carried into this brief</p>
             {concern ? (
               <p className="mt-2">
@@ -106,40 +113,43 @@ function BriefPage() {
               </p>
             ) : null}
             <p className="mt-2 text-xs text-subtle">
-              The form is pre-filled. Adjust freely before you submit.
+              Pre-filled for speed. Edit anything before you submit.
             </p>
           </div>
         )}
 
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-14">
-          <aside className="space-y-6 lg:pt-1">
+        <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-16">
+          <aside className="space-y-8 lg:pt-1">
             <div>
-              <h2 className="text-sm font-semibold text-fg">Process</h2>
-              <ol className="mt-4 space-y-4">
+              <h2 className="font-display text-xl font-semibold tracking-tight">
+                How we deliver
+              </h2>
+              <ol className="mt-5 space-y-4">
                 {[
-                  "Submit this brief — a few minutes is sufficient.",
-                  `We reply ${COMPANY.responseSla} with fit and a rough direction.`,
-                  "If aligned, you receive a written proposal. Deposit and build follow only after your approval.",
+                  "You submit this brief — five minutes is enough.",
+                  `We reply ${COMPANY.responseSla} with fit and direction.`,
+                  "Written proposal. Deposit and build only after your approval.",
+                  "Handoff with a system your team can operate.",
                 ].map((line, i) => (
                   <li key={line} className="flex gap-3 text-sm text-muted">
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[11px] font-medium text-accent">
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[11px] font-medium text-accent">
                       {i + 1}
                     </span>
-                    <span className="pt-0.5 leading-relaxed">{line}</span>
+                    <span className="pt-1 leading-relaxed">{line}</span>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="rounded-xl bg-surface/50 px-4 py-4">
-              <p className="flex items-center gap-2 text-xs font-medium text-fg">
-                <Check className="size-3.5 text-accent" strokeWidth={2} />
-                Precision over volume
+            <div className="rounded-xl bg-surface/50 px-5 py-5">
+              <p className="flex items-center gap-2 text-sm font-medium text-fg">
+                <Check className="size-4 text-accent" strokeWidth={2} />
+                Why operators brief us
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-muted">
-                We accept briefs we can own end-to-end. If the work sits outside
-                our practice, we say so plainly — so your time is not spent on
-                the wrong path.
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                We only accept work we can own end-to-end. If the problem sits
+                outside automation delivery, we say so — so budget is not spent
+                on the wrong path.
               </p>
             </div>
 
@@ -154,14 +164,25 @@ function BriefPage() {
               <span className="mx-1.5">·</span>
               {COMPANY.phone}
             </p>
+            <p className="text-xs text-subtle">
+              <Link to="/services" className="hover:text-accent">
+                Browse services
+              </Link>
+              <span className="mx-2">·</span>
+              <Link to="/concerns" className="hover:text-accent">
+                Name a concern
+              </Link>
+            </p>
           </aside>
 
-          <div className="rounded-2xl bg-surface/70 p-5 sm:p-7">
-            <h2 className="text-sm font-semibold text-fg">Your brief</h2>
-            <p className="mt-1 text-xs text-muted">
+          <div className="w-full rounded-2xl bg-surface/80 p-6 sm:p-8 lg:p-10">
+            <h2 className="font-display text-xl font-semibold tracking-tight text-fg">
+              Your private brief
+            </h2>
+            <p className="mt-1 text-sm text-muted">
               Required: identity, a contact channel, detail, and privacy consent.
             </p>
-            <div className="mt-6">
+            <div className="mt-8">
               <ContactForm
                 initialService={initialService}
                 initialConcernSlug={concern?.slug}
