@@ -33,14 +33,6 @@
   --shadow-btn-accent: 0 8px 24px -10px color-mix(in oklab, var(--color-accent) 40%, transparent);
   --shadow-elevated: 0 12px 40px -18px rgb(0 0 0 / 0.5);
   --shadow-dock: 0 10px 36px -14px rgb(0 0 0 / 0.4);
-  --shadow-glass:
-    0 0 0 1px color-mix(in oklab, var(--color-fg) 8%, transparent),
-    0 8px 32px -12px rgb(0 0 0 / 0.55),
-    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 10%, transparent);
-  --shadow-glass-hover:
-    0 0 0 1px color-mix(in oklab, var(--color-accent) 28%, transparent),
-    0 16px 40px -14px rgb(0 0 0 / 0.6),
-    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 14%, transparent);
   --shadow-tile:
     0 12px 40px -20px rgb(0 0 0 / 0.65),
     0 0 0 1px color-mix(in oklab, var(--color-fg) 5%, transparent);
@@ -67,19 +59,10 @@ html.light {
   --shadow-card-hover:
     0 12px 28px -12px rgb(0 0 0 / 0.12),
     0 0 0 1px color-mix(in oklab, var(--color-accent) 20%, transparent);
-  --shadow-logo: none;
   --shadow-btn: 0 4px 12px -8px rgb(0 0 0 / 0.06);
   --shadow-btn-accent: 0 6px 16px -8px color-mix(in oklab, var(--color-accent) 22%, transparent);
   --shadow-elevated: 0 10px 28px -14px rgb(0 0 0 / 0.08);
   --shadow-dock: 0 8px 28px -12px rgb(0 0 0 / 0.06);
-  --shadow-glass:
-    0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent),
-    0 8px 28px -12px rgb(0 0 0 / 0.08),
-    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 8%, transparent);
-  --shadow-glass-hover:
-    0 0 0 1px color-mix(in oklab, var(--color-accent) 25%, transparent),
-    0 12px 32px -12px rgb(0 0 0 / 0.1),
-    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 12%, transparent);
   --shadow-tile:
     0 8px 28px -16px rgb(0 0 0 / 0.1),
     0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent);
@@ -163,12 +146,98 @@ html.light {
 }
 
 @layer components {
-  .hairline {
-    box-shadow: var(--shadow-border);
+  /* ——— Typography hierarchy ——— */
+  .type-mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    color: var(--color-fg);
   }
 
-  .hairline-hover:hover {
-    box-shadow: var(--shadow-border-hover);
+  .type-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: var(--color-fg);
+  }
+
+  .type-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-fg);
+  }
+
+  .type-lead {
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    color: var(--color-fg);
+  }
+
+  .type-body {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+  }
+
+  .type-label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .display-brutal {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.88;
+  }
+
+  .ops-label {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .section-index {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: color-mix(in oklab, var(--color-accent) 22%, transparent);
+  }
+
+  .section-block {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-block {
+      padding-top: 2.35rem;
+      padding-bottom: 2.35rem;
+    }
+  }
+
+  .title-zone {
+    /* air around the mark — no competing body copy */
+  }
+
+  .content-zone {
+    /* meaning lives here, not on the title */
   }
 
   .clip-corner {
@@ -198,46 +267,6 @@ html.light {
     color: var(--color-accent-fg);
   }
 
-  .ops-label {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  .display-brutal {
-    font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    line-height: 0.88;
-  }
-
-  .section-index {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: color-mix(in oklab, var(--color-accent) 22%, transparent);
-  }
-
-  .status-pulse {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-accent) 50%, transparent);
-    animation: status-pulse 2.4s ease-out infinite;
-  }
-
-  /* Authority hero */
-  .hero-authority {
-    position: relative;
-  }
-
   .hero-gold-rule {
     display: block;
     width: 28px;
@@ -259,7 +288,7 @@ html.light {
 
   .metric-item {
     flex: 1 1 7rem;
-    padding: 0.85rem 1rem 0.85rem 0;
+    padding: 0.75rem 1rem 0.75rem 0;
     border-right: 1px solid color-mix(in oklab, var(--color-fg) 8%, transparent);
   }
 
@@ -271,7 +300,7 @@ html.light {
   .metric-value {
     display: block;
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -280,7 +309,7 @@ html.light {
 
   .metric-label {
     display: block;
-    margin-top: 0.25rem;
+    margin-top: 0.2rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 9px;
     letter-spacing: 0.12em;
@@ -288,26 +317,57 @@ html.light {
     color: var(--color-subtle);
   }
 
-  .gear-atmosphere {
+  /* ——— Interactive 3D gear ——— */
+  .gear-3d-stage {
+    perspective: 900px;
+    perspective-origin: 50% 45%;
     position: relative;
+    width: 100%;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: crosshair;
+  }
+
+  .gear-3d-plane {
+    position: relative;
+    width: min(100%, 400px);
+    transform-style: preserve-3d;
+    transition: transform 120ms ease-out;
+    will-change: transform;
+  }
+
+  .gear-3d-depth {
+    position: absolute;
+    inset: 12% 8%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      transparent 30%,
+      color-mix(in oklab, var(--color-canvas) 80%, transparent) 100%
+    );
+    transform: translateZ(-40px) scale(1.05);
+    pointer-events: none;
   }
 
   .gear-atmosphere-glow {
     position: absolute;
-    inset: 5% 0;
+    inset: 8% 5%;
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--color-accent) 16%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent) 14%, transparent) 0%,
       transparent 65%
     );
-    filter: blur(40px);
+    filter: blur(36px);
     animation: glow-breathe 16s ease-in-out infinite;
+    pointer-events: none;
   }
 
   .gear-atmosphere-mark {
-    animation: float-soft 18s ease-in-out infinite;
-    filter: drop-shadow(0 28px 50px rgb(0 0 0 / 0.55));
+    filter: drop-shadow(0 24px 48px rgb(0 0 0 / 0.5));
+    opacity: 0.9;
   }
 
   .chapter-sticky {
@@ -326,7 +386,7 @@ html.light {
     left: 0;
     right: 0;
     bottom: 100%;
-    height: 48px;
+    height: 40px;
     background: var(--color-canvas);
     pointer-events: none;
   }
@@ -361,14 +421,14 @@ html.light {
     background: color-mix(in oklab, var(--color-surface) 70%, transparent);
     box-shadow: var(--shadow-tile);
     transition:
-      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 240ms ease,
-      background-color 240ms ease;
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms ease,
+      background-color 200ms ease;
   }
 
   .path-tile:hover,
   .proof-tile:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-tile-hover);
     background: color-mix(in oklab, var(--color-raised) 80%, transparent);
   }
@@ -383,9 +443,9 @@ html.light {
 
   .process-rail li,
   .process-step {
-    flex: 1 1 140px;
+    flex: 1 1 120px;
     position: relative;
-    padding: 1rem 1.15rem;
+    padding: 0.85rem 1rem;
     border-right: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
   }
 
@@ -423,80 +483,54 @@ html.light {
     min-height: 0;
     flex: 1;
     flex-direction: column;
-    animation: page-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: page-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > * {
-    animation: rise-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > *:nth-child(1) {
-    animation-delay: 40ms;
+    animation-delay: 30ms;
   }
   .page-enter > *:nth-child(2) {
-    animation-delay: 90ms;
+    animation-delay: 70ms;
   }
   .page-enter > *:nth-child(3) {
-    animation-delay: 140ms;
+    animation-delay: 110ms;
   }
   .page-enter > *:nth-child(4) {
-    animation-delay: 180ms;
+    animation-delay: 150ms;
   }
   .page-enter > *:nth-child(5) {
-    animation-delay: 220ms;
-  }
-  .page-enter > *:nth-child(6) {
-    animation-delay: 260ms;
-  }
-  .page-enter > *:nth-child(7) {
-    animation-delay: 300ms;
+    animation-delay: 190ms;
   }
 
   .stagger-children > * {
-    animation: rise-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   .stagger-children > *:nth-child(1) {
-    animation-delay: 60ms;
+    animation-delay: 40ms;
   }
   .stagger-children > *:nth-child(2) {
-    animation-delay: 100ms;
+    animation-delay: 80ms;
   }
   .stagger-children > *:nth-child(3) {
-    animation-delay: 140ms;
+    animation-delay: 120ms;
   }
   .stagger-children > *:nth-child(4) {
-    animation-delay: 180ms;
-  }
-  .stagger-children > *:nth-child(5) {
-    animation-delay: 220ms;
-  }
-  .stagger-children > *:nth-child(6) {
-    animation-delay: 260ms;
-  }
-  .stagger-children > *:nth-child(7) {
-    animation-delay: 300ms;
-  }
-  .stagger-children > *:nth-child(8) {
-    animation-delay: 340ms;
+    animation-delay: 160ms;
   }
 
   .service-card {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
     transition:
-      background-color 240ms ease,
-      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 240ms ease;
+      transform 200ms ease,
+      box-shadow 200ms ease;
   }
 
   .service-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-tile-hover);
-  }
-
-  .animate-float-soft {
-    animation: float-soft 10s ease-in-out infinite;
   }
 
   .dock-rail {
@@ -512,7 +546,7 @@ html.light {
   }
 
   .dock-item:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
 
   .dock-item[aria-current="page"] {
@@ -531,7 +565,6 @@ html.light {
     border-radius: 0.375rem;
     background: color-mix(in oklab, var(--color-raised) 92%, transparent);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     color: var(--color-fg);
     font-size: 11px;
     font-weight: 500;
@@ -541,7 +574,7 @@ html.light {
     opacity: 0;
     transition:
       opacity 150ms ease,
-      transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform 180ms ease;
   }
 
   .dock-item:hover .dock-tooltip,
@@ -552,11 +585,9 @@ html.light {
 
   .dock-mobile {
     box-shadow: var(--shadow-dock);
-    border: none;
     animation: dock-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
     background: color-mix(in oklab, var(--color-canvas) 72%, transparent);
     backdrop-filter: blur(22px) saturate(1.4);
-    -webkit-backdrop-filter: blur(22px) saturate(1.4);
   }
 
   .page-screen {
@@ -579,7 +610,7 @@ html.light {
   .bg-mesh {
     position: absolute;
     inset: 0;
-    opacity: 0.28;
+    opacity: 0.25;
     background-image:
       linear-gradient(
         color-mix(in oklab, var(--color-fg) 3.5%, transparent) 1px,
@@ -592,11 +623,6 @@ html.light {
       );
     background-size: 64px 64px;
     mask-image: radial-gradient(
-      ellipse 70% 60% at 50% 40%,
-      black 20%,
-      transparent 75%
-    );
-    -webkit-mask-image: radial-gradient(
       ellipse 70% 60% at 50% 40%,
       black 20%,
       transparent 75%
@@ -614,7 +640,7 @@ html.light {
     height: min(50vw, 32rem);
     top: -12%;
     right: -5%;
-    opacity: 0.28;
+    opacity: 0.26;
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
@@ -628,7 +654,7 @@ html.light {
     height: min(40vw, 24rem);
     bottom: -8%;
     left: 0;
-    opacity: 0.12;
+    opacity: 0.1;
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--color-fg) 8%, transparent) 0%,
@@ -642,7 +668,7 @@ html.light {
     height: min(35vw, 20rem);
     top: 45%;
     left: 35%;
-    opacity: 0.1;
+    opacity: 0.08;
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--color-accent) 12%, transparent) 0%,
@@ -664,26 +690,15 @@ html.light {
   .bg-grain {
     position: absolute;
     inset: 0;
-    opacity: 0.028;
+    opacity: 0.025;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat;
     background-size: 220px 220px;
     mix-blend-mode: overlay;
   }
 
-  html.light .bg-grain {
-    opacity: 0.018;
-    mix-blend-mode: multiply;
-  }
-
-  html.light .bg-mesh {
-    opacity: 0.35;
-  }
-
   .nav-icon {
-    transition:
-      color 150ms ease,
-      transform 180ms ease;
+    transition: color 150ms ease;
   }
 
   a:hover .nav-icon,
@@ -695,7 +710,7 @@ html.light {
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -706,7 +721,7 @@ html.light {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -766,37 +781,13 @@ html.light {
   }
 }
 
-@keyframes float-soft {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
 @keyframes glow-breathe {
   0%,
   100% {
-    opacity: 0.45;
-    transform: scale(1);
+    opacity: 0.4;
   }
   50% {
-    opacity: 0.75;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes status-pulse {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-accent) 45%, transparent);
-  }
-  70% {
-    box-shadow: 0 0 0 8px transparent;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
+    opacity: 0.7;
   }
 }
 
@@ -806,16 +797,16 @@ html.light {
   .dock-rail,
   .dock-mobile,
   .stagger-children > *,
-  .animate-float-soft,
-  .status-pulse,
-  .gear-atmosphere-mark,
   .gear-atmosphere-glow {
     animation: none;
   }
-  .service-card:hover,
+  .gear-3d-plane {
+    transition: none;
+  }
   .path-tile:hover,
   .proof-tile:hover,
-  .dock-item:hover {
+  .dock-item:hover,
+  .service-card:hover {
     transform: none;
   }
   .btn-shine::after {
