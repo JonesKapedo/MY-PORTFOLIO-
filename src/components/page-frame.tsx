@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/** Full-width content pane with generous professional margins. */
 export function PageFrame({
   children,
   className,
@@ -32,7 +31,7 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "text-[10px] font-medium tracking-[0.2em] text-accent uppercase sm:text-[11px]",
+        "ops-label",
         className,
       )}
     >
@@ -41,7 +40,7 @@ export function Eyebrow({
   );
 }
 
-/** Conversion band — glass-accent panel. */
+/** Full gold-strike conversion band — aggressive marketing close. */
 export function FunnelClose({
   title,
   body,
@@ -54,30 +53,23 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="mt-12 w-full pb-6">
-      <div className="glass-accent glass-panel w-full px-8 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
+    <section className="w-full pb-4">
+      <div className="gold-strike clip-corner-lg w-full px-8 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
         <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
           <div className="max-w-2xl">
-            <p className="text-[10px] font-medium tracking-[0.2em] text-accent uppercase">
-              Next step
+            <p className="font-mono text-[10px] font-medium tracking-[0.2em] text-accent-fg/70 uppercase">
+              Next step · private intake
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+            <h2 className="display-brutal mt-3 text-3xl text-accent-fg sm:text-4xl lg:text-[2.75rem]">
               {title}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">{body}</p>
-            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs text-subtle sm:text-sm">
-              <li className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-                No charge to brief
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-                Written scope first
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-                Deposit only after approval
-              </li>
+            <p className="mt-4 text-sm leading-relaxed text-accent-fg/80 sm:text-base">
+              {body}
+            </p>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] tracking-wide text-accent-fg/70 uppercase">
+              <li>No charge to brief</li>
+              <li>Written scope first</li>
+              <li>Deposit after approval</li>
             </ul>
           </div>
           <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
