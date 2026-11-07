@@ -1,9 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/**
- * Full-width content pane with generous professional margins.
- */
+/** Full-width content pane with generous professional margins. */
 export function PageFrame({
   children,
   className,
@@ -15,7 +13,7 @@ export function PageFrame({
     <div
       className={cn(
         "page-screen w-full max-w-none",
-        "px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 lg:px-16 lg:py-14 xl:px-20 xl:py-16 2xl:px-24",
+        "px-7 py-10 sm:px-12 sm:py-12 md:px-14 md:py-14 lg:px-18 lg:py-16 xl:px-24 xl:py-18 2xl:px-28 2xl:py-20",
         className,
       )}
     >
@@ -43,7 +41,7 @@ export function Eyebrow({
   );
 }
 
-/** Closing band used across pages to drive briefs. */
+/** Conversion band — stronger visual weight than a thin footer CTA. */
 export function FunnelClose({
   title,
   body,
@@ -56,15 +54,37 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="mt-10 w-full border-t border-line/50 pt-16 pb-8">
-      <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-        <div className="max-w-2xl">
-          <h2 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">{body}</p>
+    <section className="mt-12 w-full pb-6">
+      <div className="w-full rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/[0.08] via-surface/40 to-transparent px-8 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
+        <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+          <div className="max-w-2xl">
+            <p className="text-[10px] font-medium tracking-[0.2em] text-accent uppercase">
+              Next step
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
+              {title}
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">{body}</p>
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-xs text-subtle sm:text-sm">
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+                No charge to brief
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+                Written scope first
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-accent" aria-hidden />
+                Deposit only after approval
+              </li>
+            </ul>
+          </div>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+            {primary}
+            {secondary}
+          </div>
         </div>
-        <div className="flex shrink-0 flex-wrap gap-3">{primary}{secondary}</div>
       </div>
     </section>
   );

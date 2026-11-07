@@ -25,6 +25,74 @@ export const COMPANY = {
 
 import type { ServiceId } from "./services-catalog";
 
+/** Delivery capabilities shown on intro — mapped to services, no extra routes. */
+export const PLATFORM_FEATURES: {
+  title: string;
+  body: string;
+  serviceId: ServiceId;
+}[] = [
+  {
+    title: "WhatsApp & chat intake",
+    body: "Structured replies, capture, and handoff so the desk is not the only system of record.",
+    serviceId: "chatbots",
+  },
+  {
+    title: "Enquiry-to-job pipeline",
+    body: "Leads tagged, routed, and aged — so interest does not die in unread threads.",
+    serviceId: "pipeline",
+  },
+  {
+    title: "Process automation",
+    body: "One operational path end-to-end: fewer retypes, visible exceptions, cleaner handoffs.",
+    serviceId: "automation",
+  },
+  {
+    title: "Document extraction",
+    body: "Invoices, notes, and forms into sheets or systems — month-end without the typing marathon.",
+    serviceId: "documents",
+  },
+  {
+    title: "Operator dashboards",
+    body: "One agreed view on a useful rhythm so decisions are not trapped until the close.",
+    serviceId: "dashboards",
+  },
+  {
+    title: "Knowledge assistants",
+    body: "Answers from your approved materials, with a hard stop when a person must take over.",
+    serviceId: "ai-knowledge",
+  },
+  {
+    title: "System integrations",
+    body: "Agreed fields move between tools you already pay for — on a schedule or a trigger.",
+    serviceId: "integrations",
+  },
+  {
+    title: "Booking & calendars",
+    body: "Real availability, confirmations, and basic reminders without double-booking in chat.",
+    serviceId: "booking",
+  },
+  {
+    title: "Alert & escalation paths",
+    body: "Thresholds notify the right owner before the customer becomes the alarm.",
+    serviceId: "alerts",
+  },
+  {
+    title: "Client onboarding flows",
+    body: "Guided checklists and status after the sale closes — less scavenger-hunt kickoff.",
+    serviceId: "onboarding",
+  },
+  {
+    title: "Inbox triage rules",
+    body: "Shared mail labelled and routed so real work is not buried under noise.",
+    serviceId: "inbox",
+  },
+  {
+    title: "Conversion-ready sites",
+    body: "Focused pages and intake paths that collect the signal your team can act on.",
+    serviceId: "websites",
+  },
+];
+
 export type Concern = {
   slug: string;
   title: string;
