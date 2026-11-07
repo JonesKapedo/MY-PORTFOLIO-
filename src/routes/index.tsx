@@ -26,6 +26,12 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const METRICS = [
+  { value: "−6 days", label: "Month-end close" },
+  { value: "On-call", label: "Night desk load" },
+  { value: "↓ Waste", label: "First season" },
+] as const;
+
 const PATHS = [
   {
     step: "01",
@@ -77,64 +83,104 @@ function IntroPage() {
   return (
     <PageFrame
       ref={scrollRef}
-      className="page-enter !overflow-y-auto overscroll-contain !py-0 pt-5 pb-16 sm:pt-6 lg:pt-8"
+      className="page-enter !overflow-y-auto overscroll-contain !py-0 pt-4 pb-16 sm:pt-5 lg:pt-6"
     >
       <div className="flex w-full flex-col">
-        {/* Hero — dense, bold, no underline */}
-        <section className="hero-glow relative grid w-full items-center gap-8 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 lg:pb-12">
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <span className="inline-flex items-center gap-2">
-                <span className="status-pulse" aria-hidden />
-                <span className="ops-label">Intake open</span>
-              </span>
-              <span className="font-mono text-[10px] text-subtle tabular-nums">
-                Reply {COMPANY.responseSla}
-              </span>
+        {/*
+          Authority hero — recommended set:
+          split layout · single axis type · stacked mark · manifesto
+          metric rail · atmospheric gears · one serious CTA
+        */}
+        <section className="hero-authority relative grid min-h-[min(72vh,560px)] w-full items-center gap-6 border-b border-line/30 pb-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-8 lg:pb-12">
+          {/* Type column — quiet hierarchy */}
+          <div className="relative z-[2] min-w-0 max-w-xl">
+            {/* Intake terminal */}
+            <div className="flex items-center gap-3">
+              <span className="hero-gold-rule" aria-hidden />
+              <p className="font-mono text-[10px] tracking-[0.2em] text-subtle uppercase">
+                Intake · open · reply {COMPANY.responseSla}
+              </p>
             </div>
 
-            <h1 className="display-brutal mt-5 text-[clamp(2.85rem,9vw,7rem)] text-fg">
-              {COMPANY.name}
+            {/* Manifesto */}
+            <p className="mt-7 max-w-md text-[15px] leading-snug font-medium tracking-tight text-fg sm:text-base">
+              Manual work is still your largest cost centre.
+            </p>
+
+            {/* Stacked brand mark */}
+            <h1 className="mt-5">
+              <span className="sr-only">{COMPANY.name}</span>
+              <span
+                className="display-brutal block text-[clamp(3.25rem,11vw,7.5rem)] leading-[0.88] text-fg"
+                aria-hidden
+              >
+                GREAT
+              </span>
+              <span
+                className="display-brutal block text-[clamp(3.25rem,11vw,7.5rem)] leading-[0.88] text-fg"
+                aria-hidden
+              >
+                TURBINEZ
+              </span>
             </h1>
 
-            <p className="mt-2 text-[11px] font-medium tracking-[0.28em] text-muted uppercase">
+            <p className="mt-3 font-mono text-[10px] tracking-[0.32em] text-muted uppercase">
               {COMPANY.subtitle}
             </p>
 
-            <p className="mt-5 max-w-lg text-base leading-snug text-accent sm:text-lg">
-              Stop paying people to do what software should already own.
+            {/* Challenge + one sentence */}
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">
+              How many hours did your team retype last week? We install one
+              scoped process at a time — written edges, proposal first, deposit
+              only after you approve.
             </p>
 
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-muted sm:text-[15px]">
-              We design and install one scoped process at a time — written edges,
-              fixed price after proposal, clean handoff. Not another platform you
-              abandon in six weeks.
-            </p>
+            {/* Proof metrics */}
+            <ul className="metric-rail mt-8">
+              {METRICS.map((m) => (
+                <li key={m.label} className="metric-item">
+                  <span className="metric-value">{m.value}</span>
+                  <span className="metric-label">{m.label}</span>
+                </li>
+              ))}
+            </ul>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            {/* Single serious CTA + text secondary */}
+            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
               <Button
                 asChild
                 size="lg"
                 className="clip-corner shadow-[var(--shadow-btn-accent)]"
               >
                 <Link to="/brief" onClick={() => tactileClick()}>
-                  Start a private brief
+                  Open a private brief
                   <ArrowRight className="size-4 opacity-80" />
                 </Link>
               </Button>
-              <Button asChild variant="ghost" size="lg">
-                <Link to="/services">Explore services</Link>
-              </Button>
+              <Link
+                to="/services"
+                className="font-mono text-[11px] tracking-[0.14em] text-subtle uppercase transition-colors hover:text-accent"
+              >
+                View services →
+              </Link>
             </div>
           </div>
 
-          <div className="gear-field relative mx-auto flex w-full max-w-[360px] items-center justify-center lg:mx-0 lg:max-w-none lg:justify-self-end">
-            <div className="gear-ambient" aria-hidden />
-            <GearSystem className="relative z-[1] h-auto w-full max-w-[380px] animate-float-soft drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
+          {/* Atmospheric gears — watermark of industry */}
+          <div
+            className="gear-atmosphere pointer-events-none relative mx-auto hidden h-full min-h-[280px] w-full max-w-[520px] items-center justify-center sm:flex lg:mx-0 lg:max-w-none lg:justify-self-end"
+            aria-hidden
+          >
+            <div className="gear-atmosphere-glow" />
+            <GearSystem className="gear-atmosphere-mark relative z-[1] h-auto w-[min(100%,440px)] opacity-[0.92]" />
           </div>
+
+          {/* Scroll invitation */}
+          <p className="absolute bottom-0 left-0 font-mono text-[10px] tracking-[0.18em] text-subtle uppercase">
+            01 — The problem
+          </p>
         </section>
 
-        {/* Sticky chapters */}
         <div className="chapter-sticky sticky top-0 z-30 -mx-7 sm:-mx-12 md:-mx-14 lg:-mx-16 xl:-mx-24 2xl:-mx-28">
           <div
             className="scroll-progress"
@@ -286,7 +332,7 @@ function IntroPage() {
                 className="clip-corner bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90"
               >
                 <Link to="/brief" onClick={() => tactileClick()}>
-                  Start a private brief
+                  Open a private brief
                   <ArrowRight className="size-4 opacity-80" />
                 </Link>
               </Button>
