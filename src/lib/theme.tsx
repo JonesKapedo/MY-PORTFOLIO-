@@ -8,7 +8,8 @@ import {
   type ReactNode,
 } from "react";
 
-export type Theme = "dark" | "light";
+/** Site is dark-only. Light theme and browser chrome light colors are disabled. */
+export type Theme = "dark";
 
 const STORAGE_KEY = "gt-theme";
 
@@ -20,45 +21,37 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function applyTheme(theme: Theme) {
+function applyDarkTheme() {
   const root = document.documentElement;
-  root.classList.toggle("light", theme === "light");
-  root.classList.toggle("dark", theme === "dark");
-  root.style.colorScheme = theme;
+  root.classList.remove("light");
+  root.classList.add("dark");
+  root.style.colorScheme = "dark";
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute("content", theme === "light" ? "#f4f1ea" : "#050505");
+    meta.setAttribute("content", "#030303");
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY, "dark");
+  } catch {
+    /* ignore */
   }
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme] = useState<Theme>("dark");
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-      const initial =
-        stored === "light" || stored === "dark" ? stored : "dark";
-      setThemeState(initial);
-      applyTheme(initial);
-    } catch {
-      applyTheme("dark");
-    }
+    applyDarkTheme();
   }, []);
 
-  const setTheme = useCallback((t: Theme) => {
-    setThemeState(t);
-    applyTheme(t);
-    try {
-      localStorage.setItem(STORAGE_KEY, t);
-    } catch {
-      /* ignore */
-    }
+  const setTheme = useCallback((_t: Theme) => {
+    applyDarkTheme();
   }, []);
 
   const toggle = useCallback(() => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  }, [setTheme, theme]);
+    // Dark-only: no-op. Kept so existing call sites do not break.
+    applyDarkTheme();
+  }, []);
 
   const value = useMemo(
     () => ({ theme, toggle, setTheme }),
