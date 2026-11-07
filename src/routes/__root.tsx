@@ -11,6 +11,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { COMPANY } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import appCss from "../styles.css?url";
+import extrasCss from "../styles-extras.css?url";
 
 const themeBootScript = `(function(){try{var t=localStorage.getItem("gt-theme");if(t!=="light"&&t!=="dark")t="dark";var r=document.documentElement;r.classList.toggle("light",t==="light");r.classList.toggle("dark",t==="dark");r.style.colorScheme=t;}catch(e){document.documentElement.classList.add("dark");}})();
 `;
@@ -19,7 +20,11 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        name: "viewport",
+        content:
+          "width=device-width, initial-scale=1, viewport-fit=cover",
+      },
       { title: `${COMPANY.name} — ${COMPANY.subtitle}` },
       {
         name: "description",
@@ -32,6 +37,7 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: extrasCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

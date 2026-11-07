@@ -12,9 +12,8 @@ export const PageFrame = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "page-screen w-full max-w-none",
-        /* denser global rhythm — less empty vertical space */
-        "px-6 py-8 sm:px-10 sm:py-9 md:px-12 md:py-10 lg:px-14 lg:py-11 xl:px-18 xl:py-12 2xl:px-22 2xl:py-14",
+        "page-screen page-frame-safe w-full max-w-full min-w-0",
+        "px-4 py-6 sm:px-8 sm:py-8 md:px-10 md:py-9 lg:px-12 lg:py-10 xl:px-16 xl:py-11 2xl:px-20 2xl:py-12",
         className,
       )}
     >
@@ -45,22 +44,22 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="w-full pb-2">
-      <div className="gold-strike clip-corner-lg w-full px-7 py-10 shadow-[var(--shadow-elevated)] sm:px-10 sm:py-11 lg:px-12 lg:py-12">
-        <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-          <div className="max-w-2xl">
+    <section className="w-full min-w-0 max-w-full pb-2">
+      <div className="gold-strike clip-corner-lg w-full min-w-0 max-w-full px-5 py-8 shadow-[var(--shadow-elevated)] sm:px-8 sm:py-10 lg:px-10 lg:py-11">
+        <div className="flex w-full min-w-0 flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+          <div className="max-w-2xl min-w-0">
             <p className="type-label text-accent-fg/70">Next step · private intake</p>
-            <h2 className="type-display mt-2 text-3xl text-accent-fg sm:text-4xl">
+            <h2 className="type-display mt-2 text-2xl text-accent-fg sm:text-3xl lg:text-4xl">
               {title}
             </h2>
             <p className="type-body mt-3 text-accent-fg/80">{body}</p>
-            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-1 font-mono text-[10px] tracking-wide text-accent-fg/70 uppercase">
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px] tracking-wide text-accent-fg/70 uppercase">
               <li>No charge to brief</li>
               <li>Written scope first</li>
               <li>Deposit after approval</li>
             </ul>
           </div>
-          <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+          <div className="flex w-full min-w-0 shrink-0 flex-col gap-3 sm:w-auto sm:flex-row lg:flex-col xl:flex-row">
             {primary}
             {secondary}
           </div>

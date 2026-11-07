@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { InteractiveGear } from "@/components/interactive-gear";
+import { BrandHeroMark } from "@/components/brand-hero-mark";
 import { FunnelClose, PageFrame } from "@/components/page-frame";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { tactileClick } from "@/lib/tactile";
@@ -75,7 +76,7 @@ function IntroPage() {
     const onScroll = () => {
       const max = el.scrollHeight - el.clientHeight;
       setProgress(max > 0 ? el.scrollTop / max : 0);
-      setChaptersOn(el.scrollTop > 120);
+      setChaptersOn(el.scrollTop > 80);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -85,79 +86,75 @@ function IntroPage() {
   return (
     <PageFrame
       ref={scrollRef}
-      className="page-enter !overflow-y-auto overscroll-contain !py-0 pt-3 pb-14 sm:pt-4"
+      className="page-enter !overflow-x-hidden !overflow-y-auto overscroll-contain !py-0 pt-2 pb-10 sm:pt-4 sm:pb-12"
     >
-      <div className="flex w-full flex-col">
-        {/* ZONE A — Title + 3D mark */}
-        <section className="title-zone relative border-b border-line/25 pb-8 pt-2 lg:pb-10">
-          <div className="flex items-center gap-3">
+      <div className="flex w-full min-w-0 max-w-full flex-col">
+        {/* Immersive brand hero */}
+        <section className="title-zone relative min-w-0 max-w-full border-b border-line/20 pb-8 pt-1 sm:pb-10 lg:pb-12">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="hero-gold-rule" aria-hidden />
-            <p className="type-label text-subtle">
+            <p className="type-label min-w-0 truncate text-subtle">
               Intake open · reply {COMPANY.responseSla}
             </p>
           </div>
 
-          <div className="mt-10 grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-8">
-            <div className="title-mark-stage min-w-0">
-              <h1 className="title-mark-plane">
+          <div className="mt-8 grid min-w-0 items-center gap-8 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-10 xl:gap-14">
+            <div className="min-w-0">
+              <h1 className="title-mark-stage min-w-0">
                 <span className="sr-only">{COMPANY.name}</span>
-                <span className="type-mark block" aria-hidden>
+                <span className="type-mark block max-w-full" aria-hidden>
                   GREAT
                 </span>
-                <span className="type-mark block" aria-hidden>
+                <span className="type-mark block max-w-full" aria-hidden>
                   TURBINEZ
                 </span>
               </h1>
+              <p className="type-label mt-4 tracking-[0.28em] text-accent">
+                AI &amp; Automation
+              </p>
+              <p className="type-lead mt-6 max-w-md">
+                Manual work is still your largest cost centre.
+              </p>
+              <p className="type-body mt-3 max-w-md">
+                One scoped process at a time — written edges, proposal first,
+                deposit only after you approve.
+              </p>
+
+              <ul className="metric-rail metric-rail-3d mt-7 max-w-xl">
+                {METRICS.map((m) => (
+                  <li key={m.label} className="metric-item metric-item-3d">
+                    <span className="metric-value">{m.value}</span>
+                    <span className="metric-label">{m.label}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="clip-corner w-full shadow-[var(--shadow-btn-accent)] sm:w-auto"
+                >
+                  <Link to="/brief" onClick={() => tactileClick()}>
+                    Open a private brief
+                    <ArrowRight className="size-4 opacity-80" />
+                  </Link>
+                </Button>
+                <Link
+                  to="/services"
+                  className="type-label text-center text-subtle transition-colors hover:text-accent sm:text-left"
+                >
+                  View services →
+                </Link>
+              </div>
             </div>
 
-            <InteractiveGear className="mx-auto hidden w-full max-w-[420px] lg:mx-0 lg:block lg:max-w-none lg:justify-self-end" />
-          </div>
-
-          <p className="type-label mt-6 text-muted">{COMPANY.subtitle}</p>
-        </section>
-
-        {/* ZONE B */}
-        <section className="content-zone scene-3d border-b border-line/25 py-8 lg:py-9">
-          <p className="type-lead max-w-lg">
-            Manual work is still your largest cost centre.
-          </p>
-          <p className="type-body mt-3 max-w-md">
-            How many hours did your team retype last week? One scoped process at
-            a time — written edges, proposal first, deposit only after you
-            approve.
-          </p>
-
-          <ul className="metric-rail metric-rail-3d mt-7 max-w-2xl">
-            {METRICS.map((m) => (
-              <li key={m.label} className="metric-item metric-item-3d">
-                <span className="metric-value">{m.value}</span>
-                <span className="metric-label">{m.label}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Button
-              asChild
-              size="lg"
-              className="clip-corner shadow-[var(--shadow-btn-accent)]"
-            >
-              <Link to="/brief" onClick={() => tactileClick()}>
-                Open a private brief
-                <ArrowRight className="size-4 opacity-80" />
-              </Link>
-            </Button>
-            <Link
-              to="/services"
-              className="type-label text-subtle transition-colors hover:text-accent"
-            >
-              View services →
-            </Link>
+            <BrandHeroMark className="mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-none lg:justify-self-end" />
           </div>
         </section>
 
         <div
-          className={`chapter-sticky sticky top-0 z-30 -mx-6 transition-opacity duration-300 sm:-mx-10 md:-mx-12 lg:-mx-14 xl:-mx-[4.5rem] 2xl:-mx-[5.5rem] ${
+          className={`chapter-sticky sticky top-0 z-30 -mx-4 max-w-[100vw] transition-opacity duration-300 sm:-mx-8 md:-mx-10 lg:-mx-12 xl:-mx-16 2xl:-mx-20 ${
             chaptersOn ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
@@ -167,7 +164,7 @@ function IntroPage() {
             aria-hidden
           />
           <nav
-            className="flex gap-5 overflow-x-auto px-6 py-2.5 sm:gap-6 sm:px-10 md:px-12 lg:px-14 xl:px-[4.5rem] 2xl:px-[5.5rem]"
+            className="flex gap-4 overflow-x-auto px-4 py-2.5 sm:gap-5 sm:px-8 md:px-10 lg:px-12 xl:px-16 2xl:px-20"
             aria-label="Sections"
           >
             {CHAPTERS.map((c) => (
@@ -178,16 +175,17 @@ function IntroPage() {
           </nav>
         </div>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="problem"
-          className="section-block grid scroll-mt-12 gap-5 border-b border-line/35 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8"
+          className="section-block grid min-w-0 max-w-full scroll-mt-12 gap-4 border-b border-line/35 sm:gap-5 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8"
         >
-          <div className="section-index-stage">
+          <div className="section-index-stage min-w-0">
             <span className="section-index section-index-3d">01</span>
             <p className="type-label mt-1 text-accent">Problem</p>
           </div>
           <div className="min-w-0">
-            <h2 className="type-display text-2xl sm:text-3xl lg:text-[2.35rem]">
+            <h2 className="type-display text-xl sm:text-2xl lg:text-[2.35rem]">
               Manual work is still running the business.
             </h2>
             <p className="type-body mt-3 max-w-2xl">
@@ -197,29 +195,30 @@ function IntroPage() {
               time; deposit only after you approve the written proposal.
             </p>
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="paths"
-          className="section-block scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-            <div className="section-index-stage">
+          <div className="mb-5 flex min-w-0 flex-wrap items-end justify-between gap-3 sm:mb-6">
+            <div className="section-index-stage min-w-0">
               <span className="section-index section-index-3d">02</span>
               <p className="type-label mt-1 text-accent">Navigate</p>
-              <h2 className="type-display mt-1.5 text-2xl sm:text-3xl">
+              <h2 className="type-display mt-1.5 text-xl sm:text-2xl lg:text-3xl">
                 Three paths. One destination.
               </h2>
             </div>
             <p className="type-label text-subtle">Ends in a private brief</p>
           </div>
-          <div className="path-grid-3d stagger-children grid w-full gap-3 lg:grid-cols-3">
+          <div className="path-grid-3d stagger-children grid w-full min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {PATHS.map((p) => (
               <Link
                 key={p.step}
                 to={p.to}
                 onClick={() => tactileClick()}
-                className="path-tile path-tile-3d group flex flex-col p-5"
+                className="path-tile path-tile-3d group flex min-w-0 flex-col p-4 sm:p-5"
               >
                 <span className="type-label text-accent">{p.step}</span>
                 <h3 className="type-title mt-2 group-hover:text-accent">
@@ -233,18 +232,19 @@ function IntroPage() {
               </Link>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="method"
-          className="section-block scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
-          <div className="mb-6 grid gap-3 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8">
+          <div className="mb-5 grid min-w-0 gap-3 sm:mb-6 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8">
             <div className="section-index-stage">
               <span className="section-index section-index-3d">03</span>
               <p className="type-label mt-1 text-accent">Engagement</p>
             </div>
-            <h2 className="type-display text-2xl sm:text-3xl">
+            <h2 className="type-display text-xl sm:text-2xl lg:text-3xl">
               Brief · fit · proposal · deposit · build · handoff
             </h2>
           </div>
@@ -261,17 +261,18 @@ function IntroPage() {
           <p className="type-label mt-4 text-subtle">
             No deposit until written proposal approval
           </p>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="proof"
-          className="section-block scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-            <div className="section-index-stage">
+          <div className="mb-5 flex min-w-0 flex-wrap items-end justify-between gap-3 sm:mb-6">
+            <div className="section-index-stage min-w-0">
               <span className="section-index section-index-3d">04</span>
               <p className="type-label mt-1 text-accent">Evidence</p>
-              <h2 className="type-display mt-1.5 text-2xl sm:text-3xl">
+              <h2 className="type-display mt-1.5 text-xl sm:text-2xl lg:text-3xl">
                 Results in the field
               </h2>
             </div>
@@ -279,9 +280,12 @@ function IntroPage() {
               Full case file →
             </Link>
           </div>
-          <div className="proof-grid-3d stagger-children grid w-full gap-3 sm:grid-cols-2">
+          <div className="proof-grid-3d stagger-children grid w-full min-w-0 gap-3 sm:grid-cols-2">
             {PROJECTS.slice(0, 4).map((p) => (
-              <article key={p.id} className="proof-tile proof-tile-3d px-5 py-4">
+              <article
+                key={p.id}
+                className="proof-tile proof-tile-3d min-w-0 px-4 py-4 sm:px-5"
+              >
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant={p.status === "Live" ? "live" : "default"}>
                     {p.status}
@@ -293,14 +297,18 @@ function IntroPage() {
               </article>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section id="ask" className="section-block scroll-mt-12 !border-0">
-          <div className="mb-5 section-index-stage">
+        <ScrollReveal
+          as="section"
+          id="ask"
+          className="section-block min-w-0 max-w-full scroll-mt-12 !border-0"
+        >
+          <div className="section-index-stage mb-4 sm:mb-5">
             <span className="section-index section-index-3d">05</span>
             <p className="type-label mt-1 text-accent">Next step</p>
           </div>
-          <div className="funnel-3d-stage">
+          <div className="funnel-3d-stage min-w-0 max-w-full">
             <FunnelClose
               title="Ready to automate one process"
               body={`Private brief. Reply ${COMPANY.responseSla}. Build starts only after you approve written scope.`}
@@ -308,7 +316,7 @@ function IntroPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="clip-corner bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90"
+                  className="clip-corner w-full bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90 sm:w-auto"
                 >
                   <Link to="/brief" onClick={() => tactileClick()}>
                     Open a private brief
@@ -321,14 +329,14 @@ function IntroPage() {
                   asChild
                   variant="ghost"
                   size="lg"
-                  className="text-accent-fg hover:bg-accent-fg/10"
+                  className="w-full text-accent-fg hover:bg-accent-fg/10 sm:w-auto"
                 >
                   <Link to="/concerns">I have a specific pain</Link>
                 </Button>
               }
             />
           </div>
-        </section>
+        </ScrollReveal>
       </div>
     </PageFrame>
   );
