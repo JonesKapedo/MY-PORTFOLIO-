@@ -8,19 +8,19 @@ export {
 
 export const COMPANY = {
   name: "GREAT TURBINEZ",
-  subtitle: "Automation Services",
-  tagline: "Automation Services",
-  city: "Naivasha",
+  subtitle: "AI & Automation",
+  tagline: "AI & Automation",
+  city: "",
   country: "Kenya",
-  location: "Naivasha, Kenya",
+  location: "",
   email: "enterprise@greatturbinez.com",
   salesEmail: "sales@greatturbinez.com",
   supportEmail: "support@greatturbinez.com",
   phone: "+254745494787",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
-  logoSrc: "/brand-mark.svg",
-  logoFullSrc: "/brand-mark.svg",
+  logoSrc: "/logo-square.jpg",
+  logoFullSrc: "/brand-banner.jpg",
 } as const;
 
 import type { ServiceId } from "./services-catalog";
@@ -503,7 +503,7 @@ export const PROJECTS: Project[] = [
     code: "01",
     name: "Bloomline Forecast",
     sector: "Floriculture",
-    place: "Naivasha",
+    place: "Rift Valley",
     situation: "Waste and demand were guessed until season end.",
     installed: "A demand and waste view operators could open daily.",
     outcome: "Less wastage in the first season",
@@ -527,7 +527,7 @@ export const PROJECTS: Project[] = [
     code: "03",
     name: "Ledgerwind",
     sector: "Finance ops",
-    place: "Nakuru–Naivasha",
+    place: "Kenya",
     situation: "Month-end lived in scattered files and chasing.",
     installed: "Clearer handoffs and a tighter close path.",
     outcome: "Month-end six days faster",
@@ -539,7 +539,7 @@ export const PROJECTS: Project[] = [
     code: "04",
     name: "Olkaria Pulse",
     sector: "Energy",
-    place: "Hell's Gate",
+    place: "Kenya",
     situation: "Unplanned halts surfaced too late on scoped units.",
     installed: "Operational signals for earlier attention.",
     outcome: "Fewer unplannedhalts on two units",
@@ -586,10 +586,3 @@ export const PRICE_NOTE =
 
 export const DEPOSIT_NOTE =
   "No deposit on this page. Brief first. Written scope second. 50% only after you approve the proposal.";
-
-export const INTRO_STATS = [
-  { label: "Focus", value: "One process" },
-  { label: "Base", value: "Kenya" },
-  { label: "Path", value: "Scope → build" },
-  { label: "Reply", value: "2 business days" },
-] as const;
