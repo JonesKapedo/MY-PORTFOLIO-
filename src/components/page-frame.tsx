@@ -13,7 +13,7 @@ export function PageFrame({
     <div
       className={cn(
         "page-screen w-full max-w-none",
-        "px-7 py-10 sm:px-12 sm:py-12 md:px-14 md:py-14 lg:px-18 lg:py-16 xl:px-24 xl:py-18 2xl:px-28 2xl:py-20",
+        "px-7 py-10 sm:px-12 sm:py-12 md:px-14 md:py-14 lg:px-16 lg:py-16 xl:px-24 xl:py-20 2xl:px-28 2xl:py-24",
         className,
       )}
     >
