@@ -125,7 +125,7 @@ function WorkPage() {
 
         <FunnelClose
           title="Ready for the same standard on your process?"
-          body={`Private brief. We reply ${COMPANY.responseSla}. Written scope before any deposit — that is how we protect both sides and still ship."`}
+          body={`Private brief. We reply ${COMPANY.responseSla}. Written scope before any deposit — that is how we protect both sides and still ship.`}
           primary={
             <Button asChild size="lg">
               <Link to="/brief">
