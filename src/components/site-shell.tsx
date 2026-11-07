@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { BackgroundAtmosphere } from "@/components/background-atmosphere";
+import { FixedBriefRail } from "@/components/fixed-brief-rail";
 import { PageTransition } from "@/components/page-transition";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
@@ -28,6 +29,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <SiteFooter />
         </div>
       </div>
+      <FixedBriefRail />
       <ThemeToggle className="fixed top-4 right-4 z-50 size-11 rounded-full bg-surface/40 text-muted backdrop-blur-sm hover:text-accent md:top-5 md:right-5" />
       <Toaster
         theme="dark"
