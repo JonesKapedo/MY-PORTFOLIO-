@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { BrandHeroMark } from "@/components/brand-hero-mark";
+import { InteractiveGear } from "@/components/interactive-gear";
 import { FunnelClose, PageFrame } from "@/components/page-frame";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
@@ -89,7 +89,6 @@ function IntroPage() {
       className="page-enter !overflow-x-hidden !overflow-y-auto overscroll-contain !py-0 pt-2 pb-10 sm:pt-4 sm:pb-12"
     >
       <div className="flex w-full min-w-0 max-w-full flex-col">
-        {/* Immersive brand hero */}
         <section className="title-zone relative min-w-0 max-w-full border-b border-line/20 pb-8 pt-1 sm:pb-10 lg:pb-12">
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="hero-gold-rule" aria-hidden />
@@ -149,7 +148,7 @@ function IntroPage() {
               </div>
             </div>
 
-            <BrandHeroMark className="mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-none lg:justify-self-end" />
+            <InteractiveGear className="mx-auto w-full max-w-[280px] sm:max-w-[360px] lg:max-w-none lg:justify-self-end" />
           </div>
         </section>
 
