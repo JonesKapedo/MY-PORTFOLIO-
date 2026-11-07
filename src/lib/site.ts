@@ -45,10 +45,12 @@ export const CONCERNS: Concern[] = [
     situation: [
       "Your team spends hours answering the same questions about hours, prices, status, and next steps.",
       "Messages pile up. Good enquiries wait behind repeat traffic.",
+      "Tone and accuracy depend on who is on the phone — not on an approved answer set.",
     ],
     fixedLooksLike: [
       "Common questions get a consistent answer fast.",
       "Hard cases still reach a person — with context.",
+      "Night and peak hours stop consuming the whole desk.",
     ],
     includes: [
       "Mapped FAQs and escalation rules",
@@ -61,14 +63,16 @@ export const CONCERNS: Concern[] = [
     slug: "enquiries-die-in-chat",
     title: "Enquiries die in chat and never become jobs",
     teaser: "Interest shows up. Follow-through does not.",
-    serviceId: "chatbots",
+    serviceId: "pipeline",
     situation: [
       "People message, then disappear into unread threads.",
       "No structured capture means no pipeline — only noise.",
+      "Nobody can say how many serious leads were lost last month.",
     ],
     fixedLooksLike: [
       "Enquiries are captured, tagged, and routed.",
       "Someone owns the next step every time.",
+      "Ageing quotes surface before they go cold.",
     ],
     includes: [
       "Intake flow in chat or web",
@@ -85,10 +89,12 @@ export const CONCERNS: Concern[] = [
     situation: [
       "The site looks fine but does not collect the right signal.",
       "Visitors leave without a brief, booking, or call path.",
+      "Forms go to a mailbox nobody owns.",
     ],
     fixedLooksLike: [
       "Clear offer. Clear action.",
       "Requests land where your team can act.",
+      "Mobile visitors complete the same path as desktop.",
     ],
     includes: [
       "Focused pages and messaging",
@@ -125,6 +131,7 @@ export const CONCERNS: Concern[] = [
     situation: [
       "The same fields move from form to sheet to system by hand.",
       "Errors grow with volume. Morale does not.",
+      "New hires are trained on retyping before they are trained on judgement.",
     ],
     fixedLooksLike: [
       "One path runs end-to-end with fewer touches.",
@@ -165,6 +172,7 @@ export const CONCERNS: Concern[] = [
     situation: [
       "Documents arrive faster than they can be keyed in.",
       "The binder is still the system of record.",
+      "Month-end becomes a scanning and typing marathon.",
     ],
     fixedLooksLike: [
       "Key fields land in a sheet or system.",
@@ -245,6 +253,7 @@ export const CONCERNS: Concern[] = [
     situation: [
       "Data exists in fragments across files and tools.",
       "Leaders operate on lag and instinct.",
+      "By the time the report arrives, the window to act has closed.",
     ],
     fixedLooksLike: [
       "One agreed view, updated on a useful rhythm.",
@@ -296,6 +305,106 @@ export const CONCERNS: Concern[] = [
       "Written recommendation",
     ],
     excludes: ["Free open-ended consulting without a brief"],
+  },
+  {
+    slug: "calendar-double-books",
+    title: "Bookings collide and confirmations are manual",
+    teaser: "The calendar and the chat disagree.",
+    serviceId: "booking",
+    situation: [
+      "Slots are promised in chat before the calendar is checked.",
+      "Confirmations and reminders depend on someone remembering to send them.",
+    ],
+    fixedLooksLike: [
+      "Customers book against real availability.",
+      "Confirmations and basic reminders go out without a manual chase.",
+    ],
+    includes: [
+      "Scoped booking flow",
+      "Calendar or sheet handoff",
+      "Confirmation path",
+    ],
+    excludes: ["Full multi-site reservation platforms"],
+  },
+  {
+    slug: "two-systems-no-talk",
+    title: "Two systems never talk — staff retype between them",
+    teaser: "You pay for both tools and still do the glue work.",
+    serviceId: "integrations",
+    situation: [
+      "Sales, ops, or finance each have a system of record.",
+      "The bridge is a person with a spreadsheet every afternoon.",
+    ],
+    fixedLooksLike: [
+      "Agreed fields move on a schedule or trigger.",
+      "Failures are visible — not silent.",
+    ],
+    includes: [
+      "One connection between two systems",
+      "Field mapping and basic error handling",
+      "Test with real samples",
+    ],
+    excludes: ["Replacing either system"],
+  },
+  {
+    slug: "alerts-too-late",
+    title: "Problems surface only when a customer complains",
+    teaser: "No signal until the damage is already social.",
+    serviceId: "alerts",
+    situation: [
+      "Thresholds exist in someone’s head, not in a system.",
+      "The first alert is a phone call from outside the building.",
+    ],
+    fixedLooksLike: [
+      "Agreed triggers notify the right owner.",
+      "Escalation if the first person does not act.",
+    ],
+    includes: [
+      "Trigger and recipient map",
+      "Notification path",
+      "Handover for threshold changes",
+    ],
+    excludes: ["24/7 managed monitoring as a service"],
+  },
+  {
+    slug: "onboarding-scavenger",
+    title: "New clients face a scavenger hunt after they say yes",
+    teaser: "The sale closes. The chaos begins.",
+    serviceId: "onboarding",
+    situation: [
+      "Forms, files, and approvals arrive out of order over chat.",
+      "Nobody sees a single status of “ready to start work.”",
+    ],
+    fixedLooksLike: [
+      "A guided sequence with visible status.",
+      "Fewer kickoff delays caused by missing paperwork.",
+    ],
+    includes: [
+      "Mapped onboarding checklist",
+      "Forms or tasks in sequence",
+      "Status visible to you",
+    ],
+    excludes: ["Full regulated KYC platforms without specialists"],
+  },
+  {
+    slug: "shared-inbox-noise",
+    title: "The shared inbox is noise — real work is buried",
+    teaser: "Everything is “unread.” Nothing is prioritised.",
+    serviceId: "inbox",
+    situation: [
+      "Promotions, status mail, and real enquiries share one stream.",
+      "Owners cannot see what still needs a human reply.",
+    ],
+    fixedLooksLike: [
+      "Mail is labelled and routed by agreed rules.",
+      "What needs a person is obvious.",
+    ],
+    includes: [
+      "Sorting and labelling rules",
+      "Routing to owners",
+      "Operator handover",
+    ],
+    excludes: ["Full email hosting or migration programmes"],
   },
 ];
 
@@ -376,6 +485,7 @@ export const NAV = [
   { to: "/work", label: "Work" },
   { to: "/services", label: "Services" },
   { to: "/concerns", label: "Concerns" },
+  { to: "/partners", label: "Partners" },
   { to: "/brief", label: "Brief" },
 ] as const;
 
@@ -411,7 +521,7 @@ export const DEPOSIT_NOTE =
 
 export const INTRO_STATS = [
   { label: "Focus", value: "One process" },
-  { label: "Base", value: "Naivasha" },
+  { label: "Base", value: "Kenya" },
   { label: "Path", value: "Scope → build" },
   { label: "Reply", value: "2 business days" },
 ] as const;

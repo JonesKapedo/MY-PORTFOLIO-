@@ -24,7 +24,7 @@ export const Route = createFileRoute("/brief")({
       {
         name: "description",
         content:
-          "Send a free brief in a few minutes. We reply within two business days with fit and a rough next step. No deposit until you approve a written proposal.",
+          "Request a private automation brief. Reply within two business days. No deposit until you approve a written proposal.",
       },
     ],
   }),
@@ -33,18 +33,18 @@ export const Route = createFileRoute("/brief")({
 const ASSURANCES = [
   {
     icon: FileText,
-    title: "Free to send",
-    body: "No invoice starts from this form.",
+    title: "No charge to brief",
+    body: "Submitting does not create an invoice.",
   },
   {
     icon: Clock,
     title: `Reply ${COMPANY.responseSla}`,
-    body: "Fit, rough scope, and whether we should talk.",
+    body: "Fit assessment and a clear next step.",
   },
   {
     icon: Shield,
-    title: "Deposit later",
-    body: "Only after you approve a written proposal.",
+    title: "Deposit after agreement",
+    body: "Payment only against an approved proposal.",
   },
 ] as const;
 
@@ -58,18 +58,18 @@ function BriefPage() {
     <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 lg:gap-12">
         <header className="max-w-2xl">
-          <Eyebrow>Start here</Eyebrow>
+          <Eyebrow>Private brief</Eyebrow>
           <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-[2.75rem]">
-            Tell us what is costing you time or money.
+            Commission a structured conversation about automation.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
-            A short note is enough. We read every brief, reply{" "}
-            {COMPANY.responseSla}, and only propose work that fits. You stay in
-            control — no pressure, no surprise invoices.
+            Share the operational friction. We respond {COMPANY.responseSla}
+            with fit and direction. Work proceeds only under written scope —
+            the standard serious operators expect.
           </p>
         </header>
 
-        <ul className="grid gap-3 sm:grid-cols-3">
+        <ul className="stagger-children grid gap-3 sm:grid-cols-3">
           {ASSURANCES.map(({ icon: Icon, title, body }) => (
             <li
               key={title}
@@ -87,35 +87,39 @@ function BriefPage() {
         </ul>
 
         {(concern || service) && (
-          <p className="rounded-xl border border-accent/20 bg-accent/5 px-4 py-3 text-sm text-muted">
+          <div className="rounded-xl border border-accent/20 bg-accent/5 px-5 py-4 text-sm text-muted">
+            <p className="font-medium text-fg">Context carried into this brief</p>
             {concern ? (
-              <>
-                You came from:{" "}
-                <span className="font-medium text-fg">{concern.title}</span>
-              </>
+              <p className="mt-2">
+                Concern: <span className="text-fg">{concern.title}</span>
+              </p>
             ) : null}
-            {concern && service ? <span className="mx-2 text-subtle">·</span> : null}
             {service ? (
-              <>
-                Looking at:{" "}
-                <span className="font-medium text-accent">{service.name}</span>
-              </>
+              <p className="mt-1">
+                Service:{" "}
+                <span className="text-accent">{service.name}</span>
+                <span className="text-subtle">
+                  {" "}
+                  · Indicative {service.price} after written agreement ·{" "}
+                  {service.timeframe}
+                </span>
+              </p>
             ) : null}
-            <span className="mt-1 block text-xs text-subtle">
-              We pre-filled what we could — edit anything before you send.
-            </span>
-          </p>
+            <p className="mt-2 text-xs text-subtle">
+              The form is pre-filled. Adjust freely before you submit.
+            </p>
+          </div>
         )}
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-14">
           <aside className="space-y-6 lg:pt-1">
             <div>
-              <h2 className="text-sm font-semibold text-fg">What happens next</h2>
+              <h2 className="text-sm font-semibold text-fg">Process</h2>
               <ol className="mt-4 space-y-4">
                 {[
-                  "You send this brief (two minutes is fine).",
+                  "Submit this brief — a few minutes is sufficient.",
                   `We reply ${COMPANY.responseSla} with fit and a rough direction.`,
-                  "If it fits, you get a written proposal — then deposit, then build.",
+                  "If aligned, you receive a written proposal. Deposit and build follow only after your approval.",
                 ].map((line, i) => (
                   <li key={line} className="flex gap-3 text-sm text-muted">
                     <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[11px] font-medium text-accent">
@@ -130,17 +134,17 @@ function BriefPage() {
             <div className="rounded-xl bg-surface/50 px-4 py-4">
               <p className="flex items-center gap-2 text-xs font-medium text-fg">
                 <Check className="size-3.5 text-accent" strokeWidth={2} />
-                You do not need a perfect scope
+                Precision over volume
               </p>
               <p className="mt-2 text-xs leading-relaxed text-muted">
-                Plain language is better than a long document. Name the pain,
-                the channel (WhatsApp, email, paper…), and roughly how often it
-                happens. We will ask if we need more.
+                We accept briefs we can own end-to-end. If the work sits outside
+                our practice, we say so plainly — so your time is not spent on
+                the wrong path.
               </p>
             </div>
 
             <p className="text-xs text-subtle">
-              Prefer email?{" "}
+              Direct line:{" "}
               <a
                 href={`mailto:${COMPANY.email}`}
                 className="text-accent hover:underline"
@@ -155,14 +159,12 @@ function BriefPage() {
           <div className="rounded-2xl bg-surface/70 p-5 sm:p-7">
             <h2 className="text-sm font-semibold text-fg">Your brief</h2>
             <p className="mt-1 text-xs text-muted">
-              Required: name, a way to reach you, and what is going wrong.
+              Required: identity, a contact channel, detail, and privacy consent.
             </p>
             <div className="mt-6">
               <ContactForm
                 initialService={initialService}
-                initialMessage={
-                  concern ? `Concern: ${concern.title}\n\n` : undefined
-                }
+                initialConcernSlug={concern?.slug}
               />
             </div>
           </div>

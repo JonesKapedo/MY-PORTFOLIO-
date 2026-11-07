@@ -65,7 +65,7 @@ function ServiceDetailPage() {
 
   return (
     <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
-      <div className="flex w-full flex-col gap-10">
+      <div className="flex w-full flex-col gap-12">
         <div>
           <Link
             to="/services"
@@ -78,7 +78,7 @@ function ServiceDetailPage() {
           <div className="mt-6 flex flex-wrap items-start gap-5">
             <ServiceIcon id={service.id} size="lg" />
             <div className="min-w-0 flex-1">
-              <Eyebrow>Service</Eyebrow>
+              <Eyebrow>Private service brief</Eyebrow>
               <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
                 {service.name}
               </h1>
@@ -88,20 +88,49 @@ function ServiceDetailPage() {
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-fg sm:text-base">
                 {copy.outcome}
               </p>
-              <p className="mt-4 text-sm text-muted">
-                Typical window:{" "}
-                <span className="font-medium text-fg">{service.timeframe}</span>
-                <span className="text-subtle"> — {service.timeframeNote}</span>
-              </p>
             </div>
           </div>
         </div>
+
+        <section className="grid gap-6 rounded-2xl bg-surface/50 p-6 sm:grid-cols-3 sm:p-8">
+          <div>
+            <h2 className="text-[10px] tracking-[0.16em] text-accent uppercase">
+              When
+            </h2>
+            <p className="mt-2 text-sm font-medium text-fg">{service.timeframe}</p>
+            <p className="mt-1.5 text-xs leading-relaxed text-muted">
+              {service.timeframeNote}
+            </p>
+          </div>
+          <div>
+            <h2 className="text-[10px] tracking-[0.16em] text-accent uppercase">
+              How engagement starts
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Private brief → fit reply {COMPANY.responseSla} → written proposal
+              → deposit only after you approve.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-[10px] tracking-[0.16em] text-accent uppercase">
+              Who it is for
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Operators and teams with a repeated path that is already costing
+              hours or lost work — not speculative experiments.
+            </p>
+          </div>
+        </section>
 
         <section>
           <h2 className="text-[11px] font-medium tracking-[0.18em] text-accent uppercase">
             How it is delivered
           </h2>
-          <ol className="stagger-children mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <p className="mt-2 max-w-2xl text-sm text-muted">
+            Four phases. Each ends with something you can review — not a black
+            box until the last day.
+          </p>
+          <ol className="stagger-children mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {service.delivery.map((phase, index) => (
               <li
                 key={phase.name}
@@ -123,7 +152,7 @@ function ServiceDetailPage() {
           {(
             [
               ["Usually includes", service.includes, true],
-              ["Outside scope", service.excludes, false],
+              ["Outside this engagement", service.excludes, false],
               ["You provide", service.youProvide, true],
               ["After handoff", service.afterHandoff, false],
             ] as const
@@ -148,43 +177,48 @@ function ServiceDetailPage() {
           ))}
         </section>
 
-        <section className="rounded-2xl border border-line/70 bg-raised/40 p-6 sm:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
+        <section className="rounded-2xl border border-accent/20 bg-accent/[0.04] p-6 sm:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <div className="max-w-lg">
               <p className="text-[10px] tracking-[0.16em] text-subtle uppercase">
-                Starting charge
+                Indicative investment
               </p>
               <p className="mt-1 text-2xl font-medium text-accent sm:text-3xl">
                 {service.price}
               </p>
               <p className="text-xs text-subtle">{service.unit}</p>
-              <p className="mt-3 max-w-lg text-xs leading-relaxed text-muted sm:text-sm">
+              <p className="mt-3 text-xs leading-relaxed text-muted sm:text-sm">
                 {PRICE_NOTE}
               </p>
-              <p className="mt-1.5 max-w-lg text-xs text-accent sm:text-sm">
+              <p className="mt-2 text-xs leading-relaxed text-accent sm:text-sm">
                 {DEPOSIT_NOTE}
               </p>
+              <p className="mt-3 text-xs text-muted">
+                Your quotation is prepared only after we understand the process
+                in scope. Opening a brief places you in a private queue — not a
+                public inbox free-for-all.
+              </p>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-3">
               <Button asChild size="lg">
                 <Link to="/brief" search={{ service: service.id }}>
-                  Start a brief
+                  Request quotation brief
                   <ArrowRight className="size-4 opacity-80" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/concerns">Browse concerns</Link>
+                <Link to="/concerns">Match a concern first</Link>
               </Button>
             </div>
           </div>
 
           {related.length > 0 ? (
-            <div className="mt-6 border-t border-line/60 pt-5">
+            <div className="mt-8 border-t border-line/60 pt-6">
               <p className="text-[10px] tracking-wider text-subtle uppercase">
-                Related concerns
+                Related operational concerns
               </p>
-              <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
-                {related.slice(0, 4).map((c) => (
+              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                {related.map((c) => (
                   <li key={c.slug}>
                     <Link
                       to="/concerns/$slug"

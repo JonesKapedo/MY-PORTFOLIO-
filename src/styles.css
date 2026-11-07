@@ -138,7 +138,12 @@ html.light {
   .card-lift {
     transition:
       background-color 200ms ease,
-      color 200ms ease;
+      color 200ms ease,
+      transform 220ms ease;
+  }
+
+  .card-lift:hover {
+    transform: translateY(-2px);
   }
 
   .field-focus:focus-visible {
@@ -146,23 +151,77 @@ html.light {
   }
 
   .page-enter > * {
-    animation: rise-in 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: rise-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .page-enter > *:nth-child(1) {
     animation-delay: 0ms;
   }
   .page-enter > *:nth-child(2) {
-    animation-delay: 40ms;
+    animation-delay: 45ms;
   }
   .page-enter > *:nth-child(3) {
-    animation-delay: 80ms;
+    animation-delay: 90ms;
   }
   .page-enter > *:nth-child(4) {
-    animation-delay: 120ms;
+    animation-delay: 135ms;
   }
   .page-enter > *:nth-child(5) {
+    animation-delay: 180ms;
+  }
+  .page-enter > *:nth-child(6) {
+    animation-delay: 225ms;
+  }
+  .page-enter > *:nth-child(7) {
+    animation-delay: 270ms;
+  }
+
+  .stagger-children > * {
+    animation: rise-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stagger-children > *:nth-child(1) {
+    animation-delay: 40ms;
+  }
+  .stagger-children > *:nth-child(2) {
+    animation-delay: 80ms;
+  }
+  .stagger-children > *:nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .stagger-children > *:nth-child(4) {
     animation-delay: 160ms;
+  }
+  .stagger-children > *:nth-child(5) {
+    animation-delay: 200ms;
+  }
+  .stagger-children > *:nth-child(6) {
+    animation-delay: 240ms;
+  }
+  .stagger-children > *:nth-child(7) {
+    animation-delay: 280ms;
+  }
+  .stagger-children > *:nth-child(8) {
+    animation-delay: 320ms;
+  }
+
+  .service-card {
+    transition:
+      background-color 220ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .reveal-section {
+    animation: rise-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .animate-float-soft {
+    animation: float-soft 10s ease-in-out infinite;
   }
 
   .dock-rail {
@@ -170,7 +229,14 @@ html.light {
   }
 
   .dock-item {
-    transition: color 150ms ease;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      transform 180ms ease;
+  }
+
+  .dock-item:hover {
+    transform: scale(1.06);
   }
 
   .dock-tooltip {
@@ -204,17 +270,6 @@ html.light {
     box-shadow: var(--shadow-dock);
     border: none;
     animation: dock-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .gt-logo-circle {
-    box-shadow: none;
-    transition:
-      transform 220ms ease,
-      opacity 200ms ease;
-  }
-
-  .gt-logo-circle:hover {
-    transform: scale(1.04);
   }
 
   .page-screen {
@@ -363,7 +418,7 @@ html.light {
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -413,6 +468,16 @@ html.light {
   }
 }
 
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 @keyframes glow-breathe {
   0%,
   100% {
@@ -445,15 +510,19 @@ html.light {
 @media (prefers-reduced-motion: reduce) {
   .page-enter > *,
   .dock-rail,
-  .dock-mobile {
+  .dock-mobile,
+  .stagger-children > *,
+  .reveal-section,
+  .animate-float-soft {
     animation: none;
   }
-  .gt-logo-circle,
+  .service-card:hover,
+  .card-lift:hover,
+  .dock-item:hover {
+    transform: none;
+  }
   body {
     transition: none;
-  }
-  .gt-logo-circle:hover {
-    transform: none;
   }
   .bg-orb,
   .hero-glow::before,
@@ -463,9 +532,5 @@ html.light {
   .spin-slower,
   .pulse-core {
     animation: none;
-  }
-
-  .gear-system animateTransform {
-    display: none;
   }
 }

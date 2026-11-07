@@ -13,9 +13,12 @@ import { Route as ConcernsRouteImport } from './routes/concerns'
 import { Route as ConcernsSlugRouteImport } from './routes/concerns.$slug'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndustriesRouteImport } from './routes/industries'
+import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WorkRouteImport } from './routes/work'
 
 const AboutRoute = AboutRouteImport.update({
@@ -58,9 +61,19 @@ const IndustriesRoute = IndustriesRouteImport.update({
   path: '/industries',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -71,6 +84,11 @@ const ServicesRoute = ServicesRouteImport.update({
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
   path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WorkRoute = WorkRouteImport.update({
@@ -88,9 +106,12 @@ export interface FileRoutesByFullPath {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesByTo {
@@ -102,9 +123,12 @@ export interface FileRoutesByTo {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesById {
@@ -117,9 +141,12 @@ export interface FileRoutesById {
   '/concerns/$slug': typeof ConcernsSlugRoute
   '/contact': typeof ContactRoute
   '/industries': typeof IndustriesRoute
+  '/partners': typeof PartnersRoute
   '/portfolio': typeof PortfolioRoute
+  '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/terms': typeof TermsRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
@@ -133,9 +160,12 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
+    | '/privacy'
     | '/services'
     | '/services/$slug'
+    | '/terms'
     | '/work'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -147,9 +177,12 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
+    | '/privacy'
     | '/services'
     | '/services/$slug'
+    | '/terms'
     | '/work'
   id:
     | '__root__'
@@ -161,9 +194,12 @@ export interface FileRouteTypes {
     | '/concerns/$slug'
     | '/contact'
     | '/industries'
+    | '/partners'
     | '/portfolio'
+    | '/privacy'
     | '/services'
     | '/services/$slug'
+    | '/terms'
     | '/work'
   fileRoutesById: FileRoutesById
 }
@@ -176,9 +212,12 @@ export interface RootRouteChildren {
   ConcernsSlugRoute: typeof ConcernsSlugRoute
   ContactRoute: typeof ContactRoute
   IndustriesRoute: typeof IndustriesRoute
+  PartnersRoute: typeof PartnersRoute
   PortfolioRoute: typeof PortfolioRoute
+  PrivacyRoute: typeof PrivacyRoute
   ServicesRoute: typeof ServicesRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
+  TermsRoute: typeof TermsRoute
   WorkRoute: typeof WorkRoute
 }
 
@@ -240,11 +279,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -259,6 +312,13 @@ declare module '@tanstack/react-router' {
       path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/work': {
@@ -280,9 +340,12 @@ const rootRouteChildren: RootRouteChildren = {
   ConcernsSlugRoute: ConcernsSlugRoute,
   ContactRoute: ContactRoute,
   IndustriesRoute: IndustriesRoute,
+  PartnersRoute: PartnersRoute,
   PortfolioRoute: PortfolioRoute,
+  PrivacyRoute: PrivacyRoute,
   ServicesRoute: ServicesRoute,
   ServicesSlugRoute: ServicesSlugRoute,
+  TermsRoute: TermsRoute,
   WorkRoute: WorkRoute,
 }
 export const routeTree = rootRouteImport
