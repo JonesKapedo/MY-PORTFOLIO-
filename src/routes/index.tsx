@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   COMPANY,
   ENGAGEMENT_STEPS,
+  PLATFORM_FEATURES,
   PRINCIPLES,
   PROJECTS,
   SERVICES,
@@ -28,9 +29,9 @@ export const Route = createFileRoute("/")({
 
 function IntroPage() {
   return (
-    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-14">
-      <div className="flex w-full min-h-0 flex-col gap-16 sm:gap-20 lg:gap-24">
-        <section className="hero-glow relative grid w-full items-center gap-10 pt-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12 xl:gap-16">
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-16">
+      <div className="flex w-full min-h-0 flex-col gap-16 sm:gap-20 lg:gap-28">
+        <section className="hero-glow relative grid w-full items-center gap-12 pt-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14 xl:gap-20">
           <div>
             <p className="text-[11px] font-medium tracking-[0.22em] text-accent uppercase">
               {COMPANY.subtitle}
@@ -46,7 +47,7 @@ function IntroPage() {
               pipelines stay intact, and handoff is clean enough to run without
               us. That is our delivery commitment — not a slide deck.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center gap-3">
               <Button asChild size="lg">
                 <Link to="/brief">
                   Request a private brief
@@ -64,13 +65,13 @@ function IntroPage() {
           </div>
         </section>
 
-        <section className="reveal-section w-full rounded-2xl border border-accent/15 bg-accent/[0.04] px-6 py-8 sm:px-10 sm:py-12">
+        <section className="reveal-section w-full rounded-2xl border border-accent/15 bg-accent/[0.04] px-8 py-10 sm:px-12 sm:py-14">
           <Eyebrow>The problem we solve</Eyebrow>
           <h2 className="mt-3 max-w-4xl font-display text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
             Manual work that should already be automated is costing you margin,
             speed, and focus.
           </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
             Enquiries die in chat. Approvals stall in one inbox. Numbers appear
             only at month-end. Staff retype the same fields between tools they
             already pay for. We close that gap — one process at a time — with
@@ -78,7 +79,7 @@ function IntroPage() {
           </p>
           <Link
             to="/concerns"
-            className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:opacity-80"
+            className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:opacity-80"
           >
             Identify your friction
             <ArrowRight className="size-3.5" />
@@ -86,11 +87,46 @@ function IntroPage() {
         </section>
 
         <section className="w-full">
+          <Eyebrow>Capabilities · 12</Eyebrow>
+          <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+            What we install for operators
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+            Each capability maps to a named service. Open the detail page for
+            how, when, and quotation — then brief with context carried forward.
+          </p>
+          <div className="stagger-children mt-10 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {PLATFORM_FEATURES.map((f, i) => (
+              <Link
+                key={f.title}
+                to="/services/$slug"
+                params={{ slug: f.serviceId }}
+                className="service-card group flex flex-col rounded-xl bg-surface/70 px-5 py-6 transition-colors hover:bg-raised"
+              >
+                <span className="font-mono text-[10px] text-accent tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="mt-3 text-sm font-semibold tracking-tight group-hover:text-accent sm:text-[15px]">
+                  {f.title}
+                </p>
+                <p className="mt-2 flex-1 text-xs leading-relaxed text-muted sm:text-sm">
+                  {f.body}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-[11px] font-medium text-accent opacity-0 transition-opacity group-hover:opacity-100">
+                  View service
+                  <ArrowRight className="size-3" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="w-full">
           <Eyebrow>01 — Friction</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             Where automation pays for itself
           </h2>
-          <ul className="mt-8 grid w-full gap-0 border-y border-line/70 sm:grid-cols-2">
+          <ul className="mt-10 grid w-full gap-0 border-y border-line/70 sm:grid-cols-2">
             {[
               "The same questions every day on WhatsApp",
               "Enquiries that never become booked work",
@@ -103,7 +139,7 @@ function IntroPage() {
               >
                 <Link
                   to="/concerns"
-                  className="group flex items-center justify-between gap-4 px-0 py-4 text-sm text-fg transition-colors hover:text-accent sm:px-4 sm:text-[15px]"
+                  className="group flex items-center justify-between gap-4 px-0 py-5 text-sm text-fg transition-colors hover:text-accent sm:px-5 sm:text-[15px]"
                 >
                   <span>{line}</span>
                   <ArrowRight className="size-3.5 shrink-0 text-subtle transition-transform group-hover:translate-x-0.5" />
@@ -128,13 +164,13 @@ function IntroPage() {
               Full catalogue →
             </Link>
           </div>
-          <div className="stagger-children mt-8 grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="stagger-children mt-10 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.slice(0, 6).map((s) => (
               <Link
                 key={s.id}
                 to="/services/$slug"
                 params={{ slug: s.id }}
-                className="service-card group rounded-xl bg-surface/70 px-5 py-5 transition-colors hover:bg-raised"
+                className="service-card group rounded-xl bg-surface/70 px-6 py-6 transition-colors hover:bg-raised"
               >
                 <p className="text-sm font-semibold tracking-tight group-hover:text-accent sm:text-[15px]">
                   {s.name}
@@ -142,7 +178,7 @@ function IntroPage() {
                 <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted sm:text-sm">
                   {s.blurb}
                 </p>
-                <p className="mt-4 text-[10px] tracking-wider text-subtle uppercase">
+                <p className="mt-5 text-[10px] tracking-wider text-subtle uppercase">
                   {s.timeframe} · Detail & quotation
                 </p>
               </Link>
@@ -165,11 +201,11 @@ function IntroPage() {
               Case file →
             </Link>
           </div>
-          <div className="stagger-children mt-8 grid w-full gap-4 sm:grid-cols-2">
+          <div className="stagger-children mt-10 grid w-full gap-5 sm:grid-cols-2">
             {PROJECTS.map((p) => (
               <article
                 key={p.id}
-                className="service-card rounded-xl bg-surface/50 px-5 py-5 sm:px-6 sm:py-6"
+                className="service-card rounded-xl bg-surface/50 px-6 py-6 sm:px-7 sm:py-7"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-mono text-[10px] text-subtle">{p.code}</span>
@@ -178,8 +214,8 @@ function IntroPage() {
                   </Badge>
                   <span className="text-[10px] text-subtle">{p.sector}</span>
                 </div>
-                <h3 className="mt-2 text-sm font-semibold sm:text-[15px]">{p.name}</h3>
-                <p className="mt-1.5 text-xs text-muted sm:text-sm">{p.situation}</p>
+                <h3 className="mt-3 text-sm font-semibold sm:text-[15px]">{p.name}</h3>
+                <p className="mt-2 text-xs text-muted sm:text-sm">{p.situation}</p>
                 <p className="mt-2 text-xs text-accent sm:text-sm">{p.outcome}</p>
               </article>
             ))}
@@ -191,7 +227,7 @@ function IntroPage() {
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
             Brief → proposal → deposit → build → handoff
           </h2>
-          <ol className="stagger-children mt-8 grid w-full gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <ol className="stagger-children mt-10 grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {ENGAGEMENT_STEPS.map((step, i) => (
               <li key={step} className="flex gap-3">
                 <span className="font-mono text-xs text-accent tabular-nums">
@@ -205,11 +241,11 @@ function IntroPage() {
 
         <section className="w-full">
           <Eyebrow>Standards</Eyebrow>
-          <div className="mt-8 grid w-full gap-8 sm:grid-cols-3">
+          <div className="mt-10 grid w-full gap-10 sm:grid-cols-3">
             {PRINCIPLES.map((p) => (
               <div key={p.title}>
                 <h3 className="text-sm font-semibold sm:text-[15px]">{p.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-muted sm:text-sm">
+                <p className="mt-3 text-xs leading-relaxed text-muted sm:text-sm">
                   {p.body}
                 </p>
               </div>
@@ -219,7 +255,7 @@ function IntroPage() {
 
         <FunnelClose
           title="Commission the next process"
-          body={`Private brief. Reply ${COMPANY.responseSla}. No deposit until a written proposal is approved. Capacity is limited to work we can own to the end.`}
+          body={`Private brief. We reply ${COMPANY.responseSla}. No deposit until a written proposal is approved. Capacity is limited to engagements we can own to the end.`}
           primary={
             <Button asChild size="lg">
               <Link to="/brief">
