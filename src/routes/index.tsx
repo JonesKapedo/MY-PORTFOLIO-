@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { InteractiveGear } from "@/components/interactive-gear";
 import { FunnelClose, PageFrame } from "@/components/page-frame";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { tactileClick } from "@/lib/tactile";
@@ -85,40 +86,44 @@ function IntroPage() {
   return (
     <PageFrame
       ref={scrollRef}
-      className="page-enter !overflow-y-auto overscroll-contain !py-0 pt-3 pb-8 sm:pt-4 sm:pb-10"
+      className="page-enter !overflow-x-hidden !overflow-y-auto overscroll-contain !py-0 pt-2 pb-10 sm:pt-4 sm:pb-12"
     >
-      <div className="flex w-full min-w-0 flex-col">
-        {/* ZONE A — Title */}
-        <section className="title-zone relative min-w-0 border-b border-line/25 pb-6 pt-1 sm:pb-8 lg:pb-10">
-          <div className="flex min-w-0 flex-wrap items-center gap-2 sm:gap-3">
+      <div className="flex w-full min-w-0 max-w-full flex-col">
+        {/* Mobile-first hero: title primary, gears secondary */}
+        <section className="title-zone relative min-w-0 max-w-full border-b border-line/25 pb-6 pt-1 sm:pb-8 lg:pb-10">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="hero-gold-rule" aria-hidden />
-            <p className="type-label min-w-0 text-subtle">
+            <p className="type-label min-w-0 truncate text-subtle">
               Intake open · reply {COMPANY.responseSla}
             </p>
           </div>
 
-          <div className="mt-8 grid min-w-0 items-end gap-6 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-8">
-            <div className="title-mark-stage min-w-0">
-              <h1 className="title-mark-plane min-w-0">
-                <span className="sr-only">{COMPANY.name}</span>
-                <span className="type-mark block" aria-hidden>
-                  GREAT
-                </span>
-                <span className="type-mark block" aria-hidden>
-                  TURBINEZ
-                </span>
-              </h1>
-            </div>
-
-            {/* Compact mark on mobile; full interactive on lg+ */}
-            <InteractiveGear className="gear-mobile-compact mx-auto w-full max-w-[280px] sm:max-w-[340px] lg:mx-0 lg:max-w-none lg:justify-self-end" />
+          {/* Title first — full width on mobile */}
+          <div className="title-mark-stage mt-6 min-w-0 max-w-full sm:mt-8 lg:mt-10">
+            <h1 className="title-mark-plane min-w-0 max-w-full">
+              <span className="sr-only">{COMPANY.name}</span>
+              <span className="type-mark block max-w-full" aria-hidden>
+                GREAT
+              </span>
+              <span className="type-mark block max-w-full" aria-hidden>
+                TURBINEZ
+              </span>
+            </h1>
           </div>
 
-          <p className="type-label mt-5 text-muted sm:mt-6">{COMPANY.subtitle}</p>
+          <p className="type-label mt-3 text-muted sm:mt-4">{COMPANY.subtitle}</p>
+
+          {/* Gears: centered under title on mobile, side column on lg */}
+          <div className="mt-5 flex justify-center lg:mt-0 lg:hidden">
+            <InteractiveGear className="w-full max-w-[220px] sm:max-w-[260px]" />
+          </div>
+
+          <div className="pointer-events-none absolute top-16 right-0 hidden w-[42%] max-w-[420px] lg:block">
+            <InteractiveGear className="pointer-events-auto w-full" />
+          </div>
         </section>
 
-        {/* ZONE B */}
-        <section className="content-zone scene-3d min-w-0 border-b border-line/25 py-6 sm:py-8 lg:py-9">
+        <section className="content-zone scene-3d min-w-0 max-w-full border-b border-line/25 py-6 sm:py-8 lg:py-9">
           <p className="type-lead max-w-lg">
             Manual work is still your largest cost centre.
           </p>
@@ -137,11 +142,11 @@ function IntroPage() {
             ))}
           </ul>
 
-          <div className="mt-7 flex min-w-0 flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+          <div className="mt-7 flex min-w-0 max-w-full flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
             <Button
               asChild
               size="lg"
-              className="clip-corner w-full shadow-[var(--shadow-btn-accent)] sm:w-auto"
+              className="clip-corner w-full max-w-full shadow-[var(--shadow-btn-accent)] sm:w-auto"
             >
               <Link to="/brief" onClick={() => tactileClick()}>
                 Open a private brief
@@ -158,7 +163,7 @@ function IntroPage() {
         </section>
 
         <div
-          className={`chapter-sticky sticky top-0 z-30 -mx-4 transition-opacity duration-300 sm:-mx-8 md:-mx-10 lg:-mx-12 xl:-mx-16 2xl:-mx-20 ${
+          className={`chapter-sticky sticky top-0 z-30 -mx-4 max-w-[100vw] transition-opacity duration-300 sm:-mx-8 md:-mx-10 lg:-mx-12 xl:-mx-16 2xl:-mx-20 ${
             chaptersOn ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
@@ -179,9 +184,10 @@ function IntroPage() {
           </nav>
         </div>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="problem"
-          className="section-block grid min-w-0 scroll-mt-12 gap-4 border-b border-line/35 sm:gap-5 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8"
+          className="section-block grid min-w-0 max-w-full scroll-mt-12 gap-4 border-b border-line/35 sm:gap-5 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8"
         >
           <div className="section-index-stage min-w-0">
             <span className="section-index section-index-3d">01</span>
@@ -198,11 +204,12 @@ function IntroPage() {
               time; deposit only after you approve the written proposal.
             </p>
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="paths"
-          className="section-block min-w-0 scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
           <div className="mb-5 flex min-w-0 flex-wrap items-end justify-between gap-3 sm:mb-6">
             <div className="section-index-stage min-w-0">
@@ -234,11 +241,12 @@ function IntroPage() {
               </Link>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="method"
-          className="section-block min-w-0 scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
           <div className="mb-5 grid min-w-0 gap-3 sm:mb-6 lg:grid-cols-[minmax(0,0.26fr)_minmax(0,0.74fr)] lg:gap-8">
             <div className="section-index-stage">
@@ -262,11 +270,12 @@ function IntroPage() {
           <p className="type-label mt-4 text-subtle">
             No deposit until written proposal approval
           </p>
-        </section>
+        </ScrollReveal>
 
-        <section
+        <ScrollReveal
+          as="section"
           id="proof"
-          className="section-block min-w-0 scroll-mt-12 border-b border-line/35"
+          className="section-block min-w-0 max-w-full scroll-mt-12 border-b border-line/35"
         >
           <div className="mb-5 flex min-w-0 flex-wrap items-end justify-between gap-3 sm:mb-6">
             <div className="section-index-stage min-w-0">
@@ -297,14 +306,18 @@ function IntroPage() {
               </article>
             ))}
           </div>
-        </section>
+        </ScrollReveal>
 
-        <section id="ask" className="section-block min-w-0 scroll-mt-12 !border-0">
+        <ScrollReveal
+          as="section"
+          id="ask"
+          className="section-block min-w-0 max-w-full scroll-mt-12 !border-0"
+        >
           <div className="section-index-stage mb-4 sm:mb-5">
             <span className="section-index section-index-3d">05</span>
             <p className="type-label mt-1 text-accent">Next step</p>
           </div>
-          <div className="funnel-3d-stage min-w-0">
+          <div className="funnel-3d-stage min-w-0 max-w-full">
             <FunnelClose
               title="Ready to automate one process"
               body={`Private brief. Reply ${COMPANY.responseSla}. Build starts only after you approve written scope.`}
@@ -312,7 +325,7 @@ function IntroPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="clip-corner w-full bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90 sm:w-auto"
+                  className="clip-corner w-full max-w-full bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90 sm:w-auto"
                 >
                   <Link to="/brief" onClick={() => tactileClick()}>
                     Open a private brief
@@ -325,14 +338,14 @@ function IntroPage() {
                   asChild
                   variant="ghost"
                   size="lg"
-                  className="w-full text-accent-fg hover:bg-accent-fg/10 sm:w-auto"
+                  className="w-full max-w-full text-accent-fg hover:bg-accent-fg/10 sm:w-auto"
                 >
                   <Link to="/concerns">I have a specific pain</Link>
                 </Button>
               }
             />
           </div>
-        </section>
+        </ScrollReveal>
       </div>
     </PageFrame>
   );
