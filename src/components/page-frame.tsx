@@ -12,8 +12,7 @@ export const PageFrame = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "page-screen page-frame-safe w-full max-w-none min-w-0",
-        /* horizontal rhythm + room for mobile dock */
+        "page-screen page-frame-safe w-full max-w-full min-w-0",
         "px-4 py-6 sm:px-8 sm:py-8 md:px-10 md:py-9 lg:px-12 lg:py-10 xl:px-16 xl:py-11 2xl:px-20 2xl:py-12",
         className,
       )}
@@ -45,8 +44,8 @@ export function FunnelClose({
   secondary?: ReactNode;
 }) {
   return (
-    <section className="w-full min-w-0 pb-2">
-      <div className="gold-strike clip-corner-lg w-full min-w-0 px-5 py-8 shadow-[var(--shadow-elevated)] sm:px-8 sm:py-10 lg:px-10 lg:py-11">
+    <section className="w-full min-w-0 max-w-full pb-2">
+      <div className="gold-strike clip-corner-lg w-full min-w-0 max-w-full px-5 py-8 shadow-[var(--shadow-elevated)] sm:px-8 sm:py-10 lg:px-10 lg:py-11">
         <div className="flex w-full min-w-0 flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <div className="max-w-2xl min-w-0">
             <p className="type-label text-accent-fg/70">Next step · private intake</p>
