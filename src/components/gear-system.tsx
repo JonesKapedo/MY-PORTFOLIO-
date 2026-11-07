@@ -1,6 +1,9 @@
 import { cn } from "@/lib/utils";
 
-/** Involute-style tooth: curved flanks, flat tip, filleted root. */
+/**
+ * Tooth period starts at valley centre. Tip centre is at +π/n (half pitch).
+ * For mesh: driver valley faces line-of-centres; driven tip faces opposite.
+ */
 function gearPath(
   cx: number,
   cy: number,
@@ -13,37 +16,38 @@ function gearPath(
 ): string {
   const pts: string[] = [];
   const twoPi = Math.PI * 2;
-  const samples = 14;
+  const samples = 16;
 
   for (let t = 0; t < teeth; t++) {
+    // Centre this tooth's valley at base; tip lands at base + step/2
     const base = (t / teeth) * twoPi + rotationOffset;
     const step = twoPi / teeth;
     for (let s = 0; s <= samples; s++) {
       const u = s / samples;
       const ang = base + u * step;
       let r: number;
-      if (u < 0.22) {
+      // Narrow tip (~22%), wide valley (~50%) for clean interlock
+      if (u < 0.25 || u > 0.75) {
         r = rootR;
-      } else if (u < 0.38) {
-        const k = (u - 0.22) / 0.16;
+      } else if (u < 0.36) {
+        const k = (u - 0.25) / 0.11;
         const ease = k * k * (3 - 2 * k);
         r = rootR + (outerR - rootR) * ease;
-      } else if (u < 0.62) {
+      } else if (u <= 0.64) {
         r = outerR;
-      } else if (u < 0.78) {
-        const k = (u - 0.62) / 0.16;
+      } else {
+        const k = (u - 0.64) / 0.11;
         const ease = k * k * (3 - 2 * k);
         r = outerR - (outerR - rootR) * ease;
-      } else {
-        r = rootR;
       }
-      if (u >= 0.22 && u < 0.38) {
-        const k = (u - 0.22) / 0.16;
-        r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.08;
+      // Mild involute bow on flanks only
+      if (u >= 0.25 && u < 0.36) {
+        const k = (u - 0.25) / 0.11;
+        r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.06;
       }
-      if (u >= 0.62 && u < 0.78) {
-        const k = (u - 0.62) / 0.16;
-        r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.08;
+      if (u > 0.64 && u <= 0.75) {
+        const k = (u - 0.64) / 0.11;
+        r += Math.sin(k * Math.PI) * (pitchR - rootR) * 0.06;
       }
       const x = cx + Math.cos(ang) * r;
       const y = cy + Math.sin(ang) * r;
@@ -67,10 +71,11 @@ function gearPath(
 type GearSystemProps = { className?: string };
 
 export function GearSystem({ className }: GearSystemProps) {
-  const module = 6.8;
-  const addendum = module * 0.68;
-  const dedendum = module * 0.86;
-  const backlash = module * 0.16;
+  const module = 6.6;
+  const addendum = module * 0.65;
+  const dedendum = module * 0.85;
+  // Extra clearance so tips sit in valleys without visual collision
+  const backlash = module * 0.22;
 
   const n1 = 16;
   const n2 = 12;
@@ -83,17 +88,16 @@ export function GearSystem({ className }: GearSystemProps) {
   const o1 = p1 + addendum;
   const o2 = p2 + addendum;
   const o3 = p3 + addendum;
-  const r1 = Math.max(p1 - dedendum, module * 2.1);
-  const r2 = Math.max(p2 - dedendum, module * 1.9);
-  const r3 = Math.max(p3 - dedendum, module * 1.7);
+  const r1 = Math.max(p1 - dedendum, module * 2);
+  const r2 = Math.max(p2 - dedendum, module * 1.85);
+  const r3 = Math.max(p3 - dedendum, module * 1.65);
 
-  const g1 = { cx: 170, cy: 172, n: n1, p: p1, o: o1, r: r1, hole: 15 };
+  const g1 = { cx: 172, cy: 174, n: n1, p: p1, o: o1, r: r1, hole: 15 };
 
-  // White gear — upper right
-  const a12 = (-24 * Math.PI) / 180;
-  // Green gear MUST sit on an integer tooth of the driver so a valley faces it
-  // Tooth pitch on driver = 2π/n1; place green 3 teeth from white (~67.5°)
-  const a13 = a12 + 3 * ((2 * Math.PI) / n1);
+  // White: upper-left of driver
+  const a12 = (-28 * Math.PI) / 180;
+  // Green on exact tooth grid of driver (4 steps = 90°)
+  const a13 = a12 + 4 * ((2 * Math.PI) / n1);
 
   const d12 = p1 + p2 + backlash;
   const d13 = p1 + p3 + backlash;
@@ -117,17 +121,21 @@ export function GearSystem({ className }: GearSystemProps) {
     hole: 10,
   };
 
-  // phase1: valley toward white (a12). Because a13 is k tooth-steps away,
-  // another valley automatically faces green.
+  /*
+   * Valley of driver faces contact line (phase = line angle).
+   * Tip of driven faces back: phase + π/n = line + π
+   *   → phase = line + π − π/n
+   */
   const phase1 = a12;
-  const phase2 = a12 + Math.PI + Math.PI / n2;
-  const phase3 = a13 + Math.PI + Math.PI / n3;
+  const phase2 = a12 + Math.PI - Math.PI / n2;
+  const phase3 = a13 + Math.PI - Math.PI / n3;
 
-  const t1 = 34;
+  // Angular speeds inverse to tooth count (rolling without slip)
+  const t1 = 36;
   const t2 = (t1 * n2) / n1;
   const t3 = (t1 * n3) / n1;
 
-  const pad = 20;
+  const pad = 22;
   const minX = Math.min(g1.cx - o1, g2.cx - o2, g3.cx - o3) - pad;
   const minY = Math.min(g1.cy - o1, g2.cy - o2, g3.cy - o3) - pad;
   const maxX = Math.max(g1.cx + o1, g2.cx + o2, g3.cx + o3) + pad;
@@ -196,14 +204,14 @@ export function GearSystem({ className }: GearSystemProps) {
         </radialGradient>
       </defs>
 
+      {/* GOLD driver */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g1.cx, g1.cy, g1.n, g1.o, g1.p, g1.r, g1.hole, phase1)}
           fill="url(#g-gold-brush)"
           fillRule="evenodd"
           stroke="#5c4a12"
-          strokeWidth="0.6"
-          opacity="0.98"
+          strokeWidth="0.55"
         >
           <animateTransform
             attributeName="transform"
@@ -262,13 +270,14 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
+      {/* STEEL */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g2.cx, g2.cy, g2.n, g2.o, g2.p, g2.r, g2.hole, phase2)}
           fill="url(#g-steel-brush)"
           fillRule="evenodd"
           stroke="#3f3f46"
-          strokeWidth="0.55"
+          strokeWidth="0.5"
         >
           <animateTransform
             attributeName="transform"
@@ -327,13 +336,14 @@ export function GearSystem({ className }: GearSystemProps) {
         </g>
       </g>
 
+      {/* GREEN */}
       <g filter="url(#g-ao)">
         <path
           d={gearPath(g3.cx, g3.cy, g3.n, g3.o, g3.p, g3.r, g3.hole, phase3)}
           fill="url(#g-green-brush)"
           fillRule="evenodd"
           stroke="#14532d"
-          strokeWidth="0.55"
+          strokeWidth="0.5"
         >
           <animateTransform
             attributeName="transform"
