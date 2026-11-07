@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { InteractiveGear } from "@/components/interactive-gear";
+import { BrandHeroMark } from "@/components/brand-hero-mark";
 import { FunnelClose, PageFrame } from "@/components/page-frame";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
@@ -89,8 +89,8 @@ function IntroPage() {
       className="page-enter !overflow-x-hidden !overflow-y-auto overscroll-contain !py-0 pt-2 pb-10 sm:pt-4 sm:pb-12"
     >
       <div className="flex w-full min-w-0 max-w-full flex-col">
-        {/* Mobile-first hero: title primary, gears secondary */}
-        <section className="title-zone relative min-w-0 max-w-full border-b border-line/25 pb-6 pt-1 sm:pb-8 lg:pb-10">
+        {/* Immersive brand hero */}
+        <section className="title-zone relative min-w-0 max-w-full border-b border-line/20 pb-8 pt-1 sm:pb-10 lg:pb-12">
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <span className="hero-gold-rule" aria-hidden />
             <p className="type-label min-w-0 truncate text-subtle">
@@ -98,67 +98,58 @@ function IntroPage() {
             </p>
           </div>
 
-          {/* Title first — full width on mobile */}
-          <div className="title-mark-stage mt-6 min-w-0 max-w-full sm:mt-8 lg:mt-10">
-            <h1 className="title-mark-plane min-w-0 max-w-full">
-              <span className="sr-only">{COMPANY.name}</span>
-              <span className="type-mark block max-w-full" aria-hidden>
-                GREAT
-              </span>
-              <span className="type-mark block max-w-full" aria-hidden>
-                TURBINEZ
-              </span>
-            </h1>
-          </div>
+          <div className="mt-8 grid min-w-0 items-center gap-8 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-10 xl:gap-14">
+            <div className="min-w-0">
+              <h1 className="title-mark-stage min-w-0">
+                <span className="sr-only">{COMPANY.name}</span>
+                <span className="type-mark block max-w-full" aria-hidden>
+                  GREAT
+                </span>
+                <span className="type-mark block max-w-full" aria-hidden>
+                  TURBINEZ
+                </span>
+              </h1>
+              <p className="type-label mt-4 tracking-[0.28em] text-accent">
+                AI &amp; Automation
+              </p>
+              <p className="type-lead mt-6 max-w-md">
+                Manual work is still your largest cost centre.
+              </p>
+              <p className="type-body mt-3 max-w-md">
+                One scoped process at a time — written edges, proposal first,
+                deposit only after you approve.
+              </p>
 
-          <p className="type-label mt-3 text-muted sm:mt-4">{COMPANY.subtitle}</p>
+              <ul className="metric-rail metric-rail-3d mt-7 max-w-xl">
+                {METRICS.map((m) => (
+                  <li key={m.label} className="metric-item metric-item-3d">
+                    <span className="metric-value">{m.value}</span>
+                    <span className="metric-label">{m.label}</span>
+                  </li>
+                ))}
+              </ul>
 
-          {/* Gears: centered under title on mobile, side column on lg */}
-          <div className="mt-5 flex justify-center lg:mt-0 lg:hidden">
-            <InteractiveGear className="w-full max-w-[220px] sm:max-w-[260px]" />
-          </div>
+              <div className="mt-8 flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="clip-corner w-full shadow-[var(--shadow-btn-accent)] sm:w-auto"
+                >
+                  <Link to="/brief" onClick={() => tactileClick()}>
+                    Open a private brief
+                    <ArrowRight className="size-4 opacity-80" />
+                  </Link>
+                </Button>
+                <Link
+                  to="/services"
+                  className="type-label text-center text-subtle transition-colors hover:text-accent sm:text-left"
+                >
+                  View services →
+                </Link>
+              </div>
+            </div>
 
-          <div className="pointer-events-none absolute top-16 right-0 hidden w-[42%] max-w-[420px] lg:block">
-            <InteractiveGear className="pointer-events-auto w-full" />
-          </div>
-        </section>
-
-        <section className="content-zone scene-3d min-w-0 max-w-full border-b border-line/25 py-6 sm:py-8 lg:py-9">
-          <p className="type-lead max-w-lg">
-            Manual work is still your largest cost centre.
-          </p>
-          <p className="type-body mt-3 max-w-md">
-            How many hours did your team retype last week? One scoped process at
-            a time — written edges, proposal first, deposit only after you
-            approve.
-          </p>
-
-          <ul className="metric-rail metric-rail-3d mt-6 max-w-2xl sm:mt-7">
-            {METRICS.map((m) => (
-              <li key={m.label} className="metric-item metric-item-3d">
-                <span className="metric-value">{m.value}</span>
-                <span className="metric-label">{m.label}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-7 flex min-w-0 max-w-full flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
-            <Button
-              asChild
-              size="lg"
-              className="clip-corner w-full max-w-full shadow-[var(--shadow-btn-accent)] sm:w-auto"
-            >
-              <Link to="/brief" onClick={() => tactileClick()}>
-                Open a private brief
-                <ArrowRight className="size-4 opacity-80" />
-              </Link>
-            </Button>
-            <Link
-              to="/services"
-              className="type-label text-center text-subtle transition-colors hover:text-accent sm:text-left"
-            >
-              View services →
-            </Link>
+            <BrandHeroMark className="mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-none lg:justify-self-end" />
           </div>
         </section>
 
@@ -325,7 +316,7 @@ function IntroPage() {
                 <Button
                   asChild
                   size="lg"
-                  className="clip-corner w-full max-w-full bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90 sm:w-auto"
+                  className="clip-corner w-full bg-accent-fg text-accent shadow-lg hover:bg-accent-fg/90 sm:w-auto"
                 >
                   <Link to="/brief" onClick={() => tactileClick()}>
                     Open a private brief
@@ -338,7 +329,7 @@ function IntroPage() {
                   asChild
                   variant="ghost"
                   size="lg"
-                  className="w-full max-w-full text-accent-fg hover:bg-accent-fg/10 sm:w-auto"
+                  className="w-full text-accent-fg hover:bg-accent-fg/10 sm:w-auto"
                 >
                   <Link to="/concerns">I have a specific pain</Link>
                 </Button>
