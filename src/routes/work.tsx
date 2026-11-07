@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import { Eyebrow, PageFrame } from "@/components/page-frame";
+import { Eyebrow, FunnelClose, PageFrame } from "@/components/page-frame";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { COMPANY } from "@/lib/site";
@@ -22,18 +22,17 @@ export const Route = createFileRoute("/work")({
 
 function WorkPage() {
   return (
-    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-12">
+    <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-14">
       <div className="flex w-full flex-col gap-12">
-        <header className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-2xl">
-            <Eyebrow>Work · {WORK_CASES.length} cases</Eyebrow>
-            <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-              Selected outcomes
+        <header className="flex w-full flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <Eyebrow>Work · {WORK_CASES.length} delivered patterns</Eyebrow>
+            <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              Proof we install automation that holds.
             </h1>
-            <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">
-              Each case is scoped work with a clear before, an install, and
-              results you can recognise on the floor — not a slogan deck.
-              Status is labelled honestly.
+            <p className="mt-4 text-base leading-relaxed text-muted sm:text-lg">
+              Situation. Install. Observed result. Every case is scoped delivery
+              — the same standard you get when you brief us.
             </p>
           </div>
           <Button asChild size="lg">
@@ -44,17 +43,15 @@ function WorkPage() {
           </Button>
         </header>
 
-        <div className="stagger-children flex flex-col gap-6">
+        <div className="stagger-children flex w-full flex-col gap-5">
           {WORK_CASES.map((c) => (
             <article
               key={c.id}
-              className="grid gap-6 rounded-2xl bg-surface/60 p-6 sm:p-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-10"
+              className="grid w-full gap-6 rounded-2xl bg-surface/60 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12 xl:p-10"
             >
               <div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-[11px] text-subtle">
-                    {c.code}
-                  </span>
+                  <span className="font-mono text-[11px] text-subtle">{c.code}</span>
                   <Badge variant={c.status === "Live" ? "live" : "default"}>
                     {c.status}
                   </Badge>
@@ -62,10 +59,10 @@ function WorkPage() {
                     {c.sector} · {c.place}
                   </span>
                 </div>
-                <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-[1.65rem]">
+                <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                   {c.name}
                 </h2>
-                <p className="mt-1 text-sm text-accent">{c.headline}</p>
+                <p className="mt-1 text-sm font-medium text-accent">{c.headline}</p>
                 <p className="mt-2 text-xs text-subtle">
                   {c.clientType} · {c.timeline}
                 </p>
@@ -116,9 +113,9 @@ function WorkPage() {
                 <Link
                   to="/brief"
                   search={{ service: c.serviceId }}
-                  className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-medium text-accent transition-opacity hover:opacity-80"
+                  className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-accent transition-opacity hover:opacity-80"
                 >
-                  Brief this kind of work
+                  Get a quotation for this pattern
                   <ArrowRight className="size-3.5" />
                 </Link>
               </div>
@@ -126,26 +123,23 @@ function WorkPage() {
           ))}
         </div>
 
-        <section className="border-t border-line/60 pt-10">
-          <h2 className="font-display text-xl font-semibold tracking-tight sm:text-2xl">
-            Need something in this shape?
-          </h2>
-          <p className="mt-2 max-w-xl text-sm text-muted">
-            Tell us the situation. We reply {COMPANY.responseSla}. Written
-            scope before any deposit.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+        <FunnelClose
+          title="Ready for the same standard on your process?"
+          body={`Private brief. We reply ${COMPANY.responseSla}. Written scope before any deposit — that is how we protect both sides and still ship.`}
+          primary={
             <Button asChild size="lg">
               <Link to="/brief">
-                Start a brief
+                Request a private brief
                 <ArrowRight className="size-4 opacity-80" />
               </Link>
             </Button>
+          }
+          secondary={
             <Button asChild variant="ghost" size="lg">
               <Link to="/services">View services</Link>
             </Button>
-          </div>
-        </section>
+          }
+        />
       </div>
     </PageFrame>
   );
