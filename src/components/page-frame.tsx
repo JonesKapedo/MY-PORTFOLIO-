@@ -1,4 +1,6 @@
+import { useRouterState } from "@tanstack/react-router";
 import { forwardRef, type ReactNode } from "react";
+import { PageAtmosphere } from "@/components/page-atmosphere";
 import { cn } from "@/lib/utils";
 
 export const PageFrame = forwardRef<
@@ -6,18 +8,27 @@ export const PageFrame = forwardRef<
   {
     children: ReactNode;
     className?: string;
+    /** When false, skip the non-intro field layers. Default true. */
+    atmosphere?: boolean;
   }
->(function PageFrame({ children, className }, ref) {
+>(function PageFrame({ children, className, atmosphere = true }, ref) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isIntro = pathname === "/";
+
   return (
     <div
       ref={ref}
       className={cn(
-        "page-screen page-frame-safe w-full max-w-full min-w-0",
+        "page-screen page-frame-safe relative w-full max-w-full min-w-0",
         "px-4 py-6 sm:px-8 sm:py-8 md:px-10 md:py-9 lg:px-12 lg:py-10 xl:px-16 xl:py-11 2xl:px-20 2xl:py-12",
         className,
       )}
+      data-route={isIntro ? "intro" : "inner"}
     >
-      {children}
+      {atmosphere && !isIntro ? <PageAtmosphere /> : null}
+      <div className="relative z-[1] flex min-h-0 min-w-0 flex-1 flex-col">
+        {children}
+      </div>
     </div>
   );
 });
