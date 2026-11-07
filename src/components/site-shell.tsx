@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { BackgroundAtmosphere } from "@/components/background-atmosphere";
+import { PageTransition } from "@/components/page-transition";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteSidebar } from "@/components/site-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -22,7 +23,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             id="main"
             className="flex min-h-0 flex-1 flex-col overflow-hidden pb-20 md:pb-0"
           >
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />
         </div>
