@@ -13,7 +13,8 @@ import { ThemeProvider } from "@/lib/theme";
 import appCss from "../styles.css?url";
 import extrasCss from "../styles-extras.css?url";
 
-const themeBootScript = `(function(){try{var t=localStorage.getItem("gt-theme");if(t!=="light"&&t!=="dark")t="dark";var r=document.documentElement;r.classList.toggle("light",t==="light");r.classList.toggle("dark",t==="dark");r.style.colorScheme=t;}catch(e){document.documentElement.classList.add("dark");}})();
+/** Always boot dark — no light chrome / system preference override. */
+const themeBootScript = `(function(){try{var r=document.documentElement;r.classList.remove("light");r.classList.add("dark");r.style.colorScheme="dark";localStorage.setItem("gt-theme","dark");}catch(e){document.documentElement.classList.add("dark");}})();
 `;
 
 export const Route = createRootRoute({
@@ -29,10 +30,10 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "GREAT TURBINEZ Automation Services. The repeated work ends here — scoped, priced, delivered.",
+          "GREAT TURBINEZ — AI & Automation for Kenyan operators. Scoped process automation, written proposal first, deposit only after you approve.",
       },
       { name: "theme-color", content: "#030303" },
-      { name: "color-scheme", content: "dark light" },
+      { name: "color-scheme", content: "dark" },
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
