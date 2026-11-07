@@ -33,6 +33,14 @@
   --shadow-btn-accent: 0 8px 24px -10px color-mix(in oklab, var(--color-accent) 40%, transparent);
   --shadow-elevated: 0 12px 40px -18px rgb(0 0 0 / 0.5);
   --shadow-dock: 0 10px 36px -14px rgb(0 0 0 / 0.4);
+  --shadow-glass:
+    0 0 0 1px color-mix(in oklab, var(--color-fg) 8%, transparent),
+    0 8px 32px -12px rgb(0 0 0 / 0.55),
+    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 10%, transparent);
+  --shadow-glass-hover:
+    0 0 0 1px color-mix(in oklab, var(--color-accent) 28%, transparent),
+    0 16px 40px -14px rgb(0 0 0 / 0.6),
+    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 14%, transparent);
 }
 
 html.light {
@@ -58,6 +66,14 @@ html.light {
   --shadow-btn-accent: 0 6px 16px -8px color-mix(in oklab, var(--color-accent) 22%, transparent);
   --shadow-elevated: 0 10px 28px -14px rgb(0 0 0 / 0.08);
   --shadow-dock: 0 8px 28px -12px rgb(0 0 0 / 0.06);
+  --shadow-glass:
+    0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent),
+    0 8px 28px -12px rgb(0 0 0 / 0.08),
+    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 8%, transparent);
+  --shadow-glass-hover:
+    0 0 0 1px color-mix(in oklab, var(--color-accent) 25%, transparent),
+    0 12px 32px -12px rgb(0 0 0 / 0.1),
+    inset 0 1px 0 color-mix(in oklab, var(--color-fg) 12%, transparent);
 }
 
 @layer base {
@@ -143,11 +159,43 @@ html.light {
     box-shadow: var(--shadow-border-hover);
   }
 
+  /* ——— Glassmorphism ——— */
   .glass {
-    background: color-mix(in oklab, var(--color-surface) 72%, transparent);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    box-shadow: var(--shadow-border);
+    background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+    backdrop-filter: blur(18px) saturate(1.35);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--color-raised) 62%, transparent);
+    backdrop-filter: blur(24px) saturate(1.45);
+    -webkit-backdrop-filter: blur(24px) saturate(1.45);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-accent {
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--color-accent) 10%, transparent),
+      color-mix(in oklab, var(--color-surface) 50%, transparent) 45%,
+      color-mix(in oklab, var(--color-surface) 40%, transparent)
+    );
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    box-shadow: var(--shadow-glass-hover);
+  }
+
+  .glass-panel {
+    border-radius: var(--radius-xl);
+    transition:
+      box-shadow 240ms ease,
+      transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 240ms ease;
+  }
+
+  .glass-panel:hover {
+    box-shadow: var(--shadow-glass-hover);
   }
 
   .card-lift {
@@ -165,7 +213,6 @@ html.light {
     box-shadow: var(--shadow-focus);
   }
 
-  /* Button shine sweep */
   .btn-shine {
     position: relative;
     overflow: hidden;
@@ -290,7 +337,7 @@ html.light {
 
   .service-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
+    box-shadow: var(--shadow-glass-hover);
   }
 
   .reveal-section {
@@ -303,6 +350,15 @@ html.light {
 
   .dock-rail {
     animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .dock-glass {
+    background: color-mix(in oklab, var(--color-surface) 45%, transparent);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    box-shadow: var(--shadow-glass);
+    border-radius: 9999px;
+    padding: 0.4rem;
   }
 
   .dock-item {
@@ -331,13 +387,15 @@ html.light {
     transform: translateY(-50%) translateX(-4px);
     white-space: nowrap;
     border-radius: 0.375rem;
-    background: var(--color-raised);
+    background: color-mix(in oklab, var(--color-raised) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: var(--color-fg);
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.03em;
     padding: 0.3rem 0.55rem;
-    box-shadow: var(--shadow-elevated);
+    box-shadow: var(--shadow-glass);
     opacity: 0;
     transition:
       opacity 150ms ease,
@@ -351,11 +409,12 @@ html.light {
   }
 
   .dock-mobile {
-    box-shadow: var(--shadow-dock);
+    box-shadow: var(--shadow-glass);
     border: none;
     animation: dock-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    backdrop-filter: blur(20px) saturate(1.3);
-    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    background: color-mix(in oklab, var(--color-canvas) 55%, transparent);
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
   }
 
   .page-screen {
@@ -675,7 +734,8 @@ html.light {
   }
   .service-card:hover,
   .card-lift:hover,
-  .dock-item:hover {
+  .dock-item:hover,
+  .glass-panel:hover {
     transform: none;
   }
   .btn-shine::after {

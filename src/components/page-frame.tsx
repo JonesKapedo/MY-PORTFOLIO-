@@ -41,7 +41,7 @@ export function Eyebrow({
   );
 }
 
-/** Conversion band — stronger visual weight than a thin footer CTA. */
+/** Conversion band — glass-accent panel. */
 export function FunnelClose({
   title,
   body,
@@ -55,7 +55,7 @@ export function FunnelClose({
 }) {
   return (
     <section className="mt-12 w-full pb-6">
-      <div className="w-full rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/[0.08] via-surface/40 to-transparent px-8 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
+      <div className="glass-accent glass-panel w-full px-8 py-12 sm:px-12 sm:py-14 lg:px-14 lg:py-16">
         <div className="flex w-full flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
           <div className="max-w-2xl">
             <p className="text-[10px] font-medium tracking-[0.2em] text-accent uppercase">

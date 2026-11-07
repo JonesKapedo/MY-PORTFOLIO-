@@ -52,7 +52,6 @@ function IntroPage() {
   return (
     <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-16">
       <div className="flex w-full flex-col gap-20 lg:gap-24">
-        {/* 1. Hero */}
         <section className="hero-glow relative grid w-full items-center gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16">
           <div>
             <p className="text-[11px] font-medium tracking-[0.22em] text-accent uppercase">
@@ -78,11 +77,12 @@ function IntroPage() {
             </div>
           </div>
           <div className="relative mx-auto w-full max-w-[320px] animate-float-soft lg:mx-0 lg:max-w-[380px] lg:justify-self-end">
-            <GearSystem className="h-auto w-full" />
+            <div className="glass glass-panel rounded-3xl p-4 sm:p-5">
+              <GearSystem className="h-auto w-full" />
+            </div>
           </div>
         </section>
 
-        {/* 2. Clear path for new visitors */}
         <section className="w-full">
           <Eyebrow>How to use this site</Eyebrow>
           <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -98,7 +98,7 @@ function IntroPage() {
               <Link
                 key={p.step}
                 to={p.to}
-                className="service-card group flex flex-col rounded-2xl border border-line/50 bg-surface/50 p-7 transition-colors hover:border-accent/30 hover:bg-raised"
+                className="service-card glass glass-panel group flex flex-col p-7"
               >
                 <span className="font-mono text-xs text-accent">{p.step}</span>
                 <h3 className="mt-4 font-display text-xl font-semibold tracking-tight group-hover:text-accent">
@@ -116,9 +116,8 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* 3. Problem — short */}
-        <section className="w-full border-y border-line/60 py-14">
-          <div className="max-w-3xl">
+        <section className="w-full py-4">
+          <div className="glass glass-panel max-w-3xl px-7 py-10 sm:px-10 sm:py-12">
             <Eyebrow>Why we exist</Eyebrow>
             <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
               Manual work that software should already own is costing you margin
@@ -132,7 +131,6 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* 4. How engagement works */}
         <section className="w-full">
           <Eyebrow>Engagement</Eyebrow>
           <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -140,10 +138,7 @@ function IntroPage() {
           </h2>
           <ol className="mt-10 grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {ENGAGEMENT_STEPS.map((step, i) => (
-              <li
-                key={step}
-                className="rounded-xl bg-surface/60 px-5 py-5"
-              >
+              <li key={step} className="glass glass-panel px-5 py-5">
                 <span className="font-mono text-[11px] text-accent tabular-nums">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -156,7 +151,6 @@ function IntroPage() {
           </p>
         </section>
 
-        {/* 5. Proof — compact */}
         <section className="w-full">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -176,7 +170,7 @@ function IntroPage() {
             {PROJECTS.slice(0, 4).map((p) => (
               <article
                 key={p.id}
-                className="rounded-xl bg-surface/50 px-6 py-6"
+                className="glass glass-panel px-6 py-6"
               >
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant={p.status === "Live" ? "live" : "default"}>
@@ -191,7 +185,6 @@ function IntroPage() {
           </div>
         </section>
 
-        {/* 6. Single CTA */}
         <FunnelClose
           title="Ready when you are"
           body={`Send a private brief. We reply ${COMPANY.responseSla} with fit and direction. Build starts only after you approve written scope.`}

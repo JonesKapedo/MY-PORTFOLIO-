@@ -37,8 +37,8 @@ export function SiteSidebar() {
         className="dock-rail pointer-events-none fixed top-1/2 left-3 z-40 hidden -translate-y-1/2 md:block"
         aria-label="Primary"
       >
-        <div className="pointer-events-auto flex flex-col items-center gap-1.5 bg-transparent p-0">
-          <nav className="flex flex-col items-center gap-1.5" aria-label="Primary">
+        <div className="dock-glass pointer-events-auto flex flex-col items-center gap-1">
+          <nav className="flex flex-col items-center gap-1" aria-label="Primary">
             {NAV.map((item) => {
               const active = isActive(item.to);
               const Icon = NAV_ICONS[item.to];
@@ -52,8 +52,8 @@ export function SiteSidebar() {
                   className={cn(
                     "dock-item group relative flex size-11 items-center justify-center rounded-full transition-all duration-200",
                     active
-                      ? "bg-accent/12 text-accent"
-                      : "text-muted hover:bg-fg/[0.04] hover:text-fg",
+                      ? "bg-accent/15 text-accent"
+                      : "text-muted hover:bg-fg/[0.06] hover:text-fg",
                   )}
                 >
                   {Icon ? (
@@ -74,7 +74,7 @@ export function SiteSidebar() {
       </aside>
 
       <nav
-        className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-0.5 rounded-2xl bg-canvas/90 px-1.5 py-1.5 backdrop-blur-md md:hidden"
+        className="dock-mobile fixed inset-x-3 bottom-3 z-40 flex items-center justify-between gap-0.5 rounded-2xl px-1.5 py-1.5 md:hidden"
         aria-label="Primary"
       >
         {NAV.map((item) => {
