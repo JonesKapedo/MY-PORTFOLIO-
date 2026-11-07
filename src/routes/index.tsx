@@ -32,12 +32,15 @@ function IntroPage() {
       <div className="flex w-full min-h-0 flex-col gap-16 sm:gap-20 lg:gap-24">
         <section className="hero-glow relative grid items-center gap-10 pt-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12 xl:gap-16">
           <div>
-            <p className="text-[11px] font-medium tracking-[0.2em] text-accent uppercase">
+            <p className="text-[11px] font-medium tracking-[0.22em] text-accent uppercase">
               {COMPANY.subtitle}
             </p>
-            <h1 className="mt-4 font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl xl:text-6xl">
-              Your team is still doing work a system should own.
+            <h1 className="mt-3 font-display text-5xl leading-[0.95] font-semibold tracking-tight sm:text-6xl xl:text-7xl">
+              {COMPANY.name}
             </h1>
+            <p className="mt-5 max-w-2xl font-display text-2xl leading-snug font-medium tracking-tight text-fg sm:text-3xl">
+              Your team is still doing work a system should own.
+            </p>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
               Repetition, retyping, and lost follow-ups are not “how business
               works” — they are unpaid labour. GREAT TURBINEZ designs and
