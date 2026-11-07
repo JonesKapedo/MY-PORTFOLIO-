@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
 function IntroPage() {
   return (
     <PageFrame className="page-enter !overflow-y-auto overscroll-contain pb-16">
-      <div className="flex w-full min-h-0 flex-col gap-18 sm:gap-22 lg:gap-28">
+      <div className="flex w-full min-h-0 flex-col gap-16 sm:gap-20 lg:gap-28">
         <section className="hero-glow relative grid w-full items-center gap-12 pt-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14 xl:gap-20">
           <div>
             <p className="text-[11px] font-medium tracking-[0.22em] text-accent uppercase">
