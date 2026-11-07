@@ -1,4 +1,4 @@
-/* Mobile nav, scroll reveal, brand banner/logo, overflow guards */
+/* Mobile nav, scroll reveal, brand banner, page-field atmosphere */
 
 .scroll-reveal {
   opacity: 0;
@@ -31,7 +31,6 @@
   background-color: #030303;
   background-image: url("/brand-banner.jpg");
   background-repeat: no-repeat;
-  /* Prefer turbine side; scale to cover gracefully */
   background-size: cover;
   background-position: 72% center;
   opacity: 0.42;
@@ -46,7 +45,33 @@
   }
 }
 
-/* Multi-stop fade so text never fights the photo */
+/* Inner routes: quieter banner so local field can breathe */
+.bg-atmosphere[data-shell="inner"] .bg-brand-banner {
+  opacity: 0.18;
+  background-position: 90% 40%;
+  filter: saturate(0.75) contrast(1.02) brightness(0.85);
+}
+
+.bg-atmosphere[data-shell="inner"] .bg-brand-fade {
+  background:
+    linear-gradient(
+      105deg,
+      var(--color-canvas) 0%,
+      color-mix(in oklab, var(--color-canvas) 94%, transparent) 35%,
+      color-mix(in oklab, var(--color-canvas) 70%, transparent) 55%,
+      color-mix(in oklab, var(--color-canvas) 40%, transparent) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-canvas) 55%, transparent) 0%,
+      transparent 22%,
+      transparent 50%,
+      color-mix(in oklab, var(--color-canvas) 80%, transparent) 85%,
+      var(--color-canvas) 100%
+    );
+}
+
 .bg-brand-fade {
   position: absolute;
   inset: 0;
@@ -80,6 +105,10 @@ html.light .bg-brand-banner {
   filter: saturate(0.85) brightness(1.15);
 }
 
+html.light .bg-atmosphere[data-shell="inner"] .bg-brand-banner {
+  opacity: 0.1;
+}
+
 html.light .bg-brand-fade {
   background:
     linear-gradient(
@@ -98,100 +127,334 @@ html.light .bg-brand-fade {
     );
 }
 
-/* ——— Square logo hero ——— */
-.brand-hero-stage {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.brand-hero-glow {
+/* ——— Page field (non-intro) ——— */
+.page-field {
   position: absolute;
-  inset: 8% 5%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in oklab, var(--color-accent) 22%, transparent) 0%,
-    transparent 68%
-  );
-  filter: blur(36px);
-  animation: glow-breathe 14s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.brand-hero-frame {
-  position: relative;
-  width: 100%;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  border-radius: 0.25rem;
-  /* Soft edge blend into canvas */
-  mask-image: radial-gradient(
-    ellipse 88% 82% at 50% 42%,
-    black 42%,
-    transparent 78%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 88% 82% at 50% 42%,
-    black 42%,
-    transparent 78%
-  );
-  box-shadow: 0 24px 64px -28px rgb(0 0 0 / 0.75);
+  pointer-events: none;
+  --field-accent: var(--color-accent);
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 14%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 5%, transparent);
 }
 
-.brand-hero-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* Crop lower band that carries “Naivasha” */
-  object-fit: cover;
-  object-position: center 28%;
-  transform: scale(1.06);
-  max-height: min(52vw, 420px);
+/* Page tint keys */
+.page-field[data-field="work"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 16%, transparent);
+  --field-orb-b: color-mix(in oklab, #c9a227 8%, transparent);
+}
+.page-field[data-field="services"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 12%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 6%, transparent);
+}
+.page-field[data-field="concerns"] {
+  --field-orb-a: color-mix(in oklab, #7a9ab8 12%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-accent) 8%, transparent);
+}
+.page-field[data-field="partners"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 18%, transparent);
+  --field-orb-b: color-mix(in oklab, #a67c2a 10%, transparent);
+}
+.page-field[data-field="brief"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 4%, transparent);
+}
+.page-field[data-field="legal"] {
+  --field-orb-a: color-mix(in oklab, var(--color-fg) 4%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 3%, transparent);
 }
 
-@media (min-width: 1024px) {
-  .brand-hero-img {
-    max-height: min(38vw, 480px);
+/* 1 — title spotlight */
+.page-field-spotlight {
+  position: absolute;
+  top: -8%;
+  left: -5%;
+  width: min(72%, 36rem);
+  height: min(42%, 18rem);
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    color-mix(in oklab, var(--field-accent) 11%, transparent) 0%,
+    transparent 70%
+  );
+  filter: blur(2px);
+}
+
+.page-field[data-field="brief"] .page-field-spotlight {
+  width: min(85%, 42rem);
+  height: min(50%, 22rem);
+  background: radial-gradient(
+    ellipse at 28% 18%,
+    color-mix(in oklab, var(--field-accent) 15%, transparent) 0%,
+    transparent 72%
+  );
+}
+
+/* 2 — engineering plate grid */
+.page-field-grid {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(6.5rem - 1px),
+    color-mix(in oklab, var(--color-fg) 3.5%, transparent) calc(6.5rem - 1px),
+    color-mix(in oklab, var(--color-fg) 3.5%, transparent) 6.5rem
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 78%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 78%,
+    transparent 100%
+  );
+  opacity: 0.55;
+}
+
+/* 3 — corner micro-gear */
+.page-field-gear {
+  position: absolute;
+  right: max(0.5rem, env(safe-area-inset-right));
+  bottom: max(0.5rem, env(safe-area-inset-bottom));
+  width: min(28vw, 7.5rem);
+  height: min(28vw, 7.5rem);
+  color: var(--color-accent);
+  opacity: 0.07;
+}
+
+.page-field-gear-spin {
+  transform-origin: 60px 60px;
+  animation: page-gear-spin 64s linear infinite;
+}
+
+@keyframes page-gear-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.brand-hero-tag-mask {
+/* 4 — drift particles */
+.page-field-particles {
   position: absolute;
+  inset: 0;
+}
+
+.page-field-particle {
+  position: absolute;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-accent) 70%, white);
+  box-shadow: 0 0 6px color-mix(in oklab, var(--color-accent) 30%, transparent);
+  animation-name: page-particle-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes page-particle-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(6px, -14px, 0);
+  }
+}
+
+/* 5 — left gutter wash */
+.page-field-gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(22%, 11rem);
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--field-accent) 7%, transparent) 0%,
+    transparent 100%
+  );
+  opacity: 0.85;
+}
+
+/* 6 — page-tinted orbs */
+.page-field-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+  animation: page-orb-breathe 18s ease-in-out infinite;
+}
+
+.page-field-orb-a {
+  width: min(55vw, 28rem);
+  height: min(55vw, 28rem);
+  top: 8%;
+  right: -8%;
+  background: var(--field-orb-a);
+}
+
+.page-field-orb-b {
+  width: min(45vw, 22rem);
+  height: min(45vw, 22rem);
+  bottom: 5%;
+  left: -6%;
+  background: var(--field-orb-b);
+  animation-delay: -7s;
+  animation-duration: 22s;
+}
+
+@keyframes page-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* 7 — top brand strip residual */
+.page-field-brand-strip {
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  height: 28%;
-  background: linear-gradient(
-    to top,
-    #030303 15%,
-    color-mix(in oklab, #030303 85%, transparent) 45%,
-    transparent 100%
+  height: min(18vh, 9rem);
+  background-image: url("/brand-banner.jpg");
+  background-size: cover;
+  background-position: 85% 35%;
+  opacity: 0.14;
+  filter: saturate(0.7) brightness(0.7);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+/* 8 — ghost numeral */
+.page-field-numeral {
+  display: none;
+  position: absolute;
+  right: 2%;
+  top: 18%;
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: clamp(6rem, 14vw, 11rem);
+  font-weight: 600;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: color-mix(in oklab, var(--color-fg) 4.5%, transparent);
+  user-select: none;
+  transform: rotate(-6deg);
+}
+
+/* 9 — vignette + grain */
+.page-field-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 85% 75% at 50% 40%,
+    transparent 40%,
+    color-mix(in oklab, var(--color-canvas) 55%, transparent) 100%
   );
-  pointer-events: none;
+  opacity: 0.7;
 }
 
-html.light .brand-hero-tag-mask {
-  background: linear-gradient(
-    to top,
-    var(--color-canvas) 20%,
-    color-mix(in oklab, var(--color-canvas) 80%, transparent) 50%,
-    transparent 100%
-  );
+.page-field-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
 }
 
-.brand-hero-sub {
-  margin-top: 0.75rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: color-mix(in oklab, var(--color-accent) 90%, var(--color-muted));
+/* 10 — margin micro-icons */
+.page-field-icons {
+  display: none;
+  position: absolute;
+  top: 28%;
+  right: 1.25%;
+  flex-direction: column;
+  gap: 3.5rem;
+  color: var(--color-accent);
 }
 
+.page-field-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  opacity: 0.07;
+}
+
+.page-field-icon-0 {
+  transform: translateX(0);
+}
+.page-field-icon-1 {
+  transform: translateX(0.35rem);
+  opacity: 0.055;
+}
+.page-field-icon-2 {
+  transform: translateX(-0.15rem);
+  opacity: 0.06;
+}
+
+/* Desktop: enable numeral + margin icons */
+@media (min-width: 1024px) {
+  .page-field-numeral {
+    display: block;
+  }
+  .page-field-icons {
+    display: flex;
+  }
+  .page-field-gear {
+    width: 8.5rem;
+    height: 8.5rem;
+    opacity: 0.08;
+  }
+}
+
+/* Mobile: quieter field — grid thinner, fewer visual weights */
 @media (max-width: 767px) {
+  .page-field-grid {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(5.25rem - 1px),
+      color-mix(in oklab, var(--color-fg) 2.5%, transparent) calc(5.25rem - 1px),
+      color-mix(in oklab, var(--color-fg) 2.5%, transparent) 5.25rem
+    );
+    opacity: 0.4;
+  }
+
+  .page-field-particle:nth-child(n + 7) {
+    display: none;
+  }
+
+  .page-field-gutter {
+    width: 18%;
+    opacity: 0.55;
+  }
+
+  .page-field-brand-strip {
+    height: 6.5rem;
+    opacity: 0.1;
+  }
+
+  .page-field-gear {
+    opacity: 0.05;
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .page-field-orb-a,
+  .page-field-orb-b {
+    filter: blur(48px);
+  }
+
   html,
   body,
   #root {
@@ -227,7 +490,10 @@ html.light .brand-hero-tag-mask {
     transform: none;
     transition: none;
   }
-  .brand-hero-glow {
-    animation: none;
+  .brand-hero-glow,
+  .page-field-gear-spin,
+  .page-field-particle,
+  .page-field-orb {
+    animation: none !important;
   }
 }
