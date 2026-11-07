@@ -105,16 +105,26 @@ html.light {
   body > div {
     height: 100%;
     max-height: 100dvh;
+    min-width: 0;
   }
 
   h1,
   h2,
   h3 {
     text-wrap: balance;
+    overflow-wrap: anywhere;
   }
 
   p {
     text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
   button:not(:disabled),
@@ -146,13 +156,19 @@ html.light {
 }
 
 @layer components {
+  .page-frame-safe {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .type-mark {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-size: clamp(2.5rem, 14vw, 8rem);
     line-height: 0.86;
     letter-spacing: -0.045em;
     color: var(--color-fg);
+    max-width: 100%;
   }
 
   .type-display {
@@ -165,19 +181,31 @@ html.light {
 
   .type-title {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
     color: var(--color-fg);
   }
 
+  @media (min-width: 640px) {
+    .type-title {
+      font-size: 1.35rem;
+    }
+  }
+
   .type-lead {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 500;
     letter-spacing: -0.015em;
-    line-height: 1.35;
+    line-height: 1.4;
     color: var(--color-fg);
+  }
+
+  @media (min-width: 640px) {
+    .type-lead {
+      font-size: 1.05rem;
+    }
   }
 
   .type-body {
@@ -190,7 +218,7 @@ html.light {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 10px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
@@ -212,7 +240,7 @@ html.light {
 
   .section-index {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    font-size: clamp(1.75rem, 6vw, 3.75rem);
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.04em;
@@ -220,8 +248,15 @@ html.light {
   }
 
   .section-block {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .section-block {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -245,12 +280,25 @@ html.light {
   .clip-corner-lg {
     clip-path: polygon(
       0 0,
-      calc(100% - 20px) 0,
-      100% 20px,
+      calc(100% - 16px) 0,
+      100% 16px,
       100% 100%,
-      20px 100%,
-      0 calc(100% - 20px)
+      16px 100%,
+      0 calc(100% - 16px)
     );
+  }
+
+  @media (min-width: 640px) {
+    .clip-corner-lg {
+      clip-path: polygon(
+        0 0,
+        calc(100% - 20px) 0,
+        100% 20px,
+        100% 100%,
+        20px 100%,
+        0 calc(100% - 20px)
+      );
+    }
   }
 
   .gold-strike {
@@ -260,7 +308,7 @@ html.light {
 
   .hero-gold-rule {
     display: block;
-    width: 28px;
+    width: 24px;
     height: 2px;
     background: var(--color-accent);
     flex-shrink: 0;
@@ -278,8 +326,9 @@ html.light {
   }
 
   .metric-item {
-    flex: 1 1 7rem;
-    padding: 0.75rem 1rem 0.75rem 0;
+    flex: 1 1 5.5rem;
+    min-width: 0;
+    padding: 0.7rem 0.75rem 0.7rem 0;
     border-right: 1px solid color-mix(in oklab, var(--color-fg) 8%, transparent);
   }
 
@@ -291,11 +340,17 @@ html.light {
   .metric-value {
     display: block;
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.1;
     color: var(--color-accent);
+  }
+
+  @media (min-width: 640px) {
+    .metric-value {
+      font-size: 1.25rem;
+    }
   }
 
   .metric-label {
@@ -303,31 +358,34 @@ html.light {
     margin-top: 0.2rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 9px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-subtle);
   }
 
-  /* ========== 10 CSS perspective treatments ========== */
-
-  /* 1 — Multi-layer gear parallax */
+  /* 3D system */
   .gear-3d-stage {
     perspective: 1000px;
     perspective-origin: 50% 42%;
     position: relative;
     width: 100%;
-    min-height: 260px;
+    min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: crosshair;
   }
 
+  @media (min-width: 1024px) {
+    .gear-3d-stage {
+      min-height: 260px;
+    }
+  }
+
   .gear-3d-plane {
     position: relative;
     width: min(100%, 400px);
-    height: min(100%, 400px);
-    min-height: 240px;
+    min-height: 200px;
     transform-style: preserve-3d;
     transition: transform 140ms ease-out;
     will-change: transform;
@@ -383,11 +441,10 @@ html.light {
   }
 
   .gear-atmosphere-mark {
-    filter: drop-shadow(0 20px 40px rgb(0 0 0 / 0.55));
+    filter: drop-shadow(0 16px 32px rgb(0 0 0 / 0.5));
     opacity: 0.92;
   }
 
-  /* 10 — Title mark slight 3D plane */
   .title-mark-stage {
     perspective: 1200px;
     perspective-origin: left center;
@@ -399,16 +456,16 @@ html.light {
     transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .title-mark-stage:hover .title-mark-plane {
-    transform: rotateY(0deg) translateZ(8px);
+  @media (hover: hover) and (pointer: fine) {
+    .title-mark-stage:hover .title-mark-plane {
+      transform: rotateY(0deg) translateZ(8px);
+    }
   }
 
-  /* 6 — Content zone as soft scene */
   .scene-3d {
     perspective: 1400px;
   }
 
-  /* 4 — Metric lift */
   .metric-rail-3d {
     transform-style: preserve-3d;
   }
@@ -418,14 +475,15 @@ html.light {
     transform: translateZ(0);
   }
 
-  .metric-item-3d:hover {
-    transform: translateZ(18px) translateY(-2px);
+  @media (hover: hover) and (pointer: fine) {
+    .metric-item-3d:hover {
+      transform: translateZ(18px) translateY(-2px);
+    }
   }
 
-  /* 2 — Path tiles 3D hover */
-  .path-grid-3d {
+  .path-grid-3d,
+  .proof-grid-3d {
     perspective: 1100px;
-    perspective-origin: 50% 40%;
   }
 
   .path-tile,
@@ -440,37 +498,42 @@ html.light {
 
   .path-tile-3d {
     transform-style: preserve-3d;
-    transform: rotateX(2deg) translateZ(0);
+    transform: translateZ(0);
   }
 
-  .path-tile-3d:hover {
-    transform: rotateX(0deg) translateY(-4px) translateZ(28px);
-    box-shadow: var(--shadow-tile-hover);
-    background: color-mix(in oklab, var(--color-raised) 80%, transparent);
-  }
-
-  /* 3 — Proof rise */
-  .proof-grid-3d {
-    perspective: 1000px;
+  @media (hover: hover) and (pointer: fine) {
+    .path-tile-3d {
+      transform: rotateX(2deg) translateZ(0);
+    }
+    .path-tile-3d:hover {
+      transform: rotateX(0deg) translateY(-4px) translateZ(28px);
+      box-shadow: var(--shadow-tile-hover);
+      background: color-mix(in oklab, var(--color-raised) 80%, transparent);
+    }
+    .proof-tile-3d:hover {
+      transform: translateZ(22px) translateY(-3px);
+      box-shadow: var(--shadow-tile-hover);
+      background: color-mix(in oklab, var(--color-raised) 80%, transparent);
+    }
   }
 
   .proof-tile-3d {
     transform: translateZ(0);
   }
 
-  .proof-tile-3d:hover {
-    transform: translateZ(22px) translateY(-3px);
-    box-shadow: var(--shadow-tile-hover);
-    background: color-mix(in oklab, var(--color-raised) 80%, transparent);
-  }
-
-  /* 5 — Process rail perspective */
   .process-rail {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 0;
     box-shadow: var(--shadow-tile);
     background: color-mix(in oklab, var(--color-surface) 55%, transparent);
+  }
+
+  @media (min-width: 768px) {
+    .process-rail {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   .process-rail-3d {
@@ -480,15 +543,29 @@ html.light {
 
   .process-rail li,
   .process-step {
-    flex: 1 1 120px;
+    flex: 1 1 auto;
+    min-width: 0;
     position: relative;
     padding: 0.85rem 1rem;
-    border-right: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
   }
 
   .process-rail li:last-child,
   .process-step:last-child {
-    border-right: none;
+    border-bottom: none;
+  }
+
+  @media (min-width: 768px) {
+    .process-rail li,
+    .process-step {
+      flex: 1 1 120px;
+      border-bottom: none;
+      border-right: 1px solid color-mix(in oklab, var(--color-fg) 6%, transparent);
+    }
+    .process-rail li:last-child,
+    .process-step:last-child {
+      border-right: none;
+    }
   }
 
   .process-step-3d {
@@ -496,70 +573,49 @@ html.light {
     transform: translateZ(0);
   }
 
-  .process-step-3d:hover {
-    transform: translateZ(16px);
-    background: color-mix(in oklab, var(--color-raised) 50%, transparent);
+  @media (hover: hover) and (pointer: fine) {
+    .process-step-3d:hover {
+      transform: translateZ(16px);
+      background: color-mix(in oklab, var(--color-raised) 50%, transparent);
+    }
   }
 
-  /* 9 — Section index depth */
   .section-index-stage {
     perspective: 600px;
   }
 
   .section-index-3d {
     display: inline-block;
-    transform: translateZ(0) rotateX(12deg);
+    transform: translateZ(0);
     transform-origin: left bottom;
     transition: transform 300ms ease;
   }
 
-  .section-index-stage:hover .section-index-3d {
-    transform: translateZ(12px) rotateX(0deg);
+  @media (hover: hover) and (pointer: fine) {
+    .section-index-3d {
+      transform: translateZ(0) rotateX(12deg);
+    }
+    .section-index-stage:hover .section-index-3d {
+      transform: translateZ(12px) rotateX(0deg);
+    }
   }
 
-  /* 7 — Funnel CTA subtle tilt */
   .funnel-3d-stage {
     perspective: 1600px;
     perspective-origin: 50% 80%;
   }
 
-  .funnel-3d-stage > section > div {
-    transform: rotateX(1.5deg);
-    transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
-    transform-style: preserve-3d;
+  @media (hover: hover) and (pointer: fine) {
+    .funnel-3d-stage > section > div {
+      transform: rotateX(1.5deg);
+      transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform-style: preserve-3d;
+    }
+    .funnel-3d-stage:hover > section > div {
+      transform: rotateX(0deg) translateZ(12px);
+    }
   }
 
-  .funnel-3d-stage:hover > section > div {
-    transform: rotateX(0deg) translateZ(12px);
-  }
-
-  /* 8 — Dock items translateZ */
-  .dock-rail {
-    perspective: 400px;
-    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .dock-item {
-    transform-style: preserve-3d;
-    transition:
-      color 150ms ease,
-      background-color 150ms ease,
-      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 200ms ease;
-  }
-
-  .dock-item:hover {
-    transform: translateZ(14px) scale(1.06);
-  }
-
-  .dock-item[aria-current="page"] {
-    transform: translateZ(8px);
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--color-accent) 35%, transparent),
-      0 0 24px -2px color-mix(in oklab, var(--color-accent) 50%, transparent);
-  }
-
-  /* ——— Shared chrome ——— */
   .chapter-sticky {
     position: sticky;
     top: 0;
@@ -576,7 +632,7 @@ html.light {
     left: 0;
     right: 0;
     bottom: 100%;
-    height: 40px;
+    height: 32px;
     background: var(--color-canvas);
     pointer-events: none;
   }
@@ -596,7 +652,7 @@ html.light {
   .chapter-link {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 10px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-subtle);
     transition: color 160ms ease;
@@ -633,8 +689,10 @@ html.light {
   .page-transition {
     display: flex;
     min-height: 0;
+    min-width: 0;
     flex: 1;
     flex-direction: column;
+    overflow: hidden;
     animation: page-in 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
@@ -650,12 +708,6 @@ html.light {
   }
   .page-enter > *:nth-child(3) {
     animation-delay: 110ms;
-  }
-  .page-enter > *:nth-child(4) {
-    animation-delay: 150ms;
-  }
-  .page-enter > *:nth-child(5) {
-    animation-delay: 190ms;
   }
 
   .stagger-children > * {
@@ -675,14 +727,44 @@ html.light {
   }
 
   .service-card {
+    min-width: 0;
     transition:
       transform 200ms ease,
       box-shadow 200ms ease;
   }
 
-  .service-card:hover {
-    transform: translateY(-2px) translateZ(0);
-    box-shadow: var(--shadow-tile-hover);
+  @media (hover: hover) and (pointer: fine) {
+    .service-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-tile-hover);
+    }
+  }
+
+  .dock-rail {
+    perspective: 400px;
+    animation: dock-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .dock-item {
+    transform-style: preserve-3d;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 200ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .dock-item:hover {
+      transform: translateZ(14px) scale(1.06);
+    }
+  }
+
+  .dock-item[aria-current="page"] {
+    transform: translateZ(8px);
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--color-accent) 35%, transparent),
+      0 0 24px -2px color-mix(in oklab, var(--color-accent) 50%, transparent);
   }
 
   .dock-tooltip {
@@ -716,14 +798,17 @@ html.light {
   .dock-mobile {
     box-shadow: var(--shadow-dock);
     animation: dock-up 450ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    background: color-mix(in oklab, var(--color-canvas) 72%, transparent);
+    background: color-mix(in oklab, var(--color-canvas) 78%, transparent);
     backdrop-filter: blur(22px) saturate(1.4);
+    /* safe area for home indicator */
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
   }
 
   .page-screen {
     height: 100%;
     max-height: 100%;
     min-height: 0;
+    min-width: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -834,6 +919,44 @@ html.light {
   a:hover .nav-icon,
   [aria-current="page"] .nav-icon {
     color: var(--color-accent);
+  }
+
+  /* ——— Mobile: flatten 3D, prevent overflow ——— */
+  @media (max-width: 767px) {
+    .title-mark-plane,
+    .path-tile-3d,
+    .proof-tile-3d,
+    .metric-item-3d,
+    .process-step-3d,
+    .section-index-3d,
+    .funnel-3d-stage > section > div,
+    .gear-layer-floor,
+    .gear-layer-rim {
+      transform: none !important;
+    }
+
+    .gear-layer-glow {
+      transform: none;
+      filter: blur(20px);
+    }
+
+    .gear-layer-mark {
+      transform: none;
+    }
+
+    .gear-3d-plane {
+      transform: none !important;
+      transition: none;
+    }
+
+    .scene-3d,
+    .path-grid-3d,
+    .proof-grid-3d,
+    .process-rail-3d,
+    .title-mark-stage,
+    .funnel-3d-stage {
+      perspective: none;
+    }
   }
 }
 
