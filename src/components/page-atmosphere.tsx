@@ -52,7 +52,10 @@ const PARTICLES = [
   { x: 55, y: 88, d: 20, s: 0.5 },
 ] as const;
 
-/** Non-intro page field — dark-only texture, no banner imagery. */
+/**
+ * Non-intro page field — pure dark + refined atmosphere.
+ * No full-bleed metallic banner; thin top brand residual only.
+ */
 export function PageAtmosphere() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   if (pathname === "/") return null;
@@ -62,7 +65,10 @@ export function PageAtmosphere() {
 
   return (
     <div className="page-field" data-field={field.key} aria-hidden>
-      {/* 1 — title spotlight (gold wash, not photo) */}
+      {/* 7 — thin top brand residual (heavily masked, not a chrome card) */}
+      <div className="page-field-brand-strip" />
+
+      {/* 1 — soft radial spotlight under title zone only */}
       <div className="page-field-spotlight" />
 
       {/* 2 — engineering plate grid */}
@@ -71,15 +77,15 @@ export function PageAtmosphere() {
       {/* 5 — left gutter wash */}
       <div className="page-field-gutter" />
 
-      {/* 6 — page-tinted ambient orbs */}
+      {/* 6 — page-tinted ambient orbs (very soft) */}
       <div className="page-field-orb page-field-orb-a" />
       <div className="page-field-orb page-field-orb-b" />
 
-      {/* 9 — grain + vignette */}
+      {/* 9 — grain + edge vignette (stronger on long pages) */}
       <div className="page-field-vignette" />
       <div className="page-field-grain" />
 
-      {/* 4 — drift particles */}
+      {/* 4 — sparse drift particles */}
       <div className="page-field-particles">
         {PARTICLES.map((p, i) => (
           <span
@@ -90,15 +96,15 @@ export function PageAtmosphere() {
               top: `${p.y}%`,
               animationDuration: `${p.d}s`,
               animationDelay: `${-i * 1.4}s`,
-              width: `${p.s * 3}px`,
-              height: `${p.s * 3}px`,
-              opacity: 0.12 + p.s * 0.08,
+              width: `${p.s * 2.5}px`,
+              height: `${p.s * 2.5}px`,
+              opacity: 0.08 + p.s * 0.06,
             }}
           />
         ))}
       </div>
 
-      {/* 3 — corner micro-gear */}
+      {/* 3 — corner micro-gear watermark */}
       <svg
         className="page-field-gear"
         viewBox="0 0 120 120"
@@ -107,7 +113,7 @@ export function PageAtmosphere() {
       >
         <g
           stroke="currentColor"
-          strokeWidth="1.2"
+          strokeWidth="1.15"
           strokeLinejoin="round"
           className="page-field-gear-spin"
         >
@@ -120,16 +126,16 @@ export function PageAtmosphere() {
             const x2 = 60 + Math.cos(a) * 32;
             const y2 = 60 + Math.sin(a) * 32;
             return (
-              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth="3" />
+              <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} strokeWidth="2.75" />
             );
           })}
         </g>
       </svg>
 
-      {/* 8 — ghost chapter numeral */}
+      {/* 8 — ghost chapter numeral (desktop) */}
       <span className="page-field-numeral">{field.numeral}</span>
 
-      {/* 10 — path-aware margin icons */}
+      {/* 10 — path-aware margin icons (desktop) */}
       <div className="page-field-icons">
         {Icons.map((Icon, i) => (
           <Icon
