@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { MessageCircle } from "lucide-react";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ import {
   getService,
   type ServiceId,
 } from "@/lib/site";
+import { briefWhatsAppMessage, whatsappHref } from "@/lib/whatsapp";
 
 type Props = {
   initialService?: ServiceId;
@@ -41,7 +43,9 @@ function buildPrefillMessage(
   }
   if (service) {
     parts.push(`Service of interest: ${service.name}`);
-    parts.push(`Indicative investment (after written agreement): ${service.price} (${service.unit})`);
+    parts.push(
+      `Indicative investment (after written agreement): ${service.price} (${service.unit})`,
+    );
     parts.push(`Typical delivery window: ${service.timeframe}`);
     parts.push(
       "Note: No payment is due until a written proposal is approved. Figures above are indicative starting points only.",
@@ -71,12 +75,27 @@ export function ContactForm({
 
   useEffect(() => {
     setService(initialService ?? "");
-    setMessage(
-      buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
+    let base = buildPrefillMessage(
+      initialService,
+      initialConcernSlug,
+      initialMessage,
     );
+    try {
+      const roi = sessionStorage.getItem("gt-roi-note");
+      if (roi) {
+        base = base ? `${base}\n${roi}\n` : `${roi}\n\n`;
+        sessionStorage.removeItem("gt-roi-note");
+      }
+    } catch {
+      /* ignore */
+    }
+    setMessage(base);
   }, [initialService, initialConcernSlug, initialMessage]);
 
   const selected = service ? getService(service) : undefined;
+  const concern = initialConcernSlug
+    ? getConcern(initialConcernSlug)
+    : undefined;
 
   function applyPrompt(prompt: string) {
     setMessage((prev) => {
@@ -85,6 +104,17 @@ export function ContactForm({
       if (trimmed.includes(prompt)) return prev;
       return `${trimmed}\n\n${prompt}\n`;
     });
+  }
+
+  function openWhatsApp() {
+    const text = briefWhatsAppMessage({
+      name: name.trim() || undefined,
+      service: selected?.name,
+      concern: concern?.title,
+      indicativeFee: selected?.price,
+      detail: message.trim(),
+    });
+    window.open(whatsappHref(text), "_blank", "noopener,noreferrer");
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -158,7 +188,6 @@ export function ContactForm({
       setPrivacyConsent(false);
       setMarketingConsent(false);
     } catch {
-      // Fallback: open mail client so the brief is never lost
       const body = [
         `Name: ${name.trim()}`,
         `Email: ${email.trim() || "—"}`,
@@ -285,7 +314,10 @@ export function ContactForm({
             onChange={(e) => setMessage(e.target.value)}
           />
         </Field>
-        <p className="text-[11px] text-subtle">Quick starters:</p>
+        <p className="text-[11px] text-subtle">
+          Attachments: mention files in the brief — we will request them by email
+          if needed. Quick starters:
+        </p>
         <div className="flex flex-wrap gap-2">
           {PROMPTS.map((p) => (
             <button
@@ -337,7 +369,7 @@ export function ContactForm({
         </label>
       </div>
 
-      <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
         <Button
           type="submit"
           size="lg"
@@ -346,8 +378,18 @@ export function ContactForm({
         >
           {sending ? "Sending…" : "Submit private brief"}
         </Button>
+        <Button
+          type="button"
+          variant="outline"
+          size="lg"
+          className="w-full sm:w-auto"
+          onClick={openWhatsApp}
+        >
+          <MessageCircle className="size-4" />
+          Continue on WhatsApp
+        </Button>
         <p className="text-xs leading-relaxed text-subtle">
-          Delivered to our practice inbox. Reply {COMPANY.responseSla}.
+          Email or WhatsApp — same brief. Reply {COMPANY.responseSla}.
         </p>
       </div>
     </form>
