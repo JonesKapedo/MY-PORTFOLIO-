@@ -8,7 +8,6 @@ import {
   Workflow,
 } from "lucide-react";
 
-/** Map route → atmosphere key (tint + icon set + ghost index). */
 function resolveField(pathname: string): {
   key: string;
   numeral: string;
@@ -38,7 +37,6 @@ const FIELD_ICONS = {
   legal: [FileText, FileText, FileText],
 } as const;
 
-/** Sparse particle positions — percentages within the frame. */
 const PARTICLES = [
   { x: 12, y: 22, d: 18, s: 1 },
   { x: 28, y: 58, d: 24, s: 0.7 },
@@ -54,10 +52,7 @@ const PARTICLES = [
   { x: 55, y: 88, d: 20, s: 0.5 },
 ] as const;
 
-/**
- * Non-intro page field — fills empty air without competing with type.
- * Mounted inside PageFrame; skipped on `/`.
- */
+/** Non-intro page field — dark-only texture, no banner imagery. */
 export function PageAtmosphere() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   if (pathname === "/") return null;
@@ -66,15 +61,8 @@ export function PageAtmosphere() {
   const Icons = field.icons;
 
   return (
-    <div
-      className="page-field"
-      data-field={field.key}
-      aria-hidden
-    >
-      {/* 7 — top brand strip residual */}
-      <div className="page-field-brand-strip" />
-
-      {/* 1 — title spotlight */}
+    <div className="page-field" data-field={field.key} aria-hidden>
+      {/* 1 — title spotlight (gold wash, not photo) */}
       <div className="page-field-spotlight" />
 
       {/* 2 — engineering plate grid */}
@@ -87,7 +75,7 @@ export function PageAtmosphere() {
       <div className="page-field-orb page-field-orb-a" />
       <div className="page-field-orb page-field-orb-b" />
 
-      {/* 9 — grain + vignette (page-local intensity) */}
+      {/* 9 — grain + vignette */}
       <div className="page-field-vignette" />
       <div className="page-field-grain" />
 
@@ -110,7 +98,7 @@ export function PageAtmosphere() {
         ))}
       </div>
 
-      {/* 3 — corner micro-gear watermark */}
+      {/* 3 — corner micro-gear */}
       <svg
         className="page-field-gear"
         viewBox="0 0 120 120"
@@ -138,10 +126,10 @@ export function PageAtmosphere() {
         </g>
       </svg>
 
-      {/* 8 — ghost chapter numeral (desktop) */}
+      {/* 8 — ghost chapter numeral */}
       <span className="page-field-numeral">{field.numeral}</span>
 
-      {/* 10 — path-aware margin micro-icons (desktop) */}
+      {/* 10 — path-aware margin icons */}
       <div className="page-field-icons">
         {Icons.map((Icon, i) => (
           <Icon
