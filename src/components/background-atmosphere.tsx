@@ -2,8 +2,8 @@ import { useRouterState } from "@tanstack/react-router";
 
 /**
  * Global canvas field.
- * Intro keeps the full brand banner; inner pages soften the banner and
- * lean on PageAtmosphere for local texture.
+ * Intro: brand banner atmosphere.
+ * Inner pages: pure dark field only — no metallic banner (avoids chrome cards).
  */
 export function BackgroundAtmosphere() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -15,8 +15,16 @@ export function BackgroundAtmosphere() {
       data-shell={isIntro ? "intro" : "inner"}
       aria-hidden
     >
-      <div className="bg-brand-banner" />
-      <div className="bg-brand-fade" />
+      {/* Solid base — always dark canvas, never transparent to browser chrome */}
+      <div className="bg-canvas-base" />
+
+      {isIntro ? (
+        <>
+          <div className="bg-brand-banner" />
+          <div className="bg-brand-fade" />
+        </>
+      ) : null}
+
       <div className="bg-mesh" />
       <div className="bg-orb bg-orb-a" />
       <div className="bg-orb bg-orb-b" />
