@@ -1,4 +1,76 @@
-/* Mobile nav, scroll reveal, brand banner (intro), refined page-field atmosphere */
+/*
+ * Void + studio material system (loads after styles.css)
+ * Dark: pitch black #000 — immersive void
+ * Light: cool studio white #f5f5f7 — matte, not warm parchment
+ */
+
+/* ——— Token override (beats @theme defaults for var() usage) ——— */
+html {
+  --color-canvas: #000000;
+  --color-surface: #0a0a0a;
+  --color-raised: #141414;
+  --color-fg: #f5f5f5;
+  --color-muted: #8e8e8e;
+  --color-subtle: #5c5c5c;
+  --color-line: #1a1a1a;
+  --color-accent: #c9a227;
+  --color-accent-fg: #0a0a0a;
+  --color-danger: #c45c4a;
+
+  /* Atmosphere material tokens */
+  --void: #000000;
+  --field-spotlight: color-mix(in oklab, var(--color-accent) 12%, transparent);
+  --field-grain-opacity: 0.05;
+  --field-vignette-strength: 0.92;
+  --field-gear-opacity: 0.1;
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 6%, transparent);
+  --field-orb-b: color-mix(in oklab, #8a9aab 4%, transparent);
+}
+
+html.light {
+  --color-canvas: #f5f5f7;
+  --color-surface: #ffffff;
+  --color-raised: #ffffff;
+  --color-fg: #0a0a0a;
+  --color-muted: #4a4a4a;
+  --color-subtle: #6e6e6e;
+  --color-line: #e2e2e6;
+  --color-accent: #9a7b1a;
+  --color-accent-fg: #f5f5f7;
+  --color-danger: #a8483a;
+
+  --void: #f5f5f7;
+  --field-spotlight: color-mix(in oklab, var(--color-accent) 8%, transparent);
+  --field-grain-opacity: 0.028;
+  --field-vignette-strength: 0.55;
+  --field-gear-opacity: 0.07;
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 5%, transparent);
+  --field-orb-b: color-mix(in oklab, #6b7c8f 4%, transparent);
+}
+
+html,
+body,
+#root {
+  background-color: var(--color-canvas) !important;
+}
+
+/* Force opaque material panels (kills chrome / glass bleed) */
+.path-tile,
+.proof-tile,
+.process-rail {
+  background: var(--color-surface) !important;
+  backdrop-filter: none !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .path-tile-3d:hover,
+  .proof-tile-3d:hover {
+    background: var(--color-raised) !important;
+  }
+  .process-step-3d:hover {
+    background: var(--color-raised) !important;
+  }
+}
 
 .scroll-reveal {
   opacity: 0;
@@ -31,35 +103,43 @@
   background: var(--color-canvas);
 }
 
+.bg-atmosphere {
+  background: var(--color-canvas);
+}
+
 .bg-atmosphere[data-shell="inner"] {
   background: var(--color-canvas);
 }
 
-/* Inner shell: very quiet mesh/orbs — no chrome wash */
-.bg-atmosphere[data-shell="inner"] .bg-mesh {
-  opacity: 0.22;
+/* Inner orbs — cool, soft, never chrome */
+.bg-atmosphere[data-shell="inner"] .bg-orb-inner {
+  opacity: 0.35;
+  filter: blur(96px);
 }
 
-.bg-atmosphere[data-shell="inner"] .bg-orb {
-  opacity: 0.28;
-  filter: blur(80px);
+html.light .bg-atmosphere[data-shell="inner"] .bg-orb-inner {
+  opacity: 0.4;
 }
 
 .bg-atmosphere[data-shell="inner"] .bg-grain {
-  opacity: 0.028;
+  opacity: var(--field-grain-opacity);
+}
+
+.bg-atmosphere[data-shell="inner"] .bg-vignette {
+  opacity: var(--field-vignette-strength);
 }
 
 /* ——— Brand banner — intro only ——— */
 .bg-brand-banner {
   position: absolute;
   inset: 0;
-  background-color: #030303;
+  background-color: #000000;
   background-image: url("/brand-banner.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 72% center;
-  opacity: 0.42;
-  filter: saturate(0.92) contrast(1.05);
+  opacity: 0.4;
+  filter: saturate(0.88) contrast(1.06) brightness(0.92);
   transition: opacity 500ms ease, filter 500ms ease;
 }
 
@@ -67,7 +147,7 @@
   .bg-brand-banner {
     background-position: 78% 45%;
     background-size: 120% auto;
-    opacity: 0.38;
+    opacity: 0.36;
   }
 }
 
@@ -79,29 +159,29 @@
     linear-gradient(
       105deg,
       var(--color-canvas) 0%,
-      color-mix(in oklab, var(--color-canvas) 88%, transparent) 28%,
+      color-mix(in oklab, var(--color-canvas) 90%, transparent) 28%,
       color-mix(in oklab, var(--color-canvas) 55%, transparent) 48%,
-      color-mix(in oklab, var(--color-canvas) 35%, transparent) 62%,
+      color-mix(in oklab, var(--color-canvas) 30%, transparent) 62%,
       transparent 78%
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--color-canvas) 40%, transparent) 0%,
+      color-mix(in oklab, var(--color-canvas) 45%, transparent) 0%,
       transparent 18%,
       transparent 55%,
-      color-mix(in oklab, var(--color-canvas) 75%, transparent) 88%,
+      color-mix(in oklab, var(--color-canvas) 80%, transparent) 88%,
       var(--color-canvas) 100%
     ),
     radial-gradient(
       ellipse 90% 70% at 70% 40%,
       transparent 20%,
-      color-mix(in oklab, var(--color-canvas) 50%, transparent) 100%
+      color-mix(in oklab, var(--color-canvas) 55%, transparent) 100%
     );
 }
 
 html.light .bg-brand-banner {
-  opacity: 0.22;
-  filter: saturate(0.85) brightness(1.15);
+  opacity: 0.18;
+  filter: saturate(0.7) brightness(1.2) contrast(0.95);
 }
 
 html.light .bg-brand-fade {
@@ -109,15 +189,15 @@ html.light .bg-brand-fade {
     linear-gradient(
       105deg,
       var(--color-canvas) 0%,
-      color-mix(in oklab, var(--color-canvas) 92%, transparent) 32%,
-      color-mix(in oklab, var(--color-canvas) 70%, transparent) 52%,
-      transparent 80%
+      color-mix(in oklab, var(--color-canvas) 94%, transparent) 34%,
+      color-mix(in oklab, var(--color-canvas) 72%, transparent) 52%,
+      transparent 82%
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--color-canvas) 50%, transparent) 0%,
-      transparent 20%,
-      transparent 60%,
+      color-mix(in oklab, var(--color-canvas) 55%, transparent) 0%,
+      transparent 22%,
+      transparent 58%,
       var(--color-canvas) 100%
     );
 }
@@ -130,33 +210,31 @@ html.light .bg-brand-fade {
   overflow: hidden;
   pointer-events: none;
   --field-accent: var(--color-accent);
-  --field-orb-a: color-mix(in oklab, var(--color-accent) 7%, transparent);
-  --field-orb-b: color-mix(in oklab, var(--color-fg) 3%, transparent);
 }
 
 .page-field[data-field="work"] {
-  --field-orb-a: color-mix(in oklab, var(--color-accent) 8%, transparent);
-  --field-orb-b: color-mix(in oklab, #c9a227 4%, transparent);
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 7%, transparent);
+  --field-orb-b: color-mix(in oklab, #7a8a9a 3.5%, transparent);
 }
 .page-field[data-field="services"] {
-  --field-orb-a: color-mix(in oklab, var(--color-accent) 6%, transparent);
-  --field-orb-b: color-mix(in oklab, var(--color-fg) 3%, transparent);
-}
-.page-field[data-field="concerns"] {
-  --field-orb-a: color-mix(in oklab, #4a6a82 8%, transparent);
-  --field-orb-b: color-mix(in oklab, var(--color-accent) 5%, transparent);
-}
-.page-field[data-field="partners"] {
-  --field-orb-a: color-mix(in oklab, var(--color-accent) 9%, transparent);
-  --field-orb-b: color-mix(in oklab, #a67c2a 5%, transparent);
-}
-.page-field[data-field="brief"] {
-  --field-orb-a: color-mix(in oklab, var(--color-accent) 10%, transparent);
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 5.5%, transparent);
   --field-orb-b: color-mix(in oklab, var(--color-fg) 2.5%, transparent);
 }
+.page-field[data-field="concerns"] {
+  --field-orb-a: color-mix(in oklab, #4a6578 7%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-accent) 4%, transparent);
+}
+.page-field[data-field="partners"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 8%, transparent);
+  --field-orb-b: color-mix(in oklab, #6a7a88 4%, transparent);
+}
+.page-field[data-field="brief"] {
+  --field-orb-a: color-mix(in oklab, var(--color-accent) 9%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 2%, transparent);
+}
 .page-field[data-field="legal"] {
-  --field-orb-a: color-mix(in oklab, var(--color-fg) 2.5%, transparent);
-  --field-orb-b: color-mix(in oklab, var(--color-fg) 1.5%, transparent);
+  --field-orb-a: color-mix(in oklab, var(--color-fg) 2%, transparent);
+  --field-orb-b: color-mix(in oklab, var(--color-fg) 1.2%, transparent);
 }
 
 .page-field-spotlight,
@@ -183,10 +261,7 @@ html.light .bg-brand-fade {
   transition: opacity 380ms ease, box-shadow 380ms ease;
 }
 
-/*
- * 1 — Soft radial spotlight behind title block only
- * Fades out within ~40% of the viewport so body text stays clean
- */
+/* 1 — Title spotlight */
 .page-field-spotlight {
   position: absolute;
   top: 0;
@@ -195,8 +270,8 @@ html.light .bg-brand-fade {
   height: min(40vh, 18rem);
   background: radial-gradient(
     ellipse 70% 85% at 22% 18%,
-    color-mix(in oklab, var(--field-accent) 11%, transparent) 0%,
-    color-mix(in oklab, var(--field-accent) 4%, transparent) 42%,
+    var(--field-spotlight) 0%,
+    color-mix(in oklab, var(--color-accent) 4%, transparent) 42%,
     transparent 72%
   );
   filter: blur(1px);
@@ -213,15 +288,9 @@ html.light .bg-brand-fade {
 .page-field[data-field="brief"] .page-field-spotlight {
   width: min(92%, 46rem);
   height: min(44vh, 20rem);
-  background: radial-gradient(
-    ellipse 68% 80% at 20% 16%,
-    color-mix(in oklab, var(--field-accent) 14%, transparent) 0%,
-    color-mix(in oklab, var(--field-accent) 5%, transparent) 45%,
-    transparent 74%
-  );
 }
 
-/* 2 — plate grid (very subtle engineering lines) */
+/* 2 — Engineering plate grid */
 .page-field-grid {
   position: absolute;
   inset: 0;
@@ -229,8 +298,8 @@ html.light .bg-brand-fade {
     to bottom,
     transparent 0,
     transparent calc(6.5rem - 1px),
-    color-mix(in oklab, var(--color-fg) 2.2%, transparent) calc(6.5rem - 1px),
-    color-mix(in oklab, var(--color-fg) 2.2%, transparent) 6.5rem
+    color-mix(in oklab, var(--color-fg) 2%, transparent) calc(6.5rem - 1px),
+    color-mix(in oklab, var(--color-fg) 2%, transparent) 6.5rem
   );
   mask-image: linear-gradient(
     to bottom,
@@ -246,13 +315,14 @@ html.light .bg-brand-fade {
     black 72%,
     transparent 100%
   );
-  opacity: 0.42;
+  opacity: 0.4;
 }
 
-/*
- * 3 — Corner micro-gear watermark
- * ~8–12% opacity, scales down on small screens, never under copy
- */
+html.light .page-field-grid {
+  opacity: 0.5;
+}
+
+/* 3 — Corner micro-gear */
 .page-field-gear {
   position: absolute;
   right: max(0.35rem, env(safe-area-inset-right));
@@ -260,7 +330,7 @@ html.light .bg-brand-fade {
   width: min(22vw, 6.5rem);
   height: min(22vw, 6.5rem);
   color: var(--color-accent);
-  opacity: 0.09;
+  opacity: var(--field-gear-opacity);
   z-index: 2;
 }
 
@@ -284,12 +354,17 @@ html.light .bg-brand-fade {
 .page-field-particle {
   position: absolute;
   border-radius: 999px;
-  background: color-mix(in oklab, var(--color-accent) 55%, transparent);
-  box-shadow: 0 0 5px color-mix(in oklab, var(--color-accent) 18%, transparent);
+  background: color-mix(in oklab, var(--color-accent) 50%, transparent);
+  box-shadow: 0 0 5px color-mix(in oklab, var(--color-accent) 16%, transparent);
   animation-name: page-particle-drift;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   will-change: transform;
+}
+
+html.light .page-field-particle {
+  background: color-mix(in oklab, var(--color-accent) 40%, transparent);
+  box-shadow: none;
 }
 
 @keyframes page-particle-drift {
@@ -311,18 +386,18 @@ html.light .bg-brand-fade {
   width: min(18%, 9rem);
   background: linear-gradient(
     to right,
-    color-mix(in oklab, var(--field-accent) 4%, transparent) 0%,
+    color-mix(in oklab, var(--field-accent) 3.5%, transparent) 0%,
     transparent 100%
   );
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
-/* 6 — orbs — soft, never metallic */
+/* 6 — orbs */
 .page-field-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(88px);
-  animation: page-orb-breathe 22s ease-in-out infinite;
+  filter: blur(96px);
+  animation: page-orb-breathe 24s ease-in-out infinite;
 }
 
 .page-field-orb-a {
@@ -340,51 +415,51 @@ html.light .bg-brand-fade {
   left: -8%;
   background: var(--field-orb-b);
   animation-delay: -9s;
-  animation-duration: 26s;
+  animation-duration: 28s;
 }
 
 @keyframes page-orb-breathe {
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.65;
+    opacity: 0.6;
   }
   50% {
-    transform: scale(1.05);
-    opacity: 0.85;
+    transform: scale(1.04);
+    opacity: 0.8;
   }
 }
 
-/*
- * 7 — Top edge brand strip fade
- * Thin residual of turbine banner only at top of content pages.
- * Heavily masked: ~12–18% height atmospheric band, then pure canvas.
- * Desaturated + darkened so it never reads as a chrome card.
- */
+/* 7 — Top brand residual */
 .page-field-brand-strip {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: min(16vh, 7.5rem);
+  height: min(14vh, 6.5rem);
   background-image: url("/brand-banner.jpg");
   background-size: cover;
   background-position: 88% 32%;
   background-repeat: no-repeat;
-  opacity: 0.11;
-  filter: saturate(0.45) brightness(0.45) contrast(1.05);
+  opacity: 0.08;
+  filter: saturate(0.35) brightness(0.35) contrast(1.05);
   mask-image: linear-gradient(
     to bottom,
     black 0%,
-    color-mix(in srgb, black 55%, transparent) 45%,
+    color-mix(in srgb, black 40%, transparent) 50%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to bottom,
     black 0%,
-    color-mix(in srgb, black 55%, transparent) 45%,
+    color-mix(in srgb, black 40%, transparent) 50%,
     transparent 100%
   );
+}
+
+html.light .page-field-brand-strip {
+  opacity: 0.06;
+  filter: saturate(0.3) brightness(1.15) contrast(0.9);
 }
 
 /* 8 — ghost numeral */
@@ -398,52 +473,44 @@ html.light .bg-brand-fade {
   font-weight: 600;
   line-height: 0.85;
   letter-spacing: -0.04em;
-  color: color-mix(in oklab, var(--color-fg) 3.5%, transparent);
+  color: color-mix(in oklab, var(--color-fg) 3.2%, transparent);
   user-select: none;
   transform: rotate(-6deg);
 }
 
-/*
- * 9 — Soft noise + vignette refresh
- * Slightly stronger film grain and edge vignette on long pages.
- * Pure CSS — no layout risk.
- */
+/* 9 — Grain + vignette (material depth) */
 .page-field-vignette {
   position: absolute;
   inset: 0;
   background:
     radial-gradient(
-      ellipse 78% 68% at 50% 38%,
-      transparent 35%,
-      color-mix(in oklab, var(--color-canvas) 55%, transparent) 78%,
-      color-mix(in oklab, var(--color-canvas) 78%, transparent) 100%
+      ellipse 76% 66% at 50% 38%,
+      transparent 32%,
+      color-mix(in oklab, var(--color-canvas) 50%, transparent) 76%,
+      color-mix(in oklab, var(--color-canvas) 82%, transparent) 100%
     ),
     linear-gradient(
       to bottom,
       transparent 0%,
-      transparent 60%,
-      color-mix(in oklab, var(--color-canvas) 35%, transparent) 100%
+      transparent 58%,
+      color-mix(in oklab, var(--color-canvas) 40%, transparent) 100%
     );
-  opacity: 0.85;
+  opacity: var(--field-vignette-strength);
 }
 
 .page-field-grain {
   position: absolute;
   inset: 0;
-  opacity: 0.045;
+  opacity: var(--field-grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 
-/* Long pages: a touch more grain + bottom vignette weight */
-.page-screen[data-route="inner"] .page-field-grain {
-  opacity: 0.05;
-}
-
-.page-screen[data-route="inner"] .page-field-vignette {
-  opacity: 0.9;
+html.light .page-field-grain {
+  mix-blend-mode: multiply;
+  opacity: 0.03;
 }
 
 /* 10 — margin icons */
@@ -461,7 +528,7 @@ html.light .bg-brand-fade {
 .page-field-icon {
   width: 1.25rem;
   height: 1.25rem;
-  opacity: 0.06;
+  opacity: 0.055;
 }
 
 .page-field-icon-0 {
@@ -469,19 +536,22 @@ html.light .bg-brand-fade {
 }
 .page-field-icon-1 {
   transform: translateX(0.35rem);
-  opacity: 0.05;
+  opacity: 0.045;
 }
 .page-field-icon-2 {
   transform: translateX(-0.15rem);
-  opacity: 0.055;
+  opacity: 0.05;
 }
 
-/*
- * Kill chrome / washed glass cards on inner pages
- * Opaque dark surfaces — professional, not traditional “glass plate”
- */
+/* Opaque cards — material, not glass */
 .page-screen[data-route="inner"] .service-card,
 .page-screen[data-route="inner"] article,
+.page-screen[data-route="inner"] [class*="bg-surface"],
+.page-screen[data-route="inner"] [class*="bg-raised"] {
+  backdrop-filter: none !important;
+}
+
+.page-screen[data-route="inner"] article.rounded-2xl,
 .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/60,
 .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/70,
 .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/80,
@@ -491,9 +561,22 @@ html.light .bg-brand-fade {
 .page-screen[data-route="inner"] .rounded-xl.bg-surface\/80 {
   background-color: var(--color-surface) !important;
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--color-fg) 4%, transparent),
-    0 10px 28px -18px rgb(0 0 0 / 0.55);
-  backdrop-filter: none;
+    0 0 0 1px color-mix(in oklab, var(--color-fg) 5%, transparent),
+    0 12px 32px -20px rgb(0 0 0 / 0.55);
+}
+
+html.light .page-screen[data-route="inner"] article.rounded-2xl,
+html.light .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/60,
+html.light .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/70,
+html.light .page-screen[data-route="inner"] .rounded-2xl.bg-surface\/80,
+html.light .page-screen[data-route="inner"] .rounded-xl.bg-surface\/50,
+html.light .page-screen[data-route="inner"] .rounded-xl.bg-surface\/60,
+html.light .page-screen[data-route="inner"] .rounded-xl.bg-surface\/70,
+html.light .page-screen[data-route="inner"] .rounded-xl.bg-surface\/80 {
+  background-color: var(--color-surface) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-fg) 6%, transparent),
+    0 10px 28px -18px rgb(0 0 0 / 0.08);
 }
 
 .page-screen[data-route="inner"] .rounded-xl.bg-raised\/40,
@@ -503,41 +586,27 @@ html.light .bg-brand-fade {
 .page-screen[data-route="inner"] .bg-raised\/50,
 .page-screen[data-route="inner"] .bg-raised\/80 {
   background-color: var(--color-raised) !important;
-  backdrop-filter: none;
-}
-
-.page-screen[data-route="inner"] .path-tile,
-.page-screen[data-route="inner"] .proof-tile,
-.page-screen[data-route="inner"] .process-rail {
-  background: var(--color-surface) !important;
-  backdrop-filter: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .page-screen[data-route="inner"]:hover .page-field-spotlight {
     opacity: 1;
   }
-
   .page-screen[data-route="inner"]:hover .page-field-grid {
-    opacity: 0.55;
+    opacity: 0.52;
   }
-
   .page-screen[data-route="inner"]:hover .page-field-brand-strip {
-    opacity: 0.14;
+    opacity: 0.11;
   }
-
   .page-screen[data-route="inner"]:hover .page-field-grain {
-    opacity: 0.058;
+    opacity: calc(var(--field-grain-opacity) + 0.012);
   }
-
   .page-screen[data-route="inner"]:hover .page-field-gear {
-    opacity: 0.12;
+    opacity: calc(var(--field-gear-opacity) + 0.03);
   }
-
   .page-screen[data-route="inner"]:hover .page-field-gear-spin {
     animation-duration: 36s;
   }
-
   .page-screen[data-route="inner"]:hover .page-field-icon {
     opacity: 0.1;
   }
@@ -595,52 +664,40 @@ html.light .bg-brand-fade {
   .page-field-gear {
     width: 7.75rem;
     height: 7.75rem;
-    opacity: 0.1;
   }
   .page-field-brand-strip {
-    height: min(14vh, 8rem);
-    opacity: 0.12;
+    height: min(12vh, 7rem);
   }
 }
 
 @media (max-width: 767px) {
   .page-field-grid {
-    opacity: 0.28;
+    opacity: 0.25;
   }
-
   .page-field-particle:nth-child(n + 7) {
     display: none;
   }
-
   .page-field-gutter {
-    width: 14%;
-    opacity: 0.45;
+    width: 12%;
+    opacity: 0.4;
   }
-
   .page-field-brand-strip {
-    height: 5rem;
-    opacity: 0.08;
+    height: 4.5rem;
+    opacity: 0.06;
   }
-
   .page-field-gear {
-    opacity: 0.055;
-    width: 4.75rem;
-    height: 4.75rem;
+    opacity: 0.05;
+    width: 4.5rem;
+    height: 4.5rem;
     pointer-events: none;
   }
-
   .page-field-spotlight {
-    height: min(36vh, 14rem);
+    height: min(34vh, 13rem);
     opacity: 0.85;
   }
-
   .page-field-orb-a,
   .page-field-orb-b {
-    filter: blur(64px);
-  }
-
-  .page-field-grain {
-    opacity: 0.035;
+    filter: blur(72px);
   }
 
   html,
@@ -664,7 +721,7 @@ html.light .bg-brand-fade {
 
   .bg-brand-banner {
     background-position: 85% center;
-    opacity: 0.32;
+    opacity: 0.3;
   }
 
   .title-mark-plane {

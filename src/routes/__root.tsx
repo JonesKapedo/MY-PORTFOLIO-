@@ -31,7 +31,7 @@ export const Route = createRootRoute({
         content:
           "GREAT TURBINEZ — AI & Automation for Kenyan operators. Scoped process automation, written proposal first, deposit only after you approve.",
       },
-      { name: "theme-color", content: "#030303" },
+      { name: "theme-color", content: "#000000" },
       { name: "color-scheme", content: "dark light" },
     ],
     links: [
