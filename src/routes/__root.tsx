@@ -12,6 +12,7 @@ import { COMPANY } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import appCss from "../styles.css?url";
 import extrasCss from "../styles-extras.css?url";
+import a11yCss from "../styles-a11y-atmosphere.css?url";
 
 const themeBootScript = `(function(){try{var t=localStorage.getItem("gt-theme");if(t!=="light"&&t!=="dark")t="dark";var r=document.documentElement;r.classList.toggle("light",t==="light");r.classList.toggle("dark",t==="dark");r.style.colorScheme=t;}catch(e){document.documentElement.classList.add("dark");}})();
 `;
@@ -38,6 +39,7 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: appCss },
       { rel: "stylesheet", href: extrasCss },
+      { rel: "stylesheet", href: a11yCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
