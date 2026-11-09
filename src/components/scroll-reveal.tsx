@@ -48,7 +48,9 @@ export function ScrollReveal({
 
   return (
     <Comp
-      ref={ref as React.Ref<HTMLElement>}
+      ref={(node: HTMLElement | null) => {
+        ref.current = node;
+      }}
       className={cn("scroll-reveal", className)}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       {...rest}
