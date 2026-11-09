@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  Building2,
   CircleHelp,
   Compass,
   Handshake,
@@ -20,6 +21,7 @@ const NAV_ICONS: Record<
   "/work": Sparkles,
   "/services": LayoutGrid,
   "/concerns": CircleHelp,
+  "/company": Building2,
   "/partners": Handshake,
   "/brief": PenLine,
 };
