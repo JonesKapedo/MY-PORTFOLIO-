@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { MessageCircle } from "lucide-react";
+import { Calendar, CheckCircle2, MessageCircle } from "lucide-react";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { saveBrief, type BriefRecord } from "@/lib/brief-crm";
 import {
   COMPANY,
   SERVICES,
@@ -72,6 +73,7 @@ export function ContactForm({
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const [confirmation, setConfirmation] = useState<BriefRecord | null>(null);
 
   useEffect(() => {
     setService(initialService ?? "");
@@ -106,15 +108,29 @@ export function ContactForm({
     });
   }
 
-  function openWhatsApp() {
+  function openWhatsApp(detail?: string) {
     const text = briefWhatsAppMessage({
-      name: name.trim() || undefined,
-      service: selected?.name,
-      concern: concern?.title,
+      name: name.trim() || confirmation?.name || undefined,
+      service: selected?.name || confirmation?.service,
+      concern: concern?.title || undefined,
       indicativeFee: selected?.price,
-      detail: message.trim(),
+      detail: detail ?? message.trim(),
     });
     window.open(whatsappHref(text), "_blank", "noopener,noreferrer");
+  }
+
+  function resetForm() {
+    setName("");
+    setEmail("");
+    setOrg("");
+    setPhone("");
+    setMessage(
+      buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
+    );
+    setPrivacyConsent(false);
+    setMarketingConsent(false);
+    setConfirmation(null);
+    setError(null);
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -175,18 +191,23 @@ export function ContactForm({
 
       if (!res.ok) throw new Error("submit_failed");
 
+      const record = saveBrief({
+        name: name.trim(),
+        email: email.trim() || "—",
+        phone: phone.trim() || "—",
+        organisation: org.trim() || "—",
+        service: serviceLabel,
+        serviceId: service || "—",
+        concern: initialConcernSlug ?? "—",
+        message: message.trim(),
+        marketingConsent,
+        channel: "form",
+      });
+
+      setConfirmation(record);
       toast.success(
-        "Brief received. We will reply within two business days.",
+        `Brief received. We will reply ${COMPANY.responseSla}.`,
       );
-      setName("");
-      setEmail("");
-      setOrg("");
-      setPhone("");
-      setMessage(
-        buildPrefillMessage(initialService, initialConcernSlug, initialMessage),
-      );
-      setPrivacyConsent(false);
-      setMarketingConsent(false);
     } catch {
       const body = [
         `Name: ${name.trim()}`,
@@ -207,6 +228,88 @@ export function ContactForm({
     } finally {
       setSending(false);
     }
+  }
+
+  if (confirmation) {
+    return (
+      <div className="space-y-6 rounded-2xl border border-accent/25 bg-accent/[0.06] px-5 py-6 sm:px-6">
+        <div className="flex gap-3">
+          <CheckCircle2 className="mt-0.5 size-6 shrink-0 text-accent" />
+          <div>
+            <h3 className="font-display text-xl font-semibold text-fg">
+              Brief received
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Thank you, {confirmation.name}. Your brief is in our inbox. We aim
+              to reply {COMPANY.responseSla} with fit direction and a clear next
+              step. Reference:{" "}
+              <span className="font-mono text-xs text-fg">{confirmation.id}</span>
+            </p>
+          </div>
+        </div>
+
+        <ol className="space-y-3 text-sm text-muted">
+          <li className="flex gap-3">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[10px] text-accent">
+              1
+            </span>
+            <span>
+              We review fit against scoped automation delivery — not open-ended
+              retainers.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[10px] text-accent">
+              2
+            </span>
+            <span>
+              You get a written reply. If we proceed, a proposal follows before
+              any deposit.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-[10px] text-accent">
+              3
+            </span>
+            <span>
+              Prefer a faster channel? Continue on WhatsApp with the same
+              context.
+            </span>
+          </li>
+        </ol>
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button type="button" size="lg" onClick={() => openWhatsApp(confirmation.message)}>
+            <MessageCircle className="size-4" />
+            Continue on WhatsApp
+          </Button>
+          {COMPANY.calendarUrl ? (
+            <Button type="button" variant="outline" size="lg" asChild>
+              <a
+                href={COMPANY.calendarUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Calendar className="size-4" />
+                Book a 20-minute fit call
+              </a>
+            </Button>
+          ) : null}
+          <Button type="button" variant="ghost" size="lg" onClick={resetForm}>
+            Submit another brief
+          </Button>
+        </div>
+
+        <p className="text-xs text-subtle">
+          Direct:{" "}
+          <a href={`mailto:${COMPANY.email}`} className="text-accent hover:underline">
+            {COMPANY.email}
+          </a>
+          <span className="mx-1.5">·</span>
+          {COMPANY.phoneDisplay}
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -383,7 +486,7 @@ export function ContactForm({
           variant="outline"
           size="lg"
           className="w-full sm:w-auto"
-          onClick={openWhatsApp}
+          onClick={() => openWhatsApp()}
         >
           <MessageCircle className="size-4" />
           Continue on WhatsApp
