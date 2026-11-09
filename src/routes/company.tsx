@@ -3,12 +3,11 @@ import { ArrowRight, MapPin, Shield, Target, Users } from "lucide-react";
 import { Eyebrow, PageFrame } from "@/components/page-frame";
 import { Button } from "@/components/ui/button";
 import {
-  ENGAGEMENT_STEPS,
   METHOD_STANDARDS,
   TEAM_SNAPSHOT,
   TRUST_MARKS,
 } from "@/lib/portfolio-content";
-import { COMPANY, PRINCIPLES } from "@/lib/site";
+import { COMPANY, ENGAGEMENT_STEPS, PRINCIPLES } from "@/lib/site";
 
 export const Route = createFileRoute("/company")({
   component: CompanyPage,
@@ -31,7 +30,8 @@ function CompanyPage() {
         <header className="max-w-3xl">
           <Eyebrow>Company · honest position</Eyebrow>
           <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            A small automation studio for operators who still run on people and paper.
+            A small automation studio for operators who still run on people and
+            paper.
           </h1>
           <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
             {COMPANY.name} installs scoped process automation — WhatsApp helpers,
