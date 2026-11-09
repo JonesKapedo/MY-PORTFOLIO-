@@ -3,8 +3,16 @@ import {
   useRef,
   type ReactNode,
   type HTMLAttributes,
+  type ElementType,
 } from "react";
 import { cn } from "@/lib/utils";
+
+type ScrollRevealProps = {
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "section" | "article" | "li" | "header";
+  delay?: number;
+} & HTMLAttributes<HTMLElement>;
 
 /** Fade/rise into view once when scrolled into the viewport. */
 export function ScrollReveal({
@@ -13,13 +21,8 @@ export function ScrollReveal({
   as: Tag = "div",
   delay = 0,
   ...rest
-}: {
-  children: ReactNode;
-  className?: string;
-  as?: "div" | "section" | "article" | "li" | "header";
-  delay?: number;
-} & HTMLAttributes<HTMLElement>) {
-  const ref = useRef<HTMLElement>(null);
+}: ScrollRevealProps) {
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -41,15 +44,16 @@ export function ScrollReveal({
     return () => io.disconnect();
   }, []);
 
+  const Comp = Tag as ElementType;
+
   return (
-    // @ts-expect-error polymorphic tag
-    <Tag
-      ref={ref}
+    <Comp
+      ref={ref as React.Ref<HTMLElement>}
       className={cn("scroll-reveal", className)}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       {...rest}
     >
       {children}
-    </Tag>
+    </Comp>
   );
 }
