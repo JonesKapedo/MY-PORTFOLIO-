@@ -7,7 +7,6 @@ import {
 } from "@tanstack/react-router";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteShell } from "@/components/site-shell";
-import { AuthProvider } from "@/lib/auth/provider";
 import { COMPANY } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import appCss from "../styles.css?url";
@@ -68,11 +67,9 @@ function RootDocument() {
       <body>
         <PreviewHostBridge />
         <ThemeProvider>
-          <AuthProvider>
-            <SiteShell>
-              <Outlet />
-            </SiteShell>
-          </AuthProvider>
+          <SiteShell>
+            <Outlet />
+          </SiteShell>
         </ThemeProvider>
         <Scripts />
       </body>
