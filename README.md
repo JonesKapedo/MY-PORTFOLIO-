@@ -5,6 +5,8 @@ One process at a time — written edges, proposal first, deposit only after you 
 
 Live site: [great-turbinez.vercel.app](https://great-turbinez.vercel.app)
 
+**What this repo is:** a marketing + lead site (portfolio). It is **not** a public SaaS product. Auth, PostgreSQL, and related modules in the tree are **dormant scaffold** for a future product surface — they are not part of the visitor journey.
+
 ---
 
 ## What we do
@@ -28,26 +30,36 @@ Typical clients are operators in floriculture, hospitality, multi-site trading, 
 
 Seventeen offerings with clear includes / excludes, timelines, and indicative KES pricing — including Discovery, Websites & web apps, Chatbots & WhatsApp helpers, Work automation, Documents, AI on your information, Dashboards, Inbox helpers, Bookings, Pipeline, Alerts, Onboarding, Integrations, Internal forms, Reminders, Catalogs, and Handover kits.
 
-Entry paths:
+Entry packages (self-qualification):
 
-- **Concerns** — start from the pain (e.g. “same WhatsApp questions every day”)
-- **Services** — open a category for how, when, and quotation context
-- **Work** — situation → install → observed result case files
+- **WhatsApp Helper Starter**
+- **Month-End Close Path**
+- **Discovery + First Build**
+
+Paths on the site:
+
+- **Concerns** — start from the pain  
+- **Services** — how, when, quotation context  
+- **Work** — situation → install → observed result  
+- **Company** — who we are, honestly  
+- **Brief** — private intake + confirmation loop
 
 ---
 
-## Technology
+## Technology (live marketing surface)
 
 - React 19 + TypeScript  
 - TanStack Router / Start  
-- Tailwind CSS 4 + custom dark design system  
+- Tailwind CSS 4 + void / studio design system  
 - Radix UI  
 - Vite 8  
 - Vercel  
-- PostgreSQL + Kysely  
-- Better Auth  
+- FormSubmit + WhatsApp for intake  
+- Client-side brief log (`src/lib/brief-crm.ts`) for local funnel review  
 
-**Theme:** dark-only site-wide (no light / chrome light mode).
+**Dormant scaffold (not on the public path):** PostgreSQL + Kysely, Better Auth, multiplayer helpers. Use `npm run build:with-db` only when activating that surface.
+
+**Theme:** dark void + optional cool studio light.
 
 ---
 
@@ -63,7 +75,7 @@ npm run dev
 App: `http://localhost:8080`
 
 ```bash
-npm run build       # production build + migrate
+npm run build       # production marketing build (Vite only)
 npm run typecheck
 npm run lint
 npm test
@@ -71,11 +83,15 @@ npm test
 
 ### Environment
 
+Marketing deploys do not require a database. Optional for scaffold:
+
 ```env
 DATABASE_URL=postgresql://...
 BETTER_AUTH_SECRET=your-secret-key
 BETTER_AUTH_URL=https://your-domain.com
 ```
+
+Set `COMPANY.calendarUrl` in `src/lib/site.ts` when you publish a fit-call booking page.
 
 ---
 
@@ -93,7 +109,7 @@ BETTER_AUTH_URL=https://your-domain.com
 
 ## Roadmap
 
-See **[TODO.md](./TODO.md)** for the prioritised platform improvement list (credibility, conversion, proof, growth).
+See **[TODO.md](./TODO.md)** for the prioritised flaw checklist (credibility, conversion, proof, growth).
 
 ---
 
