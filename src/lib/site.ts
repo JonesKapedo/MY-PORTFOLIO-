@@ -12,11 +12,19 @@ export const COMPANY = {
   tagline: "AI & Automation",
   city: "",
   country: "Kenya",
-  location: "",
+  location: "Kenya",
   email: "enterprise@greatturbinez.com",
   salesEmail: "sales@greatturbinez.com",
   supportEmail: "support@greatturbinez.com",
+  /** E.164-style digits for tel: / wa.me */
   phone: "+254745494787",
+  /** Human-readable phone for UI */
+  phoneDisplay: "+254 745 494 787",
+  /**
+   * Optional 15–20 min fit-call link (Cal.com / Google Calendar / etc.).
+   * Leave empty until you publish a booking page — confirmation UI hides the CTA.
+   */
+  calendarUrl: "",
   year: new Date().getFullYear(),
   responseSla: "within two business days",
   logoSrc: "/logo-square.jpg",
@@ -553,6 +561,7 @@ export const NAV = [
   { to: "/work", label: "Work" },
   { to: "/services", label: "Services" },
   { to: "/concerns", label: "Concerns" },
+  { to: "/company", label: "Company" },
   { to: "/partners", label: "Partners" },
   { to: "/brief", label: "Brief" },
 ] as const;
