@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  Building2,
   CircleHelp,
   Compass,
   Handshake,
@@ -22,6 +23,7 @@ const NAV_ICONS: Record<
   "/work": Sparkles,
   "/services": LayoutGrid,
   "/concerns": CircleHelp,
+  "/company": Building2,
   "/partners": Handshake,
   "/brief": PenLine,
 };
@@ -73,7 +75,6 @@ export function MobileNav() {
         )}
       </button>
 
-      {/* Backdrop */}
       <div
         className={cn(
           "mobile-drawer-backdrop fixed inset-0 z-[55] bg-canvas/70 backdrop-blur-sm transition-opacity duration-300",
@@ -85,7 +86,6 @@ export function MobileNav() {
         onClick={() => setOpen(false)}
       />
 
-      {/* Drawer */}
       <div
         id="mobile-drawer"
         role="dialog"
