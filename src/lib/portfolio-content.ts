@@ -49,6 +49,63 @@ export const TRUST_MARKS = [
   "Written edges before deposit",
 ] as const;
 
+/** Named entry packages — tighter bands for self-qualification. */
+export type EntryPackage = {
+  id: string;
+  name: string;
+  blurb: string;
+  band: string;
+  timeframe: string;
+  includes: string[];
+  serviceId: ServiceId;
+  briefHint: string;
+};
+
+export const ENTRY_PACKAGES: EntryPackage[] = [
+  {
+    id: "whatsapp-helper-starter",
+    name: "WhatsApp Helper Starter",
+    blurb: "Same questions every day — consistent answers and a clean handoff to a person.",
+    band: "From KES 55,000",
+    timeframe: "2–4 weeks typical",
+    includes: [
+      "Mapped FAQs and escalation rules",
+      "Helper on an agreed WhatsApp number",
+      "Handoff when confidence is low",
+    ],
+    serviceId: "chatbots",
+    briefHint: "Entry package: WhatsApp Helper Starter",
+  },
+  {
+    id: "month-end-close-path",
+    name: "Month-End Close Path",
+    blurb: "One close path with fewer retypes and visible exceptions — not a full finance rebuild.",
+    band: "From KES 85,000",
+    timeframe: "3–6 weeks typical",
+    includes: [
+      "One process mapped end-to-end",
+      "Automation into tools you already use",
+      "Operator runbook on handoff",
+    ],
+    serviceId: "automation",
+    briefHint: "Entry package: Month-End Close Path",
+  },
+  {
+    id: "discovery-first-build",
+    name: "Discovery + First Build",
+    blurb: "Rank what to fix first, then a written recommendation and estimate for the first install.",
+    band: "From KES 35,000",
+    timeframe: "1–2 weeks discovery",
+    includes: [
+      "On-the-ground or remote process mapping",
+      "Ranked opportunity list",
+      "Recommendation for the first build",
+    ],
+    serviceId: "discovery",
+    briefHint: "Entry package: Discovery + First Build",
+  },
+];
+
 export type IndustryPack = {
   id: string;
   name: string;
