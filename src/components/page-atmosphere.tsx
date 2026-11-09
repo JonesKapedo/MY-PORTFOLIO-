@@ -7,25 +7,42 @@ import {
   MessageCircle,
   Workflow,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 function resolveField(pathname: string): {
   key: string;
   numeral: string;
   icons: typeof FIELD_ICONS.services;
+  brandStrip: boolean;
 } {
   if (pathname.startsWith("/work"))
-    return { key: "work", numeral: "02", icons: FIELD_ICONS.work };
+    return { key: "work", numeral: "02", icons: FIELD_ICONS.work, brandStrip: true };
   if (pathname.startsWith("/services"))
-    return { key: "services", numeral: "03", icons: FIELD_ICONS.services };
+    return {
+      key: "services",
+      numeral: "03",
+      icons: FIELD_ICONS.services,
+      brandStrip: true,
+    };
   if (pathname.startsWith("/concerns"))
-    return { key: "concerns", numeral: "04", icons: FIELD_ICONS.concerns };
+    return {
+      key: "concerns",
+      numeral: "04",
+      icons: FIELD_ICONS.concerns,
+      brandStrip: true,
+    };
   if (pathname.startsWith("/partners"))
-    return { key: "partners", numeral: "05", icons: FIELD_ICONS.partners };
+    return {
+      key: "partners",
+      numeral: "05",
+      icons: FIELD_ICONS.partners,
+      brandStrip: true,
+    };
   if (pathname.startsWith("/brief"))
-    return { key: "brief", numeral: "06", icons: FIELD_ICONS.brief };
+    return { key: "brief", numeral: "06", icons: FIELD_ICONS.brief, brandStrip: true };
   if (pathname.startsWith("/privacy") || pathname.startsWith("/terms"))
-    return { key: "legal", numeral: "—", icons: FIELD_ICONS.legal };
-  return { key: "default", numeral: "01", icons: FIELD_ICONS.services };
+    return { key: "legal", numeral: "—", icons: FIELD_ICONS.legal, brandStrip: false };
+  return { key: "default", numeral: "01", icons: FIELD_ICONS.services, brandStrip: true };
 }
 
 const FIELD_ICONS = {
@@ -52,40 +69,122 @@ const PARTICLES = [
   { x: 55, y: 88, d: 20, s: 0.5 },
 ] as const;
 
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
+function useTabVisible() {
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const onVis = () => setVisible(document.visibilityState === "visible");
+    onVis();
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+  return visible;
+}
+
 /**
- * Non-intro page field — pure dark + refined atmosphere.
- * No full-bleed metallic banner; thin top brand residual only.
+ * Non-intro page field — void/studio material atmosphere.
+ * Parallax + motion respect reduced-motion and tab visibility.
  */
 export function PageAtmosphere() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const reducedMotion = usePrefersReducedMotion();
+  const tabVisible = useTabVisible();
+  const fieldRef = useRef<HTMLDivElement>(null);
+  const [parallax, setParallax] = useState({ y: 0 });
+
+  useEffect(() => {
+    if (pathname === "/" || reducedMotion) return;
+
+    const isCoarse =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+    if (isCoarse) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = fieldRef.current?.closest(".page-screen");
+        const top =
+          el instanceof HTMLElement ? el.scrollTop : window.scrollY || 0;
+        // 4–12px range — transform only
+        setParallax({ y: Math.min(12, top * 0.04) });
+      });
+    };
+
+    const scrollRoot = fieldRef.current?.closest(".page-screen");
+    const target =
+      scrollRoot instanceof HTMLElement && scrollRoot.scrollHeight > scrollRoot.clientHeight
+        ? scrollRoot
+        : window;
+
+    target.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      cancelAnimationFrame(raf);
+      target.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname, reducedMotion]);
+
   if (pathname === "/") return null;
 
   const field = resolveField(pathname);
   const Icons = field.icons;
+  const motionPaused = reducedMotion || !tabVisible;
 
   return (
-    <div className="page-field" data-field={field.key} aria-hidden>
-      {/* 7 — thin top brand residual (heavily masked, not a chrome card) */}
-      <div className="page-field-brand-strip" />
+    <div
+      ref={fieldRef}
+      className="page-field"
+      data-field={field.key}
+      data-motion={motionPaused ? "paused" : "live"}
+      aria-hidden
+    >
+      {field.brandStrip ? <div className="page-field-brand-strip" /> : null}
 
-      {/* 1 — soft radial spotlight under title zone only */}
-      <div className="page-field-spotlight" />
+      <div
+        className="page-field-spotlight"
+        style={{
+          transform: reducedMotion
+            ? undefined
+            : `translate3d(0, ${parallax.y * 0.6}px, 0)`,
+        }}
+      />
 
-      {/* 2 — engineering plate grid */}
       <div className="page-field-grid" />
-
-      {/* 5 — left gutter wash */}
       <div className="page-field-gutter" />
 
-      {/* 6 — page-tinted ambient orbs (very soft) */}
-      <div className="page-field-orb page-field-orb-a" />
-      <div className="page-field-orb page-field-orb-b" />
+      <div
+        className="page-field-orb page-field-orb-a"
+        style={{
+          transform: reducedMotion
+            ? undefined
+            : `translate3d(0, ${parallax.y * -0.35}px, 0)`,
+        }}
+      />
+      <div
+        className="page-field-orb page-field-orb-b"
+        style={{
+          transform: reducedMotion
+            ? undefined
+            : `translate3d(0, ${parallax.y * 0.25}px, 0)`,
+        }}
+      />
 
-      {/* 9 — grain + edge vignette (stronger on long pages) */}
       <div className="page-field-vignette" />
       <div className="page-field-grain" />
 
-      {/* 4 — sparse drift particles */}
       <div className="page-field-particles">
         {PARTICLES.map((p, i) => (
           <span
@@ -104,7 +203,6 @@ export function PageAtmosphere() {
         ))}
       </div>
 
-      {/* 3 — corner micro-gear watermark */}
       <svg
         className="page-field-gear"
         viewBox="0 0 120 120"
@@ -132,10 +230,8 @@ export function PageAtmosphere() {
         </g>
       </svg>
 
-      {/* 8 — ghost chapter numeral (desktop) */}
       <span className="page-field-numeral">{field.numeral}</span>
 
-      {/* 10 — path-aware margin icons (desktop) */}
       <div className="page-field-icons">
         {Icons.map((Icon, i) => (
           <Icon
