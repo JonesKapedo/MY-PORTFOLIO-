@@ -1,0 +1,102 @@
+/*
+ * Atmosphere a11y + motion polish (loaded after styles-extras)
+ * Completes: reduced-motion, contrast, tab-pause, safe-area, pointer lock
+ */
+
+/* Tab hidden or reduced-motion flag from PageAtmosphere */
+.page-field[data-motion="paused"] .page-field-gear-spin,
+.page-field[data-motion="paused"] .page-field-particle,
+.page-field[data-motion="paused"] .page-field-orb {
+  animation: none !important;
+}
+
+/* Parallax layers — transform only when live */
+.page-field[data-motion="live"] .page-field-spotlight,
+.page-field[data-motion="live"] .page-field-orb-a,
+.page-field[data-motion="live"] .page-field-orb-b {
+  will-change: transform;
+}
+
+/* Brand strip respects notch / status bar */
+.page-field-brand-strip {
+  top: 0;
+  padding-top: env(safe-area-inset-top, 0);
+  box-sizing: border-box;
+}
+
+/* Default: nothing in the field captures clicks */
+.page-field > * {
+  pointer-events: none;
+}
+
+/* Desktop only: gear + margin icons may receive hover */
+@media (hover: hover) and (pointer: fine) {
+  .page-field .page-field-gear,
+  .page-field .page-field-icons,
+  .page-field .page-field-icon {
+    pointer-events: auto;
+  }
+}
+
+@media (pointer: coarse), (max-width: 767px) {
+  .page-field .page-field-gear,
+  .page-field .page-field-icons,
+  .page-field .page-field-icon {
+    pointer-events: none !important;
+  }
+}
+
+/* prefers-reduced-motion: fully static field */
+@media (prefers-reduced-motion: reduce) {
+  .page-field-spotlight,
+  .page-field-orb-a,
+  .page-field-orb-b {
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  .bg-orb,
+  .bg-mesh {
+    animation: none !important;
+  }
+}
+
+/* prefers-contrast: stronger text, weaker decoration */
+@media (prefers-contrast: more) {
+  html {
+    --color-muted: #b0b0b0;
+    --color-subtle: #8a8a8a;
+    --color-fg: #ffffff;
+    --field-grain-opacity: 0.02;
+    --field-vignette-strength: 0.45;
+    --field-gear-opacity: 0.04;
+    --field-spotlight: color-mix(in oklab, var(--color-accent) 6%, transparent);
+  }
+
+  html.light {
+    --color-muted: #333333;
+    --color-subtle: #444444;
+    --color-fg: #000000;
+    --field-grain-opacity: 0.015;
+    --field-vignette-strength: 0.3;
+    --field-gear-opacity: 0.03;
+  }
+
+  .page-field-grid,
+  .page-field-particles,
+  .page-field-brand-strip,
+  .page-field-numeral,
+  .page-field-icons {
+    opacity: 0.25 !important;
+  }
+
+  .page-field-orb,
+  .bg-atmosphere .bg-orb {
+    opacity: 0.2 !important;
+  }
+
+  .type-body,
+  .text-muted {
+    color: var(--color-muted) !important;
+  }
+}
